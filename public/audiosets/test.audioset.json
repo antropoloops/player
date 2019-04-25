@@ -1,0 +1,236 @@
+{
+  "id": "test",
+  "format": "audioset-2",
+  "meta": {
+    "title": "Test",
+    "description": "Set de prueba de Antropoloops",
+    "readme": "# Test\n\nEste es un audioset de prueba.\n\n_Esto es un fichero de texto markdown que se puede editar en `audiosets/src/test/README.md`_\n"
+  },
+  "resources": {
+    "audio": "https://antropoloops.github.io/audiosets/test/audio/{{id}}.mp3",
+    "cover": "https://antropoloops.github.io/audiosets/test/covers/{{id}}.jpg",
+    "default": {
+      "audio": "https://antropoloops.github.io/audiosets/test/audio/{{id}}.mp3",
+      "cover": "https://antropoloops.github.io/audiosets/test/covers/{{id}}.jpg"
+    },
+    "development": {
+      "audio": "/tmp/test/audio/{{id}}.mp3",
+      "cover": "/tmp/test/covers/{{id}}.jpg"
+    }
+  },
+  "audio": {
+    "bpm": 110,
+    "defaults": {
+      "loop": true
+    }
+  },
+  "visuals": {
+    "geoMapUrl": "https://unpkg.com/world-atlas@1.1.4/world/110m.json"
+  },
+  "keyboard": {
+    "defaults": {
+      "type": "gate"
+    },
+    "keyMap": {
+      "q": {
+        "clipId": "voice1"
+      },
+      "w": {
+        "clipId": "rhythm1"
+      },
+      "e": {
+        "clipId": "accomp1"
+      },
+      "r": {
+        "clipId": "melody1"
+      },
+      "a": {
+        "clipId": "voice2"
+      },
+      "s": {
+        "clipId": "rhythm2"
+      },
+      "d": {
+        "clipId": "accomp2"
+      },
+      "f": {
+        "clipId": "melody2"
+      },
+      "z": {
+        "clipId": "voice3"
+      }
+    }
+  },
+  "clips": {
+    "accomp1": {
+      "id": "accomp1",
+      "name": "accomp1",
+      "trackId": "accomp",
+      "title": "Acompañamiento 1",
+      "lnglat": [-77.297508, 18.109581],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#31f912"
+      },
+      "keyboard": "e",
+      "trackNum": 0
+    },
+    "accomp2": {
+      "id": "accomp2",
+      "name": "accomp2",
+      "trackId": "accomp",
+      "title": "Acompañamiento 2",
+      "lnglat": [-74.29733299999998, 4.570868],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#31f912"
+      },
+      "keyboard": "d",
+      "trackNum": 0
+    },
+    "melody1": {
+      "id": "melody1",
+      "name": "melody1",
+      "trackId": "melody",
+      "title": "Melodía 1",
+      "lnglat": [-3.7492200000000366, 40.46366700000001],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12f986"
+      },
+      "keyboard": "r",
+      "trackNum": 1
+    },
+    "melody2": {
+      "id": "melody2",
+      "name": "melody2",
+      "trackId": "melody",
+      "title": "Melodía 2",
+      "lnglat": [30.802498000000014, 26.820553],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12f986"
+      },
+      "keyboard": "f",
+      "trackNum": 1
+    },
+    "rhythm1": {
+      "id": "rhythm1",
+      "name": "rhythm1",
+      "trackId": "rhythm",
+      "title": "Rítmo 1",
+      "lnglat": [69.34511599999996, 30.375321],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f912e2"
+      },
+      "keyboard": "w",
+      "trackNum": 2
+    },
+    "rhythm2": {
+      "id": "rhythm2",
+      "name": "rhythm2",
+      "trackId": "rhythm",
+      "title": "Rítmo 2",
+      "lnglat": [-149.456815, -17.649632],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f912e2"
+      },
+      "keyboard": "s",
+      "trackNum": 2
+    },
+    "voice1": {
+      "id": "voice1",
+      "name": "voice1",
+      "trackId": "voice",
+      "title": "Voz 2",
+      "lnglat": [-89.39852830000001, 32.3546679],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f91250"
+      },
+      "keyboard": "q",
+      "trackNum": 3
+    },
+    "voice2": {
+      "id": "voice2",
+      "name": "voice2",
+      "trackId": "voice",
+      "title": "Voz 1",
+      "lnglat": [21.824311999999964, 39.074208],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f91250"
+      },
+      "keyboard": "a",
+      "trackNum": 3
+    },
+    "voice3": {
+      "id": "voice3",
+      "name": "voice3",
+      "trackId": "voice",
+      "title": "Voz 3",
+      "lnglat": [-63.616671999999994, -38.416097],
+      "audio": {
+        "beats": 1,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f91250"
+      },
+      "keyboard": "z",
+      "trackNum": 3
+    }
+  },
+  "tracks": [
+    {
+      "id": "accomp",
+      "clipIds": ["accomp1", "accomp2"],
+      "num": 0,
+      "color": "#31f912"
+    },
+    {
+      "id": "melody",
+      "clipIds": ["melody1", "melody2"],
+      "num": 1,
+      "color": "#12f986"
+    },
+    {
+      "id": "rhythm",
+      "clipIds": ["rhythm1", "rhythm2"],
+      "num": 2,
+      "color": "#f912e2"
+    },
+    {
+      "id": "voice",
+      "clipIds": ["voice1", "voice2", "voice3"],
+      "num": 3,
+      "color": "#f91250"
+    }
+  ]
+}

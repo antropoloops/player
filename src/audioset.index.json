@@ -1,0 +1,29 @@
+{
+  "readme": "# Bienvenidx a antropoloops\n\nEsta es una colleción de sets para jugar online.\n",
+  "audiosets": [
+    {
+      "id": "continentes",
+      "meta": {
+        "title": "Continentes",
+        "description": "Continentes - Sessión Antropoloops 01",
+        "readme": "# Continentes\n\nAquí debería estar la presentación (¿guía didáctica?) de este set.\n\n_Esto es un fichero de texto markdown que se puede editar en `audiosets/src/continentes/README.md`_\n"
+      }
+    },
+    {
+      "id": "lik03",
+      "meta": {
+        "title": "Lik03",
+        "description": "Antropoloops Lik Session 03",
+        "readme": "# Lik03\n\nAquí debería estar la presentación (¿guía didáctica?) de este set.\n\n_Esto es un fichero de texto markdown que se puede editar en `audiosets/src/lik03/README.md`_\n"
+      }
+    },
+    {
+      "id": "test",
+      "meta": {
+        "title": "Test",
+        "description": "Set de prueba de Antropoloops",
+        "readme": "# Test\n\nEste es un audioset de prueba.\n\n_Esto es un fichero de texto markdown que se puede editar en `audiosets/src/test/README.md`_\n"
+      }
+    }
+  ]
+}

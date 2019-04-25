@@ -1,0 +1,500 @@
+{
+  "id": "continentes",
+  "format": "audioset-2",
+  "meta": {
+    "title": "Continentes",
+    "description": "Continentes - Sessión Antropoloops 01",
+    "readme": "Esto es un set de Antropoloops de prueba. Sonidos de distintos continentes. Aquí podría ir una guía didáctica?"
+  },
+  "resources": {
+    "audio": "https://audiosets.danigb.now.sh/continentes/{{id}}.mp3",
+    "cover": "https://audiosets.danigb.now.sh/continentes/{{id}}.jpg",
+    "default": {
+      "audio": "https://antropoloops.github.io/audiosets/continentes/audio/{{filename}}.mp3",
+      "covers": "https://antropoloops.github.io/audiosets/continentes/covers/{{filename}}.jpg"
+    },
+    "google": {
+      "audio": "https://storage.googleapis.com/atpls-sets/continentes/{{filename}}.mp3",
+      "covers": "https://storage.googleapis.com/atpls-sets/continentes/{{filename}}.jpg"
+    },
+    "development": {
+      "audio": "/tmp/continentes/audio/{{filename}}.wav",
+      "covers": "/tmp/continentes/covers/{{filename}}.jpg"
+    },
+    "github": {
+      "audio": "https://antropoloops.github.io/audiosets/continentes/{{filename}}.wav"
+    }
+  },
+  "audio": {
+    "bpm": 120,
+    "defaults": {
+      "loop": true
+    },
+    "signature": [4, 4],
+    "trackMaxVoices": 1,
+    "quantize": true
+  },
+  "control": {
+    "groups": {
+      "name": "audio.track"
+    }
+  },
+  "visuals": {
+    "geoMapUrl": "https://unpkg.com/world-atlas@1.1.4/world/110m.json",
+    "imprint": false,
+    "focus": {
+      "lambda": -10,
+      "verticalShift": 15,
+      "scaleFactor": 1
+    }
+  },
+  "keyboard": {
+    "defaults": {
+      "type": "gate"
+    },
+    "keyMap": {
+      "q": {
+        "clipId": "ossie",
+        "type": "toggle"
+      },
+      "a": {
+        "clipId": "orillas"
+      },
+      "z": {
+        "clipId": "mocita"
+      },
+      "w": {
+        "clipId": "nubian",
+        "type": "toggle"
+      },
+      "s": {
+        "clipId": "tabla"
+      },
+      "x": {
+        "clipId": "pae"
+      },
+      "e": {
+        "clipId": "mississipi",
+        "type": "toggle"
+      },
+      "d": {
+        "clipId": "camino"
+      },
+      "c": {
+        "clipId": "mariola"
+      },
+      "r": {
+        "clipId": "madinda",
+        "type": "toggle"
+      },
+      "f": {
+        "clipId": "ballade"
+      },
+      "v": {
+        "clipId": "funeraire"
+      },
+      "t": {
+        "clipId": "ed-lewis",
+        "type": "toggle"
+      },
+      "g": {
+        "clipId": "rueda"
+      },
+      "b": {
+        "clipId": "agnus-dei"
+      },
+      "y": {
+        "clipId": "indvumo",
+        "type": "toggle"
+      },
+      "h": {
+        "clipId": "ogbeler"
+      },
+      "n": {
+        "clipId": "are-are"
+      }
+    }
+  },
+  "clips": {
+    "indvumo": {
+      "id": "indvumo",
+      "name": "indvumo",
+      "trackId": "africa",
+      "title": "Indvumo",
+      "album": "African Vibrations 04",
+      "year": "2004",
+      "country": "Sudafrica",
+      "lnglat": [22.937505999999985, -30.559482],
+      "audio": {
+        "beats": 60,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#48f912"
+      },
+      "keyboard": "y",
+      "trackNum": 0
+    },
+    "madinda": {
+      "id": "madinda",
+      "name": "madinda",
+      "trackId": "africa",
+      "title": "Solo De Madinda",
+      "album": "Ouganda: Aux Sources Du Nil",
+      "year": "1992",
+      "country": "Uganda",
+      "lnglat": [32.290275000000065, 1.373333],
+      "audio": {
+        "beats": 8,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#48f912"
+      },
+      "keyboard": "r",
+      "trackNum": 0
+    },
+    "nubian": {
+      "id": "nubian",
+      "name": "nubian",
+      "trackId": "africa",
+      "title": "Nubian Rhythms",
+      "album": "Music of the Nubians; Aswan; Egypt",
+      "year": "1998",
+      "country": "Egipto",
+      "lnglat": [30.802498000000014, 26.820553],
+      "audio": {
+        "beats": 4,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#48f912"
+      },
+      "keyboard": "w",
+      "trackNum": 0
+    },
+    "ed-lewis": {
+      "id": "ed-lewis",
+      "name": "ed-lewis",
+      "trackId": "america-north",
+      "title": "John Henry",
+      "album": "Presenting The Alan Lomax Coll",
+      "year": "1947",
+      "country": "Estados Unidos",
+      "lnglat": [-95.71289100000001, 37.09024],
+      "audio": {
+        "beats": 60,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12f99d"
+      },
+      "keyboard": "t",
+      "trackNum": 1
+    },
+    "mississipi": {
+      "id": "mississipi",
+      "name": "mississipi",
+      "trackId": "america-north",
+      "title": "Stack O Lee Blues",
+      "album": "78 rpm varios",
+      "year": "1928",
+      "country": "78 rpm",
+      "lnglat": [-89.39852830000001, 32.3546679],
+      "audio": {
+        "beats": 20,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12f99d"
+      },
+      "keyboard": "e",
+      "trackNum": 1
+    },
+    "ossie": {
+      "id": "ossie",
+      "name": "ossie",
+      "trackId": "america-north",
+      "title": "Ethiopian Serenade",
+      "album": "Count Ossie & The Mystic Revelation Of Rastafari",
+      "year": "2009",
+      "country": "Jamaica",
+      "lnglat": [-77.297508, 18.109581],
+      "audio": {
+        "beats": 6,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12f99d"
+      },
+      "keyboard": "q",
+      "trackNum": 1
+    },
+    "camino": {
+      "id": "camino",
+      "name": "camino",
+      "trackId": "america-south",
+      "title": "Camino en los valles",
+      "album": "Camino Del Indio",
+      "year": "1942",
+      "country": "Argentina",
+      "lnglat": [-63.616671999999994, -38.416097],
+      "audio": {
+        "beats": 16,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f912e2"
+      },
+      "keyboard": "d",
+      "trackNum": 2
+    },
+    "orillas": {
+      "id": "orillas",
+      "name": "orillas",
+      "trackId": "america-south",
+      "title": "Cumbia en la India",
+      "album": "A Orillas del Magdalena",
+      "year": "2009",
+      "country": "Colombia",
+      "lnglat": [-74.29733299999998, 4.570868],
+      "audio": {
+        "beats": 4,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f912e2"
+      },
+      "keyboard": "a",
+      "trackNum": 2
+    },
+    "rueda": {
+      "id": "rueda",
+      "name": "rueda",
+      "trackId": "america-south",
+      "title": "La rueda de San Miguel",
+      "album": "REC_Children's Songs and Games from Ecuador and Puerto Rico",
+      "year": "1977",
+      "country": "Mexico",
+      "lnglat": [-102.55278399999997, 23.634501],
+      "audio": {
+        "beats": 44,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f912e2"
+      },
+      "keyboard": "g",
+      "trackNum": 2
+    },
+    "ballade": {
+      "id": "ballade",
+      "name": "ballade",
+      "trackId": "asia",
+      "title": "Ballade D'Amar Singh Avec Vièles Sarangi",
+      "album": "Inde. Rajasthan. Musiciens Professionnels Populaires",
+      "year": "1994",
+      "country": "Rajastan",
+      "lnglat": [74.21793260000004, 27.0238036],
+      "audio": {
+        "beats": 8,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f9126b"
+      },
+      "keyboard": "f",
+      "trackNum": 3
+    },
+    "ogbeler": {
+      "id": "ogbeler",
+      "name": "ogbeler",
+      "trackId": "asia",
+      "title": "Ögbeler",
+      "album": "Tuvinian Singers & Musicians - Chöömej: Throat-Singing From The Center Of Asia",
+      "year": "1993",
+      "country": "Tuva",
+      "lnglat": [95.62601719999998, 51.8872669],
+      "audio": {
+        "beats": 56,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f9126b"
+      },
+      "keyboard": "h",
+      "trackNum": 3
+    },
+    "tabla": {
+      "id": "tabla",
+      "name": "tabla",
+      "trackId": "asia",
+      "title": "Percussion sur Tabla et Ghara",
+      "album": "L'Algoza Du Sind",
+      "year": "1979",
+      "country": "Pakistan",
+      "lnglat": [69.34511599999996, 30.375321],
+      "audio": {
+        "beats": 4,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#f9126b"
+      },
+      "keyboard": "s",
+      "trackNum": 3
+    },
+    "agnus-dei": {
+      "id": "agnus-dei",
+      "name": "agnus-dei",
+      "trackId": "europe",
+      "title": "Agnus Dei - 2",
+      "album": "Corse - Polyphonies Féminines",
+      "year": "2000",
+      "country": "Italia",
+      "lnglat": [12.567379999999957, 41.87194],
+      "audio": {
+        "beats": 40,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12acf9"
+      },
+      "keyboard": "b",
+      "trackNum": 4
+    },
+    "mariola": {
+      "id": "mariola",
+      "name": "mariola",
+      "trackId": "europe",
+      "title": "SikoMariola-StaOpMariola",
+      "album": "MIROLOI muziek uit Epirus - klarinet ea vpro ew9305",
+      "year": "1993",
+      "country": "Grecia",
+      "lnglat": [21.824311999999964, 39.074208],
+      "audio": {
+        "beats": 32,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12acf9"
+      },
+      "keyboard": "c",
+      "trackNum": 4
+    },
+    "mocita": {
+      "id": "mocita",
+      "name": "mocita",
+      "trackId": "europe",
+      "title": "De una mocita. Bulerias",
+      "album": "Por Derecho",
+      "year": "1975",
+      "country": "España",
+      "lnglat": [-3.7492200000000366, 40.46366700000001],
+      "audio": {
+        "beats": 6,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#12acf9"
+      },
+      "keyboard": "z",
+      "trackNum": 4
+    },
+    "are-are": {
+      "id": "are-are",
+      "name": "are-are",
+      "trackId": "oceania",
+      "title": "Chants de femmes : chant énumératif",
+      "album": "Îles Salomon : musiques intimes et rituelles 'Are'Are",
+      "year": "1969",
+      "country": "Islas Salomon",
+      "lnglat": [160.15619400000003, -9.64571],
+      "audio": {
+        "beats": 80,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#1276f9"
+      },
+      "keyboard": "n",
+      "trackNum": 5
+    },
+    "funeraire": {
+      "id": "funeraire",
+      "name": "funeraire",
+      "trackId": "oceania",
+      "title": "Ronde funéraire",
+      "album": "1991-1994 - Indonésie - Toraja. Funérailles et fêtes de fécondité",
+      "year": "1991",
+      "country": "Indonesia",
+      "lnglat": [113.92132700000002, -0.789275],
+      "audio": {
+        "beats": 36,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#1276f9"
+      },
+      "keyboard": "v",
+      "trackNum": 5
+    },
+    "pae": {
+      "id": "pae",
+      "name": "pae",
+      "trackId": "oceania",
+      "title": "Pae",
+      "album": "South Pacific Drums",
+      "year": "1965",
+      "country": "Polinesia",
+      "lnglat": [-149.456815, -17.649632],
+      "audio": {
+        "beats": 8,
+        "volume": 0.7
+      },
+      "display": {
+        "color": "#1276f9"
+      },
+      "keyboard": "x",
+      "trackNum": 5
+    }
+  },
+  "tracks": [
+    {
+      "id": "africa",
+      "clipIds": ["indvumo", "madinda", "nubian"],
+      "num": 0,
+      "color": "#48f912"
+    },
+    {
+      "id": "america-north",
+      "clipIds": ["ed-lewis", "mississipi", "ossie"],
+      "num": 1,
+      "color": "#12f99d"
+    },
+    {
+      "id": "america-south",
+      "clipIds": ["camino", "orillas", "rueda"],
+      "num": 2,
+      "color": "#f912e2"
+    },
+    {
+      "id": "asia",
+      "clipIds": ["ballade", "ogbeler", "tabla"],
+      "num": 3,
+      "color": "#f9126b"
+    },
+    {
+      "id": "europe",
+      "clipIds": ["agnus-dei", "mariola", "mocita"],
+      "num": 4,
+      "color": "#12acf9"
+    },
+    {
+      "id": "oceania",
+      "clipIds": ["are-are", "funeraire", "pae"],
+      "num": 5,
+      "color": "#1276f9"
+    }
+  ]
+}

@@ -11,12 +11,22 @@
     "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "audio-context": "^1.0.3",
+    "chroma-js": "^2.0.3",
+    "cxs": "^6.2.0",
+    "d3": "^5.9.2",
+    "d3-geo-projection": "^2.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.0.8",
     "react-modal": "^3.8.1",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "screenfull": "^4.2.0",
+    "tiny-emitter": "^2.1.0",
+    "topojson": "^3.0.2"
   },
   "eslintConfig": {
     "extends": "react-app"
