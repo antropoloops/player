@@ -1,0 +1,23 @@
+plugins:
+  - fullstack-serverless
+
+service: atpls-player
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  #stage: dev # Set the default stage used. Default is dev
+  #region: us-east-1 # Overwrite the default region used. Default is us-east-1
+
+custom:
+  fullstack:
+    domain: play.antropoloops.com
+    certificate: arn:aws:acm:us-east-1:142080885131:certificate/09e000e0-51a4-4a83-926c-f2273895497e
+    bucketName: deploy
+    distributionFolder: build # Path to the client assets to be uploaded to S3
+    indexDocument: index.html # The index document to use
+    errorDocument: error.html # The error document to use
+    singlePageApp: true # If true 403 errors will be rerouted (missing assets) to your root index document to support single page apps like React and Angular where the js framework handles routing
+    apiPath: api # The path prefix for your API Gateway lambdas. The path for the lambda http event trigger needs to start with this too eg. api/myMethod
+    clientCommand: yarn build # Command to generate the client assets. Defaults to doing nothing
+    clientSrcPath: . # The path to where you want to run the clientCommand
