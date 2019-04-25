@@ -7,12 +7,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync --delete build/ s3://antropoloops-production/ --acl public-read",
-    "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id <CloudFront distro id> --paths '/*'"
+    "deploy": "serverless deploy -v && yarn run cloudfront:invalidate",
+    "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'"
   },
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-modal": "^3.8.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0"
   },
   "eslintConfig": {
