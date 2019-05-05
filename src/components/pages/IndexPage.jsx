@@ -2,7 +2,6 @@
 import { css, jsx } from "@emotion/core";
 import Centered from "../shared/Centered";
 import { Link } from "react-router-dom";
-import Markdown from "react-markdown";
 import index from "./audioset.index.json";
 
 const AudiosetLink = ({ audioset }) => (
@@ -10,6 +9,7 @@ const AudiosetLink = ({ audioset }) => (
     <Link to={`/p/${audioset.id}`}>
       <h3>{audioset.meta.title}</h3>
       <p>{audioset.meta.description}</p>
+      <button>Open</button>
     </Link>
   </li>
 );
@@ -29,7 +29,7 @@ const linkStyles = css`
 
 const Index = () => (
   <Centered>
-    <Markdown source={index.readme} />
+    <h1>Play antropoloops</h1>
     <ul>
       {index.audiosets.map(audioset => (
         <AudiosetLink key={audioset.id} audioset={audioset} />

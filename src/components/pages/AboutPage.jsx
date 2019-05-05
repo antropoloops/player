@@ -9,6 +9,7 @@ const About = () => {
       <p>
         Antropoloops player allow to play Antropoloops sets within the browser.
       </p>
+      <p>Version 20190505</p>
       <p>
         <a
           href="https://makeymakey.com/"
