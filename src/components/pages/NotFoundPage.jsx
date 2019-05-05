@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Centered from "./shared/Centered";
+import Centered from "../shared/Centered";
 
 function NotFound() {
   return (

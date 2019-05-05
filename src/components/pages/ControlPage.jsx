@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Centered from "./shared/Centered";
-import Player from "./Player";
-import { requestJoinSession } from "../lib/channel";
-import { migrateAudioset } from "../lib/audioset";
+import Centered from "../shared/Centered";
+import Player from "../Player";
+import { requestJoinSession } from "../../lib/channel";
+import { migrateAudioset } from "../../lib/audioset";
 
 /**
  * Player Page

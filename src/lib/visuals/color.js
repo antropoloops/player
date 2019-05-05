@@ -7,32 +7,29 @@ export function getColor(trackNumber) {
   // const S = d3.randomUniform.source(seedRandom)(0.5, 1)();
   const S = d3.randomUniform(0.5, 1)();
   const V = d3.randomUniform(0.9, 1)();
-  let H;
+  const H = getHue(trackNumber);
+  return chroma.hsv(H, S, V).hex();
+}
+
+function getHue(trackNumber) {
   switch (trackNumber) {
     case 0:
-      H = d3.randomUniform(105, 120)();
-      break;
+      return d3.randomUniform(105, 120)();
     case 1:
-      H = d3.randomUniform(145, 160)();
-      break;
+      return d3.randomUniform(145, 160)();
     case 2:
-      H = d3.randomUniform(300, 315)();
-      break;
+      return d3.randomUniform(300, 315)();
     case 3:
-      H = d3.randomUniform(330, 345)();
-      break;
+      return d3.randomUniform(330, 345)();
     case 4:
-      H = d3.randomUniform(190, 205)();
-      break;
+      return d3.randomUniform(190, 205)();
     case 5:
-      H = d3.randomUniform(210, 225)();
-      break;
+      return d3.randomUniform(210, 225)();
     case 6:
-      H = d3.randomUniform(25, 40)();
-      break;
+      return d3.randomUniform(25, 40)();
     case 7:
-      H = d3.randomUniform(50, 65)();
-      break;
+      return d3.randomUniform(50, 65)();
+    default:
+      return d3.randomUniform(50, 65)();
   }
-  return chroma.hsv(H, S, V).hex();
 }

@@ -1,8 +1,8 @@
 export const mapClips = ({ clips }, fn) =>
   Object.keys(clips).map(id => fn(clips[id]));
 
-export function fetchAudioset(audiosetId) {
-  return fetch(`/audiosets/${audiosetId}.audioset.json`)
+export function fetchAudioset(url) {
+  return fetch(url)
     .then(response => response.json())
     .then(audioset => migrateAudioset(audioset));
 }
@@ -10,12 +10,37 @@ export function fetchAudioset(audiosetId) {
 export function migrateAudioset(audioset) {
   if (audioset.migrated) return audioset;
 
-  audioset.migrated = true;
-  mapClips(audioset, clip => {
-    clip.id = clip.name;
-    clip.audioUrl = createResourceUrl("audio", audioset, clip.id);
-    clip.coverUrl = createResourceUrl("cover", audioset, clip.id);
+  if (Array.isArray(audioset.clips)) {
+    audioset.clipList = audioset.clips;
+    audioset.clips = audioset.clips.reduce((index, clip) => {
+      index[clip.id] = clip;
+      return index;
+    }, {});
+  } else {
+    audioset.clipList = Object.keys(audioset.clips).map(
+      id => audioset.clips[id]
+    );
+  }
+
+  audioset.clipList.forEach(clip => {
+    clip.id = clip.id || clip.name;
+    clip.audioUrl =
+      clip.audioUrl || createResourceUrl("audio", audioset, clip.id);
+    clip.coverUrl =
+      clip.coverUrl || createResourceUrl("cover", audioset, clip.id);
   });
+
+  if (!audioset.keyboard) {
+    audioset.keyboard = {
+      defaults: { type: "gate" },
+      keyMap: audioset.clipList.reduce((map, clip) => {
+        map[clip.key] = { clipId: clip.id };
+        return map;
+      }, {})
+    };
+  }
+
+  audioset.migrated = true;
   return audioset;
 }
 
@@ -35,23 +60,12 @@ export function fetchAudio(ctx, audioset) {
 }
 
 export function preloadImages(audioset) {
+  const urls = audioset.clipList.map(clip => clip.coverUrl);
   // TODO: implement image preloading
-  return fetchResources("cover", audioset);
+  return Promise.all(urls.map(url => fetch(url)));
 }
 
-export function fetchResources(type, audioset) {
-  return Promise.all(
-    getResourceClips(type, audioset).map(clip => fetch(clip.resourceUrl))
-  );
-}
-
-function getResourceClips(type, audioset) {
-  return Object.keys(audioset.clips).map(clipId => {
-    const clip = audioset.clips[clipId];
-    clip.resourceUrl = createResourceUrl(type, audioset, clipId);
-    return clip;
-  });
-}
+export function fetchResources(type, audioset) {}
 
 export function createResourceUrl(type, audioset, clipId) {
   const pattern = audioset.resources[type] || "";

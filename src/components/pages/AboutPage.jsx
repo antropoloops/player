@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Modal from "./shared/Modal";
+import Modal from "../shared/Modal";
 
 const About = () => {
   return (

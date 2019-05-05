@@ -24,8 +24,10 @@ function loadClips(ctx, buffers, clips, urls) {
       .then(function(response) {
         return response.arrayBuffer();
       })
-      .then(function(audioData) {
-        return ctx.decodeAudioData(audioData);
+      .then(function(arrayBuffer) {
+        return new Promise((accept, reject) => {
+          ctx.decodeAudioData(arrayBuffer, accept);
+        });
       })
       .then(function(buffer) {
         events.emit("/audio/file-loaded", name);

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import Centered from "./shared/Centered";
+import Centered from "../shared/Centered";
 import { Link } from "react-router-dom";
 import Markdown from "react-markdown";
-import index from "../audioset.index.json";
+import index from "./audioset.index.json";
 
 const AudiosetLink = ({ audioset }) => (
   <li css={linkStyles}>

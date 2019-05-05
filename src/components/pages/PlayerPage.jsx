@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Centered from "./shared/Centered";
-import Player from "./Player";
-import { fetchAudioset } from "../lib/audioset";
+import Centered from "../shared/Centered";
+import Player from "../Player";
+import { fetchAudioset } from "../../lib/audioset";
 
 /**
  * Player Page
@@ -24,7 +24,8 @@ function useAudioset(audiosetId) {
   const [audioset, setAudioset] = useState();
 
   useEffect(() => {
-    fetchAudioset(audiosetId).then(setAudioset);
+    const url = `/audiosets/${audiosetId}.audioset.json`;
+    fetchAudioset(url).then(setAudioset);
   }, [audiosetId]);
 
   return audioset;

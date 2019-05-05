@@ -1,9 +1,3 @@
-const CDN_URL = "https://audiosets.danigb.now.sh";
-
-function getClipCoverImageUrl(audioset, name) {
-  return `${CDN_URL}/${audioset.id}/${name}.jpg`;
-}
-
 /**
  * Get URL of a resource, given it's name and source
  * @param {*} name
@@ -19,7 +13,6 @@ export default function getAlbumInfo(audioset, name) {
   const clip = audioset.clips[name];
   if (!clip) return;
 
-  const imageUrl = getClipCoverImageUrl(audioset, clip.name);
   const bpm = audioset.meta.bpm || 120;
 
   return {
@@ -33,7 +26,7 @@ export default function getAlbumInfo(audioset, name) {
     loopend: 1,
     trackVolume: clip.audio.trackVolume || 0.7,
     duration: (60 * clip.audio.beats) / bpm, // clip duration in seconds
-    imageUrl,
+    imageUrl: clip.coverUrl,
     trackColor: clip.display.color
   };
 }
