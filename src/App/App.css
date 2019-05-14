@@ -1,0 +1,23 @@
+ul li {
+  list-style-type: none;
+}
+
+.App {
+  display: flex;
+}
+
+.App .main {
+  flex-grow: 1;
+}
+
+.App .sidebar {
+  height: 100vh;
+  width: 320px;
+  padding: 1rem 0;
+  overflow-y: scroll;
+  background-color: rgb(109, 109, 109);
+}
+
+.App .AudiosetLink img {
+  margin-right: 1rem;
+}

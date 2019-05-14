@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Centered from "../shared/Centered";
-import Player from "../Player";
+import Player from "../components/Player";
 import { fetchAudioset } from "../../lib/audioset";
 
 /**

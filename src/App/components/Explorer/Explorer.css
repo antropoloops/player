@@ -1,16 +1,5 @@
-.App {
-  display: flex;
-}
-
-.App .sidebar {
-  height: 100vh;
-  width: 300px;
-  padding: 1rem 0;
-  overflow-y: scroll;
-  background-color: rgb(109, 109, 109);
-}
-
 .Explorer .Track {
+  width: 1000px;
   padding: 1em;
   margin: 1rem 0;
 }

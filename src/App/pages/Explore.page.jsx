@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Centered from "../shared/Centered";
 import Explorer from "../components/Explorer";
 import { fetchAudioset } from "../../lib/audioset";
 
@@ -20,11 +19,7 @@ const ExplorePage = ({ match }) => {
 
   const audioset = useAudioset(url);
 
-  return audioset ? (
-    <Explorer audioset={audioset} />
-  ) : (
-    <Centered>{url ? "Loading..." : "No audioset"}</Centered>
-  );
+  return audioset ? <Explorer audioset={audioset} /> : "Loading...";
 };
 
 export default ExplorePage;

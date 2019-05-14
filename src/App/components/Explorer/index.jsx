@@ -1,14 +1,16 @@
 import React, { useEffect, useReducer, useCallback } from "react";
+import { Link } from "react-router-dom";
+import * as screen from "screenfull";
+
 import Visuals from "../shared/Visuals";
 import useSync from "../../hooks/useSync";
 import { initAudio } from "../../../lib/audio";
 import { stopAll, togglePlay } from "../../../lib/sync";
-import * as screen from "screenfull";
 import "./Explorer.css";
 
 const initialState = {
-  sidebar: true,
-  active: {}
+  active: {},
+  fullscreenAt: null
 };
 
 function reducer(state, action) {
@@ -16,6 +18,8 @@ function reducer(state, action) {
   switch (type) {
     case "active":
       return { ...state, active: action.active };
+    case "fullscreen":
+      return { ...state, fullscreenAt: Date.now() };
     default:
       return state;
   }
@@ -43,12 +47,22 @@ const Explorer = ({ audioset }) => {
     initAudio().then(() => dispatch({ type: "audioReady" }));
   }, []);
 
+  useEffect(() => {
+    if (state.fullscreenAt && screen.enabled) screen.request();
+  }, [state.fullscreenAt]);
+
+  const setFullScreen = () => dispatch({ type: "fullscreen" });
+
   const handleClipClick = clip => sync.dispatch(togglePlay(clip.id));
 
   return (
     <div className="App Explorer">
-      {state.sidebar && (
+      {true && (
         <div className="sidebar">
+          <Link to="/">
+            <img src="/play-logo.png" alt="Play antropoloops" />
+          </Link>
+          <h1 onClick={setFullScreen}>{audioset.meta.title}</h1>
           {audioset.tracks.map(track => (
             <Track
               key={track.id}
@@ -59,7 +73,9 @@ const Explorer = ({ audioset }) => {
           ))}
         </div>
       )}
-      <Visuals sync={sync} audioset={audioset} />
+      <div className="main">
+        <Visuals sync={sync} audioset={audioset} />
+      </div>
     </div>
   );
 };
