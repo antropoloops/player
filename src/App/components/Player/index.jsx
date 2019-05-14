@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from "react";
-import Visuals from "./Visuals";
+import Visuals from "../shared/Visuals";
 import Transport from "./Transport";
-import useSync from "./useSync";
+import useSync from "../hooks/useSync";
 import InfoDialog from "./InfoDialog";
 import { initAudio } from "../../lib/audio";
 import { stopAll } from "../../lib/sync";

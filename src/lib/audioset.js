@@ -12,22 +12,20 @@ export function migrateAudioset(audioset) {
 
   if (Array.isArray(audioset.clips)) {
     audioset.clipList = audioset.clips;
-    audioset.clips = audioset.clips.reduce((index, clip) => {
+    audioset.clipIndex = audioset.clips.reduce((index, clip) => {
       index[clip.id] = clip;
       return index;
     }, {});
+    // FIXME: legacy
+    audioset.clips = audioset.clipIndex;
   } else {
+    audioset.clipIndex = audioset.clips;
     audioset.clipList = Object.keys(audioset.clips).map(
       id => audioset.clips[id]
     );
   }
-
-  audioset.clipList.forEach(clip => {
-    clip.id = clip.id || clip.name;
-    clip.audioUrl =
-      clip.audioUrl || createResourceUrl("audio", audioset, clip.id);
-    clip.coverUrl =
-      clip.coverUrl || createResourceUrl("cover", audioset, clip.id);
+  audioset.tracks.forEach(track => {
+    track.clipList = track.clipIds.map(id => audioset.clipIndex[id]);
   });
 
   if (!audioset.keyboard) {
@@ -61,7 +59,6 @@ export function fetchAudio(ctx, audioset) {
       const response = await fetch(clip.audioUrl);
       const buffer = await decode(response);
       clip.audioBuffer = buffer;
-      console.log("deecoded", clip.id);
       return buffer;
     } catch (err) {
       console.log("Error fetching audio", clip.id, err);

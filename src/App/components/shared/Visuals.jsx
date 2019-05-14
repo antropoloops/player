@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useEffect, useRef } from "react";
 import { css, jsx } from "@emotion/core";
-import createVisuals from "../../lib/visuals";
+import createVisuals from "../../../lib/visuals";
 
 const Visuals = ({ audioset, sync }) => {
   const visualsRef = useRef();

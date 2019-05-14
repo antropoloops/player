@@ -4,7 +4,11 @@ const log = debug("atpls:sync:reducer");
 // actions creators
 export const start = (clipId, time) => ({ type: "start", clipId, time });
 export const stop = (clipId, time) => ({ type: "stop", clipId, time });
-export const toggle = (clipId, time) => ({ type: "toggle", clipId, time });
+export const togglePlay = (clipId, time) => ({
+  type: "togglePlay",
+  clipId,
+  time
+});
 export const stopAll = time => ({ type: "stopAll", time });
 export const receiveAction = (message, userId) => ({
   type: "receiveAction",
@@ -39,7 +43,7 @@ export default function createReducer(audioset, currentTime) {
       case "receiveAction":
         return reducer(state, action.message);
 
-      case "toggle":
+      case "togglePlay":
         if (!clip) return state;
         return state.clips.find(c => c === clip)
           ? reducer(state, stop(clipId))

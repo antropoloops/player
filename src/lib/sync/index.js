@@ -1,8 +1,9 @@
 import debug from "debug";
 import createReducer from "./reducer";
 import diff from "./diff";
+import Emitter from "tiny-emitter";
 
-export { start, stop, stopAll, receiveAction } from "./reducer";
+export { start, stop, stopAll, receiveAction, togglePlay } from "./reducer";
 
 const log = debug("atpls:sync");
 
@@ -12,11 +13,15 @@ const log = debug("atpls:sync");
  * @param {*} setState
  * @param {*} now
  */
-export default function createSync(audioset, setState, now) {
+export default function createSync(audioset, now) {
   log("create sync");
+  let events = new Emitter();
   const reducer = createReducer(audioset, now);
   let state = reducer(undefined, { type: "init" });
   const effects = [];
+
+  const setState = state => events && events.emit("state", state);
+  const subscribe = fn => events && events.on("state", fn);
 
   function addEffect(effect) {
     if (typeof effect === "function") effect = effect();
@@ -38,11 +43,12 @@ export default function createSync(audioset, setState, now) {
 
   function detach() {
     log("detach!");
+    events = null;
     effects.forEach(effect => {
       if (effect.detach) effect.detach();
     });
     effects.length = 0;
   }
 
-  return { dispatch, addEffect, detach };
+  return { dispatch, addEffect, detach, subscribe };
 }
