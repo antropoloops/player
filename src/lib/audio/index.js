@@ -8,7 +8,11 @@ export const currentTime = () => ctx.currentTime;
 export function initAudio() {
   console.log("init audio");
   ctx = ctx || context();
-  return ctx.resume().then(() => ctx);
+  if (typeof ctx.resume === "function") {
+    return ctx.resume().then(() => ctx);
+  } else {
+    return Promise.resolve(ctx);
+  }
 }
 
 const EVENTS = {

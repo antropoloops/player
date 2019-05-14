@@ -6,7 +6,7 @@ import createKeyboardEffects from "../../lib/keyboard";
 import { fetchAudio, preloadImages } from "../../lib/audioset";
 
 export default function useSync(audioset) {
-  console.log("joder", audioset);
+  console.log("Audioset", audioset);
   const setState = state => console.log("SYNC state", state);
   const sync = useMemo(() => createSync(audioset, setState, currentTime), [
     audioset
