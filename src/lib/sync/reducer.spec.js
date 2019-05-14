@@ -1,9 +1,13 @@
-import createReducer, { start, stop } from "./reducer";
+import createReducer, { start, stop, togglePlay } from "./reducer";
 import { migrateAudioset } from "../audioset";
-import audioset from "../static/audiosets/test.audioset.json";
+import audioset from "../../../public/audiosets/test.audioset.json";
 
 let time = 0;
 const reducer = createReducer(migrateAudioset(audioset), () => time);
+
+function dispatch(...actions) {
+  return actions.reduce(reducer, undefined);
+}
 
 // simplify the state for human matching
 const simplified = state => ({
@@ -62,6 +66,20 @@ describe("Sync reducer", () => {
       clips: ["melody1", "voice2"],
       startedAt: 0,
       tracks: ["melody", "voice"]
+    });
+  });
+
+  it("toggles clips", () => {
+    const state = dispatch(
+      start("voice1"),
+      togglePlay("melody1"),
+      togglePlay("melody1")
+    );
+    expect(simplified(state)).toEqual({
+      bpm: 110,
+      clips: ["voice1"],
+      startedAt: 0,
+      tracks: ["voice"]
     });
   });
 });

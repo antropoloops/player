@@ -19,7 +19,7 @@ export const receiveAction = (message, userId) => ({
 // filter predicates
 const removeClipsInSameTrackOf = clip => c => clip.trackId !== c.trackId;
 const removeTrackOf = clip => t => clip.trackId !== t.id;
-const removeClip = clip => c => clip.name !== c.name;
+const removeClip = clip => c => clip.id !== c.id;
 
 export default function createReducer(audioset, currentTime) {
   const $c = name => audioset.clips[name];
