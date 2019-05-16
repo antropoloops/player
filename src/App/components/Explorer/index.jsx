@@ -7,6 +7,7 @@ import useSync from "../../hooks/useSync";
 import { initAudio } from "../../../lib/audio";
 import { stopAll, togglePlay } from "../../../lib/sync";
 import "./Explorer.css";
+import Sidebar from "./Sidebar";
 
 const initialState = {
   active: {},
@@ -19,7 +20,10 @@ function reducer(state, action) {
     case "active":
       return { ...state, active: action.active };
     case "fullscreen":
-      return { ...state, fullscreenAt: Date.now() };
+      return {
+        ...state,
+        fullscreenAt: state.fullscreenAt ? undefined : Date.now()
+      };
     default:
       return state;
   }
@@ -58,11 +62,8 @@ const Explorer = ({ audioset }) => {
   return (
     <div className="App Explorer">
       {true && (
-        <div className="sidebar">
-          <Link to="/">
-            <img src="/play-logo.png" alt="Play antropoloops" />
-          </Link>
-          <h1 onClick={setFullScreen}>{audioset.meta.title}</h1>
+        <Sidebar onClick={setFullScreen} closed={state.fullscreenAt}>
+          <h1>{audioset.meta.title}</h1>
           {audioset.tracks.map(track => (
             <Track
               key={track.id}
@@ -71,7 +72,7 @@ const Explorer = ({ audioset }) => {
               active={state.active}
             />
           ))}
-        </div>
+        </Sidebar>
       )}
       <div className="main">
         <Visuals sync={sync} audioset={audioset} />
@@ -99,10 +100,13 @@ const Track = ({ track, onClickClip, active }) => {
     </div>
   );
 };
-
+const upperCase = str => str && str.toUpperCase();
 const Clip = ({ clip, onClick, active }) => (
-  <div className={`Clip ${active ? "active" : ""}`}>
-    <img src={clip.coverUrl} alt={clip.id} onClick={() => onClick(clip)} />
-    <span className="keyMap">{clip.key}</span>
-  </div>
+  <button
+    className={`Clip ${active ? "active" : ""}`}
+    onClick={() => onClick(clip)}
+  >
+    <img src={clip.coverUrl} alt={clip.id} />
+    <span className="keyMap">{upperCase(clip.key)}</span>
+  </button>
 );

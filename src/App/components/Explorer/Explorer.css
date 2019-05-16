@@ -1,5 +1,7 @@
+.Explorer h1 {
+  padding: 1rem;
+}
 .Explorer .Track {
-  width: 1000px;
   padding: 1em;
   margin: 1rem 0;
 }
@@ -10,18 +12,17 @@
   height: 100px;
 }
 
-.Explorer .Clip {
-  width: 200px;
+.Track .Clip {
   display: flex;
+  width: 200px;
   opacity: 0.9;
 }
-.Explorer .Clip.active {
+.Track .Clip.active {
   background-color: white;
 }
 
-.Explorer .Clip .keyMap {
-  width: 100px;
-  height: 100px;
+.Track .Clip .keyMap {
+  width: 100%;
   line-height: 100px;
   font-size: 3rem;
   text-align: center;
