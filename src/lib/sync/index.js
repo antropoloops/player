@@ -32,10 +32,10 @@ export default function createSync(audioset, now) {
     log("dispatch %o", action);
     const newState = reducer(state, action);
     const changes = diff(state.clips, newState.clips);
-    //debug(state, newState, changes, action);
+    const time = newState.nextTick;
     effects.forEach(effect => {
-      changes.delete.forEach(clipId => effect.stop(clipId));
-      changes.create.forEach(clipId => effect.start(clipId));
+      changes.delete.forEach(clipId => effect.stop(clipId, time));
+      changes.create.forEach(clipId => effect.start(clipId, time));
     });
     state = newState;
     setState(state);

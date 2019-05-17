@@ -27,20 +27,20 @@ function attachSync(sync, audioset, onState) {
   const { dispatch, addEffect, subscribe } = sync;
   subscribe(state => console.log("SYNC state", state));
   onState && subscribe(onState);
-  createKeyboardEffects(audioset, {
-    onPress: pressed => dispatch(start(pressed.clipId)),
-    onRelease: released => dispatch(stop(released.clipId))
-  });
   addEffect(() => {
     return createChannelEffects(audioset, (action, userId) =>
       dispatch(receiveAction(action, userId))
     );
   });
-  initAudio().then(
-    ctx =>
-      console.log("fetch audio files...") ||
+  initAudio().then(ctx => {
+    console.log("fetch audio files...") ||
       Promise.all([fetchAudio(ctx, audioset), preloadImages(audioset)]).then(
         () => createAudio(audioset).then(addEffect)
-      )
-  );
+      );
+
+    createKeyboardEffects(audioset, {
+      onPress: pressed => dispatch(start(pressed.clipId, ctx.currentTime)),
+      onRelease: released => dispatch(stop(released.clipId, ctx.currentTime))
+    });
+  });
 }

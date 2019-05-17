@@ -20,7 +20,7 @@ const Explorer = ({ audioset }) => {
   }, []);
   const sync = useSync(audioset, onSyncStateChange);
 
-  useAudioContext();
+  const ctx = useAudioContext();
 
   const [visible, setVisible] = useState(true);
   const toggleVisible = () => setVisible(!visible);
@@ -31,7 +31,8 @@ const Explorer = ({ audioset }) => {
     sync.dispatch(stopAll());
   };
 
-  const handleClipClick = clip => sync.dispatch(togglePlay(clip.id));
+  const handleClipClick = clip =>
+    sync.dispatch(togglePlay(clip.id, ctx.currentTime));
 
   const actions = () => (
     <>

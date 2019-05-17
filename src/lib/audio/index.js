@@ -5,6 +5,11 @@ let ctx;
 
 export const currentTime = () => ctx.currentTime;
 
+export function getContext() {
+  ctx = ctx || context();
+  return ctx;
+}
+
 export function initAudio() {
   console.log("init audio");
   ctx = ctx || context();

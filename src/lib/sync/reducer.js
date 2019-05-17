@@ -1,5 +1,9 @@
 import debug from "debug";
+import nextTickOffset from "../nextTickOffset";
 const log = debug("atpls:sync:reducer");
+
+const calcNextTick = (action, state) =>
+  action.time + nextTickOffset(state.bpm, action.time, state.startedAt);
 
 // actions creators
 export const start = (clipId, time) => ({ type: "start", clipId, time });
@@ -28,6 +32,7 @@ export default function createReducer(audioset, currentTime) {
   const initialState = () => ({
     bpm: audioset.audio.bpm || 120,
     startedAt: null,
+    nextTick: null,
     clips: [],
     tracks: []
   });
@@ -36,7 +41,7 @@ export default function createReducer(audioset, currentTime) {
     log("ACTION %o", action);
     const { type, clipId } = action;
     const clip = $c(clipId);
-    let clips, tracks, startedAt;
+    let clips, tracks, startedAt, nextTick;
 
     switch (type) {
       // an external message from socket server
@@ -46,8 +51,8 @@ export default function createReducer(audioset, currentTime) {
       case "togglePlay":
         if (!clip) return state;
         return state.clips.find(c => c === clip)
-          ? reducer(state, stop(clipId))
-          : reducer(state, start(clipId));
+          ? reducer(state, stop(clipId, action.time))
+          : reducer(state, start(clipId, action.time));
 
       case "start":
         if (!clip) return state;
@@ -56,14 +61,17 @@ export default function createReducer(audioset, currentTime) {
         tracks = state.tracks
           .filter(removeTrackOf(clip))
           .concat($t(clip.trackId));
-        return { ...state, startedAt, clips, tracks };
+        nextTick = calcNextTick(action, state);
+        console.log("joder", nextTick);
+        return { ...state, startedAt, clips, tracks, nextTick };
 
       case "stop":
         if (!clip) return state;
         clips = state.clips.filter(removeClip(clip));
         tracks = state.tracks.filter(removeTrackOf(clip));
         startedAt = clips.length ? state.startedAt : null;
-        return { ...state, startedAt, clips, tracks };
+        nextTick = calcNextTick(action, state);
+        return { ...state, startedAt, clips, tracks, nextTick };
 
       case "stopAll":
         return initialState();
