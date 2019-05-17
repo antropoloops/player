@@ -1,0 +1,46 @@
+.Clip {
+  margin-bottom: 10px;
+  width: 300px;
+  display: flex;
+}
+
+.Clip.summary {
+  height: 100px;
+  overflow: hidden;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+.Clip.summary > .cover {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.Clip.summary > .cover img {
+  width: 100px;
+  height: 100px;
+}
+
+.Clip.summary > .info {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.Clip.summary > .action {
+  display: flex;
+  flex-direction: column;
+}
+
+.Clip.summary .keyMap {
+  background-color: black;
+  text-align: center;
+  width: 1.2em;
+  line-height: 1.2em;
+}
+
+.Clip.info {
+}
+
+.Clip.info .cover img {
+  width: 300px;
+  height: 300px;
+}

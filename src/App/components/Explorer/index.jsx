@@ -7,7 +7,7 @@ import "./Explorer.css";
 import Sidebar from "../shared/Sidebar";
 import useFullscreen from "../../hooks/useFullscreen";
 import { useAudioContext } from "../../hooks/useAudioContext";
-import { Clip } from "./Clip";
+import Clip from "./Clip";
 
 const Explorer = ({ audioset }) => {
   const [active, setActive] = useState([]);
@@ -43,7 +43,7 @@ const Explorer = ({ audioset }) => {
   return (
     <div className="App Explorer">
       <Sidebar onClick={toggleVisible} visible={visible} actions={actions}>
-        <a href="/">
+        <a className="title" href="/">
           <h1>← {audioset.meta.title}</h1>
         </a>
         {audioset.tracks.map(track => (

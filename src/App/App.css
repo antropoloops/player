@@ -1,6 +1,13 @@
 ul li {
   list-style-type: none;
 }
+button:focus {
+  outline: none;
+}
+p {
+  line-height: 1.2rem;
+  margin-bottom: 5px;
+}
 
 .App {
   display: flex;

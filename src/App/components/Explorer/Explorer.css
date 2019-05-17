@@ -1,58 +1,10 @@
-.Explorer h1 {
-  padding: 1rem;
+.Explorer .main > .title {
+  max-width: 300px;
+  display: block;
+  padding: 10px;
+  overflow: hidden;
 }
 .Explorer .Track {
-  padding: 1em;
+  padding: 10px 0 10px 10px;
   margin: 1rem 0;
-}
-
-.Track .Clip {
-  display: flex;
-  width: 100%;
-}
-.Clip .main {
-  flex-grow: 1;
-  display: flex;
-}
-.Clip img {
-  cursor: pointer;
-  width: 100px;
-  height: 100px;
-  margin-right: 1rem;
-}
-.Clip .meta {
-  font-size: 1rem;
-  text-align: left;
-  margin-right: 1rem;
-}
-.Clip .meta p {
-  margin-bottom: 0.5rem;
-}
-
-.Track .Clip.active {
-  width: 100%;
-  margin: 1rem 0;
-}
-
-.Clip.active img {
-  width: 100%;
-  margin: 0;
-  height: auto;
-}
-
-.Clip .actions {
-  display: flex;
-  flex-direction: column;
-}
-
-.Clip .keyMap {
-  line-height: 100px;
-  font-size: 3rem;
-  text-align: center;
-  color: black;
-  opacity: 0.3;
-}
-.Clip.active .keyMap,
-.Clip.active .meta {
-  display: none;
 }
