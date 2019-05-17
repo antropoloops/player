@@ -1,0 +1,25 @@
+.App .Sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgb(109, 109, 109);
+}
+
+.Sidebar .main {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.Sidebar .play-logo {
+  padding: 1rem;
+}
+
+.Sidebar > .actions {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 1rem;
+}
+.Sidebar .actions button {
+  color: #00ff00;
+  margin-left: 1rem;
+}

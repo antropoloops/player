@@ -7,7 +7,7 @@ ul li {
   width: 100vw;
 }
 
-.App .main {
+.App > .main {
   flex-grow: 1;
   height: 100vh;
 }
@@ -18,34 +18,6 @@ ul li {
   bottom: 1rem;
 }
 
-.App .Sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: rgb(109, 109, 109);
-}
-
-.Sidebar.closed {
-  position: fixed;
-  background-color: transparent;
-  left: 0;
-  bottom: 0;
-}
-
-.Sidebar.closed .main {
-  display: none;
-}
-
-.Sidebar .main {
-  flex-grow: 1;
-  overflow-y: scroll;
-}
-
-.Sidebar header img.play-logo {
-  padding: 1rem;
-  cursor: pointer;
-}
-
-.App .AudiosetLink img {
+.App.Wellcome .AudiosetLink img {
   margin-right: 1rem;
 }

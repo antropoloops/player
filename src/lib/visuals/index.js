@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import Visuals from "./visuals";
 import Display from "./display";
 
@@ -8,6 +9,13 @@ export default function createVisuals(audioset, el) {
   fetch(audioset.visuals.geoMapUrl)
     .then(response => response.json())
     .then(data => visuals.setGeodata(data));
+
+  window.addEventListener(
+    "resize",
+    debounce(() => {
+      visuals.render();
+    })
+  );
 
   return {
     start: clipId => visuals.show(clipId),

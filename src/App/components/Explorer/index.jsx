@@ -1,79 +1,60 @@
-import React, { useEffect, useReducer, useCallback } from "react";
-import { Link } from "react-router-dom";
-import * as screen from "screenfull";
+import React, { useState, useCallback } from "react";
 
 import Visuals from "../shared/Visuals";
 import useSync from "../../hooks/useSync";
-import { initAudio } from "../../../lib/audio";
-import { stopAll, togglePlay } from "../../../lib/sync";
+import { togglePlay, stopAll } from "../../../lib/sync";
 import "./Explorer.css";
-import Sidebar from "./Sidebar";
-
-const initialState = {
-  active: {},
-  fullscreenAt: null
-};
-
-function reducer(state, action) {
-  const { type } = action;
-  switch (type) {
-    case "active":
-      return { ...state, active: action.active };
-    case "fullscreen":
-      return {
-        ...state,
-        fullscreenAt: state.fullscreenAt ? undefined : Date.now()
-      };
-    default:
-      return state;
-  }
-}
+import Sidebar from "../shared/Sidebar";
+import useFullscreen from "../../hooks/useFullscreen";
+import { useAudioContext } from "../../hooks/useAudioContext";
+import { Clip } from "./Clip";
 
 const Explorer = ({ audioset }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const update = useCallback(
-    state => {
-      const active = state.clips.reduce((active, clip) => {
-        active[clip.id] = true;
-        return active;
-      }, {});
-      dispatch({ type: "active", active });
-    },
-    [dispatch]
-  );
-  const sync = useSync(audioset, update);
-  sync.subscribe(state => {});
-  useEffect(() => {
-    sync.dispatch(stopAll());
-  }, [sync]);
-
-  useEffect(() => {
-    initAudio().then(() => dispatch({ type: "audioReady" }));
+  const [active, setActive] = useState([]);
+  const onSyncStateChange = useCallback(state => {
+    const active = state.clips.reduce((active, clip) => {
+      active[clip.id] = true;
+      return active;
+    }, {});
+    setActive(active);
   }, []);
+  const sync = useSync(audioset, onSyncStateChange);
 
-  useEffect(() => {
-    if (state.fullscreenAt && screen.enabled) screen.request();
-  }, [state.fullscreenAt]);
+  useAudioContext();
 
-  const setFullScreen = () => dispatch({ type: "fullscreen" });
+  const [visible, setVisible] = useState(true);
+  const toggleVisible = () => setVisible(!visible);
+
+  const fullscreen = useFullscreen(isFullscreen => setVisible(!isFullscreen));
+  const openFullscreen = () => {
+    fullscreen.open();
+    sync.dispatch(stopAll());
+  };
 
   const handleClipClick = clip => sync.dispatch(togglePlay(clip.id));
 
+  const actions = () => (
+    <>
+      <button onClick={openFullscreen}>full screen</button>
+      <button onClick={() => sync.dispatch(stopAll())}>stop all</button>
+    </>
+  );
+
   return (
     <div className="App Explorer">
-      {true && (
-        <Sidebar onClick={setFullScreen} closed={state.fullscreenAt}>
-          <h1>{audioset.meta.title}</h1>
-          {audioset.tracks.map(track => (
-            <Track
-              key={track.id}
-              track={track}
-              onClickClip={handleClipClick}
-              active={state.active}
-            />
-          ))}
-        </Sidebar>
-      )}
+      <Sidebar onClick={toggleVisible} visible={visible} actions={actions}>
+        <a href="/">
+          <h1>← {audioset.meta.title}</h1>
+        </a>
+        {audioset.tracks.map(track => (
+          <Track
+            key={track.id}
+            track={track}
+            onClickClip={handleClipClick}
+            active={active}
+          />
+        ))}
+      </Sidebar>
       <div className="main">
         <Visuals sync={sync} audioset={audioset} />
       </div>
@@ -100,13 +81,3 @@ const Track = ({ track, onClickClip, active }) => {
     </div>
   );
 };
-const upperCase = str => str && str.toUpperCase();
-const Clip = ({ clip, onClick, active }) => (
-  <button
-    className={`Clip ${active ? "active" : ""}`}
-    onClick={() => onClick(clip)}
-  >
-    <img src={clip.coverUrl} alt={clip.id} />
-    <span className="keyMap">{upperCase(clip.key)}</span>
-  </button>
-);

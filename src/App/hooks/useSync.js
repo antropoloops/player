@@ -1,5 +1,10 @@
 import { useEffect, useMemo } from "react";
-import createSync, { receiveAction, start, stop } from "../../lib/sync";
+import createSync, {
+  receiveAction,
+  start,
+  stop,
+  stopAll
+} from "../../lib/sync";
 import createChannelEffects from "../../lib/channel";
 import createAudio, { currentTime, initAudio } from "../../lib/audio";
 import createKeyboardEffects from "../../lib/keyboard";
@@ -10,6 +15,7 @@ export default function useSync(audioset, onState) {
 
   useEffect(() => {
     attachSync(sync, audioset, onState);
+    sync.dispatch(stopAll());
     return sync.detach;
   }, [audioset, sync, onState]);
 
@@ -32,7 +38,7 @@ function attachSync(sync, audioset, onState) {
   });
   initAudio().then(
     ctx =>
-      console.log("init audio...") ||
+      console.log("fetch audio files...") ||
       Promise.all([fetchAudio(ctx, audioset), preloadImages(audioset)]).then(
         () => createAudio(audioset).then(addEffect)
       )

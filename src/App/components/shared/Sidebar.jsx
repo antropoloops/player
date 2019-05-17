@@ -1,5 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./Sidebar.css";
+
+const CollapsableSidebar = props => {
+  return props.visible === false ? (
+    <Logo onClick={props.onClick} />
+  ) : (
+    <Sidebar {...props} />
+  );
+};
 
 const Logo = ({ onClick }) => (
   <img
@@ -10,15 +19,16 @@ const Logo = ({ onClick }) => (
   />
 );
 
-const Sidebar = ({ children, onClick }) => (
+const Sidebar = ({ children, onClick, actions }) => (
   <div className="Sidebar">
     <header>
       <Logo onClick={onClick} />
     </header>
     <section className="main">{children}</section>
+    {actions && <section className="actions">{actions()}</section>}
   </div>
 );
 Sidebar.propTypes = {
   className: PropTypes.string
 };
-export default props => (props.closed ? Logo(props) : Sidebar(props));
+export default CollapsableSidebar;

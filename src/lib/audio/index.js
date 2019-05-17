@@ -24,7 +24,7 @@ const EVENTS = {
 export default function createAudio(audioset, buffers) {
   console.log("Create audio", audioset.id);
   return initAudio().then(ctx => {
-    console.log("Creating audio...");
+    console.log("Creating Sampler...");
 
     const events = Object.assign({}, EVENTS);
     const sampler = Sampler(ctx, audioset, events);

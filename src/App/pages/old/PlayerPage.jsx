@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Centered from "../shared/Centered";
-import Player from "../components/Player";
-import { fetchAudioset } from "../../lib/audioset";
+import Player from "../../components/Player";
+import { fetchAudioset } from "../../../lib/audioset";
 
 /**
  * Player Page
