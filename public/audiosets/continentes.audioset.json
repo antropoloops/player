@@ -8,11 +8,11 @@
   },
   "resources": { "legacy": true },
   "audio": {
-    "bpm": null,
+    "bpm": 120,
+    "quantize": 0.5,
     "defaults": { "loop": true },
     "signature": [4, 4],
-    "trackMaxVoices": 1,
-    "quantize": null
+    "trackMaxVoices": 1
   },
   "visuals": {
     "geoMapUrl": "https://unpkg.com/world-atlas@1.1.4/world/110m.json",

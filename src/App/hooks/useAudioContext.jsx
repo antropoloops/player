@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { initAudio, getContext } from "../../lib/audio";
+import { context, unlockAudioContext } from "../../lib/audio";
 export function useAudioContext(onContext) {
   useEffect(() => {
-    initAudio().then(onContext);
+    unlockAudioContext();
   }, [onContext]);
-  return getContext();
+  return context();
 }

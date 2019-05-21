@@ -1,18 +1,12 @@
 import Sampler from "./Sampler";
-import context from "audio-context";
+import context from "./context";
+export { default as context, unlockAudioContext } from "./context";
 
-let ctx;
-
-export const currentTime = () => ctx.currentTime;
-
-export function getContext() {
-  ctx = ctx || context();
-  return ctx;
-}
+export const currentTime = () => context().currentTime;
 
 export function initAudio() {
   console.log("init audio");
-  ctx = ctx || context();
+  const ctx = context();
   if (typeof ctx.resume === "function") {
     return ctx.resume().then(() => ctx);
   } else {

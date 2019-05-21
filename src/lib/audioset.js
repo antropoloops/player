@@ -68,7 +68,7 @@ export function fetchAudio(ctx, audioset) {
 }
 
 export function preloadImages(audioset) {
-  const urls = audioset.clipList.map(clip => clip.coverUrl);
+  // const urls = audioset.clipList.map(clip => clip.coverUrl);
   // TODO: implement image preloading
   // return Promise.all(urls.map(url => fetch(url)));
 }

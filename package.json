@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
-    "audio-context": "^1.0.3",
     "chroma-js": "^2.0.3",
     "cxs": "^6.2.0",
     "d3": "^5.9.2",

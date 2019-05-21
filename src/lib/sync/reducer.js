@@ -1,9 +1,9 @@
 import debug from "debug";
-import nextTickOffset from "../nextTickOffset";
+import { quantize } from "../time";
 const log = debug("atpls:sync:reducer");
 
-const calcNextTick = (action, state) =>
-  action.time + nextTickOffset(state.bpm, action.time, state.startedAt);
+const calcNextTick = (action, s) =>
+  action.time + quantize(s.bpm, action.time, s.startedAt, s.quantize);
 
 // actions creators
 export const start = (clipId, time) => ({ type: "start", clipId, time });
@@ -31,6 +31,7 @@ export default function createReducer(audioset, currentTime) {
 
   const initialState = () => ({
     bpm: audioset.audio.bpm || 120,
+    quantize: audioset.audio.quantize || false,
     startedAt: null,
     nextTick: null,
     clips: [],
@@ -61,8 +62,7 @@ export default function createReducer(audioset, currentTime) {
         tracks = state.tracks
           .filter(removeTrackOf(clip))
           .concat($t(clip.trackId));
-        nextTick = calcNextTick(action, state);
-        console.log("joder", nextTick);
+        nextTick = state.quantize && calcNextTick(action, state);
         return { ...state, startedAt, clips, tracks, nextTick };
 
       case "stop":
