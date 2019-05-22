@@ -1,5 +1,5 @@
-import debug from "debug";
-const log = debug("atpls:sync:diff");
+//import debug from "debug";
+//const log = debug("atpls:sync:diff");
 
 export default function diff(before, after) {
   const state = {};

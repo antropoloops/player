@@ -42,31 +42,6 @@ export function migrateAudioset(audioset) {
   return audioset;
 }
 
-function decodeArrayBuffer(ctx, buffer) {
-  return new Promise((resolve, reject) => {
-    ctx.decodeAudioData(buffer, resolve, reject);
-  });
-}
-
-export function fetchAudio(ctx, audioset) {
-  console.log("fetch audio");
-  const decode = response =>
-    response.arrayBuffer().then(buffer => decodeArrayBuffer(ctx, buffer));
-
-  const loadBuffers = mapClips(audioset, async clip => {
-    try {
-      if (clip.audioBuffer) return Promise.resolve(clip.audioBuffer);
-      const response = await fetch(clip.audioUrl);
-      const buffer = await decode(response);
-      clip.audioBuffer = buffer;
-      return buffer;
-    } catch (err) {
-      console.log("Error fetching audio", clip.id, err);
-    }
-  });
-  return Promise.all(loadBuffers);
-}
-
 export function preloadImages(audioset) {
   // const urls = audioset.clipList.map(clip => clip.coverUrl);
   // TODO: implement image preloading

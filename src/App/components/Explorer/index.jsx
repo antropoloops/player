@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from "react";
+import { isMobileOnly } from "react-device-detect";
 
 import Visuals from "../shared/Visuals";
 import useSync from "../../hooks/useSync";
 import { togglePlay, stopAll } from "../../../lib/sync";
 import "./Explorer.css";
-import Sidebar from "../shared/Sidebar";
+import Layout from "../shared/Layout";
 import useFullscreen from "../../hooks/useFullscreen";
 import { useAudioContext } from "../../hooks/useAudioContext";
 import Clip from "./Clip";
@@ -42,8 +43,12 @@ const Explorer = ({ audioset }) => {
   );
 
   return (
-    <div className="App Explorer">
-      <Sidebar onClick={toggleVisible} visible={visible} actions={actions}>
+    <Layout className="Explorer">
+      <Layout.Sidebar
+        onClick={toggleVisible}
+        visible={visible}
+        actions={actions}
+      >
         <a className="title" href="/">
           <h1>← {audioset.meta.title}</h1>
         </a>
@@ -55,11 +60,11 @@ const Explorer = ({ audioset }) => {
             active={active}
           />
         ))}
-      </Sidebar>
-      <div className="main">
+      </Layout.Sidebar>
+      <Layout.Main className="main">
         <Visuals sync={sync} audioset={audioset} />
-      </div>
-    </div>
+      </Layout.Main>
+    </Layout>
   );
 };
 

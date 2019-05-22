@@ -27,13 +27,10 @@ export default function createKeyboardInput(audioset, events) {
 
   window.addEventListener("keydown", onKeyDown);
   window.addEventListener("keyup", onKeyUp);
-  console.log("keyboard input!");
 
   return () => {
     window.removeEventListener("keydown", onKeyDown);
     window.removeEventListener("keyup", onKeyUp);
-
-    console.log("keyboard input removed");
   };
 }
 

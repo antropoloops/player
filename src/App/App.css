@@ -13,6 +13,10 @@ p {
   display: flex;
   width: 100vw;
 }
+.App.isMobile > .Sidebar {
+  width: 100%;
+  max-width: 100%;
+}
 
 .App > .main {
   flex-grow: 1;

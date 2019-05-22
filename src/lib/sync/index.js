@@ -50,5 +50,5 @@ export default function createSync(audioset, now) {
     effects.length = 0;
   }
 
-  return { dispatch, addEffect, detach, subscribe };
+  return { dispatch, addEffect, detach, subscribe, events };
 }

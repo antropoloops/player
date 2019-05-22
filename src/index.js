@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import getAudioFormats from "./lib/audio/getAudioFormats";
 // import * as serviceWorker from "./serviceWorker";
-console.log("Audio support", getAudioFormats());
 
 ReactDOM.render(<App />, document.getElementById("app"));
 

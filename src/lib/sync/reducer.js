@@ -77,7 +77,6 @@ export default function createReducer(audioset, currentTime) {
         return initialState();
 
       default:
-        console.warn("unknown action", action);
         return state;
     }
   };

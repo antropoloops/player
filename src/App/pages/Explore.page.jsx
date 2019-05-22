@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Explorer from "../components/Explorer";
 import { fetchAudioset } from "../../lib/audioset";
 
-const urlFromId = audiosetId => `/audiosets/${audiosetId}.audioset.json`;
+const urlFromId = audiosetId =>
+  `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/${audiosetId}.json`;
 
 function getUrlFromQueryParam() {
   const params = new URL(document.location).searchParams;

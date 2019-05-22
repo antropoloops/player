@@ -1,4 +1,7 @@
+import debug from "debug";
 import nextBeat from "./nextBeat";
+
+const log = debug("atpls:sampler");
 
 const noop = () => undefined;
 export const EVENTS = {
@@ -12,7 +15,7 @@ export default function Sampler(ctx, audioset, events) {
   const output = createMasterOutput(ctx, 0.4);
 
   function start(clipId, time) {
-    console.log("[sampler] START", clipId, time);
+    log("START", clipId, time);
     time = time || nextBeat(ctx.currentTime, startedAt, bpm);
     const clip = audioset.clips[clipId];
     if (!clip || !clip.audioBuffer) console.warn("No buffer", clipId, clip);
@@ -24,7 +27,7 @@ export default function Sampler(ctx, audioset, events) {
     source.start(time);
   }
   function stop(clipId, time) {
-    console.log("[sampler] STOP", clipId, time);
+    log("STOP", clipId, time);
     const source = sources[clipId];
     if (!source) return;
     time = time || ctx.currentTime;

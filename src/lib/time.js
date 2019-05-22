@@ -16,6 +16,5 @@ export function quantize(bpm, now, startedAt, beats = BEATS) {
   const inBeats = absolute * factor;
   const mod = inBeats % 1;
   const offsetTime = (1 - mod) / factor;
-  console.log("quantize offset", offsetTime);
   return offsetTime;
 }
