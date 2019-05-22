@@ -11,9 +11,11 @@
   overflow-y: scroll;
 }
 
-.Sidebar .play-logo {
+.Sidebar header {
   padding: 1rem;
-  width: 280px;
+}
+.Sidebar .play-logo {
+  width: 100%;
 }
 
 .Sidebar > .actions {

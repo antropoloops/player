@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 
-import Visuals from "../shared/Visuals";
+import Visuals from "../Visuals/index.jsx";
 import useSync from "../../hooks/useSync";
 import { togglePlay, stopAll } from "../../../lib/sync";
 import "./Explorer.css";

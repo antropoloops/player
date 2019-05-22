@@ -1,7 +1,7 @@
-/** @jsx jsx */
+import React from "react";
 import { useEffect, useRef } from "react";
-import { css, jsx } from "@emotion/core";
 import createVisuals from "../../../lib/visuals";
+import "./Visuals.css";
 
 const Visuals = ({ audioset, sync }) => {
   const visualsRef = useRef();
@@ -12,12 +12,7 @@ const Visuals = ({ audioset, sync }) => {
       });
     }
   }, [audioset, sync]);
-  return <div className="Visuals" css={visualsStyles} ref={visualsRef} />;
+  return <div className="Visuals" ref={visualsRef} />;
 };
-
-const visualsStyles = css`
-  height: 100vh;
-  background-color: #2c2c2c;
-`;
 
 export default Visuals;
