@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from "react";
-import { isMobileOnly } from "react-device-detect";
 
 import Visuals from "../shared/Visuals";
 import useSync from "../../hooks/useSync";
 import { togglePlay, stopAll } from "../../../lib/sync";
 import "./Explorer.css";
 import Layout from "../shared/Layout";
+import Range from "../shared/Range";
 import useFullscreen from "../../hooks/useFullscreen";
 import { useAudioContext } from "../../hooks/useAudioContext";
 import Clip from "./Clip";
@@ -23,6 +23,7 @@ const Explorer = ({ audioset }) => {
 
   const ctx = useAudioContext();
 
+  const [gain, setGain] = useState(ctx.output.gain.value);
   const [visible, setVisible] = useState(true);
   const toggleVisible = () => setVisible(!visible);
 
@@ -32,6 +33,11 @@ const Explorer = ({ audioset }) => {
     sync.dispatch(stopAll());
   };
 
+  const handleGainChange = g => {
+    ctx.output.gain.value = g;
+    setGain(g);
+  };
+
   const handleClipClick = clip =>
     sync.dispatch(togglePlay(clip.id, ctx.currentTime));
 
@@ -39,6 +45,13 @@ const Explorer = ({ audioset }) => {
     <>
       <button onClick={openFullscreen}>full screen</button>
       <button onClick={() => sync.dispatch(stopAll())}>stop all</button>
+      <Range
+        value={gain}
+        min={0}
+        max={1.2}
+        step={0.1}
+        onChange={handleGainChange}
+      />
     </>
   );
 

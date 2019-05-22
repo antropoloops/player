@@ -8,6 +8,8 @@ export default function context() {
 function createAudioContext() {
   const clazz = window.AudioContext || window.webkitAudioContext;
   const ctx = new clazz();
+  ctx.output = ctx.createGain();
+  ctx.output.connect(ctx.destination);
   return ctx;
 }
 

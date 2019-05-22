@@ -45,6 +45,6 @@ export default function Sampler(ctx, audioset, events) {
 function createMasterOutput(ctx, gain) {
   const output = ctx.createGain();
   output.gain.value = gain;
-  output.connect(ctx.destination);
+  output.connect(ctx.output || ctx.destination);
   return output;
 }
