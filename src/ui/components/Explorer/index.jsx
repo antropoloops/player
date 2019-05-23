@@ -5,7 +5,6 @@ import useSync from "../../hooks/useSync";
 import { togglePlay, stopAll } from "../../../lib/sync";
 import "./Explorer.css";
 import Layout from "../shared/Layout";
-import Range from "../shared/Range";
 import useFullscreen from "../../hooks/useFullscreen";
 import { useAudioContext } from "../../hooks/useAudioContext";
 import Clip from "./Clip";
@@ -23,19 +22,13 @@ const Explorer = ({ audioset }) => {
 
   const ctx = useAudioContext();
 
-  const [gain, setGain] = useState(ctx.output.gain.value);
   const [visible, setVisible] = useState(true);
-  const toggleVisible = () => setVisible(!visible);
+  const toggleVisible = () => null;
 
   const fullscreen = useFullscreen(isFullscreen => setVisible(!isFullscreen));
   const openFullscreen = () => {
     fullscreen.open();
     sync.dispatch(stopAll());
-  };
-
-  const handleGainChange = g => {
-    ctx.output.gain.value = g;
-    setGain(g);
   };
 
   const handleClipClick = clip =>
@@ -45,13 +38,6 @@ const Explorer = ({ audioset }) => {
     <>
       <button onClick={openFullscreen}>full screen</button>
       <button onClick={() => sync.dispatch(stopAll())}>stop all</button>
-      <Range
-        value={gain}
-        min={0}
-        max={1.2}
-        step={0.1}
-        onChange={handleGainChange}
-      />
     </>
   );
 
@@ -61,10 +47,8 @@ const Explorer = ({ audioset }) => {
         onClick={toggleVisible}
         visible={visible}
         actions={actions}
+        header={() => <Header audioset={audioset} />}
       >
-        <a className="title" href="/">
-          <h1>← {audioset.meta.title}</h1>
-        </a>
         {audioset.tracks.map(track => (
           <Track
             key={track.id}
@@ -82,6 +66,12 @@ const Explorer = ({ audioset }) => {
 };
 
 export default Explorer;
+
+const Header = ({ audioset }) => (
+  <a className="title" href="/">
+    <h2>← {audioset.meta.title}</h2>
+  </a>
+);
 
 const Track = ({ track, onClickClip, active }) => {
   const style = {

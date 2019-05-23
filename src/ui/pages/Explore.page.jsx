@@ -4,7 +4,7 @@ import { fetchAudioset } from "../../lib/audioset";
 import Loading from "../components/shared/Loading";
 
 const urlFromId = audiosetId =>
-  `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/${audiosetId}.json`;
+  `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/${audiosetId}.audioset.json`;
 
 function getUrlFromQueryParam() {
   const params = new URL(document.location).searchParams;

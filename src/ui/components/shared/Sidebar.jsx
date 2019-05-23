@@ -19,10 +19,11 @@ const Logo = ({ onClick }) => (
   />
 );
 
-const Sidebar = ({ children, onClick, actions }) => (
+const Sidebar = ({ children, onClick, actions, header }) => (
   <div className="Sidebar">
     <header>
       <Logo onClick={onClick} />
+      {header && header()}
     </header>
     <section className="main">{children}</section>
     {actions && <section className="actions">{actions()}</section>}
