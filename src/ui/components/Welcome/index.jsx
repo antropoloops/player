@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Layout from "../shared/Layout";
 import { useAudioContext } from "../../hooks/useAudioContext";
+import "./Welcome.css";
+import { Readme } from "../shared/Readme";
 
 const AudiosetLink = ({ audioset }) => (
-  <li className="AudiosetLink" style={{ margin: "1rem" }}>
-    <Link to={`/set/${audioset.id}`} style={{ display: "flex" }}>
-      <img src="https://via.placeholder.com/100" alt={audioset.meta.title} />
-      <h3>{audioset.meta.title} →</h3>
+  <li className="AudiosetLink">
+    <Link to={`/set/${audioset.publish_path}`} style={{ display: "flex" }}>
+      <img src={audioset.logo} alt={audioset.title} />
+      <div class="meta">
+        <h3>{audioset.title} →</h3>
+        <p>{audioset.description}</p>
+      </div>
     </Link>
   </li>
 );
@@ -22,6 +27,9 @@ const Welcome = ({ index }) => {
           ))}
         </ul>
       </Layout.Sidebar>
+      <Layout.Main>
+        <Readme className="main-gradient" readme={index.meta.readme} />
+      </Layout.Main>
     </Layout>
   );
 };

@@ -21,7 +21,6 @@ p {
 .App > .main {
   flex-grow: 1;
   height: 100vh;
-  border-left: 1rem solid #2c2c2c;
 }
 
 .App > .play-logo {

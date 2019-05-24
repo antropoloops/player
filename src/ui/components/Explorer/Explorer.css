@@ -4,11 +4,42 @@
   padding: 10px;
   overflow: hidden;
 }
+
 .Explorer .Track {
   padding: 10px 0 10px 10px;
-  margin: 0 0 1rem 0;
+  margin-bottom: 12px;
+}
+.Explorer .Track .name {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
 }
 
+.Explorer .Audioset {
+  padding: 0 1rem;
+}
+
+.Audioset .back {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.Audioset img {
+  width: 300px;
+  height: 300px;
+}
+
+.Audioset .start {
+  padding: 1rem;
+  text-align: center;
+}
+
+.Explorer .Audioset button {
+  font-size: 1.5rem;
+  background-color: #0f0;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
 .Explorer .Track:last-child {
   margin: 0;
 }

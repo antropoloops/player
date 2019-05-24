@@ -23,7 +23,7 @@ const Explorer = ({ audioset }) => {
   const ctx = useAudioContext();
 
   const [visible, setVisible] = useState(true);
-  const toggleVisible = () => null;
+  const [ready, setReady] = useState(false);
 
   const fullscreen = useFullscreen(isFullscreen => setVisible(!isFullscreen));
   const openFullscreen = () => {
@@ -44,19 +44,19 @@ const Explorer = ({ audioset }) => {
   return (
     <Layout className="Explorer">
       <Layout.Sidebar
-        onClick={toggleVisible}
         visible={visible}
         actions={actions}
-        header={() => <Header audioset={audioset} />}
+        onClick={() => setReady(false)}
       >
-        {audioset.tracks.map(track => (
-          <Track
-            key={track.id}
-            track={track}
+        {ready ? (
+          <Tracks
+            audioset={audioset}
+            activeClips={active}
             onClickClip={handleClipClick}
-            active={active}
           />
-        ))}
+        ) : (
+          <Audioset audioset={audioset} onClick={() => setReady(true)} />
+        )}
       </Layout.Sidebar>
       <Layout.Main className="main">
         <Visuals sync={sync} audioset={audioset} />
@@ -67,10 +67,31 @@ const Explorer = ({ audioset }) => {
 
 export default Explorer;
 
-const Header = ({ audioset }) => (
-  <a className="title" href="/">
-    <h2>← {audioset.meta.title}</h2>
-  </a>
+const Audioset = ({ audioset, onClick }) => (
+  <div className="Audioset">
+    <a className="back" href="/">
+      &larr; back
+    </a>
+    <h1>{audioset.meta.title}</h1>
+    <img src={audioset.meta.logo_url} alt={audioset.meta.title} />
+    <p>{audioset.meta.description}</p>
+    <div className="start">
+      <button onClick={onClick}>Start!</button>
+    </div>
+  </div>
+);
+
+const Tracks = ({ audioset, onClickClip, activeClips }) => (
+  <div className="Tracks">
+    {audioset.tracks.map(track => (
+      <Track
+        key={track.id}
+        track={track}
+        onClickClip={onClickClip}
+        active={activeClips}
+      />
+    ))}
+  </div>
 );
 
 const Track = ({ track, onClickClip, active }) => {
@@ -79,6 +100,7 @@ const Track = ({ track, onClickClip, active }) => {
   };
   return (
     <div className="Track" style={style}>
+      <div className="name">{track.name}</div>
       {track.clipList.map(clip => (
         <Clip
           key={clip.id}

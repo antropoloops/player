@@ -1,0 +1,31 @@
+.main-gradient {
+  /* https://www.colorzilla.com/gradient-editor/ */
+  background: linear-gradient(
+    to right,
+    rgba(44, 44, 44, 1) 0%,
+    rgba(44, 44, 44, 0.96) 25%,
+    rgba(44, 44, 44, 0.1) 50%,
+    rgba(44, 44, 44, 0) 100%
+  );
+  flex-grow: 1;
+}
+
+.Main .Readme {
+  padding: 1rem;
+  height: 100%;
+}
+
+.AudiosetLink {
+  display: flex;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.AudiosetLink img {
+  width: 100px;
+  height: 100px;
+}
+.AudiosetLink p {
+  font-size: 0.8rem;
+  margin-right: 1rem;
+}

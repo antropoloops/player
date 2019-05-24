@@ -4,15 +4,27 @@
   height: 100vh;
   width: 350px;
   background-color: rgb(109, 109, 109);
+  border-right: 12px solid #2c2c2c;
 }
 
 .Sidebar .main {
   flex-grow: 1;
-  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: auto;
+}
+
+.Sidebar .main::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.Sidebar .main .scroll {
+  min-height: 100%;
 }
 
 .Sidebar header {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
+  cursor: pointer;
 }
 .Sidebar .play-logo {
   width: 100%;
@@ -22,6 +34,7 @@
   display: flex;
   flex-direction: row-reverse;
   padding: 1rem;
+  /*border-right: 12px solid #2c2c2c;*/
 }
 .Sidebar .actions button {
   font-size: 0.9rem;
