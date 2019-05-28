@@ -15,7 +15,7 @@
     "trackMaxVoices": 1
   },
   "visuals": {
-    "geoMapUrl": "https://unpkg.com/world-atlas@1.1.4/world/110m.json",
+    "geoMapUrl": "https://unpkg.com/world-atlas@1.1.4/world/50m.json",
     "focus": { "lambda": -10.0, "verticalShift": 15.0, "scaleFactor": 1.0 }
   },
   "tracks": [

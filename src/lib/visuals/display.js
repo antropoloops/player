@@ -1,9 +1,6 @@
 import { select } from "d3";
+import { RATIOS } from "./dimensions";
 
-export const RATIOS = {
-  sixteenNinths: 16 / 9,
-  sixteenTenths: 16 / 10
-};
 const RATIO = RATIOS.sixteenTenths;
 
 /**
@@ -44,17 +41,4 @@ function calculateDimensions(el) {
   const height = realAspectRatio < RATIO ? w / RATIO : h;
   const scale = RATIO === RATIOS.sixteenTenths ? width / 5.9 : width / 6.5;
   return { width, height, scale };
-}
-
-export function getWindowSize(ratio) {
-  return getFixedSize(window.innerWidth, window.innerHeight, ratio);
-}
-
-function getFixedSize(width, height, ratio) {
-  const realAspectRatio = width / height;
-
-  const screenWidth = realAspectRatio < ratio ? width : height * ratio;
-  const screenHeight = realAspectRatio < ratio ? width / ratio : height;
-
-  return { screenWidth, screenHeight };
 }

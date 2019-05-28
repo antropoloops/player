@@ -1,34 +1,34 @@
 import * as d3geo from "d3-geo-projection";
 
 const albumsCount = 8;
-export const DOT_RADIUS = 2;
+// export const DOT_RADIUS = 2;
 
-export function getHorizontalPadding(screenWidth) {
-  return screenWidth / 300;
+// Small horizontal space between the name of the country and the rectangle border
+export function getHorizontalPadding(visualsWidth) {
+  return visualsWidth / 300;
 }
 
-export function getVerticalPadding(screenWidth) {
-  return screenWidth / 450;
+// Small vertical space between the album cover and the color rectangle under the cover
+export function getVerticalPadding(visualsWidth) {
+  return visualsWidth / 450;
 }
 
-export function getInfoHeight(screenWidth) {
-  return screenWidth / 50;
+// Height of the rectangle under the cover
+export function getInfoHeight(visualsWidth) {
+  return visualsWidth / 50;
 }
 
-export function getCoverSize(screenWidth) {
-  return screenWidth / albumsCount;
+export function getCoverSize(visualsWidth) {
+  return visualsWidth / albumsCount;
 }
 
-export function getAlbumHeight(screenWidth) {
-  const verticalPadding = getVerticalPadding(screenWidth);
-  const infoHeight = getInfoHeight(screenWidth);
-  return getCoverSize(screenWidth) + verticalPadding + infoHeight * 2;
+export function getAlbumHeight(visualsWidth) {
+  const verticalPadding = getVerticalPadding(visualsWidth);
+  const infoHeight = getInfoHeight(visualsWidth);
+  return getCoverSize(visualsWidth) + verticalPadding + infoHeight;
 }
 
-export function getDotOffsetX(screenWidth, trackNumber) {
-  return trackNumber * getCoverSize(screenWidth) + DOT_RADIUS;
-}
-
+// REVIEW: Check if we really need 2 different screen proportions
 export const RATIOS = {
   sixteenNinths: 16 / 9,
   sixteenTenths: 16 / 10

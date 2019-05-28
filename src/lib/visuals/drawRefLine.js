@@ -1,15 +1,15 @@
 import * as d3 from "d3";
-import { getDotOffsetX } from "./dimensions";
+import { getCoverSize } from "./dimensions";
 
-export default function createRefLine(
+export default function drawRefLine(
   parent,
-  windowWidth,
+  visualsWidth,
   cx,
   cy,
   trackNumber,
   trackColor
 ) {
-  const x1 = getDotOffsetX(windowWidth, trackNumber);
+  const x1 = getCoverSize(visualsWidth) * (trackNumber + 0.5);
   const y1 = 0;
   const x2 = cx;
   const y2 = cy;

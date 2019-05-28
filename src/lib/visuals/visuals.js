@@ -7,13 +7,12 @@ import drawCircle from "./drawCircle";
 import drawAlbum from "./drawAlbum";
 import drawRefLine from "./drawRefLine";
 import drawWave from "./drawWave";
-import { createLastSampleInfo } from "./lastSampleInfo";
-import { createImprint } from "./imprint";
 import getAlbumInfo from "./getAlbumInfo";
 
+// REVIEW: Check if we still need this. Now it works like default parameters, but we don't
+// really use it. We take the info from the audioset.visuals
 const CONFIG = {
   geoMapUrl: "https://unpkg.com/world-atlas@1.1.4/world/110m.json",
-  imprint: false,
   focus: {
     lambda: -10,
     verticalShift: 15,
@@ -40,7 +39,6 @@ export default class Visuals {
     this.circles = {};
     this.albums = {};
     this.refLines = {};
-    this.infos = {};
     this.fixedAspectRatio = RATIOS.sixteenTenths;
     this.render = this.render.bind(this);
   }
@@ -58,7 +56,7 @@ export default class Visuals {
     const info = getAlbumInfo(this.set, name);
     if (!info) return;
 
-    const { width, height } = this.display.dimensions;
+    const { width } = this.display.dimensions;
     let [cx, cy] = this.projection(info.lnglat);
 
     const circle = drawCircle(this.circlesContainer, width, cx, cy, info);
@@ -85,23 +83,12 @@ export default class Visuals {
       info.trackColor,
       info.trackVolume
     );
-
-    const lastSampleInfo = createLastSampleInfo(
-      this.lastSampleInfoContainer,
-      width,
-      height,
-      info
-    );
-    this.infos[name] = lastSampleInfo;
-
-    if (this.config.imprint) createImprint(info.lnglat, info.trackColor);
   }
 
   hide(name) {
     remove(name, this.circles);
     remove(name, this.albums);
     remove(name, this.refLines);
-    remove(name, this.infos);
   }
 
   render() {
@@ -133,10 +120,6 @@ export default class Visuals {
     this.wavesContainer = svg
       .append("g")
       .attr("id", "waves")
-      .attr("transform", `translate(0, ${albumsHeight})`);
-    this.lastSampleInfoContainer = svg
-      .append("g")
-      .attr("id", "lastSampleInfo")
       .attr("transform", `translate(0, ${albumsHeight})`);
 
     // Draw map

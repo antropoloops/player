@@ -2,18 +2,15 @@ import {
   getCoverSize,
   getHorizontalPadding,
   getVerticalPadding,
-  getInfoHeight,
-  getDotOffsetX,
-  DOT_RADIUS
+  getInfoHeight
 } from "./dimensions";
 
 export default function drawAlbum(el, width, params) {
-  const { trackNumber, imageUrl, year, country, trackColor } = params;
+  const { trackNumber, imageUrl, country, trackColor } = params;
   const album = el.append("g");
   const coverSize = getCoverSize(width);
   const horizontalPadding = getHorizontalPadding(width);
   const verticalPadding = getVerticalPadding(width);
-  const dotOffsetX = getDotOffsetX(width, trackNumber);
   const infoHeight = getInfoHeight(width);
   const fontSize = "1.1vw";
 
@@ -61,24 +58,6 @@ export default function drawAlbum(el, width, params) {
     }
   }
   wrap(countryText, countryTextId);
-
-  // Draw date point
-  album
-    .append("circle")
-    .attr("cx", dotOffsetX)
-    .attr("cy", coverSize + verticalPadding + infoHeight * 2)
-    .attr("r", DOT_RADIUS)
-    .style("fill", trackColor);
-
-  // Draw date text
-  album
-    .append("text")
-    .attr("x", trackNumber * coverSize + horizontalPadding)
-    .attr("y", coverSize + verticalPadding + infoHeight * 1.5)
-    .attr("dy", "0.35em")
-    .style("font-size", fontSize)
-    .style("fill", trackColor)
-    .text(year);
 
   return album;
 }
