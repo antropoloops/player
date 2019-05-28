@@ -18,6 +18,7 @@
     "d3": "^5.9.2",
     "d3-geo-projection": "^2.6.0",
     "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
     "react-device-detect": "^1.6.2",
     "react-dom": "^16.8.6",
     "react-modal": "^3.8.1",
@@ -43,9 +44,10 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "Chrome >= 24",
+      "Firefox >= 20",
+      "last 1 safari version",
+      "ie >= 11"
     ]
   },
   "devDependencies": {

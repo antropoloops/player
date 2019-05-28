@@ -1,7 +1,11 @@
+import "react-app-polyfill/ie11";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./ui/AppLoader";
+import version from "./version";
 // import * as serviceWorker from "./serviceWorker";
+
+console.log && console.log("Version", version);
 
 ReactDOM.render(<App />, document.getElementById("app"));
 
