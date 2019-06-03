@@ -38,15 +38,20 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
     "development": [
       "Chrome >= 24",
       "Firefox >= 20",
       "last 1 safari version",
+      "safari >= 7",
+      "ios_saf >= 8",
+      "ie >= 11"
+    ],
+    "production": [
+      "Chrome >= 24",
+      "Firefox >= 20",
+      "last 1 safari version",
+      "safari >= 7",
+      "ios_saf >= 8",
       "ie >= 11"
     ]
   },

@@ -17,6 +17,7 @@
 .Clip.summary > .cover img {
   width: 100px;
   height: 100px;
+  flex-shrink: 0;
 }
 
 .Clip.summary > .info {
