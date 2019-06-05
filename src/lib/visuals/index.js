@@ -5,7 +5,8 @@ import Display from "./display";
 export default function createVisuals(audioset, el) {
   const display = new Display(el);
   const visuals = new Visuals(audioset, display);
-  visuals.render();
+
+  // REVIEW: get the geojson from our resources
   fetch(audioset.visuals.geoMapUrl)
     .then(response => response.json())
     .then(data => visuals.setGeodata(data));
@@ -13,7 +14,7 @@ export default function createVisuals(audioset, el) {
   window.addEventListener(
     "resize",
     debounce(() => {
-      visuals.render();
+      visuals.resizeSvg(el);
     })
   );
 
