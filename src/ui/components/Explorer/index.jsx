@@ -9,6 +9,8 @@ import useFullscreen from "../../hooks/useFullscreen";
 import { useAudioContext } from "../../hooks/useAudioContext";
 import Clip from "./Clip";
 
+const isReady = process.env.NODE_ENV === "development" && true;
+
 const Explorer = ({ audioset }) => {
   const [active, setActive] = useState([]);
   const onSyncStateChange = useCallback(state => {
@@ -19,11 +21,10 @@ const Explorer = ({ audioset }) => {
     setActive(active);
   }, []);
   const sync = useSync(audioset, onSyncStateChange);
-
   const ctx = useAudioContext();
 
   const [visible, setVisible] = useState(true);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(isReady);
 
   const fullscreen = useFullscreen(isFullscreen => setVisible(!isFullscreen));
   const openFullscreen = () => {
@@ -53,6 +54,7 @@ const Explorer = ({ audioset }) => {
             audioset={audioset}
             activeClips={active}
             onClickClip={handleClipClick}
+            keyboard={sync.keyboard}
           />
         ) : (
           <Audioset audioset={audioset} onClick={() => setReady(true)} />
@@ -81,20 +83,21 @@ const Audioset = ({ audioset, onClick }) => (
   </div>
 );
 
-const Tracks = ({ audioset, onClickClip, activeClips }) => (
+const Tracks = ({ audioset, onClickClip, activeClips, keyboard }) => (
   <div className="Tracks">
     {audioset.tracks.map(track => (
       <Track
         key={track.id}
         track={track}
         onClickClip={onClickClip}
+        keyboard={keyboard}
         active={activeClips}
       />
     ))}
   </div>
 );
 
-const Track = ({ track, onClickClip, active }) => {
+const Track = ({ track, onClickClip, active, keyboard }) => {
   const style = {
     backgroundColor: track.color
   };
@@ -107,6 +110,7 @@ const Track = ({ track, onClickClip, active }) => {
           active={active[clip.id] || false}
           clip={clip}
           onClick={onClickClip}
+          keyboard={keyboard}
         />
       ))}
     </div>

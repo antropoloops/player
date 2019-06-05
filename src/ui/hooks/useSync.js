@@ -8,36 +8,50 @@ import createSync, {
 } from "../../lib/sync";
 import createChannelEffects from "../../lib/channel";
 import createAudioEffects, {
+  context,
   currentTime,
   unlockAudioContext,
   fetchAudioBuffers
 } from "../../lib/audio";
-import createKeyboardEffects from "../../lib/keyboard";
+import createKeyboardInput from "../../lib/keyboard";
 import { preloadImages } from "../../lib/audioset";
 
 const log = debug("atpls:useSync");
 
 export default function useSync(audioset, onState) {
-  const sync = useMemo(() => createSync(audioset, currentTime), [audioset]);
+  const sync = useMemo(() => {
+    const sync = createSync(audioset, currentTime);
+    sync.keyboard = createKeyboardInput(audioset);
+    return sync;
+  }, [audioset]);
 
   useEffect(() => {
     attachSync(sync, audioset, onState);
+    const ctx = context();
+    const detach = sync.keyboard.attach({
+      onPress: clipId => sync.dispatch(start(clipId, ctx.currentTime)),
+      onRelease: clipId => sync.dispatch(stop(clipId, ctx.currentTime))
+    });
     sync.dispatch(stopAll());
-    return sync.detach;
+    return () => {
+      sync.detach();
+      detach();
+    };
   }, [audioset, sync, onState]);
 
   return sync;
 }
 
 function attachSync(sync, audioset, onState) {
+  log("Attach sync");
   const { dispatch, addEffect, subscribe, events } = sync;
   subscribe(state => log("STATE", state));
   onState && subscribe(onState);
-  addEffect(() => {
-    return createChannelEffects(audioset, (action, userId) =>
+  addEffect(
+    createChannelEffects(audioset, (action, userId) =>
       dispatch(receiveAction(action, userId))
-    );
-  });
+    )
+  );
   unlockAudioContext().then(ctx => {
     Promise.all([
       fetchAudioBuffers(ctx, audioset, events),
@@ -45,10 +59,5 @@ function attachSync(sync, audioset, onState) {
     ])
       .then(() => createAudioEffects(audioset))
       .then(addEffect);
-
-    createKeyboardEffects(audioset, {
-      onPress: pressed => dispatch(start(pressed.clipId, ctx.currentTime)),
-      onRelease: released => dispatch(stop(released.clipId, ctx.currentTime))
-    });
   });
 }

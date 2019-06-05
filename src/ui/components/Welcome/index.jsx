@@ -9,7 +9,7 @@ const AudiosetLink = ({ audioset }) => (
   <li className="AudiosetLink">
     <Link to={`/set/${audioset.publish_path}`} style={{ display: "flex" }}>
       <img src={audioset.logo} alt={audioset.title} />
-      <div class="meta">
+      <div className="meta">
         <h3>{audioset.title} →</h3>
         <p>{audioset.description}</p>
       </div>

@@ -24,6 +24,7 @@
 .AudiosetLink img {
   width: 100px;
   height: 100px;
+  flex-shrink: 0;
 }
 .AudiosetLink p {
   font-size: 0.8rem;

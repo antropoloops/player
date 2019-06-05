@@ -1,50 +1,72 @@
-/**
- * Create a keyboard input
- * @param {Audioset} audioset
- * @param {{ onPress, onRelease}} events - callbacks for events
- */
-export default function createKeyboardInput(audioset, events) {
-  const pressed = {};
-  const keyMap = buildKeymap(audioset.keyboard);
+import debug from "debug";
 
-  function onKeyDown(e) {
-    const key = e.key;
-    if (pressed[key]) return;
+const log = debug("atpls:keyboard");
 
-    pressed[key] = true;
-
-    const clip = keyMap[key];
-    if (clip) events.onPress(clip);
+class Keyboard {
+  constructor() {
+    this.active = true;
+    this.pressed = {};
+    this.keyToClip = {};
+    this.clipToKey = {};
   }
 
-  function onKeyUp(e) {
-    const key = e.key;
-    pressed[key] = false;
-
-    const clip = keyMap[key];
-    if (clip) events.onRelease(clip);
+  setActive(isActive) {
+    log("Active %o", isActive);
+    this.active = isActive;
   }
 
-  window.addEventListener("keydown", onKeyDown);
-  window.addEventListener("keyup", onKeyUp);
+  getKey(clipId) {
+    return this.clipToKey[clipId];
+  }
 
-  return () => {
-    window.removeEventListener("keydown", onKeyDown);
-    window.removeEventListener("keyup", onKeyUp);
-  };
+  setKey(clipId, key) {
+    const oldKey = this.clipToKey[clipId];
+    if (oldKey) this.keyToClip[oldKey] = undefined;
+    key = key.toUpperCase();
+    this.keyToClip[key] = clipId;
+    this.clipToKey[clipId] = key;
+  }
+
+  attach(events) {
+    log("attach");
+    const onKeyDown = e => {
+      if (!this.active) return;
+
+      const key = e.key.toUpperCase();
+      if (this.pressed[key]) return;
+      this.pressed[key] = true;
+
+      log("Key Down", key);
+
+      const clip = this.keyToClip[key];
+      if (clip) events.onPress(clip);
+    };
+
+    const onKeyUp = e => {
+      if (!this.active) return;
+
+      const key = e.key.toUpperCase();
+      this.pressed[key] = false;
+
+      const clip = this.keyToClip[key];
+      if (clip) events.onRelease(clip);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }
 }
 
-function buildKeymap(keyboard) {
-  if (!keyboard) return {};
-  const { defaults, keyMap } = keyboard;
-  return Object.keys(keyMap).reduce((map, key) => {
-    const value = { ...defaults, ...keyMap[key] };
-    // FIXME: should change this in a data migration
-    value.id = value.clipId;
-    value.key = key;
-    map[key] = value;
-    map[key.toUpperCase()] = value;
-    map[value.clipId] = value;
-    return map;
-  }, {});
+export default function createKeyboard(audioset) {
+  const keyboard = new Keyboard();
+  buildKeymap(keyboard, audioset);
+  return keyboard;
+}
+
+function buildKeymap(keyboard, audioset) {
+  return audioset.clipList.forEach(clip => keyboard.setKey(clip.id, clip.key));
 }
