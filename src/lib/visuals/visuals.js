@@ -1,24 +1,13 @@
-import * as d3 from "d3";
 import * as topojson from "topojson";
 
-import { RATIOS, createProjection, getAlbumHeight } from "./dimensions";
+import { RATIOS, getAlbumHeight } from "./dimensions";
 
 import drawCircle from "./drawCircle";
 import drawAlbum from "./drawAlbum";
 import drawRefLine from "./drawRefLine";
 import drawWave from "./drawWave";
+import { drawMap, createProjection } from "./drawMap";
 import getAlbumInfo from "./getAlbumInfo";
-
-// REVIEW: Check if we still need this. Now it works like default parameters, but we don't
-// really use it. We take the info from the audioset.visuals
-const CONFIG = {
-  geoMapUrl: "https://unpkg.com/world-atlas@1.1.4/world/110m.json",
-  focus: {
-    lambda: -10,
-    verticalShift: 15,
-    scaleFactor: 1
-  }
-};
 
 const remove = (name, group) => {
   const value = group[name];
@@ -33,31 +22,39 @@ const remove = (name, group) => {
  */
 export default class Visuals {
   constructor(set, display) {
-    this.config = Object.assign({}, CONFIG, set.visuals);
     this.set = set;
     this.display = display;
     this.circles = {};
     this.albums = {};
     this.refLines = {};
     this.fixedAspectRatio = RATIOS.sixteenTenths;
-    this.render = this.render.bind(this);
   }
 
   setGeodata(geodata) {
-    this.geodata = geodata;
-    this.countries = topojson.feature(
-      geodata,
-      geodata.objects.countries
-    ).features;
-    this.render();
+    this.countries = topojson
+      .feature(geodata, geodata.objects.countries)
+      .features.filter(country => country.id !== "010");
+    this.setup();
   }
 
   show(name) {
+    // REVIEW: See if there is a better way to get this info
+    const { width, height, scale } = this.display.dimensions;
+    const { lambda, verticalShift } = this.set.visuals.focus;
+    const albumsHeight = getAlbumHeight(width);
+
+    const projection = createProjection(
+      width,
+      height - albumsHeight,
+      scale,
+      verticalShift,
+      lambda
+    );
+
     const info = getAlbumInfo(this.set, name);
     if (!info) return;
 
-    const { width } = this.display.dimensions;
-    let [cx, cy] = this.projection(info.lnglat);
+    const [cx, cy] = projection(info.lnglat);
 
     const circle = drawCircle(this.circlesContainer, width, cx, cy, info);
     this.circles[name] = circle;
@@ -91,58 +88,37 @@ export default class Visuals {
     remove(name, this.refLines);
   }
 
-  render() {
+  resizeSvg() {
+    // TODO: create a resize function that only changes the svg viewBox
+    this.setup();
+  }
+
+  setup() {
     this.display.clear();
-    const { width, height, scale } = this.display.dimensions;
-    const focusedScale = scale * this.config.focus.scaleFactor;
-    const lambda = this.config.focus.lambda;
-    const verticalShift = this.config.focus.verticalShift;
+    this.display.createSvg();
+    const { width } = this.display.dimensions;
     const albumsHeight = getAlbumHeight(width);
 
     const svg = this.display.svg;
 
-    this.mapContainer = svg
-      .append("g")
-      .attr("transform", `translate(0, ${albumsHeight})`)
-      .append("g")
-      .attr("id", "map");
+    this.mapContainer = createGroup(svg, "map", albumsHeight);
+    this.albumsContainer = createGroup(svg, "albums", 0);
+    this.refLinesContainer = createGroup(svg, "refLines", albumsHeight);
+    this.circlesContainer = createGroup(svg, "circles", albumsHeight);
+    this.wavesContainer = createGroup(svg, "waves", albumsHeight);
 
-    this.albumsContainer = svg.append("g").attr("id", "albums");
-    this.refLinesContainer = svg
-      .append("g")
-      .attr("id", "refLines")
-      .attr("transform", `translate(0, ${albumsHeight})`);
-    this.circlesContainer = svg
-      .append("g")
-      .attr("transform", `translate(0, ${albumsHeight})`)
-      .append("g")
-      .attr("id", "circles");
-    this.wavesContainer = svg
-      .append("g")
-      .attr("id", "waves")
-      .attr("transform", `translate(0, ${albumsHeight})`);
-
-    // Draw map
-    if (this.geodata) {
-      this.projection = createProjection(
-        width,
-        height - albumsHeight,
-        focusedScale,
-        verticalShift,
-        lambda
-      );
-      const path = d3.geoPath().projection(this.projection);
-      this.mapContainer
-        .selectAll(".countries")
-        .data(this.countries)
-        .enter()
-        .append("path")
-        .attr("id", d => `country${d.id}`)
-        .attr("class", "countries")
-        .attr("d", path)
-        .style("stroke", "#2c2c2c")
-        .style("stroke-width", 0.5)
-        .style("fill", d => (d.id === "010" ? "none" : "#888888")); // 010 Antartica
-    }
+    drawMap(
+      this.mapContainer,
+      this.countries,
+      this.display.dimensions,
+      this.set.visuals.focus
+    );
   }
+}
+
+function createGroup(svg, id, height) {
+  return svg
+    .append("g")
+    .attr("id", id)
+    .attr("transform", `translate(0, ${height})`);
 }
