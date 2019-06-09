@@ -6,7 +6,6 @@ export default function createVisuals(audioset, el) {
   const display = new Display(el);
   const visuals = new Visuals(audioset, display);
 
-  // REVIEW: get the geojson from our resources
   fetch(audioset.visuals.geoMapUrl)
     .then(response => response.json())
     .then(data => visuals.setGeodata(data));

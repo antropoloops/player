@@ -40,13 +40,13 @@ export default class Visuals {
   show(name) {
     // REVIEW: See if there is a better way to get this info
     const { width, height, scale } = this.display.dimensions;
-    const { lambda, verticalShift } = this.set.visuals.focus;
+    const { scaleFactor, lambda, verticalShift } = this.set.visuals.focus;
     const albumsHeight = getAlbumHeight(width);
 
     const projection = createProjection(
       width,
       height - albumsHeight,
-      scale,
+      scaleFactor * scale,
       verticalShift,
       lambda
     );
