@@ -1,4 +1,8 @@
-const albumsCount = 8;
+const ALBUMSCOUNT = 8;
+
+// Proportion of the world map using the Robison projection
+export const WORLDRATIO = 2.12;
+
 // export const DOT_RADIUS = 2;
 
 // Small horizontal space between the name of the country and the rectangle border
@@ -17,7 +21,7 @@ export function getInfoHeight(visualsWidth) {
 }
 
 export function getCoverSize(visualsWidth) {
-  return visualsWidth / albumsCount;
+  return visualsWidth / ALBUMSCOUNT;
 }
 
 export function getAlbumHeight(visualsWidth) {
@@ -25,9 +29,3 @@ export function getAlbumHeight(visualsWidth) {
   const infoHeight = getInfoHeight(visualsWidth);
   return getCoverSize(visualsWidth) + verticalPadding + infoHeight;
 }
-
-// REVIEW: Check if we really need 2 different screen proportions
-export const RATIOS = {
-  sixteenNinths: 16 / 9,
-  sixteenTenths: 16 / 10
-};

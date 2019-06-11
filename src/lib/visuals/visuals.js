@@ -1,6 +1,6 @@
 import * as topojson from "topojson";
 
-import { RATIOS, getAlbumHeight } from "./dimensions";
+import { getAlbumHeight } from "./dimensions";
 
 import drawCircle from "./drawCircle";
 import drawAlbum from "./drawAlbum";
@@ -27,7 +27,6 @@ export default class Visuals {
     this.circles = {};
     this.albums = {};
     this.refLines = {};
-    this.fixedAspectRatio = RATIOS.sixteenTenths;
   }
 
   setGeodata(geodata) {
@@ -39,16 +38,16 @@ export default class Visuals {
 
   show(name) {
     // REVIEW: See if there is a better way to get this info
-    const { width, height, scale } = this.display.dimensions;
-    const { scaleFactor, lambda, verticalShift } = this.set.visuals.focus;
+    const { width, height } = this.display.dimensions;
+    const scale = this.display.scale;
+    const { scaleFactor, center } = this.set.visuals.geomap;
     const albumsHeight = getAlbumHeight(width);
 
     const projection = createProjection(
       width,
       height - albumsHeight,
       scaleFactor * scale,
-      verticalShift,
-      lambda
+      center
     );
 
     const info = getAlbumInfo(this.set, name);
@@ -96,8 +95,10 @@ export default class Visuals {
   setup() {
     this.display.clear();
     this.display.createSvg();
-    const { width } = this.display.dimensions;
-    const albumsHeight = getAlbumHeight(width);
+
+    const mapWidth = this.display.dimensions.width;
+    const albumsHeight = getAlbumHeight(mapWidth);
+    const mapHeight = this.display.dimensions.height - albumsHeight;
 
     const svg = this.display.svg;
 
@@ -110,8 +111,10 @@ export default class Visuals {
     drawMap(
       this.mapContainer,
       this.countries,
-      this.display.dimensions,
-      this.set.visuals.focus
+      mapWidth,
+      mapHeight,
+      this.display.scale,
+      this.set.visuals.geomap
     );
   }
 }

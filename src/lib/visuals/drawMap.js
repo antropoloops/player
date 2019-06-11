@@ -1,20 +1,16 @@
 import * as d3geo from "d3-geo-projection";
 import * as d3 from "d3";
-import { getAlbumHeight } from "./dimensions";
 
-export function drawMap(container, countries, dimensions, projectionConfig) {
-  const { width, height, scale } = dimensions;
-  const { scaleFactor, lambda, verticalShift } = projectionConfig;
-
-  const albumsHeight = getAlbumHeight(width);
+export function drawMap(container, countries, width, height, scale, mapConfig) {
+  const { scaleFactor, center } = mapConfig;
 
   const projection = createProjection(
     width,
-    height - albumsHeight,
-    scaleFactor * scale,
-    verticalShift,
-    lambda
+    height,
+    scale * scaleFactor,
+    center
   );
+
   const path = d3.geoPath().projection(projection);
 
   container
@@ -30,10 +26,10 @@ export function drawMap(container, countries, dimensions, projectionConfig) {
     .style("fill", "#888888");
 }
 
-export function createProjection(width, height, scale, verticalShift, lambda) {
+export function createProjection(width, height, scale, center) {
   return d3geo
     .geoRobinson()
     .scale(scale)
-    .translate([width / 2, height / 2 + height / verticalShift])
-    .rotate([lambda, 0, 0]);
+    .center([center.x, center.y])
+    .translate([width / 2, height / 2]);
 }
