@@ -16,7 +16,7 @@ export default function getAlbumInfo(audioset, name) {
   const bpm = audioset.meta.bpm || 120;
 
   return {
-    lnglat: clip.lnglat,
+    position: clip.lnglat,
     year: clip.year,
     country: clip.country,
     title: clip.title,

@@ -6,9 +6,18 @@ export default function createVisuals(audioset, el) {
   const display = new Display(el);
   const visuals = new Visuals(audioset, display);
 
-  fetch(audioset.visuals.geomap.url)
-    .then(response => response.json())
-    .then(data => visuals.setGeodata(data));
+  // REVIEW: Harcoded mode
+  // const mode = audioset.mode
+  const mode = "panel";
+  // const mode = "map";
+
+  if (mode === "map") {
+    fetch(audioset.visuals.geomap.url)
+      .then(response => response.json())
+      .then(data => visuals.setGeodata(data));
+  } else if (mode === "panel") {
+    visuals.setup();
+  }
 
   window.addEventListener(
     "resize",

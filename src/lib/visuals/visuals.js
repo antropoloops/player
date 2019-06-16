@@ -6,7 +6,8 @@ import drawCircle from "./drawCircle";
 import drawAlbum from "./drawAlbum";
 import drawRefLine from "./drawRefLine";
 import drawWave from "./drawWave";
-import { drawMap, createProjection } from "./drawMap";
+import { drawMap, calculateMapScale, createProjection } from "./drawMap";
+import { drawPanel, getPosition } from "./drawPanel";
 import getAlbumInfo from "./getAlbumInfo";
 
 const remove = (name, group) => {
@@ -27,6 +28,10 @@ export default class Visuals {
     this.circles = {};
     this.albums = {};
     this.refLines = {};
+    // REVIEW harcoded mode
+    // this.mode = set.mode
+    this.mode = "panel";
+    // this.mode = "map";
   }
 
   setGeodata(geodata) {
@@ -37,23 +42,35 @@ export default class Visuals {
   }
 
   show(name) {
-    // REVIEW: See if there is a better way to get this info
+    // REVIEW: See if there is a better way to get this info (scale, projection)
+    // that is already calculated in drawMap
     const { width, height } = this.display.dimensions;
-    const scale = this.display.scale;
     const { scaleFactor, center } = this.set.visuals.geomap;
     const albumsHeight = getAlbumHeight(width);
 
-    const projection = createProjection(
-      width,
-      height - albumsHeight,
-      scaleFactor * scale,
-      center
-    );
+    const scale = calculateMapScale(width, height - albumsHeight);
 
     const info = getAlbumInfo(this.set, name);
     if (!info) return;
 
-    const [cx, cy] = projection(info.lnglat);
+    const projection =
+      this.mode === "map"
+        ? createProjection(
+            width,
+            height - albumsHeight,
+            scaleFactor * scale,
+            center
+          )
+        : this.mode === "panel"
+        ? getPosition(
+            width,
+            height - albumsHeight,
+            this.set.visuals.image.size.width,
+            this.set.visuals.image.size.height
+          )
+        : undefined;
+
+    const [cx, cy] = projection(info.position);
 
     const circle = drawCircle(this.circlesContainer, width, cx, cy, info);
     this.circles[name] = circle;
@@ -96,26 +113,38 @@ export default class Visuals {
     this.display.clear();
     this.display.createSvg();
 
-    const mapWidth = this.display.dimensions.width;
-    const albumsHeight = getAlbumHeight(mapWidth);
-    const mapHeight = this.display.dimensions.height - albumsHeight;
+    const backgroundWidth = this.display.dimensions.width;
+    const albumsHeight = getAlbumHeight(backgroundWidth);
+    const backgroundHeight = this.display.dimensions.height - albumsHeight;
 
     const svg = this.display.svg;
 
-    this.mapContainer = createGroup(svg, "map", albumsHeight);
+    this.backgroundContainer =
+      this.mode === "map"
+        ? createGroup(svg, "map", albumsHeight)
+        : this.mode === "panel"
+        ? createGroup(svg, "panel", albumsHeight)
+        : undefined;
     this.albumsContainer = createGroup(svg, "albums", 0);
     this.refLinesContainer = createGroup(svg, "refLines", albumsHeight);
     this.circlesContainer = createGroup(svg, "circles", albumsHeight);
     this.wavesContainer = createGroup(svg, "waves", albumsHeight);
 
-    drawMap(
-      this.mapContainer,
-      this.countries,
-      mapWidth,
-      mapHeight,
-      this.display.scale,
-      this.set.visuals.geomap
-    );
+    if (this.mode === "map")
+      drawMap(
+        this.backgroundContainer,
+        this.countries,
+        backgroundWidth,
+        backgroundHeight,
+        this.set.visuals.geomap
+      );
+    else if (this.mode === "panel")
+      drawPanel(
+        this.backgroundContainer,
+        backgroundWidth,
+        backgroundHeight,
+        this.set.visuals.image.url
+      );
   }
 }
 
