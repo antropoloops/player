@@ -8,7 +8,7 @@ import { Readme } from "../shared/Readme";
 const AudiosetLink = ({ audioset }) => (
   <li className="AudiosetLink">
     <Link to={`/set/${audioset.publish_path}`} style={{ display: "flex" }}>
-      <img src={audioset.logo} alt={audioset.title} />
+      <img src={audioset.logo_url} alt={audioset.title} />
       <div className="meta">
         <h3>{audioset.title} →</h3>
         <p>{audioset.description}</p>
