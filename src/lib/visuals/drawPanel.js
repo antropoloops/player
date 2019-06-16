@@ -9,7 +9,7 @@ export function drawPanel(container, width, height, imageUrl) {
     .attr("preserveAspectRatio", "xMinYMin meet");
 }
 
-export function getPosition(
+export function createPanelProjector(
   containerWidth,
   containerHeight,
   realImageWidth,

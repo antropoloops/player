@@ -6,8 +6,8 @@ import drawCircle from "./drawCircle";
 import drawAlbum from "./drawAlbum";
 import drawRefLine from "./drawRefLine";
 import drawWave from "./drawWave";
-import { drawMap, calculateMapScale, createProjection } from "./drawMap";
-import { drawPanel, getPosition } from "./drawPanel";
+import { drawMap, calculateMapScale, createMapProjector } from "./drawMap";
+import { drawPanel, createPanelProjector } from "./drawPanel";
 import getAlbumInfo from "./getAlbumInfo";
 
 const remove = (name, group) => {
@@ -28,10 +28,7 @@ export default class Visuals {
     this.circles = {};
     this.albums = {};
     this.refLines = {};
-    // REVIEW harcoded mode
-    // this.mode = set.mode
-    this.mode = "panel";
-    // this.mode = "map";
+    this.mode = set.visuals.mode;
   }
 
   setGeodata(geodata) {
@@ -53,25 +50,24 @@ export default class Visuals {
     const info = getAlbumInfo(this.set, name);
     if (!info) return;
 
-    const projection =
+    const projector =
       this.mode === "map"
-        ? createProjection(
+        ? createMapProjector(
             width,
             height - albumsHeight,
             scaleFactor * scale,
             center
           )
-        : this.mode === "panel"
-        ? getPosition(
+        : createPanelProjector(
             width,
             height - albumsHeight,
             this.set.visuals.image.size.width,
             this.set.visuals.image.size.height
-          )
-        : undefined;
+          );
 
-    const [cx, cy] = projection(info.position);
+    const [cx, cy] = projector(info.position);
 
+    // REVIEW: fix width parameter to draw circles with the proper size
     const circle = drawCircle(this.circlesContainer, width, cx, cy, info);
     this.circles[name] = circle;
 
@@ -119,18 +115,13 @@ export default class Visuals {
 
     const svg = this.display.svg;
 
-    this.backgroundContainer =
-      this.mode === "map"
-        ? createGroup(svg, "map", albumsHeight)
-        : this.mode === "panel"
-        ? createGroup(svg, "panel", albumsHeight)
-        : undefined;
+    this.backgroundContainer = createGroup(svg, "background", albumsHeight);
     this.albumsContainer = createGroup(svg, "albums", 0);
     this.refLinesContainer = createGroup(svg, "refLines", albumsHeight);
     this.circlesContainer = createGroup(svg, "circles", albumsHeight);
     this.wavesContainer = createGroup(svg, "waves", albumsHeight);
 
-    if (this.mode === "map")
+    if (this.mode === "map") {
       drawMap(
         this.backgroundContainer,
         this.countries,
@@ -138,13 +129,14 @@ export default class Visuals {
         backgroundHeight,
         this.set.visuals.geomap
       );
-    else if (this.mode === "panel")
+    } else {
       drawPanel(
         this.backgroundContainer,
         backgroundWidth,
         backgroundHeight,
         this.set.visuals.image.url
       );
+    }
   }
 }
 

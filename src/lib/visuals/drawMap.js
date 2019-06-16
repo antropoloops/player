@@ -6,14 +6,14 @@ export function drawMap(container, countries, width, height, mapConfig) {
   const { scaleFactor, center } = mapConfig;
   const scale = calculateMapScale(width, height);
 
-  const projection = createProjection(
+  const projector = createMapProjector(
     width,
     height,
     scale * scaleFactor,
     center
   );
 
-  const path = d3.geoPath().projection(projection);
+  const path = d3.geoPath().projection(projector);
 
   container
     .selectAll(".countries")
@@ -28,7 +28,7 @@ export function drawMap(container, countries, width, height, mapConfig) {
     .style("fill", "#888888");
 }
 
-export function createProjection(width, height, scale, center) {
+export function createMapProjector(width, height, scale, center) {
   return d3geo
     .geoRobinson()
     .scale(scale)

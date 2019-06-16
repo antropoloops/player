@@ -6,10 +6,7 @@ export default function createVisuals(audioset, el) {
   const display = new Display(el);
   const visuals = new Visuals(audioset, display);
 
-  // REVIEW: Harcoded mode
-  // const mode = audioset.mode
-  const mode = "panel";
-  // const mode = "map";
+  const mode = audioset.visuals.mode;
 
   if (mode === "map") {
     fetch(audioset.visuals.geomap.url)

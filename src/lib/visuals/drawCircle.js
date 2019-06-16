@@ -1,15 +1,15 @@
 import * as d3 from "d3";
 
 // Number of slices in a circle
-const circleNumSlices = 36;
+const NUMSLICES = 36;
 
 // Scale. Get the degrees for a specific slice
 const degreesFromSlice = d3
   .scaleLinear()
   .range([0, 360]) // working in degrees
-  .domain([0, circleNumSlices]);
+  .domain([0, NUMSLICES]);
 
-export default function drawCircle(parent, screenWidth, cx, cy, params) {
+export default function drawCircle(parent, width, cx, cy, params) {
   const { duration, trackVolume, trackColor } = params;
   const circlesGroup = parent
     .append("g")
@@ -23,7 +23,7 @@ export default function drawCircle(parent, screenWidth, cx, cy, params) {
   const arc = d3.arc();
 
   // Create outerArcs data
-  const outerArcs = createOuterArcs(circleNumSlices, screenWidth, trackVolume);
+  const outerArcs = createOuterArcs(NUMSLICES, width, trackVolume);
 
   // Draw outerArcs
   circle
@@ -35,11 +35,11 @@ export default function drawCircle(parent, screenWidth, cx, cy, params) {
     .attr("d", arc)
     .style("fill", trackColor)
     .style("opacity", (d, i) => {
-      return (0.3 / circleNumSlices) * i;
+      return (0.3 / NUMSLICES) * i;
     });
 
   // Create innerArcs data
-  const innerArcs = createInnerArcs(circleNumSlices, screenWidth, trackVolume);
+  const innerArcs = createInnerArcs(NUMSLICES, width, trackVolume);
 
   // Draw innerArcs
   circle
@@ -51,7 +51,7 @@ export default function drawCircle(parent, screenWidth, cx, cy, params) {
     .attr("d", arc)
     .style("fill", trackColor)
     .style("opacity", (d, i) => {
-      return (1 / circleNumSlices) * i;
+      return (1 / NUMSLICES) * i;
     });
 
   circle
@@ -59,7 +59,7 @@ export default function drawCircle(parent, screenWidth, cx, cy, params) {
     .attr("x1", 0)
     .attr("y1", 0)
     .attr("x2", 0)
-    .attr("y2", -((screenWidth / 30) * trackVolume + screenWidth / 350))
+    .attr("y2", -((width / 30) * trackVolume + width / 350))
     .style("stroke", trackColor)
     .style("stroke-width", 1.5);
 
@@ -80,30 +80,30 @@ export default function drawCircle(parent, screenWidth, cx, cy, params) {
   return circlesGroup;
 }
 
-function createInnerArcs(circleNumSlices, screenWidth, trackVolume) {
-  return d3.range(circleNumSlices).map((d, i) => {
+function createInnerArcs(NUMSLICES, width, trackVolume) {
+  return d3.range(NUMSLICES).map((d, i) => {
     return {
       startAngle: deg2rad(degreesFromSlice(d)),
       endAngle:
-        i === circleNumSlices - 1
+        i === NUMSLICES - 1
           ? deg2rad(degreesFromSlice(d + 1))
           : deg2rad(degreesFromSlice(d + 2)),
       innerRadius: 0,
-      outerRadius: (screenWidth / 30) * trackVolume
+      outerRadius: (width / 30) * trackVolume
     };
   });
 }
 
-function createOuterArcs(circleNumSlices, screenWidth, trackVolume) {
-  return d3.range(circleNumSlices).map((d, i) => {
+function createOuterArcs(NUMSLICES, width, trackVolume) {
+  return d3.range(NUMSLICES).map((d, i) => {
     return {
       startAngle: deg2rad(degreesFromSlice(d)),
       endAngle:
-        i === circleNumSlices - 1
+        i === NUMSLICES - 1
           ? deg2rad(degreesFromSlice(d + 1))
           : deg2rad(degreesFromSlice(d + 2)),
       innerRadius: 0,
-      outerRadius: (screenWidth / 30) * trackVolume * 2
+      outerRadius: (width / 30) * trackVolume * 2
     };
   });
 }

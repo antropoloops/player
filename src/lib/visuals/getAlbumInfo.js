@@ -16,7 +16,7 @@ export default function getAlbumInfo(audioset, name) {
   const bpm = audioset.meta.bpm || 120;
 
   return {
-    position: clip.lnglat,
+    position: clip.position,
     year: clip.year,
     country: clip.country,
     title: clip.title,
@@ -27,6 +27,6 @@ export default function getAlbumInfo(audioset, name) {
     trackVolume: clip.audio.trackVolume || 0.7,
     duration: (60 * clip.audio.beats) / bpm, // clip duration in seconds
     imageUrl: clip.coverUrl,
-    trackColor: clip.display.color
+    trackColor: clip.color
   };
 }
