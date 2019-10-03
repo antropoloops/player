@@ -1,18 +1,20 @@
 {
   "name": "atpls-player",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:types": "rm -rf dist && tsc --noUnusedLocals",
-    "eject": "react-scripts eject",
-    "lint": "tslint --fix 'src/**/*.{ts,tsx}'"
+    "test:types": "tsc --noUnusedLocals",
+    "lint": "tslint --fix 'src/**/*.{ts,tsx}'",
+    "deploy": "serverless deploy -v && yarn run cloudfront:invalidate",
+    "build:analyze": "source-map-explorer 'build/static/js/*.js'",
+    "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.17",
+    "@emotion/core": "^10.0.20",
     "@emotion/styled": "^10.0.17",
     "@types/chroma-js": "^1.4.3",
     "@types/d3": "^5.7.2",
@@ -30,13 +32,12 @@
     "debug": "^4.1.1",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.1",
-    "lodash": "^4.17.15",
     "lodash.debounce": "^4.0.8",
     "prettier": "^1.18.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.0",
-    "react-scripts": "3.1.2",
+    "react-scripts": "3.2.0",
     "screenfull": "^5.0.0",
     "topojson": "^3.0.2",
     "typescript": "^3.6.3"
@@ -47,12 +48,19 @@
     "singleQuote": false,
     "semi": true,
     "newline-before-return": true,
-    "no-duplicate-variable": [true, "check-parameters"],
+    "no-duplicate-variable": [
+      true,
+      "check-parameters"
+    ],
     "no-var-keyword": true,
     "trailingComma": "all"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": ["tslint --fix", "prettier --write", "git add"]
+    "src/**/*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
@@ -63,8 +71,16 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "serverless": "^1.53.0",
