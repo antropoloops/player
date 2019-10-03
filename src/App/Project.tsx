@@ -2,8 +2,10 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "react-router-dom";
 import { AudiosetProject, AudiosetReference } from "../Audioset";
+import { Scroll } from "./Scroll";
 import { Header } from "./shared/Header";
 import { Markdown } from "./shared/Markdown";
+import { useIsDesktop } from "./useIsDesktop";
 
 interface ProjectProps {
   audioset: AudiosetProject;
@@ -11,22 +13,35 @@ interface ProjectProps {
 
 const Project = ({ audioset }: ProjectProps) => {
   const audiosets = audioset.audiosets || [];
+  const isDesktop = useIsDesktop();
 
   return (
     <div className="App Project">
       <Header meta={audioset.meta} />
-      <div className="scroll">
+      <Scroll>
         <div className="content">
+          {!isDesktop && (
+            <div>
+              <img
+                alt={audioset.meta.title}
+                src={audioset.meta.logo_url}
+                style={{ width: "100%" }}
+              />
+              <Markdown markdown={audioset.meta.readme} />
+            </div>
+          )}
           <ul className="Audiosets">
             {audiosets.map(child => (
               <AudiosetView key={child.id} audioset={child} />
             ))}
           </ul>
         </div>
-      </div>
-      <div css={cssReadme} className="visuals">
-        <Markdown markdown={audioset.meta.readme} />
-      </div>
+      </Scroll>
+      {isDesktop && (
+        <div css={cssReadme} className="visuals">
+          <Markdown markdown={audioset.meta.readme} />
+        </div>
+      )}
       <div className="footer">Welcome</div>
     </div>
   );

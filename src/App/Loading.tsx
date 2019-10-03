@@ -1,4 +1,5 @@
 import React from "react";
+import { Scroll } from "./Scroll";
 
 const Loading = () => {
   return (
@@ -10,9 +11,10 @@ const Loading = () => {
           alt="Play antropoloops"
         />
       </div>
-      <div className="scroll" />
-      <div className="footer">Footer</div>
-      <div className="visuals" />
+      <Scroll>
+        <div className="footer">Footer</div>
+        <div className="visuals" />
+      </Scroll>
     </div>
   );
 };
