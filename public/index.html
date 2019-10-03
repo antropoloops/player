@@ -2,42 +2,112 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
-      content="Web site created using create-react-app"
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link rel="apple-touch-icon" href="logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <meta name="theme-color" content="#2c2c2c" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="description" content="Antropoloops player" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/antropoloops-icon-196.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <title>Play Antropoloops</title>
   </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    /* https://css-tricks.com/snippets/css/system-font-stack/ */
+    @font-face {
+      font-family: system;
+      font-style: normal;
+      font-weight: 300;
+      src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"),
+        local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"),
+        local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+    }
+    html {
+      font-family: "system";
+      background-color: #2c2c2c;
+    }
+    a {
+      color: white;
+    }
+    div.App {
+      display: grid;
+      height: 100vh;
+      width: 100%;
+      grid-template:
+        "header" auto
+        "visuals" auto
+        "content" 1fr
+        "footer" auto / 100%;
+    }
+    div.header {
+      background-color: #6d6d6d;
+      grid-area: header;
+      padding: 0.5rem;
+    }
+    img.play-logo {
+      max-width: 100%;
+    }
+    div.scroll {
+      grid-area: content;
+      overflow-y: auto;
+    }
+    div.content {
+      background-color: #6d6d6d;
+      min-height: 100%;
+    }
+    div.footer {
+      background-color: #6d6d6d;
+      grid-area: footer;
+      padding: 0.5rem;
+    }
+    div.visuals {
+      grid-area: visuals;
+    }
+    div.welcome {
+      background: url(/bg-low.jpg) no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+    }
+
+    #visuals {
+      height: calc(100vw * (9 / 16));
+    }
+
+    @media (orientation: landscape) {
+      #visuals {
+        height: 100vh;
+      }
+      /* DESKTOP */
+      div.App {
+        grid-template:
+          "header visuals" auto
+          "content visuals" 1fr
+          "footer visuals" auto / 350px 1fr;
+      }
+      div.header,
+      div.footer {
+        margin-right: 1rem;
+      }
+      div.content {
+        margin-right: 1rem;
+      }
+    }
+  </style>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root">
+      <div class="App">
+        <div class="header">
+          <img class="play-logo" src="/play-logo.png" alt="Play antropoloops" />
+        </div>
+        <div class="footer">Antropoloops v1.0.0</div>
+        <div class="content"></div>
+        <div class="visuals welcome"></div>
+      </div>
+    </div>
   </body>
 </html>

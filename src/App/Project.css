@@ -1,0 +1,8 @@
+
+.Project .Audioset {
+  display: flex;
+  flex-direction: row;
+}
+.Project .Audioset img {
+  max-width: 100px;
+}
