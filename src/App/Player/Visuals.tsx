@@ -36,5 +36,5 @@ function useVisuals(audioset: Audioset, ref: RefObject<HTMLDivElement>) {
         };
       }
     });
-  }, [audioset, ref.current]);
+  }, [audioset, ref]);
 }

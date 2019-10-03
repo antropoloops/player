@@ -13,10 +13,11 @@ export class AudioContextEngine implements AudioEngine {
     props: AudioSourceProperties,
     destination: any,
   ): AudioSource {
-    const node = this.context.createBufferSource();
-    node.buffer = props.buffer;
-    node.connect(destination);
-    return node;
+    const source = this.context.createBufferSource();
+    source.buffer = props.buffer;
+    source.loop = true;
+    source.connect(destination);
+    return source;
   }
   public createTrack(
     props: AudioTrackProperties,

@@ -2,19 +2,19 @@ import debug from "debug";
 export let context: AudioContext | undefined;
 
 const log = debug("atpls:context");
+
+/**
+ * @see https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
+ */
 export async function getAudioContext(): Promise<AudioContext> {
-  if (context) {
+  context = context || createAudioContext();
+
+  if (context.state !== "running" && context.resume) {
+    log("waiting for context...");
+    return context.resume().then(() => context as AudioContext);
+  } else {
     return context;
   }
-
-  context = createAudioContext();
-  if (context.resume) {
-    log("trying to resume...");
-    await context.resume();
-    log("resumed!");
-  }
-  log("context ready!");
-  return context;
 }
 
 function createAudioContext() {
