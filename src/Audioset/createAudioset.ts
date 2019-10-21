@@ -14,7 +14,6 @@ export function createAudioset(data: any): AudiosetData {
     log("Invalid format %o", data);
     throw Error("Invalida Audioset format");
   }
-
   if (isAudiosetPack(data)) {
     migrateOrDerive(data);
     createIndices(data);

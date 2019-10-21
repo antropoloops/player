@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AudiosetMetadata } from "../../Audioset";
+import "./Header.css";
 
 interface HeaderProps {
   meta: AudiosetMetadata;
@@ -8,6 +9,9 @@ interface HeaderProps {
 
 const getAudiosetPath = (path: string) => (path ? `/set/${path}` : `/`);
 
+/**
+ * The header
+ */
 export const Header = (props: HeaderProps) =>
   props.meta.path === "index" ? LogoHeader() : ControlHeader(props);
 
@@ -21,11 +25,8 @@ const ControlHeader = ({ meta }: HeaderProps) => (
 
 const LogoHeader = () => (
   <div className="header">
-    <img
-      style={{ maxHeight: "2rem" }}
-      className="play-logo"
-      src="/play-logo.png"
-      alt="Play antropoloops"
-    />
+    <div className="logo-wrap">
+      <img className="play-logo" src="/play-logo.png" alt="Play antropoloops" />
+    </div>
   </div>
 );

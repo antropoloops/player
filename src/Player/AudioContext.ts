@@ -20,7 +20,8 @@ export async function getAudioContext(): Promise<AudioContext> {
 function createAudioContext() {
   log("create context");
   // iOS hack. See https://github.com/tambien/StartAudioContext/blob/master/StartAudioContext.js
-  const ctx = new AudioContext();
+  const ctx = new ((window as any).AudioContext ||
+    (window as any).webkitAudioContext)() as AudioContext;
   const buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
   const source = ctx.createBufferSource();
   source.buffer = buffer;

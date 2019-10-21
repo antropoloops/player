@@ -1,7 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import React from "react";
 import { Link } from "react-router-dom";
 import { AudiosetProject, AudiosetReference } from "../Audioset";
+import "./Project.css";
 import { Scroll } from "./Scroll";
 import { Header } from "./shared/Header";
 import { Markdown } from "./shared/Markdown";
@@ -27,7 +27,7 @@ const Project = ({ audioset }: ProjectProps) => {
                 src={audioset.meta.logo_url}
                 style={{ width: "100%" }}
               />
-              <Markdown markdown={audioset.meta.readme} />
+              <Markdown className="mobile" markdown={audioset.meta.readme} />
             </div>
           )}
           <ul className="Audiosets">
@@ -38,7 +38,7 @@ const Project = ({ audioset }: ProjectProps) => {
         </div>
       </Scroll>
       {isDesktop && (
-        <div css={cssReadme} className="visuals">
+        <div className="visuals">
           <Markdown markdown={audioset.meta.readme} />
         </div>
       )}
@@ -47,34 +47,15 @@ const Project = ({ audioset }: ProjectProps) => {
   );
 };
 
-const cssReadme = css`
-  background: url(/bg-low.jpg) no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-
-  & > div: {
-    padding: 1rem;
-  }
-`;
-
 export default Project;
-
-const cssCover = css`
-  width: 100px;
-`;
-
-const cssAudioset = css`
-  display: flex;
-  flex-direction: row;
-`;
 
 interface AudiosetViewProps {
   audioset: AudiosetReference;
 }
 const AudiosetView = ({ audioset }: AudiosetViewProps) => (
   <Link to={`/set/${audioset.publish_path}`}>
-    <div className="Audioset" css={cssAudioset}>
-      <img css={cssCover} src={audioset.logo_url} alt={audioset.title} />
+    <div className="Audioset">
+      <img src={audioset.logo_url} alt={audioset.title} />
       <div className="meta">
         <h3>{audioset.title} →</h3>
         <p>{audioset.description}</p>
