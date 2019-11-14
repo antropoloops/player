@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AudiosetProject, AudiosetReference } from "../Audioset";
-import "./Project.css";
+import "./Browser.css";
 import { Scroll } from "./Scroll";
 import { Header } from "./shared/Header";
 import { Markdown } from "./shared/Markdown";
-import { useIsDesktop } from "./useIsDesktop";
+import { useDeviceType } from "./useDeviceType";
 
 interface ProjectProps {
   audioset: AudiosetProject;
@@ -13,14 +13,14 @@ interface ProjectProps {
 
 const Project = ({ audioset }: ProjectProps) => {
   const audiosets = audioset.audiosets || [];
-  const isDesktop = useIsDesktop();
+  const { isDesktop, isMobile } = useDeviceType();
 
   return (
     <div className="App Project">
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
-          {!isDesktop && (
+          {isMobile && (
             <div>
               <img
                 alt={audioset.meta.title}
@@ -32,7 +32,7 @@ const Project = ({ audioset }: ProjectProps) => {
           )}
           <ul className="Audiosets">
             {audiosets.map(child => (
-              <AudiosetView key={child.id} audioset={child} />
+              <AudiosetItem key={child.id} audioset={child} />
             ))}
           </ul>
         </div>
@@ -49,15 +49,15 @@ const Project = ({ audioset }: ProjectProps) => {
 
 export default Project;
 
-interface AudiosetViewProps {
+interface AudiosetItemProps {
   audioset: AudiosetReference;
 }
-const AudiosetView = ({ audioset }: AudiosetViewProps) => (
+const AudiosetItem = ({ audioset }: AudiosetItemProps) => (
   <Link to={`/set/${audioset.publish_path}`}>
-    <div className="Audioset">
+    <div className="AudiosetItem">
       <img src={audioset.logo_url} alt={audioset.title} />
       <div className="meta">
-        <h3>{audioset.title} →</h3>
+        <h3>{audioset.title}</h3>
         <p>{audioset.description}</p>
       </div>
     </div>

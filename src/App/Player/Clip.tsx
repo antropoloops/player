@@ -1,6 +1,7 @@
 import React from "react";
-import { ClosedClip } from "./ClosedClip";
-import { OpenClip } from "./OpenClip";
+import "./Clip.css";
+import { ClosedClip } from "./ClipClosed";
+import { OpenClip } from "./ClipOpen";
 
 interface ClipProps {
   clip: any;

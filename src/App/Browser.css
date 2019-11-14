@@ -1,18 +1,18 @@
 
-.Project .Audiosets .Audioset {
+.Project .Audiosets .AudiosetItem {
   display: flex;
   flex-direction: row;
   background-color: #6a6a6a;
   margin-bottom: 10px;
 }
-.Project .Audiosets .Audioset img {
+.Project .Audiosets .AudiosetItem img {
   width: 34%;
   max-width: 256px;
   max-height: 256px;
   flex-shrink: 0  ;
-  margin-right: 35px;
+  margin-right: 1rem;
 }
-.Project .Audiosets .Audioset p {
+.Project .Audiosets .AudiosetItem p {
   max-height: 4.5rem;
   overflow: hidden;
 }

@@ -1,0 +1,51 @@
+.Clips .Clip {
+  cursor: pointer;
+}
+.Clips .Clip .meta {
+  flex-grow: 1;
+}
+.Clips .Clip .title  {
+  font-size: 1rem;
+  margin: 0;
+}
+.Clips .Clip .keyboard {
+  display: flex;
+  flex-direction: column;
+}
+.Clips .Clip .keyboard > span {
+  background-color: #444444;
+  opacity: 0.7;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 2rem;
+  margin-right: 0.5rem;
+}
+
+/**** CLOSED ****/
+
+.Clips .Clip.closed {
+  display: flex;
+  flex-direction: row;
+}
+.Clips .Clip.closed .cover {
+  width: 50px;
+  margin-right: 0.5rem;
+}
+
+/**** OPEN ****/
+.Clips .Clip.open {
+  display: flex;
+  flex-direction: column;
+}
+.Clips .Clip.open .covers {
+  display: flex;
+  flex-direction: row;
+}
+.Clips .Clip.open .cover {
+  width: 50%;
+  margin: 0;
+}

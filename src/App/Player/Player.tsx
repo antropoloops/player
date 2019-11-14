@@ -4,9 +4,9 @@ import { player } from "../../Player";
 import { getAudioContext } from "../../Player/AudioContext";
 import { Scroll } from "../Scroll";
 import { Header } from "../shared/Header";
-import { useIsDesktop } from "../useIsDesktop";
+import { useDeviceType } from "../useDeviceType";
 import { Clips } from "./Clips";
-import "./index.css";
+import "./Player.css";
 import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";
@@ -20,7 +20,7 @@ export interface PlayerProps {
 export const Player = ({ audioset }: PlayerProps) => {
   const resourceStatus = useResourceLoadingStatus();
   const isReady = SKIP || resourceStatus.status === "ready";
-  const isDesktop = useIsDesktop();
+  const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
 

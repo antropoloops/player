@@ -2,6 +2,14 @@ p {
   margin: 0.5rem 0;
 }
 
+a {
+  text-decoration: none;
+}
+h1, h2, h3, h4 {
+  font-weight: 400;
+}
+
+
 button {
   font-size: 1.5rem;
   background-color: #0f0;
