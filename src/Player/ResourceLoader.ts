@@ -4,19 +4,19 @@ import { Audioset, Clip } from "../Audioset";
 const log = debug("atpls:resources");
 
 // TODO: abstract the loader mechanism: { status, payload }
-interface LoadPending {
+export interface LoadPending {
   status: "pending";
 }
-interface LoadingResources {
+export interface LoadingResources {
   status: "loading";
   total: number;
   completed: number;
 }
-interface ResourcesLoaded {
+export interface ResourcesLoaded {
   status: "ready";
   total: number;
 }
-interface ResourceLoadError {
+export interface ResourceLoadError {
   status: "error";
   error: any;
 }

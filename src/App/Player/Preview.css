@@ -1,0 +1,15 @@
+
+
+.Preview {
+  color: white;
+}
+
+.Preview .start {
+  display: block;
+  text-align: center;
+}
+.Preview .start img {
+  cursor: pointer;
+  display: inline;
+  max-width: 140px;
+}

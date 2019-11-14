@@ -7,9 +7,9 @@ interface MarkdownProps {
 }
 
 export const Markdown = ({ markdown, className }: MarkdownProps) =>
-  markdown ? (
+  markdown && markdown.length ? (
     <div
-      className={`${className} Markdown`}
+      className={`Markdown ${className || ""}`}
       dangerouslySetInnerHTML={{ __html: markdown }}
     />
   ) : (
