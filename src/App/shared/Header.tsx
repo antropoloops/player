@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AudiosetMetadata } from "../../Audioset";
 import "./Header.css";
+import { ArrowLeft } from "./Icons";
 
 interface HeaderProps {
   meta: AudiosetMetadata;
@@ -16,15 +17,16 @@ export const Header = (props: HeaderProps) =>
   props.meta.path === "index" ? LogoHeader() : ControlHeader(props);
 
 const ControlHeader = ({ meta }: HeaderProps) => (
-  <div className="header">
-    <Link to={getAudiosetPath(meta.parent_path)}>&lt;&lt;&nbsp;</Link>
-
-    <span>{meta.title}</span>
+  <div className="Header">
+    <Link className="navigation" to={getAudiosetPath(meta.parent_path)}>
+      <ArrowLeft width="24" height="24" />
+      <h1>{meta.title}</h1>
+    </Link>
   </div>
 );
 
 const LogoHeader = () => (
-  <div className="header">
+  <div className="Header logo">
     <div className="logo-wrap">
       <img className="play-logo" src="/play-logo.png" alt="Play antropoloops" />
     </div>

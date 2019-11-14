@@ -1,8 +1,29 @@
 
-.logo-wrap {
+.Header .navigation {
+  display: flex;
+  flex-direction: row;
+  margin: 2px 0 2px 0;
+}
+.Header .navigation {
+  opacity: 0.8;
+}
+.Header .navigation:hover {
+  opacity: 1;
+}
+
+.Header .icon {
+  margin: 0 0.5rem 0 2px;
+}
+.Header .navigation h1 {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+}
+
+.Header .logo-wrap {
   margin: 4px 8px ;
 }
 
-.play-logo {
+.Header .play-logo {
   max-height: 3rem;
 }
