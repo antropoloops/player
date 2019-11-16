@@ -5,11 +5,10 @@ import { Header } from "../shared/Header";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
+import { Footer } from "./Footer";
 import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";
-
-const SKIP_PREVIEW = process.env.NODE_ENV === "development" && true;
 
 export interface PlayerProps {
   audioset: Audioset;
@@ -22,18 +21,19 @@ export const Player = ({ audioset }: PlayerProps) => {
 
   const isVisual = isDesktop || isReady;
 
-  const handleStart = useAutoStartAudio(isReady, audioset, () => {
+  const handleStart = () =>
     getAudioContext()
       .then(() => player.resources.load())
       .then(() => player.control.keyboard.setActive(true));
-  });
+
+  useAutoStartAudio(isReady, audioset, handleStart);
 
   return (
     <div className="App Player">
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
-          {SKIP_PREVIEW || isReady ? (
+          {isReady ? (
             <Controller audioset={audioset} />
           ) : (
             <Preview
@@ -44,7 +44,7 @@ export const Player = ({ audioset }: PlayerProps) => {
           )}
         </div>
       </Scroll>
-      <div className="footer">Player</div>
+      {isReady && <Footer />}
       {isVisual && (
         <div className="visuals">{<Visuals audioset={audioset} />}</div>
       )}

@@ -27,6 +27,7 @@ export const Controller = ({ audioset }: ControllerProps) => {
 
 function useControlState(): ControlState {
   const [state, setState] = useState(player.control.getState());
+
   useEffect(() =>
     player.onControlStateChanged(controlState => {
       setState(controlState);

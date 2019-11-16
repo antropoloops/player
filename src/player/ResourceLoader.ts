@@ -77,15 +77,15 @@ export class ResourceLoader {
     const url = clip.resources.audio.mp3;
     const buffer = await this.fetch(url);
     this.buffers[clip.id] = buffer;
-    this._complete();
+    this._complete(url);
 
     return buffer;
   }
 
-  private _complete() {
+  private _complete(url?: string) {
     this.completed += 1;
     const status: ResourceLoadStatus =
-      this.completed === this.total
+      this.completed >= this.total
         ? { status: "ready", total: this.total }
         : { status: "loading", total: this.total, completed: this.completed };
     this._setStatus(status);
