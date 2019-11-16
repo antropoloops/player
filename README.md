@@ -12,7 +12,7 @@ https://play.antropoloops.com/
 
 #### Staging
 
-Just push to master: https://agitated-wright-68b7c5.netlify.com/
+Just push to master: https://play-staging.antropoloops.com
 
 #### Production
 

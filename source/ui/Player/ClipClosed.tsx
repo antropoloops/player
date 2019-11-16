@@ -2,7 +2,7 @@ import React from "react";
 
 export const ClosedClip = ({ ref, clip, onClick }: any) => {
   return (
-    <div className="Clip closed">
+    <div className="Clip closed" id={`clip-${clip.id}`}>
       <img
         className="cover"
         alt={clip.title}

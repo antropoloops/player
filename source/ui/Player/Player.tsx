@@ -5,7 +5,6 @@ import { Header } from "../shared/Header";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
-import "./Player.css";
 import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";

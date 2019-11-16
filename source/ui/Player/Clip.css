@@ -56,3 +56,8 @@
   width: 50%;
   margin: 0;
 }
+
+.Clip.open .meta {
+  display: flex;
+  flex-direction: row;
+}

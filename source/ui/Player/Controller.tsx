@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Audioset } from "../../audioset";
 import { player } from "../../player";
 import { ControlState } from "../../player/AudiosetControl";
+import "./Controller.css";
 import { Track } from "./Track";
 
 interface ControllerProps {

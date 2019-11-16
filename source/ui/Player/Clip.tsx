@@ -10,7 +10,7 @@ interface ClipProps {
 }
 
 export const Clip = ({ clip, isActive, onClick }: ClipProps) => {
-  const View = isActive ? OpenClip : ClosedClip;
+  const View = clip.id === "nubian" || isActive ? OpenClip : ClosedClip;
 
   return <View clip={clip} onClick={onClick} />;
 };
