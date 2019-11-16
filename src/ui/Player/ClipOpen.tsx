@@ -1,5 +1,4 @@
 import React, { useReducer } from "react";
-import { Clip } from "../../audioset";
 import { ArrowDown, ArrowUp } from "../shared/Icons";
 import { Markdown } from "../shared/Markdown";
 import "./ClipOpen.css";
@@ -10,6 +9,19 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
 
   const Icon = isReadmeVisible ? ArrowUp : ArrowDown;
 
+  const clipToggle = (
+    <div className="clipToggle">
+      <div className="clipName">{clip.name}</div>
+      {hasReadme && <Icon onClick={toggleReadme} />}
+    </div>
+  );
+  const clipInfo = (
+    <div className="clipInfo">
+      <h3 className="title">{clip.title}</h3>
+      <p>{clip.artist}</p>
+    </div>
+  );
+
   const cover2 = clip.resources.cover2 && clip.resources.cover2.small;
   return (
     <div
@@ -17,21 +29,32 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
       className="Clip open"
       style={{ backgroundColor: clip.color }}
     >
-      <div className="covers" onClick={onClick}>
-        <img className="cover" alt={clip.title} src={clip.coverUrl} />
+      <div className="covers">
+        <img
+          className="cover"
+          alt={clip.title}
+          src={clip.coverUrl}
+          onClick={onClick}
+        />
         {cover2 ? (
-          <img className="cover alternative" alt={clip.title} src={cover2} />
+          <img
+            className="cover alternative"
+            alt={clip.title}
+            src={cover2}
+            onClick={onClick}
+          />
         ) : (
-          <ClipInfo className="info" clip={clip} />
+          <div className="cover info">
+            {clipInfo} {clipToggle}
+          </div>
         )}
       </div>
-      <div className="meta">
-        <div className="column">
-          <div className="clipName">{clip.name}</div>
-          {hasReadme && <Icon onClick={toggleReadme} />}
+      {cover2 && (
+        <div className="meta">
+          {clipToggle}
+          {clipInfo}
         </div>
-        {cover2 && <ClipInfo className="column" clip={clip} />}
-      </div>
+      )}
       <Markdown
         className={`expand ${isReadmeVisible ? "visible" : "hidden"}`}
         markdown={clip.readme}
@@ -39,15 +62,3 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
     </div>
   );
 };
-
-interface ClipInfoProps {
-  className: string;
-  clip: Clip;
-}
-
-const ClipInfo = ({ className, clip }: ClipInfoProps) => (
-  <div className={className}>
-    <h3 className="title">{clip.title}</h3>
-    <p>{clip.artist}</p>
-  </div>
-);

@@ -8,6 +8,7 @@ import {
 } from "./Audioset";
 
 const log = debug("atpls:audioset");
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export function createAudioset(data: any): AudiosetData {
   if (!isAudiosetData(data)) {
@@ -24,7 +25,7 @@ export function createAudioset(data: any): AudiosetData {
 function migrateOrDerive(audioset: Audioset) {
   const bpm = audioset.meta.bpm || 120;
   audioset.clips.forEach(clip => {
-    clip.name = clip.name || clip.id;
+    clip.name = clip.name || capitalize(clip.id);
     clip.artist = clip.artist || "";
     clip.place = clip.place || "";
     clip.country = clip.country || "";
