@@ -1,22 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { AudiosetProject, AudiosetReference } from "../audioset";
+import { AudiosetProject } from "../../audioset";
+import { Header } from "../shared/Header";
+import { Markdown } from "../shared/Markdown";
+import { Scroll } from "../shared/Scroll";
+import { useDeviceType } from "../useDeviceType";
+import { AudiosetItem } from "./AudiosetItem";
 import "./Browser.css";
-import { Scroll } from "./Scroll";
-import { Header } from "./shared/Header";
-import { Markdown } from "./shared/Markdown";
-import { useDeviceType } from "./useDeviceType";
 
-interface ProjectProps {
+interface BrowserProps {
   audioset: AudiosetProject;
 }
 
-const Project = ({ audioset }: ProjectProps) => {
+export const Browser = ({ audioset }: BrowserProps) => {
   const audiosets = audioset.audiosets || [];
   const { isDesktop, isMobile } = useDeviceType();
 
   return (
-    <div className="App Project">
+    <div className="App Browser">
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
@@ -46,20 +46,3 @@ const Project = ({ audioset }: ProjectProps) => {
     </div>
   );
 };
-
-export default Project;
-
-interface AudiosetItemProps {
-  audioset: AudiosetReference;
-}
-const AudiosetItem = ({ audioset }: AudiosetItemProps) => (
-  <Link to={`/set/${audioset.publish_path}`}>
-    <div className="AudiosetItem">
-      <img src={audioset.logo_url} alt={audioset.title} />
-      <div className="meta">
-        <h3>{audioset.title}</h3>
-        <p>{audioset.description}</p>
-      </div>
-    </div>
-  </Link>
-);

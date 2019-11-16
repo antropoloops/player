@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from "react";
+import { Audioset } from "../../audioset";
+import { player } from "../../player";
+import { ControlState } from "../../player/AudiosetControl";
+import { Track } from "./Track";
+
+interface ControllerProps {
+  audioset: Audioset;
+}
+
+export const Controller = ({ audioset }: ControllerProps) => {
+  const state = useControlState();
+
+  if (!audioset || !audioset.tracks) {
+    return <>Audioset not loaded</>;
+  }
+
+  return (
+    <div className="Controller">
+      {audioset.tracks.map(track => (
+        <Track key={track.id} track={track} audioset={audioset} state={state} />
+      ))}
+    </div>
+  );
+};
+
+function useControlState(): ControlState {
+  const [state, setState] = useState(player.control.getState());
+  useEffect(() =>
+    player.onControlStateChanged(controlState => {
+      setState(controlState);
+    }),
+  );
+  return state;
+}

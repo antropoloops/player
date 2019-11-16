@@ -1,0 +1,20 @@
+.Controller .Track {
+  color: white;
+}
+
+.Track .TrackHeader {
+  opacity: 0.9;
+  display: flex;
+  flex-direction: row;
+}
+.TrackHeader .title {
+  padding: 4px;
+}
+
+.Controller  .Track:last-child {
+  border-bottom: 0;
+}
+.Controller  .Track > .title {
+  font-size: 1.2rem;
+  padding: 8px;
+}

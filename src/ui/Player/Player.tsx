@@ -1,17 +1,16 @@
 import React from "react";
 import { Audioset } from "../../audioset";
-import { player } from "../../player";
-import { getAudioContext } from "../../player/AudioContext";
-import { Scroll } from "../Scroll";
+import { getAudioContext, player } from "../../player";
 import { Header } from "../shared/Header";
+import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
-import { Clips } from "./Clips";
+import { Controller } from "./Controller";
 import "./Player.css";
 import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";
 
-const SKIP = false;
+const SKIP_PREVIEW = true;
 
 export interface PlayerProps {
   audioset: Audioset;
@@ -19,7 +18,7 @@ export interface PlayerProps {
 
 export const Player = ({ audioset }: PlayerProps) => {
   const resourceStatus = useResourceLoadingStatus();
-  const isReady = SKIP || resourceStatus.status === "ready";
+  const isReady = SKIP_PREVIEW || resourceStatus.status === "ready";
   const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
@@ -36,7 +35,7 @@ export const Player = ({ audioset }: PlayerProps) => {
       <Scroll>
         <div className="content">
           {isReady ? (
-            <Clips audioset={audioset} />
+            <Controller audioset={audioset} />
           ) : (
             <Preview
               audioset={audioset}

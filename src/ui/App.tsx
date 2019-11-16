@@ -2,7 +2,7 @@ import React from "react";
 import { match as Match } from "react-router-dom";
 import { Audioset, AudiosetProject } from "../audioset";
 import "./App.css";
-import AudiosetBrowser from "./Browser";
+import { Browser } from "./Browser";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { Player } from "./Player";
@@ -26,7 +26,7 @@ const LoadAudioset = ({ match }: LoadAudiosetProps) => {
     case "ready":
       const audioset = loadStatus.audioset;
       return audioset.type === "project" ? (
-        <AudiosetBrowser audioset={audioset as AudiosetProject} />
+        <Browser audioset={audioset as AudiosetProject} />
       ) : (
         <Player audioset={audioset as Audioset} />
       );

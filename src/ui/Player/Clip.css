@@ -1,51 +1,58 @@
-.Clips .Clip {
+.Controller .Clip {
   cursor: pointer;
 }
-.Clips .Clip .meta {
+.Controller .Clip .meta {
   flex-grow: 1;
 }
-.Clips .Clip .title  {
+.Controller .Clip .title  {
   font-size: 1rem;
   margin: 0;
 }
-.Clips .Clip .keyboard {
+.Controller .Clip .keyboard {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.Clips .Clip .keyboard > span {
+
+.Controller .Clip .keyboard > span {
   background-color: #444444;
   opacity: 0.7;
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  line-height: 1.8rem;
   color: white;
   text-align: center;
   text-transform: uppercase;
-  border-radius: 2rem;
+  border-radius: 1.8rem;
   margin-right: 0.5rem;
 }
 
 /**** CLOSED ****/
 
-.Clips .Clip.closed {
+.Controller .Clip.closed {
   display: flex;
   flex-direction: row;
 }
-.Clips .Clip.closed .cover {
+.Controller .Clip.closed .cover {
   width: 50px;
   margin-right: 0.5rem;
 }
+.Clip.closed .meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 /**** OPEN ****/
-.Clips .Clip.open {
+.Controller .Clip.open {
   display: flex;
   flex-direction: column;
 }
-.Clips .Clip.open .covers {
+.Controller .Clip.open .covers {
   display: flex;
   flex-direction: row;
 }
-.Clips .Clip.open .cover {
+.Controller .Clip.open .cover {
   width: 50%;
   margin: 0;
 }

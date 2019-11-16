@@ -4,6 +4,8 @@ import { fetchAudioBuffer } from "./fetchAudioBuffer";
 import { fetchAudioset } from "./fetchAudioset";
 import { Player } from "./Player";
 
+export { getAudioContext } from "./AudioContext";
+
 /**
  * Singleton instance
  */
