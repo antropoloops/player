@@ -29,11 +29,11 @@
 
 /**** CLOSED ****/
 
-.Controller .Clip.closed {
+.Clip.closed {
   display: flex;
   flex-direction: row;
 }
-.Controller .Clip.closed .cover {
+.Clip.closed .cover {
   width: 50px;
   margin-right: 0.5rem;
 }
@@ -41,23 +41,4 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-/**** OPEN ****/
-.Controller .Clip.open {
-  display: flex;
-  flex-direction: column;
-}
-.Controller .Clip.open .covers {
-  display: flex;
-  flex-direction: row;
-}
-.Controller .Clip.open .cover {
-  width: 50%;
-  margin: 0;
-}
-
-.Clip.open .meta {
-  display: flex;
-  flex-direction: row;
 }

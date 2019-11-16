@@ -1,0 +1,39 @@
+/**** OPEN ****/
+.Clip.open {
+  display: flex;
+  flex-direction: column;
+}
+.Clip.open .covers {
+  display: flex;
+  flex-direction: row;
+}
+.Clip.open .cover {
+  width: 50%;
+  margin: 0;
+}
+
+
+.Clip.open .meta {
+  display: flex;
+  flex-direction: row;
+}
+.Clip.open .meta .column {
+  width: 50%;
+}
+
+.Clip.open .Markdown {
+  overflow: hidden;
+  background-color: transparent;
+
+  font-size: 1px;
+  transition: all .25s ease-in-out;
+  line-height: 0;
+  padding: 0;
+  color: white;
+}
+.Clip.open .Markdown.visible {
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 0.5rem;
+}
+

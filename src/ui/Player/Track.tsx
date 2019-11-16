@@ -16,7 +16,7 @@ export function Track({ audioset, track, state }: TrackProps): JSX.Element {
     <div key={track.id} className="Track">
       <TrackHeader track={track} />
       <div className="clips" style={{ backgroundColor: track.color }}>
-        {track.clipIds.map(clipId => (
+        {track.clipIds.map((clipId, index) => (
           <Clip
             key={clipId}
             clip={audioset.index.clipById[clipId]}

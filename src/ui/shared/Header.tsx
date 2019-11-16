@@ -19,7 +19,7 @@ export const Header = (props: HeaderProps) =>
 const ControlHeader = ({ meta }: HeaderProps) => (
   <div className="Header">
     <Link className="navigation" to={getAudiosetPath(meta.parent_path)}>
-      <ArrowLeft width="24" height="24" />
+      <ArrowLeft />
       <h1>{meta.title}</h1>
     </Link>
   </div>

@@ -24,6 +24,7 @@ export function createAudioset(data: any): AudiosetData {
 function migrateOrDerive(audioset: Audioset) {
   const bpm = audioset.meta.bpm || 120;
   audioset.clips.forEach(clip => {
+    clip.name = clip.name || clip.id;
     clip.artist = clip.artist || "";
     clip.place = clip.place || "";
     clip.country = clip.country || "";

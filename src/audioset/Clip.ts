@@ -4,6 +4,7 @@
 export interface Clip {
   id: string;
   // metadata
+  name: string;
   title: string;
   album: string;
   year: string;
