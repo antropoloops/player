@@ -1,15 +1,26 @@
 import { Audioset } from "../audioset";
 
+import debug from "debug";
+
+const log = debug("atpls:keyboard");
+
 export interface Control {
   startClip(clipId: string, time: number): void;
   stopClip(clipId: string, time: number): void;
 }
 
+type MapModeCallback = (newKey: string) => void;
+interface MapMode {
+  clipId: string;
+  callback: MapModeCallback;
+}
+
 export class KeyboardControler {
-  public active: boolean = false;
-  public pressed: Record<string, boolean> = {};
-  public clipIdToKey: Record<string, string> = {};
-  public keyToClipId: Record<string, string | undefined> = {};
+  private active: boolean = false;
+  private pressed: Record<string, boolean> = {};
+  private clipIdToKey: Record<string, string> = {};
+  private keyToClipId: Record<string, string | undefined> = {};
+  private mapMode?: MapMode = undefined;
 
   constructor(audioset: Audioset, private control: Control) {
     audioset.clips.forEach(clip => {
@@ -17,6 +28,22 @@ export class KeyboardControler {
       this.clipIdToKey[clip.id] = key;
       this.keyToClipId[key] = clip.id;
     });
+  }
+
+  public getKey(clipId: string) {
+    return this.clipIdToKey[clipId];
+  }
+
+  public setActive(isActive: boolean) {
+    this.active = isActive;
+    log("setActive %o", isActive);
+  }
+
+  public startMapMode(clipId: string, callback: MapModeCallback) {
+    this.mapMode = { clipId, callback };
+  }
+  public stopMapMode() {
+    this.mapMode = undefined;
   }
 
   public setKey(clipId: string, key: string) {
@@ -35,7 +62,9 @@ export class KeyboardControler {
     }
 
     key = key.toUpperCase();
-    if (this.pressed[key]) {
+    if (this.mapMode) {
+      return this.handleKeymapChange(key);
+    } else if (this.pressed[key]) {
       return;
     }
     this.pressed[key] = true;
@@ -46,7 +75,7 @@ export class KeyboardControler {
     }
   }
   public keyUp(key: string) {
-    if (!this.active) {
+    if (!this.active || this.mapMode) {
       return;
     }
 
@@ -57,5 +86,16 @@ export class KeyboardControler {
     if (clipId) {
       this.control.stopClip(clipId, 0);
     }
+  }
+
+  private handleKeymapChange(key: string) {
+    if (!this.mapMode) {
+      return;
+    }
+    if (key !== "ESCAPE") {
+      this.setKey(this.mapMode.clipId, key);
+    }
+    this.mapMode.callback(key);
+    this.mapMode = undefined;
   }
 }

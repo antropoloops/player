@@ -8,37 +8,3 @@
   font-size: 1rem;
   margin: 0;
 }
-.Controller .Clip .keyboard {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.Controller .Clip .keyboard > span {
-  background-color: #444444;
-  opacity: 0.7;
-  width: 1.8rem;
-  height: 1.8rem;
-  line-height: 1.8rem;
-  color: white;
-  text-align: center;
-  text-transform: uppercase;
-  border-radius: 1.8rem;
-  margin-right: 0.5rem;
-}
-
-/**** CLOSED ****/
-
-.Clip.closed {
-  display: flex;
-  flex-direction: row;
-}
-.Clip.closed .cover {
-  width: 50px;
-  margin-right: 0.5rem;
-}
-.Clip.closed .meta {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}

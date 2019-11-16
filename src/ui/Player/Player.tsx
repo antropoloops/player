@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Audioset } from "../../audioset";
 import { getAudioContext, player } from "../../player";
 import { Header } from "../shared/Header";
@@ -9,7 +9,7 @@ import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";
 
-const SKIP_PREVIEW = process.env.NODE_ENV === "development" && false;
+const SKIP_PREVIEW = process.env.NODE_ENV === "development" && true;
 
 export interface PlayerProps {
   audioset: Audioset;
@@ -17,23 +17,23 @@ export interface PlayerProps {
 
 export const Player = ({ audioset }: PlayerProps) => {
   const resourceStatus = useResourceLoadingStatus();
-  const isReady = SKIP_PREVIEW || resourceStatus.status === "ready";
+  const isReady = resourceStatus.status === "ready";
   const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
 
-  const handleStart = () => {
+  const handleStart = useAutoStartAudio(isReady, audioset, () => {
     getAudioContext()
       .then(() => player.resources.load())
-      .then(() => (player.control.keyboard.active = true));
-  };
+      .then(() => player.control.keyboard.setActive(true));
+  });
 
   return (
     <div className="App Player">
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
-          {isReady ? (
+          {SKIP_PREVIEW || isReady ? (
             <Controller audioset={audioset} />
           ) : (
             <Preview
@@ -51,3 +51,25 @@ export const Player = ({ audioset }: PlayerProps) => {
     </div>
   );
 };
+
+function useAutoStartAudio(
+  isReady: boolean,
+  audioset: Audioset,
+  startAudio: () => void,
+) {
+  useEffect(() => {
+    if (!isReady && audioset.id) {
+      const onClick = () => {
+        startAudio();
+        removeListener();
+      };
+      const removeListener = () => {
+        window.removeEventListener("click", onClick);
+      };
+      window.addEventListener("click", onClick);
+      return removeListener;
+    }
+  }, [audioset.id, isReady]);
+
+  return startAudio;
+}
