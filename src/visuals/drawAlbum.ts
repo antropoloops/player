@@ -1,4 +1,4 @@
-import { Clip } from "../Audioset";
+import { Clip } from "../audioset";
 import {
   getCoverSize,
   getHorizontalPadding,

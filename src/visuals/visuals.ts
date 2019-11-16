@@ -2,7 +2,7 @@ import * as topojson from "topojson";
 
 import { getAlbumHeight } from "./dimensions";
 
-import { Audioset, AudiosetVisuals } from "../Audioset";
+import { Audioset, AudiosetVisuals } from "../audioset";
 import Display, { Dimension } from "./display";
 import drawAlbum from "./drawAlbum";
 import drawCircle from "./drawCircle";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Audioset } from "../../Audioset";
-import { player } from "../../Player";
-import { ControlState } from "../../Player/AudiosetControl";
+import { Audioset } from "../../audioset";
+import { player } from "../../player";
+import { ControlState } from "../../player/AudiosetControl";
 import { Clip } from "./Clip";
 
 interface ClipsProps {

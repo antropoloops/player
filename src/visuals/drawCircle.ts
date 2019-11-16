@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { Clip } from "../Audioset";
+import { Clip } from "../audioset";
 
 // Number of slices in a circle
 const NUMSLICES = 36;

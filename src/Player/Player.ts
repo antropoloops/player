@@ -1,5 +1,5 @@
-import { Audioset, AudiosetData, EmptyAudioset } from "../Audioset";
-import { AudiosetLoader, AudiosetLoadStatus } from "../Audioset/AudiosetLoader";
+import { Audioset, AudiosetData, EmptyAudioset } from "../audioset";
+import { AudiosetLoader, AudiosetLoadStatus } from "../audioset/AudiosetLoader";
 import { AudioEngine, DebugAudioEngine } from "./Audio";
 import {
   AudiosetControl,

@@ -1,6 +1,6 @@
 import React from "react";
 import { match as Match } from "react-router-dom";
-import { Audioset, AudiosetProject } from "../Audioset";
+import { Audioset, AudiosetProject } from "../audioset";
 import "./App.css";
 import AudiosetBrowser from "./Browser";
 import Loading from "./Loading";

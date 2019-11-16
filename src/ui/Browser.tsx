@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AudiosetProject, AudiosetReference } from "../Audioset";
+import { AudiosetProject, AudiosetReference } from "../audioset";
 import "./Browser.css";
 import { Scroll } from "./Scroll";
 import { Header } from "./shared/Header";

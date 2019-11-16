@@ -1,5 +1,5 @@
 import * as topojson from "topojson";
-import { MapVisuals } from "../Audioset";
+import { MapVisuals } from "../audioset";
 
 export async function fetchCountries(visuals: MapVisuals) {
   const response = await fetch(visuals.geomap.url);

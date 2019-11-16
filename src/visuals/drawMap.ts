@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import * as d3geo from "d3-geo-projection";
-import { MapVisuals } from "../Audioset";
+import { MapVisuals } from "../audioset";
 import { WORLDRATIO } from "./dimensions";
 
 export function drawMap(

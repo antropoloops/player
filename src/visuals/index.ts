@@ -1,5 +1,5 @@
 import debounce from "lodash.debounce";
-import { Audioset } from "../Audioset";
+import { Audioset } from "../audioset";
 import Display from "./display";
 import Visuals from "./visuals";
 

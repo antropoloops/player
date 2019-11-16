@@ -1,5 +1,5 @@
 import debug from "debug";
-import { Audioset, Clip } from "../Audioset";
+import { Audioset, Clip } from "../audioset";
 
 const log = debug("atpls:resources");
 

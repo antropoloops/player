@@ -1,6 +1,6 @@
 import debug from "debug";
 import React, { useEffect } from "react";
-import { player } from "../../Player";
+import { player } from "../../player";
 import { Player as PlayerView, PlayerProps } from "./Player";
 
 const log = debug("atpls:player");

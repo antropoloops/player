@@ -1,4 +1,4 @@
-import { Audioset, Clip } from "../Audioset";
+import { Audioset, Clip } from "../audioset";
 import { KeyboardControler } from "./KeyboardControler";
 
 export type PlayingState = "stopped" | "playing"; // | "playScheduled" |  "stopScheduled";

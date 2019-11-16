@@ -1,4 +1,4 @@
-import { Audioset } from "../Audioset";
+import { Audioset } from "../audioset";
 
 export interface Control {
   startClip(clipId: string, time: number): void;

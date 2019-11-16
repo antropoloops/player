@@ -1,7 +1,7 @@
 import React from "react";
-import { Audioset } from "../../Audioset";
-import { player } from "../../Player";
-import { getAudioContext } from "../../Player/AudioContext";
+import { Audioset } from "../../audioset";
+import { player } from "../../player";
+import { getAudioContext } from "../../player/AudioContext";
 import { Scroll } from "../Scroll";
 import { Header } from "../shared/Header";
 import { useDeviceType } from "../useDeviceType";

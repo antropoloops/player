@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AudiosetMetadata } from "../../Audioset";
+import { AudiosetMetadata } from "../../audioset";
 import "./Header.css";
 import { ArrowLeft } from "./Icons";
 

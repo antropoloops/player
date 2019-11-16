@@ -1,4 +1,4 @@
-import { Audioset } from "../Audioset";
+import { Audioset } from "../audioset";
 import { AudioEngine, AudioSource, AudioTrack } from "./Audio";
 import { ControlCommand } from "./AudiosetControl";
 

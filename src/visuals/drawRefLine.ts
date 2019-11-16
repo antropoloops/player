@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { Clip } from "../Audioset";
+import { Clip } from "../audioset";
 import { getCoverSize } from "./dimensions";
 
 export default function drawRefLine(

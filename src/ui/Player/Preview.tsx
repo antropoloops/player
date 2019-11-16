@@ -1,9 +1,9 @@
 import React from "react";
-import { Audioset } from "../../Audioset";
+import { Audioset } from "../../audioset";
 import {
   LoadingResources,
   ResourceLoadStatus,
-} from "../../Player/ResourceLoader";
+} from "../../player/ResourceLoader";
 import { Markdown } from "../shared/Markdown";
 import "./Preview.css";
 

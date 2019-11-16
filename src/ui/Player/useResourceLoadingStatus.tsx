@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { player } from "../../Player";
-import { ResourceLoadStatus } from "../../Player/ResourceLoader";
+import { player } from "../../player";
+import { ResourceLoadStatus } from "../../player/ResourceLoader";
 
 export function useResourceLoadingStatus(): ResourceLoadStatus {
   const [status, setStatus] = useState(player.resources.status);

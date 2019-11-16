@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { AudiosetLoadStatus } from "../Audioset/AudiosetLoader";
-import { player } from "../Player";
+import { AudiosetLoadStatus } from "../audioset/AudiosetLoader";
+import { player } from "../player";
 
 export function useAudiosetLoadStatus(audiosetId: string): AudiosetLoadStatus {
   const [loadStatus, setLoadStatus] = useState<AudiosetLoadStatus>({

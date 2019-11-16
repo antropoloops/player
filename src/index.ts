@@ -1,4 +1,4 @@
-import { createApp } from "./App";
+import { createApp } from "./ui";
 
 // import * as serviceWorker from "./serviceWorker";
 
