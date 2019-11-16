@@ -14,8 +14,9 @@ interface TrackProps {
 export function Track({ audioset, track, state }: TrackProps): JSX.Element {
   return (
     <div key={track.id} className="Track">
+      <div className="background" style={{ backgroundColor: track.color }} />
       <TrackHeader track={track} />
-      <div className="clips" style={{ backgroundColor: track.color }}>
+      <div className="clips">
         {track.clipIds.map((clipId, index) => (
           <Clip
             key={clipId}
@@ -34,7 +35,7 @@ interface TrackHeaderProps {
 }
 
 const TrackHeader = ({ track }: TrackHeaderProps) => (
-  <div className="TrackHeader" style={{ backgroundColor: track.color }}>
+  <div className="TrackHeader">
     <span className="title">{track.name}</span>
   </div>
 );

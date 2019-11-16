@@ -12,7 +12,11 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
 
   const cover2 = clip.resources.cover2 && clip.resources.cover2.small;
   return (
-    <div ref={ref} className="Clip open">
+    <div
+      ref={ref}
+      className="Clip open"
+      style={{ backgroundColor: clip.color }}
+    >
       <div className="covers" onClick={onClick}>
         <img className="cover" alt={clip.title} src={clip.coverUrl} />
         {cover2 ? (

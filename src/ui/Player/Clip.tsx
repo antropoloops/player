@@ -3,7 +3,7 @@ import "./Clip.css";
 import { ClosedClip } from "./ClipClosed";
 import { OpenClip } from "./ClipOpen";
 
-interface ClipProps {
+export interface ClipProps {
   clip: any;
   isActive: boolean;
   onClick: () => void;
