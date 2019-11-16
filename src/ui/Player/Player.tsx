@@ -9,7 +9,7 @@ import Preview from "./Preview";
 import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
 import { Visuals } from "./Visuals";
 
-const SKIP_PREVIEW = true;
+const SKIP_PREVIEW = process.env.NODE_ENV === "development" && false;
 
 export interface PlayerProps {
   audioset: Audioset;

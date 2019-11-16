@@ -42,9 +42,9 @@ interface PreviewProps extends StartButtonProps {
 
 const StartButton = ({ onStart }: StartButtonProps) => (
   <div className="start">
-    <a onClick={onStart}>
+    <button onClick={onStart}>
       <img src="/play.png" alt="Empezar" />
-    </a>
+    </button>
   </div>
 );
 
@@ -63,9 +63,9 @@ const ProgressBar = ({ progress }: ProgressBarProps) => (
       x2={SIZE}
       y2="10"
       fill="none"
-      stroke-width="12"
+      strokeWidth="12"
       stroke="#000000"
-      stroke-linecap="round"
+      strokeLinecap="round"
     />
     <line
       x1="0"
@@ -73,11 +73,11 @@ const ProgressBar = ({ progress }: ProgressBarProps) => (
       x2={Math.floor(progress * SIZE)}
       y2="10"
       fill="none"
-      stroke-width="12"
+      strokeWidth="12"
       stroke="#00FF00"
-      stroke-dasharray="170"
-      stroke-dashoffset="dashOffsetLine"
-      stroke-linecap="round"
+      strokeDasharray="170"
+      strokeDashoffset="dashOffsetLine"
+      strokeLinecap="round"
       id="lineInner"
     />
   </svg>

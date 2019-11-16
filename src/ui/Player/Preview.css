@@ -11,5 +11,5 @@
 .Preview .start img {
   cursor: pointer;
   display: inline;
-  max-width: 140px;
+  max-width: 100px;
 }
