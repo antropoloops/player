@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { Clip } from "../../audioset";
 import { ArrowDown, ArrowUp } from "../shared/Icons";
 import { Markdown } from "../shared/Markdown";
 import "./ClipOpen.css";
@@ -17,25 +18,32 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
         {cover2 ? (
           <img className="cover alternative" alt={clip.title} src={cover2} />
         ) : (
-          <span className="cover alternative">&nbsp;</span>
+          <ClipInfo className="info" clip={clip} />
         )}
       </div>
-      <div className="info">
-        <div className="meta">
-          <div className="column">
-            <div className="clipName">{clip.name}</div>
-            {hasReadme && <Icon onClick={toggleReadme} />}
-          </div>
-          <div className="column">
-            <h3 className="title">{clip.title}</h3>
-            <p>{clip.artist}</p>
-          </div>
+      <div className="meta">
+        <div className="column">
+          <div className="clipName">{clip.name}</div>
+          {hasReadme && <Icon onClick={toggleReadme} />}
         </div>
-        <Markdown
-          className={`expand ${isReadmeVisible ? "visible" : "hidden"}`}
-          markdown={clip.readme}
-        />
+        {cover2 && <ClipInfo className="column" clip={clip} />}
       </div>
+      <Markdown
+        className={`expand ${isReadmeVisible ? "visible" : "hidden"}`}
+        markdown={clip.readme}
+      />
     </div>
   );
 };
+
+interface ClipInfoProps {
+  className: string;
+  clip: Clip;
+}
+
+const ClipInfo = ({ className, clip }: ClipInfoProps) => (
+  <div className={className}>
+    <h3 className="title">{clip.title}</h3>
+    <p>{clip.artist}</p>
+  </div>
+);
