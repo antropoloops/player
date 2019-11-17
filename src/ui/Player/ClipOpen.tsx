@@ -30,19 +30,13 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
       style={{ backgroundColor: clip.color }}
     >
       <div className="covers">
-        <img
-          className="cover"
-          alt={clip.title}
-          src={clip.coverUrl}
-          onClick={onClick}
-        />
+        <div className="cover">
+          <img alt={clip.title} src={clip.coverUrl} onClick={onClick} />
+        </div>
         {cover2 ? (
-          <img
-            className="cover alternative"
-            alt={clip.title}
-            src={cover2}
-            onClick={onClick}
-          />
+          <div className="cover">
+            <img alt={clip.title} src={cover2} onClick={onClick} />
+          </div>
         ) : (
           <div className="cover info">
             {clipInfo} {clipToggle}

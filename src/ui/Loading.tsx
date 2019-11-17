@@ -12,7 +12,7 @@ const Loading = () => {
         />
       </div>
       <Scroll>
-        <div className="footer">Footer</div>
+        <div className="footer">Loading...</div>
         <div className="visuals" />
       </Scroll>
     </div>

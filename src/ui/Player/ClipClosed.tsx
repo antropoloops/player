@@ -27,12 +27,9 @@ export const ClosedClip = ({ clip, onClick }: any) => {
       id={`clip-${clip.id}`}
       style={{ backgroundColor: clip.color }}
     >
-      <img
-        className="cover"
-        alt={clip.title}
-        src={clip.coverUrl}
-        onClick={onClick}
-      />
+      <div className="cover">
+        <img alt={clip.title} src={clip.coverUrl} onClick={onClick} />
+      </div>
       <div className="meta" onClick={onClick}>
         <h3 className="title">{clip.title}</h3>
       </div>

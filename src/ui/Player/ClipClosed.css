@@ -4,7 +4,9 @@
   flex-direction: row;
 }
 .Clip.closed .cover {
-  width: 50px;
+  width: 33%;
+  max-width: 256px;
+  max-height: 256px;
   margin-right: 0.5rem;
 }
 .Clip.closed .meta {

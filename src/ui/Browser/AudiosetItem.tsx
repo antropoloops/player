@@ -9,7 +9,10 @@ interface AudiosetItemProps {
 export const AudiosetItem = ({ audioset }: AudiosetItemProps) => (
   <Link to={`/set/${audioset.publish_path}`}>
     <div className="AudiosetItem">
-      <img src={audioset.logo_url} alt={audioset.title} />
+      <div className="image">
+        {/* This is hack to keep img in Safari responsive */}
+        <img src={audioset.logo_url} alt={audioset.title} />
+      </div>
       <div className="meta">
         <h3>{audioset.title}</h3>
         <p>{audioset.description}</p>
