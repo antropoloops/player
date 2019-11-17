@@ -42,7 +42,6 @@ export const Browser = ({ audioset }: BrowserProps) => {
           <Markdown markdown={audioset.meta.readme} />
         </div>
       )}
-      <div className="footer">Welcome</div>
     </div>
   );
 };
