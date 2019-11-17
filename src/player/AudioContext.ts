@@ -11,17 +11,24 @@ export async function getAudioContext(): Promise<AudioContext> {
 
   if (context.state !== "running" && context.resume) {
     log("waiting for context...");
-    return context.resume().then(() => context as AudioContext);
+    return context
+      .resume()
+      .then(() => startAudioContext(context as AudioContext));
   } else {
     return context;
   }
 }
 
-function createAudioContext() {
+function createAudioContext(): AudioContext {
   log("create context");
-  // iOS hack. See https://github.com/tambien/StartAudioContext/blob/master/StartAudioContext.js
   const ctx = new ((window as any).AudioContext ||
     (window as any).webkitAudioContext)() as AudioContext;
+  return ctx;
+}
+
+function startAudioContext(ctx: AudioContext): AudioContext {
+  log("start context");
+  // iOS hack. See https://github.com/tambien/StartAudioContext/blob/master/StartAudioContext.js
   const buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
   const source = ctx.createBufferSource();
   source.buffer = buffer;
