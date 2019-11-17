@@ -26,7 +26,7 @@ export const Player = ({ audioset }: PlayerProps) => {
       .then(() => player.resources.load())
       .then(() => player.control.keyboard.setActive(true));
 
-  useAutoStartAudio(isReady, audioset, handleStart);
+  // useAutoStartAudio(isReady, audioset, handleStart);
 
   return (
     <div className="App Player">
@@ -52,7 +52,10 @@ export const Player = ({ audioset }: PlayerProps) => {
   );
 };
 
-function useAutoStartAudio(
+/**
+ * Start audio when clicking in window
+ */
+export function useAutoStartAudio(
   isReady: boolean,
   audioset: Audioset,
   startAudio: () => void,
@@ -69,7 +72,7 @@ function useAutoStartAudio(
       window.addEventListener("click", onClick);
       return removeListener;
     }
-  }, [audioset.id, isReady]);
+  }, [audioset.id, isReady, startAudio]);
 
   return startAudio;
 }

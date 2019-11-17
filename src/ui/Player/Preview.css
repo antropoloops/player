@@ -8,8 +8,7 @@
   display: block;
   text-align: center;
 }
-.Preview .start img {
-  cursor: pointer;
-  display: inline;
-  max-width: 100px;
+.Preview .start button {
+  border-radius: 30px;
+  max-width: 150px;
 }

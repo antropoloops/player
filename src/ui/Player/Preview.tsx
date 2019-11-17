@@ -42,7 +42,7 @@ interface PreviewProps extends StartButtonProps {
 
 const StartButton = ({ onStart }: StartButtonProps) => (
   <div className="start">
-    <button onClick={onStart}>
+    <button className="btn-link" title="Start playing" onClick={onStart}>
       <img src="/play.png" alt="Empezar" />
     </button>
   </div>

@@ -6,7 +6,13 @@ import "./Footer.css";
 export const Footer = () => {
   return (
     <div className="footer PlayerFooter">
-      <Stop onClick={() => player.control.stopAll(0)} />
+      <button
+        className="btn-link"
+        title="Stop all"
+        onClick={() => player.control.stopAll(0)}
+      >
+        <Stop />
+      </button>
     </div>
   );
 };

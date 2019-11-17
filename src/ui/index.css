@@ -11,12 +11,19 @@ h1, h2, h3, h4 {
 
 
 button {
+  cursor: pointer;
   font-size: 1.5rem;
   background-color: #0f0;
   color: #000;
   padding: .5rem 1rem;
   border: 0;
   border-radius: 1rem;
+}
+
+button.btn-link {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
 }
 
 .noselect {
