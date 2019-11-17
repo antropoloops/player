@@ -1,23 +1,23 @@
-import debounce from "lodash.debounce";
 import { Audioset } from "../audioset";
+import { addResizeObserver } from "./addResizeObserver";
 import Display from "./display";
 import Visuals from "./visuals";
 
 export class VisualControl {
   private display: Display;
   private visuals: Visuals;
-  private handleResize: any;
+  private detachers: Array<() => void> = [];
 
-  constructor(audioset: Audioset, private el: any) {
+  constructor(audioset: Audioset, el: any) {
     this.display = new Display(el);
     this.visuals = new Visuals(audioset, this.display);
-    setupVisuals(audioset, this.visuals);
-
-    this.handleResize = debounce(() => {
-      this.visuals.resizeSvg();
+    setupVisuals(audioset, this.visuals).then(() => {
+      this.detachers.push(
+        addResizeObserver(el, (width: number, height: number) => {
+          this.visuals.resizeSvg(width, height);
+        }),
+      );
     });
-
-    window.addEventListener(el, this.handleResize);
   }
 
   public startClip(clipId: string) {
@@ -29,16 +29,20 @@ export class VisualControl {
   }
 
   public detach() {
-    window.removeEventListener(this.el, this.handleResize);
+    for (const detach of this.detachers) {
+      detach();
+    }
   }
 }
 
-function setupVisuals(audioset: Audioset, visuals: Visuals) {
+function setupVisuals(audioset: Audioset, visuals: Visuals): Promise<Visuals> {
   if (audioset.visuals.mode === "map") {
-    fetch(audioset.visuals.geomap.url)
+    return fetch(audioset.visuals.geomap.url)
       .then(response => response.json())
-      .then(data => visuals.setGeodata(data));
+      .then(data => visuals.setGeodata(data))
+      .then(() => visuals);
   } else {
     visuals.setup();
+    return Promise.resolve(visuals);
   }
 }

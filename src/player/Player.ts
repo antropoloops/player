@@ -7,33 +7,13 @@ import {
   ControlListener,
   ControlState,
 } from "./AudiosetControl";
+import { Emitter, Listener } from "./Emitter";
 import {
   FetchAudio,
   ResourceLoader,
   ResourceLoadStatus,
 } from "./ResourceLoader";
 import { Sampler } from "./Sampler";
-
-type Listener<T> = (event: T) => void;
-class Emitter<T> {
-  private readonly listeners: Array<Listener<T>> = [];
-
-  public emit(event: T) {
-    this.listeners.forEach(listen => listen(event));
-  }
-
-  public on(listener: Listener<T>) {
-    this.listeners.push(listener);
-    return () => this.off(listener);
-  }
-
-  public off(listener: Listener<T>) {
-    const index = this.listeners.indexOf(listener);
-    if (index > -1) {
-      this.listeners.splice(index, 1);
-    }
-  }
-}
 
 /**
  * A player is the facade for the rest of the components:
@@ -48,6 +28,8 @@ export class Player {
   public readonly loader: AudiosetLoader;
   public control: AudiosetControl;
   public resources: ResourceLoader;
+
+  // private //
   private sampler: Sampler;
 
   private noSampler: Sampler;
@@ -118,7 +100,7 @@ export class Player {
     return this.controlCommand.on(listener);
   }
 
-  //// PRIVATE /////k
+  //// PRIVATE /////
 
   // allow pub/sub of contro state
   private emitControlState(controlState: ControlState) {

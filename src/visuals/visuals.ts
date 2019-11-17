@@ -69,7 +69,6 @@ export default class Visuals {
     this.countries = collection.features.filter(
       (country: any) => country.id !== "010",
     );
-    this.setup();
   }
 
   public show(name: string) {
@@ -80,12 +79,10 @@ export default class Visuals {
 
     // REVIEW: See if there is a better way to get this info (scale, projection)
     // that is already calculated in drawMap
-    const { width } = this.display.dimensions;
+    const dimensions = this.display.getDimensions();
+    const { width } = dimensions;
 
-    const projector = createProjector(
-      this.set.visuals,
-      this.display.dimensions,
-    );
+    const projector = createProjector(this.set.visuals, dimensions);
     const [cx, cy] = projector(clip.position);
 
     // REVIEW: fix width parameter to draw circles with the proper size
@@ -107,7 +104,7 @@ export default class Visuals {
     remove(name, this.refLines);
   }
 
-  public resizeSvg() {
+  public resizeSvg(width: number, height: number) {
     // TODO: create a resize function that only changes the svg viewBox
     this.setup();
   }
@@ -116,9 +113,10 @@ export default class Visuals {
     this.display.clear();
     this.display.createSvg();
 
-    const backgroundWidth = this.display.dimensions.width;
+    const dimensions = this.display.getDimensions();
+    const backgroundWidth = dimensions.width;
     const albumsHeight = getAlbumHeight(backgroundWidth);
-    const backgroundHeight = this.display.dimensions.height - albumsHeight;
+    const backgroundHeight = dimensions.height - albumsHeight;
 
     const svg = this.display.svg;
 

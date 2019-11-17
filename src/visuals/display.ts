@@ -13,16 +13,19 @@ export interface Dimension {
 
 export default class Display {
   public el: any;
-  public dimensions: Dimension;
   public svg: any;
+
   constructor(el: any) {
     this.el = el;
-    this.dimensions = {
+    this.createSvg();
+    this.clear();
+  }
+
+  public getDimensions() {
+    return {
       width: this.el.offsetWidth,
       height: this.el.offsetHeight,
     };
-    this.createSvg();
-    this.clear();
   }
 
   public setVisible(isVisible: boolean) {
@@ -31,15 +34,13 @@ export default class Display {
 
   public createSvg() {
     const container = select(this.el);
+    const dimensions = this.getDimensions();
 
     this.svg = container
       .append("svg")
-      .attr("width", this.dimensions.width)
-      .attr("height", this.dimensions.height)
-      .attr(
-        "viewBox",
-        `0 0 ${this.dimensions.width} ${this.dimensions.height}`,
-      );
+      .attr("width", dimensions.width)
+      .attr("height", dimensions.height)
+      .attr("viewBox", `0 0 ${dimensions.width} ${dimensions.height}`);
 
     return this.svg;
   }
