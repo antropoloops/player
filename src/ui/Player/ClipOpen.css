@@ -12,6 +12,13 @@
   margin: 0;
 }
 
+.Clip.open .cover.info {
+  display: flex;
+  flex-direction: column;
+}
+.Clip.open .cover.info .clipInfo {
+  flex-grow: 1;
+}
 .Clip.open .cover.info > * {
   padding-left: 0.5rem;
 }

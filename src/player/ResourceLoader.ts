@@ -67,11 +67,11 @@ export class ResourceLoader {
       return;
     }
 
-    this._setStatus({ status: "loading", total, completed: 0 });
+    this.setStatus({ status: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
     const promises = clips.map(clip =>
-      this._loadAudio(clip).catch(err => {
-        this._complete();
+      this.loadAudio(clip).catch(err => {
+        this.handleResourceCompleted();
         log("Error %o", err);
       }),
     );
@@ -79,29 +79,29 @@ export class ResourceLoader {
   }
 
   //// PRIVATE ////
-  private _setStatus(status: ResourceLoadStatus) {
+  private setStatus(status: ResourceLoadStatus) {
     this.status = status;
     this.listener(status);
   }
 
-  private async _loadAudio(clip: Clip) {
+  private async loadAudio(clip: Clip) {
     // TODO: check other formats
     const url = clip.resources.audio.mp3;
     const response = await fetch(url);
     const buffer = await decodeAudioBuffer(response);
     this.buffers[clip.id] = buffer;
-    this._complete(url);
+    this.handleResourceCompleted(url);
 
     return buffer;
   }
 
-  private _complete(url?: string) {
+  private handleResourceCompleted(url?: string) {
     this.completed += 1;
     const status: ResourceLoadStatus =
       this.completed >= this.total
         ? { status: "ready", total: this.total }
         : { status: "loading", total: this.total, completed: this.completed };
-    this._setStatus(status);
+    this.setStatus(status);
   }
 }
 
