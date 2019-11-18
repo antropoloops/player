@@ -38,8 +38,8 @@ const ControlHeader = ({ title, path }: ControlHeaderProps) => (
 );
 
 const LogoHeader = () => (
-  <div className="Header logo">
-    <div className="logo-wrap">
+  <div className="Header">
+    <div className="logo">
       <img className="play-logo" src="/play-logo.png" alt="Play antropoloops" />
     </div>
   </div>

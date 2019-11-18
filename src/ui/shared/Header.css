@@ -5,6 +5,7 @@
   margin: 2px 0 2px 0;
 }
 .Header .navigation {
+  margin: 0.5rem 0.25rem;
   opacity: 0.8;
 }
 .Header .navigation:hover {
@@ -20,10 +21,18 @@
   line-height: 24px;
 }
 
-.Header .logo-wrap {
-  margin: 4px 8px ;
+/* in mobile, the header fills all the space */
+.Header .logo {
+  margin: 0.25rem;
 }
 
-.Header .play-logo {
+/* in desktop, the header logo has space for scrollbars */
+@media (orientation: landscape) {
+  .Header .logo {
+    margin: 0.25rem 1.25rem 0.25rem 0.25rem;
+  }
+}
+
+.Header .logo img {
   max-height: 3rem;
 }
