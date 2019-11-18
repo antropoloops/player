@@ -5,7 +5,7 @@ import "./Header.css";
 import { ArrowLeft } from "./Icons";
 
 interface HeaderProps {
-  meta: AudiosetMetadata;
+  meta?: AudiosetMetadata;
 }
 
 const getAudiosetPath = (path: string) => (path ? `/set/${path}` : `/`);
@@ -13,14 +13,26 @@ const getAudiosetPath = (path: string) => (path ? `/set/${path}` : `/`);
 /**
  * The header
  */
-export const Header = (props: HeaderProps) =>
-  props.meta.path === "index" ? LogoHeader() : ControlHeader(props);
+export const Header = ({ meta }: HeaderProps) =>
+  meta && meta.path !== "index" ? (
+    <ControlHeader
+      title={meta.title}
+      path={getAudiosetPath(meta.parent_path)}
+    />
+  ) : (
+    <LogoHeader />
+  );
 
-const ControlHeader = ({ meta }: HeaderProps) => (
+interface ControlHeaderProps {
+  title: string;
+  path: string;
+}
+
+const ControlHeader = ({ title, path }: ControlHeaderProps) => (
   <div className="Header">
-    <Link className="navigation" to={getAudiosetPath(meta.parent_path)}>
+    <Link className="navigation" to={path}>
       <ArrowLeft />
-      <h1>{meta.title}</h1>
+      <h1>{title}</h1>
     </Link>
   </div>
 );
