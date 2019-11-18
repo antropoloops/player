@@ -1,12 +1,10 @@
 import { getAudioContext } from "./AudioContext";
 
 /**
- * Fetch an AudioBuffer from url
- * @param url
+ * Fetch an AudioBuffer from a fetch response
  */
-export async function fetchAudioBuffer(url: string): Promise<AudioBuffer> {
+export async function decodeAudioBuffer(response: Response) {
   const context = await getAudioContext();
-  const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();
   return decodeArrayBuffer(context, arrayBuffer);
 }

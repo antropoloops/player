@@ -8,11 +8,7 @@ import {
   ControlState,
 } from "./AudiosetControl";
 import { Emitter, Listener } from "./Emitter";
-import {
-  FetchAudio,
-  ResourceLoader,
-  ResourceLoadStatus,
-} from "./ResourceLoader";
+import { ResourceLoader, ResourceLoadStatus } from "./ResourceLoader";
 import { Sampler } from "./Sampler";
 
 /**
@@ -47,7 +43,6 @@ export class Player {
   private readonly controlCommand = new Emitter<ControlCommand>();
   private readonly resourceStatusChanged = new Emitter<ResourceLoadStatus>();
 
-  private fetchAudio?: FetchAudio;
   private audio: AudioEngine = new DebugAudioEngine();
   private audioset: Audioset = EmptyAudioset;
 
@@ -75,11 +70,6 @@ export class Player {
       this.resources,
       this.audio,
     );
-  }
-
-  public setFetchAudio(fetch: FetchAudio) {
-    this.fetchAudio = fetch;
-    this.resources.fetch = fetch;
   }
 
   public setAudioEngine(audio: AudioEngine) {
@@ -130,9 +120,6 @@ export class Player {
       this.control = this.noControl;
       this.sampler = this.noSampler;
       this.resources = this.noResources;
-    }
-    if (this.fetchAudio) {
-      this.resources.fetch = this.fetchAudio;
     }
   }
 }

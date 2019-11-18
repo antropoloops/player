@@ -7,7 +7,7 @@ import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Footer } from "./Footer";
 import Preview from "./Preview";
-import { useResourceLoadingStatus } from "./useResourceLoadingStatus";
+import { useResourceLoader } from "./useResourceLoader";
 import { Visuals } from "./Visuals";
 
 export interface PlayerProps {
@@ -19,8 +19,8 @@ const handleStart = () =>
     .then(() => player.control.keyboard.setActive(true));
 
 export const Player = ({ audioset }: PlayerProps) => {
-  const resourceStatus = useResourceLoadingStatus();
-  const isReady = resourceStatus.status === "ready";
+  const { load } = useResourceLoader();
+  const isReady = load.status === "ready";
   const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
@@ -37,7 +37,7 @@ export const Player = ({ audioset }: PlayerProps) => {
           ) : (
             <Preview
               audioset={audioset}
-              resourceStatus={resourceStatus}
+              resourceStatus={load}
               onStart={handleStart}
             />
           )}
