@@ -1,5 +1,4 @@
 import React from "react";
-import { match as Match } from "react-router-dom";
 import { Audioset, AudiosetProject } from "../audioset";
 import "./App.css";
 import { Browser } from "./Browser";
@@ -8,17 +7,12 @@ import NotFound from "./NotFound";
 import { Player } from "./Player";
 import { useAudiosetLoadStatus } from "./useAudiosetLoad";
 
-interface AppParams {
-  id: string;
-}
-
 interface LoadAudiosetProps {
-  match: Match<AppParams>;
+  idOrUrl: string;
 }
 
-const LoadAudioset = ({ match }: LoadAudiosetProps) => {
-  const id = match.params.id || "index";
-  const loadStatus = useAudiosetLoadStatus(id);
+export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
+  const loadStatus = useAudiosetLoadStatus(idOrUrl);
 
   switch (loadStatus.status) {
     case "loading":
@@ -40,5 +34,3 @@ const LoadAudioset = ({ match }: LoadAudiosetProps) => {
       );
   }
 };
-
-export default LoadAudioset;
