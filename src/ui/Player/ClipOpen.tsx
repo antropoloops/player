@@ -11,12 +11,12 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
 
   const clipToggle = (
     <div className="clipToggle">
-      <div className="clipName">{clip.name}</div>
+      <div className="clipName noselect">{clip.name}</div>
       {hasReadme && <Icon onClick={toggleReadme} />}
     </div>
   );
   const clipInfo = (
-    <div className="clipInfo">
+    <div className="clipInfo noselect">
       <h3 className="title">{clip.title}</h3>
       <p>{clip.artist}</p>
     </div>

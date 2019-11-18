@@ -30,7 +30,7 @@ export const ClosedClip = ({ clip, onClick }: any) => {
       <div className="cover">
         <img alt={clip.title} src={clip.coverUrl} onClick={onClick} />
       </div>
-      <div className="meta" onClick={onClick}>
+      <div className="meta noselect" onClick={onClick}>
         <h3 className="title">{clip.title}</h3>
       </div>
       {hasKeyboard() && (

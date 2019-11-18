@@ -5,8 +5,8 @@
 }
 .Clip.closed .cover {
   width: 33%;
-  max-width: 256px;
-  max-height: 256px;
+  max-width: 80px;
+  max-height: 80px;
   margin-right: 0.5rem;
 }
 .Clip.closed .meta {
