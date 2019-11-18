@@ -10,7 +10,10 @@ export const OpenClip = ({ ref, clip, onClick }: any) => {
   const Icon = isReadmeVisible ? ArrowUp : ArrowDown;
 
   const clipToggle = (
-    <div className="clipToggle" onClick={hasReadme && toggleReadme}>
+    <div
+      className="clipToggle"
+      onClick={(hasReadme && toggleReadme) || undefined}
+    >
       <div className="clipName noselect">{clip.name}</div>
       {hasReadme && <Icon />}
     </div>

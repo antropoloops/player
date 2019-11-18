@@ -1,5 +1,8 @@
+import debug from "debug";
 import { Audioset, Clip } from "../audioset";
 import { KeyboardControler } from "./KeyboardControler";
+
+const log = debug("atpls:control");
 
 export type PlayingState = "stopped" | "playing"; // | "playScheduled" |  "stopScheduled";
 
@@ -55,29 +58,30 @@ export interface ControlListener {
  */
 export class AudiosetControl {
   public readonly keyboard: KeyboardControler;
-  private clips: ClipPlayingStateByClipId = {};
-  private tracks: TrackPlayingStateByTrackId = {};
+  private clipStateByClipId: ClipPlayingStateByClipId = {};
+  private trackStateByTrackId: TrackPlayingStateByTrackId = {};
   private clipIdsOfTrack: Record<string, string[]> = {};
   private trackIdOfClip: Record<string, string> = {};
   private commands: ControlCommand[] = [];
-  private clipsCount: number = 0;
-  private tracksCount: number = 0;
+  private playingClipsCount: number = 0;
+  private playingTracksCount: number = 0;
 
   constructor(audioset: Audioset, private listener: ControlListener) {
+    log("create control");
     this.keyboard = new KeyboardControler(audioset, this);
     audioset.clips.forEach((clip: Clip) => {
-      this.clips[clip.id] = { state: "stopped" };
+      this.clipStateByClipId[clip.id] = { state: "stopped" };
       this.trackIdOfClip[clip.id] = clip.trackId;
     });
     audioset.tracks.forEach(track => {
       const volume = track.volume || 1;
-      this.tracks[track.id] = { state: "stopped", volume };
+      this.trackStateByTrackId[track.id] = { state: "stopped", volume };
       this.clipIdsOfTrack[track.id] = track.clipIds;
     });
   }
 
   public toggleClip(clipId: string, time: number) {
-    const clipState = this.clips[clipId];
+    const clipState = this.clipStateByClipId[clipId];
     if (!clipState) {
       return;
     } else if (clipState.state === "stopped") {
@@ -92,64 +96,61 @@ export class AudiosetControl {
    * @param clipId
    */
   public startClip(clipId: string, time: number) {
-    const clipState = this.clips[clipId];
+    const clipState = this.clipStateByClipId[clipId];
     if (!clipState || clipState.state === "playing") {
       return;
     }
 
     const trackId = this.trackIdOfClip[clipId];
     const sameTrackClipIds = this.clipIdsOfTrack[trackId];
-    this._emitChanges(() => {
-      sameTrackClipIds.forEach(trackClipId =>
-        this._stopClip(trackClipId, time),
-      );
-      this._startTrack(trackId, time);
-      this._startClip(clipId, time);
-    });
+    sameTrackClipIds.forEach(trackClipId =>
+      this.stopClipCommand(trackClipId, time),
+    );
+    this.startTrackCommand(trackId, time);
+    this.startClipCommand(clipId, time);
+    this.sendCommands();
   }
 
   /**
    * Stops a clip
    */
   public stopClip(clipId: string, time: number) {
-    const clipState = this.clips[clipId];
+    const clipState = this.clipStateByClipId[clipId];
     if (!clipState || clipState.state === "stopped") {
       return;
     }
 
     const trackId = this.trackIdOfClip[clipId];
 
-    this._emitChanges(() => {
-      this._stopClip(clipId, time);
-      this._stopTrack(trackId, time);
-    });
+    this.stopClipCommand(clipId, time);
+    this.stopTrackCommand(trackId, time);
+    this.sendCommands();
   }
 
   /**
    * Stops all clips
    */
   public stopAll(time: number) {
-    this._emitChanges(() => {
-      Object.keys(this.clips).forEach(clipId => this._stopClip(clipId, time));
-      Object.keys(this.tracks).forEach(trackId =>
-        this._stopTrack(trackId, time),
-      );
-    });
+    Object.keys(this.clipStateByClipId).forEach(clipId =>
+      this.stopClipCommand(clipId, time),
+    );
+    Object.keys(this.trackStateByTrackId).forEach(trackId =>
+      this.stopTrackCommand(trackId, time),
+    );
+    this.sendCommands();
   }
 
   public getState(): ControlState {
     return {
-      playingClipsCount: this.clipsCount,
-      playingTracksCount: this.tracksCount,
-      clips: { ...this.clips },
-      tracks: { ...this.tracks },
+      playingClipsCount: this.playingClipsCount,
+      playingTracksCount: this.playingTracksCount,
+      clips: { ...this.clipStateByClipId },
+      tracks: { ...this.trackStateByTrackId },
     };
   }
 
   //// PRIVATE ////
-  private _emitChanges(changes: () => void) {
-    changes();
-
+  private sendCommands() {
     this.commands.forEach(command => {
       this.listener.onControlCommand(command);
     });
@@ -158,42 +159,48 @@ export class AudiosetControl {
     this.listener.onControlStateChanged(this.getState());
   }
 
-  private _startClip(clipId: string, time: number) {
-    if (this.clips[clipId].state === "playing") {
+  private startClipCommand(clipId: string, time: number) {
+    if (this.clipStateByClipId[clipId].state === "playing") {
       return;
     }
 
-    this.clipsCount += 1;
-    this.clips[clipId] = { state: "playing" };
+    this.playingClipsCount += 1;
+    this.clipStateByClipId[clipId] = { state: "playing" };
     this.commands.push({ command: "startClip", clipId, time });
   }
-  private _stopClip(clipId: string, time: number) {
-    if (this.clips[clipId].state === "stopped") {
+  private stopClipCommand(clipId: string, time: number) {
+    if (this.clipStateByClipId[clipId].state === "stopped") {
       return;
     }
 
-    this.clipsCount -= 1;
-    this.clips[clipId] = { state: "stopped" };
+    this.playingClipsCount -= 1;
+    this.clipStateByClipId[clipId] = { state: "stopped" };
     this.commands.push({ command: "stopClip", clipId, time });
   }
-  private _startTrack(trackId: string, time: number) {
-    const trackState = this.tracks[trackId];
+  private startTrackCommand(trackId: string, time: number) {
+    const trackState = this.trackStateByTrackId[trackId];
     if (trackState.state === "playing") {
       return;
     }
 
-    this.tracksCount += 1;
-    this.tracks[trackId] = { state: "playing", volume: trackState.volume };
+    this.playingTracksCount += 1;
+    this.trackStateByTrackId[trackId] = {
+      state: "playing",
+      volume: trackState.volume,
+    };
     this.commands.push({ command: "startTrack", trackId, time });
   }
-  private _stopTrack(trackId: string, time: number) {
-    const trackState = this.tracks[trackId];
+  private stopTrackCommand(trackId: string, time: number) {
+    const trackState = this.trackStateByTrackId[trackId];
     if (trackState.state === "stopped") {
       return;
     }
 
-    this.tracksCount -= 1;
-    this.tracks[trackId] = { state: "stopped", volume: trackState.volume };
+    this.playingTracksCount -= 1;
+    this.trackStateByTrackId[trackId] = {
+      state: "stopped",
+      volume: trackState.volume,
+    };
     this.commands.push({ command: "stopTrack", trackId, time });
   }
 }

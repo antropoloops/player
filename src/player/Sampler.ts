@@ -1,6 +1,9 @@
+import debug from "debug";
 import { Audioset } from "../audioset";
 import { AudioEngine, AudioSource, AudioTrack } from "./Audio";
 import { ControlCommand } from "./AudiosetControl";
+
+const log = debug("atpls:sampler");
 
 export interface SamplerBuffers {
   getBuffer(clipId: string): any;
@@ -16,6 +19,7 @@ export class Sampler {
     private buffers: SamplerBuffers,
     private audio: AudioEngine,
   ) {
+    log("create sampler");
     this.master = audio.createTrack({ volume: 0.8 });
     audioset.tracks.forEach(track => {
       this.tracks[track.id] = audio.createTrack({ volume: 1 }, this.master);
@@ -33,6 +37,7 @@ export class Sampler {
   }
 
   public start(clipId: string, time: number) {
+    log("start %s", clipId);
     if (this.audioSources[clipId]) {
       return;
     }
@@ -47,6 +52,7 @@ export class Sampler {
   }
 
   public stop(clipId: string, time: number) {
+    log("stop %s", clipId);
     const source = this.audioSources[clipId];
     if (source !== undefined) {
       source.stop(time);

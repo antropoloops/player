@@ -111,6 +111,7 @@ export class Player {
   }
 
   private setDelegates(audioset: AudiosetData) {
+    this.control.stopAll(0);
     if (isAudiosetPlay(audioset)) {
       this.audioset = audioset;
       this.control = new AudiosetControl(audioset, this.controlListener);
