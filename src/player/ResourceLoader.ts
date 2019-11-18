@@ -4,21 +4,21 @@ import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
 const log = debug("atpls:resources");
 
-// TODO: abstract the loader mechanism: { status, payload }
+// TODO: abstract the loader mechanism: { stage, payload }
 export interface LoadPending {
-  status: "pending";
+  stage: "pending";
 }
 export interface LoadingResources {
-  status: "loading";
+  stage: "loading";
   total: number;
   completed: number;
 }
 export interface ResourcesLoaded {
-  status: "ready";
+  stage: "ready";
   total: number;
 }
 export interface ResourceLoadError {
-  status: "error";
+  stage: "error";
   error: any;
 }
 
@@ -40,7 +40,7 @@ export class ResourceLoader {
     private listener: (status: ResourceLoadStatus) => void,
   ) {
     log("create ResourceLoader %s", audioset.id);
-    this.status = { status: "pending" };
+    this.status = { stage: "pending" };
     this.total = this.audioset.clips.length;
     this.completed = 0;
     this.preloadImage = preloadImage;
@@ -67,7 +67,7 @@ export class ResourceLoader {
       return;
     }
 
-    this.setStatus({ status: "loading", total, completed: 0 });
+    this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
     const promises = clips.map(clip =>
       this.loadAudio(clip).catch(err => {
@@ -99,8 +99,8 @@ export class ResourceLoader {
     this.completed += 1;
     const status: ResourceLoadStatus =
       this.completed >= this.total
-        ? { status: "ready", total: this.total }
-        : { status: "loading", total: this.total, completed: this.completed };
+        ? { stage: "ready", total: this.total }
+        : { stage: "loading", total: this.total, completed: this.completed };
     this.setStatus(status);
   }
 }

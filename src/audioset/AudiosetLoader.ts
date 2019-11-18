@@ -2,18 +2,18 @@ import { AudiosetData } from ".";
 
 // TODO: abstract (LoadPending, LoadProgress, LoadReady, LoadError)
 interface LoadPending {
-  readonly status: "pending";
+  readonly stage: "pending";
 }
 interface LoadingAudioset {
-  readonly status: "loading";
+  readonly stage: "loading";
   readonly audiosetId: string;
 }
 interface AudiosetLoaded {
-  readonly status: "ready";
+  readonly stage: "ready";
   readonly audioset: AudiosetData;
 }
 interface AudiosetLoadError {
-  readonly status: "error";
+  readonly stage: "error";
   readonly error: any;
 }
 
@@ -28,16 +28,16 @@ export type FetchAudioset = (id: string) => Promise<AudiosetData>;
 type LoadListener = (status: AudiosetLoadStatus) => void;
 
 export class AudiosetLoader {
-  public status: AudiosetLoadStatus = { status: "pending" };
+  public status: AudiosetLoadStatus = { stage: "pending" };
 
   constructor(private onAudiosetStatusChange: LoadListener) {}
   public fetch: FetchAudioset = () => Promise.reject();
 
   public loadAudioset(audiosetId: string): Promise<AudiosetLoadStatus> {
-    this.setStatus({ status: "loading", audiosetId });
+    this.setStatus({ stage: "loading", audiosetId });
     return this.fetch(audiosetId)
-      .then(audioset => this.setStatus({ status: "ready", audioset }))
-      .catch(error => this.setStatus({ status: "error", error }));
+      .then(audioset => this.setStatus({ stage: "ready", audioset }))
+      .catch(error => this.setStatus({ stage: "error", error }));
   }
 
   private setStatus(status: AudiosetLoadStatus) {

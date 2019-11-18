@@ -4,14 +4,14 @@ import { player } from "../player";
 
 export function useAudiosetLoadStatus(audiosetId: string): AudiosetLoadStatus {
   const [loadStatus, setLoadStatus] = useState<AudiosetLoadStatus>({
-    status: "loading",
+    stage: "loading",
     audiosetId,
   });
   useEffect(() => {
     player.loader
       .loadAudioset(audiosetId)
       .then(status => setLoadStatus(status))
-      .catch(error => setLoadStatus({ status: "error", error }));
+      .catch(error => setLoadStatus({ stage: "error", error }));
   }, [audiosetId]);
 
   return loadStatus;

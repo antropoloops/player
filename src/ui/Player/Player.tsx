@@ -19,8 +19,8 @@ const handleStart = () =>
     .then(() => player.control.keyboard.setActive(true));
 
 export const Player = ({ audioset }: PlayerProps) => {
-  const { load } = useResourceLoader();
-  const isReady = load.status === "ready";
+  const { status } = useResourceLoader();
+  const isReady = status.stage === "ready";
   const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
@@ -37,7 +37,7 @@ export const Player = ({ audioset }: PlayerProps) => {
           ) : (
             <Preview
               audioset={audioset}
-              resourceStatus={load}
+              resourceStatus={status}
               onStart={handleStart}
             />
           )}

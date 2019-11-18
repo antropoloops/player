@@ -19,10 +19,10 @@ const Preview = ({ audioset, onStart, resourceStatus }: PreviewProps) => {
       <div className="inside">
         <div>{audioset.meta.description}</div>
         <Markdown markdown={audioset.meta.readme} />
-        {resourceStatus.status === "loading" && (
+        {resourceStatus.stage === "loading" && (
           <ProgressBar progress={completed(resourceStatus)} />
         )}
-        {resourceStatus.status === "pending" && (
+        {resourceStatus.stage === "pending" && (
           <StartButton onStart={onStart} />
         )}
       </div>

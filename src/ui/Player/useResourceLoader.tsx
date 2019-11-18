@@ -4,13 +4,13 @@ import { player } from "../../player";
 
 const log = debug("atpls:useResourceLoader");
 export function useResourceLoader() {
-  const [load, setLoad] = useState(player.resources.status);
+  const [status, setStatus] = useState(player.resources.status);
   useEffect(() => {
     log("Installing resource loader");
     player.resources.preload();
-    return player.onResourceStatusChanged(status => {
-      setLoad(status);
+    return player.onResourceStatusChanged(loadStatus => {
+      setStatus(loadStatus);
     });
   }, []);
-  return { load };
+  return { status };
 }

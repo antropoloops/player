@@ -14,7 +14,7 @@ interface LoadAudiosetProps {
 export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
   const loadStatus = useAudiosetLoadStatus(idOrUrl);
 
-  switch (loadStatus.status) {
+  switch (loadStatus.stage) {
     case "loading":
       return <Loading />;
     case "ready":

@@ -104,7 +104,7 @@ export class Player {
   }
   private setAudiosetLoadStatus(status: AudiosetLoadStatus) {
     this.audiosetLoadStatusChanged.emit(status);
-    if (status.status === "ready") {
+    if (status.stage === "ready") {
       this.setDelegates(status.audioset);
       this.audiosetChanged.emit(status.audioset);
     }
