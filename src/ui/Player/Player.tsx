@@ -13,6 +13,10 @@ import { Visuals } from "./Visuals";
 export interface PlayerProps {
   audioset: Audioset;
 }
+const handleStart = () =>
+  getAudioContext()
+    .then(() => player.resources.load())
+    .then(() => player.control.keyboard.setActive(true));
 
 export const Player = ({ audioset }: PlayerProps) => {
   const resourceStatus = useResourceLoadingStatus();
@@ -20,11 +24,6 @@ export const Player = ({ audioset }: PlayerProps) => {
   const { isDesktop } = useDeviceType();
 
   const isVisual = isDesktop || isReady;
-
-  const handleStart = () =>
-    getAudioContext()
-      .then(() => player.resources.load())
-      .then(() => player.control.keyboard.setActive(true));
 
   // useAutoStartAudio(isReady, audioset, handleStart);
 
