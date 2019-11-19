@@ -4,8 +4,8 @@ import {
   LoadingResources,
   ResourceLoadStatus,
 } from "../../player/ResourceLoader";
-import { Markdown } from "../shared/Markdown";
 import "./Preview.css";
+import { Readme } from "./Readme";
 
 function completed(status: LoadingResources) {
   return status.completed / status.total;
@@ -17,8 +17,7 @@ const Preview = ({ audioset, onStart, resourceStatus }: PreviewProps) => {
       <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
 
       <div className="inside">
-        <div>{audioset.meta.description}</div>
-        <Markdown markdown={audioset.meta.readme} />
+        <Readme content={audioset.meta.readme} closed={true} />
         {resourceStatus.stage === "loading" && (
           <ProgressBar progress={completed(resourceStatus)} />
         )}
@@ -41,7 +40,7 @@ interface PreviewProps extends StartButtonProps {
 }
 
 const StartButton = ({ onStart }: StartButtonProps) => (
-  <div className="start">
+  <div className="StartButton">
     <button className="btn-link" title="Start playing" onClick={onStart}>
       <img src="/play.png" alt="Empezar" />
     </button>

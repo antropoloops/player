@@ -1,5 +1,6 @@
 import React from "react";
 import { AudiosetProject } from "../../audioset";
+import { Readme } from "../Player/Readme";
 import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
@@ -20,14 +21,14 @@ export const Browser = ({ audioset }: BrowserProps) => {
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
+          <img
+            alt={audioset.meta.title}
+            src={audioset.meta.logo_url}
+            style={{ width: "100%" }}
+          />
           {isMobile && (
             <div>
-              <img
-                alt={audioset.meta.title}
-                src={audioset.meta.logo_url}
-                style={{ width: "100%" }}
-              />
-              <Markdown className="mobile" markdown={audioset.meta.readme} />
+              <Readme closed={true} content={audioset.meta.readme} />
             </div>
           )}
           <ul className="Audiosets">
