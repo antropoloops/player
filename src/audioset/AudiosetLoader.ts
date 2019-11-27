@@ -1,4 +1,4 @@
-import { AudiosetData } from ".";
+import { AudiosetBundle } from ".";
 
 // TODO: abstract (LoadPending, LoadProgress, LoadReady, LoadError)
 interface LoadPending {
@@ -10,7 +10,7 @@ interface LoadingAudioset {
 }
 interface AudiosetLoaded {
   readonly stage: "ready";
-  readonly audioset: AudiosetData;
+  readonly audioset: AudiosetBundle;
 }
 interface AudiosetLoadError {
   readonly stage: "error";
@@ -23,7 +23,7 @@ export type AudiosetLoadStatus =
   | AudiosetLoaded
   | AudiosetLoadError;
 
-export type FetchAudioset = (id: string) => Promise<AudiosetData>;
+export type FetchAudioset = (id: string) => Promise<AudiosetBundle>;
 
 type LoadListener = (status: AudiosetLoadStatus) => void;
 

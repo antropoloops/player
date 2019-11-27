@@ -4,17 +4,17 @@ import { Track } from "./Track";
 /**
  * An unsepecified audioset type
  */
-export interface AudiosetData {
+export interface AudiosetBundle {
   format: "atpls-audioset";
   type: "audioset" | "project";
   meta: AudiosetMetadata;
 }
 
-export function isAudiosetData(data: any): data is AudiosetData {
+export function isAudiosetBundle(data: any): data is AudiosetBundle {
   return typeof data === "object" && data.format === "atpls-audioset";
 }
 
-export interface Audioset extends AudiosetData {
+export interface Audioset extends AudiosetBundle {
   type: "audioset";
   id: string;
   tracks: Track[];
@@ -23,7 +23,7 @@ export interface Audioset extends AudiosetData {
   index: AudiosetIndexes;
 }
 
-export function isAudiosetPack(audioset: AudiosetData): audioset is Audioset {
+export function isAudiosetPack(audioset: AudiosetBundle): audioset is Audioset {
   return audioset.type === "audioset";
 }
 
@@ -49,7 +49,7 @@ export type AudiosetReference = AudiosetMetadata & {
 /**
  * An AudiosetProject is a group of audiosets
  */
-export interface AudiosetProject extends AudiosetData {
+export interface AudiosetProject extends AudiosetBundle {
   type: "project";
   audiosets: AudiosetReference[];
 }

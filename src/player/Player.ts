@@ -1,4 +1,4 @@
-import { Audioset, AudiosetData, EmptyAudioset } from "../audioset";
+import { Audioset, AudiosetBundle, EmptyAudioset } from "../audioset";
 import { AudiosetLoader, AudiosetLoadStatus } from "../audioset/AudiosetLoader";
 import { AudioEngine, DebugAudioEngine } from "./Audio";
 import {
@@ -156,11 +156,11 @@ export class PlayerState extends AudioPlayer implements Player {
   private handleLoadStatusChanged(status: AudiosetLoadStatus) {
     this.audiosetLoadStatusChanged.emit(status);
     if (status.stage === "ready") {
-      this.setAudiosetData(status.audioset);
+      this.setAudiosetBundle(status.audioset);
     }
   }
 
-  private setAudiosetData(audioset: AudiosetData) {
+  private setAudiosetBundle(audioset: AudiosetBundle) {
     this.control.stopAll(0);
     if (isAudiosetPlay(audioset)) {
       this.control = new AudiosetControl(audioset, this.controlListener);
@@ -171,6 +171,6 @@ export class PlayerState extends AudioPlayer implements Player {
   }
 }
 
-function isAudiosetPlay(audioset: AudiosetData): audioset is Audioset {
+function isAudiosetPlay(audioset: AudiosetBundle): audioset is Audioset {
   return audioset.type === "audioset";
 }

@@ -1,17 +1,17 @@
 import debug from "debug";
 import {
   Audioset,
-  AudiosetData,
+  AudiosetBundle,
   AudiosetIndexes,
-  isAudiosetData,
+  isAudiosetBundle,
   isAudiosetPack,
 } from "./Audioset";
 
 const log = debug("atpls:audioset");
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export function createAudioset(data: any): AudiosetData {
-  if (!isAudiosetData(data)) {
+export function createAudioset(data: any): AudiosetBundle {
+  if (!isAudiosetBundle(data)) {
     log("Invalid format %o", data);
     throw Error("Invalida Audioset format");
   }
