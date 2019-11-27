@@ -14,7 +14,7 @@ export const Readme = ({ closed, content }: ReeadmeProps) => {
     if (isOpen) {
       toggleOpen(null);
     }
-  }, [content, toggleOpen]);
+  }, [content, toggleOpen, isOpen]);
 
   if (!content.length) {
     return null;
