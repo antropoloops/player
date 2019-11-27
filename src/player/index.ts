@@ -1,14 +1,14 @@
 import { getAudioContext } from "./AudioContext";
 import { AudioContextEngine } from "./AudioContextEngine";
 import { fetchAudioset } from "./fetchAudioset";
-import { Player } from "./Player";
+import { Player, PlayerState } from "./Player";
 
 export { getAudioContext } from "./AudioContext";
 
 /**
  * Singleton instance
  */
-export const player = new Player();
+export const player: Player = new PlayerState();
 player.loader.fetch = fetchAudioset;
 
 getAudioContext().then(context => {
