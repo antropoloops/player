@@ -1,7 +1,6 @@
 import { Audioset } from "./Audioset";
 
 export const EmptyAudioset: Audioset = {
-  format: "atpls-audioset",
   type: "audioset",
   id: "none",
   meta: {

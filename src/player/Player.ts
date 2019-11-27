@@ -1,4 +1,9 @@
-import { Audioset, AudiosetBundle, EmptyAudioset } from "../audioset";
+import {
+  Audioset,
+  AudiosetBundle,
+  EmptyAudioset,
+  isAudioset,
+} from "../audioset";
 import { AudiosetLoader, AudiosetLoadStatus } from "../audioset/AudiosetLoader";
 import { AudioEngine, DebugAudioEngine } from "./Audio";
 import {
@@ -65,16 +70,17 @@ class AudiosetPlayer {
     return this.audioset;
   }
 
-  public setAudioset(audioset: Audioset) {
-    this.audioset = audioset;
-    this.resources = new ResourceLoader(audioset, this.resourceListener);
-  }
-
   public onResourceStatusChanged(listener: Listener<ResourceLoadStatus>) {
     return this.resourceStatusChanged.on(listener);
   }
 
   // PRIVATE //
+
+  protected setAudioset(audioset: Audioset) {
+    this.audioset = audioset;
+    this.resources = new ResourceLoader(audioset, this.resourceListener);
+  }
+
   private handleResourceChanged(status: ResourceLoadStatus) {
     this.resourceStatusChanged.emit(status);
   }
@@ -93,6 +99,14 @@ export class ControlPlayer extends AudiosetPlayer {
       onControlStateChanged: state => this.handleControlStateChanged(state),
       onControlCommand: command => this.handleControlCommand(command),
     };
+  }
+
+  /**
+   * @override
+   */
+  public setAudioset(audioset: Audioset) {
+    this.control = new AudiosetControl(audioset, this.controlListener);
+    super.setAudioset(audioset);
   }
 
   public onControlStateChanged(listener: Listener<ControlState>) {
@@ -120,6 +134,10 @@ class AudioPlayer extends ControlPlayer {
     super();
     this.sampler = NoSampler;
   }
+
+  /**
+   * @override
+   */
   public setAudioset(audioset: Audioset) {
     this.sampler = new Sampler(audioset, this.resources, this.audio);
     super.setAudioset(audioset);
@@ -160,17 +178,12 @@ export class PlayerState extends AudioPlayer implements Player {
     }
   }
 
-  private setAudiosetBundle(audioset: AudiosetBundle) {
+  private setAudiosetBundle(bundle: AudiosetBundle) {
     this.control.stopAll(0);
-    if (isAudiosetPlay(audioset)) {
-      this.control = new AudiosetControl(audioset, this.controlListener);
-      this.setAudioset(audioset);
+    if (isAudioset(bundle)) {
+      this.setAudioset(bundle);
     } else {
       Object.assign(this, NoPlayer);
     }
   }
-}
-
-function isAudiosetPlay(audioset: AudiosetBundle): audioset is Audioset {
-  return audioset.type === "audioset";
 }
