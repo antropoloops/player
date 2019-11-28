@@ -1,7 +1,7 @@
 import React from "react";
 import { Audioset, Track as TrackModel } from "../../audioset";
 import { player } from "../../player";
-import { ControlState } from "../../player/AudiosetControl";
+import { ControlState } from "../../player/Control";
 import { Clip } from "./Clip";
 import "./Track.css";
 
@@ -21,7 +21,7 @@ export function Track({ audioset, track, state }: TrackProps): JSX.Element {
           <Clip
             key={clipId}
             clip={audioset.index.clipById[clipId]}
-            isActive={state.clips[clipId].state === "playing"}
+            isActive={state.clips[clipId].status === "playing"}
             onClick={() => player.control.toggleClip(clipId, 0)}
           />
         ))}

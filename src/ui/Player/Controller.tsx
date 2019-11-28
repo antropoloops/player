@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Audioset } from "../../audioset";
 import { player } from "../../player";
-import { ControlState } from "../../player/AudiosetControl";
+import { ControlState } from "../../player/Control";
 import "./Controller.css";
 import { Track } from "./Track";
 import { useKeyboardListener } from "./useKeyboardListener";
