@@ -1,10 +1,11 @@
 import { Clip, Track } from "../../audioset";
 import {
+  ClipPlayingState,
   ClipPlayingStateByClipId,
   ControlState,
+  TrackPlayingState,
   TrackPlayingStateByTrackId,
 } from "./ControlState";
-import { ClipPlayingState, TrackPlayingState } from "./PlayingState";
 
 /**
  * It handles the state of the control
@@ -16,12 +17,12 @@ export class ControlStateManager {
   private trackStateByTrackId: TrackPlayingStateByTrackId = {};
 
   public addClip(clip: Clip) {
-    this.clipStateByClipId[clip.id] = { state: "stopped" };
+    this.clipStateByClipId[clip.id] = { status: "stopped" };
     this.trackIdOfClip[clip.id] = clip.trackId;
   }
   public addTrack(track: Track) {
     const volume = track.volume || 1;
-    this.trackStateByTrackId[track.id] = { state: "stopped", volume };
+    this.trackStateByTrackId[track.id] = { status: "stopped", volume };
     this.clipIdsOfTrack[track.id] = track.clipIds;
   }
   public getAllClipIds() {

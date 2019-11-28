@@ -45,9 +45,9 @@ export class AudiosetControl implements PlayerControl {
     const clipState = this.manager.getClipState(clipId);
     if (!clipState) {
       return;
-    } else if (clipState.state === "stopped") {
+    } else if (clipState.status === "stopped") {
       this.startClip(clipId, time);
-    } else if (clipState.state === "playing") {
+    } else if (clipState.status === "playing") {
       this.stopClip(clipId, time);
     }
   }
@@ -58,7 +58,7 @@ export class AudiosetControl implements PlayerControl {
    */
   public startClip(clipId: string, time: number) {
     const clipState = this.manager.getClipState(clipId);
-    if (!clipState || clipState.state === "playing") {
+    if (!clipState || clipState.status === "playing") {
       return;
     }
 
@@ -80,7 +80,7 @@ export class AudiosetControl implements PlayerControl {
    */
   public stopClip(clipId: string, time: number) {
     const clipState = this.manager.getClipState(clipId);
-    if (!clipState || clipState.state === "stopped") {
+    if (!clipState || clipState.status === "stopped") {
       return;
     }
 
@@ -123,32 +123,32 @@ export class AudiosetControl implements PlayerControl {
 
   private startClipCommand(clipId: string, time: number) {
     const clipState = this.manager.getClipState(clipId);
-    if (clipState.state === "playing") {
+    if (clipState.status === "playing") {
       return;
     }
 
-    this.manager.setClipState(clipId, { state: "playing" });
+    this.manager.setClipState(clipId, { status: "playing" });
     this.commands.push({ command: "startClip", clipId, time });
   }
 
   private stopClipCommand(clipId: string, time: number) {
     const clipState = this.manager.getClipState(clipId);
-    if (clipState.state === "stopped") {
+    if (clipState.status === "stopped") {
       return;
     }
 
-    this.manager.setClipState(clipId, { state: "stopped" });
+    this.manager.setClipState(clipId, { status: "stopped" });
     this.commands.push({ command: "stopClip", clipId, time });
   }
 
   private startTrackCommand(trackId: string, time: number) {
     const trackState = this.manager.getTrackState(trackId);
-    if (trackState.state === "playing") {
+    if (trackState.status === "playing") {
       return;
     }
 
     this.manager.setTrackState(trackId, {
-      state: "playing",
+      status: "playing",
       volume: trackState.volume,
     });
     this.commands.push({ command: "startTrack", trackId, time });
@@ -156,12 +156,12 @@ export class AudiosetControl implements PlayerControl {
 
   private stopTrackCommand(trackId: string, time: number) {
     const trackState = this.manager.getTrackState(trackId);
-    if (trackState.state === "stopped") {
+    if (trackState.status === "stopped") {
       return;
     }
 
     this.manager.setTrackState(trackId, {
-      state: "stopped",
+      status: "stopped",
       volume: trackState.volume,
     });
     this.commands.push({ command: "stopTrack", trackId, time });

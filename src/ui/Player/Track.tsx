@@ -21,7 +21,7 @@ export function Track({ audioset, track, state }: TrackProps): JSX.Element {
           <Clip
             key={clipId}
             clip={audioset.index.clipById[clipId]}
-            isActive={state.clips[clipId].state === "playing"}
+            isActive={state.clips[clipId].status === "playing"}
             onClick={() => player.control.toggleClip(clipId, 0)}
           />
         ))}
