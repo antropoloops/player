@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { AudiosetLoadStatus } from "../audioset/AudiosetLoader";
+import { BundleLoadStatus } from "../audioset";
 import { player } from "../player";
 
-export function useAudiosetLoadStatus(audiosetId: string): AudiosetLoadStatus {
-  const [loadStatus, setLoadStatus] = useState<AudiosetLoadStatus>({
+export function useBundleLoadStatus(audiosetId: string): BundleLoadStatus {
+  const [loadStatus, setLoadStatus] = useState<BundleLoadStatus>({
     stage: "loading",
     payload: audiosetId,
   });
   useEffect(() => {
     player.loader
-      .loadAudioset(audiosetId)
+      .loadBundle(audiosetId)
       .then(status => setLoadStatus(status))
       .catch(error => setLoadStatus({ stage: "error", error }));
   }, [audiosetId]);

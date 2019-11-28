@@ -1,5 +1,5 @@
 import { Audioset, Bundle, EmptyAudioset, isAudioset } from "../audioset";
-import { AudiosetLoader, AudiosetLoadStatus } from "../audioset/AudiosetLoader";
+import { BundleLoader, BundleLoadStatus } from "../audioset/";
 import { AudioEngine, DebugAudioEngine } from "./Audio";
 import {
   AudiosetControl,
@@ -14,7 +14,6 @@ import {
   Resources,
 } from "./ResourceLoader";
 import { Sampler } from "./Sampler";
-
 const NoOp = (param: any) => undefined;
 const NoControl = new AudiosetControl(EmptyAudioset, {
   onControlCommand: NoOp,
@@ -40,7 +39,7 @@ const NoPlayer = {
  * - Sampler: play the audio
  */
 export interface Player {
-  readonly loader: AudiosetLoader;
+  readonly loader: BundleLoader;
   readonly resources: Resources;
   readonly control: AudiosetControl;
   setAudioEngine(audio: AudioEngine): void;
@@ -154,20 +153,18 @@ class AudioPlayer extends ControlPlayer {
  * The idea is a player with state, but not well modelled
  */
 export class PlayerState extends AudioPlayer implements Player {
-  public readonly loader: AudiosetLoader;
-  private readonly audiosetLoadStatusChanged = new Emitter<
-    AudiosetLoadStatus
-  >();
+  public readonly loader: BundleLoader;
+  private readonly BundleLoadStatusChanged = new Emitter<BundleLoadStatus>();
 
   constructor() {
     super();
-    this.loader = new AudiosetLoader(status =>
+    this.loader = new BundleLoader(status =>
       this.handleLoadStatusChanged(status),
     );
   }
 
-  private handleLoadStatusChanged(status: AudiosetLoadStatus) {
-    this.audiosetLoadStatusChanged.emit(status);
+  private handleLoadStatusChanged(status: BundleLoadStatus) {
+    this.BundleLoadStatusChanged.emit(status);
     if (status.stage === "ready") {
       this.setBundle(status.payload);
     }
