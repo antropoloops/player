@@ -1,5 +1,5 @@
 import React from "react";
-import { Audioset, AudiosetProject } from "../audioset";
+import { Audioset, Project } from "../audioset";
 import "./App.css";
 import { Browser } from "./Browser";
 import Loading from "./Loading";
@@ -20,7 +20,7 @@ export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
     case "ready":
       const audioset = loadStatus.payload;
       return audioset.type === "project" ? (
-        <Browser audioset={audioset as AudiosetProject} />
+        <Browser audioset={audioset as Project} />
       ) : (
         <Player audioset={audioset as Audioset} />
       );

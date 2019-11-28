@@ -1,9 +1,9 @@
 import { Bundle, BundleMetadata } from "./Bundle";
 
 /**
- * An AudiosetProject is a group of audiosets
+ * An Project is a group of audiosets
  */
-export interface AudiosetProject extends Bundle {
+export interface Project extends Bundle {
   type: "project";
   audiosets: AudiosetReference[];
 }

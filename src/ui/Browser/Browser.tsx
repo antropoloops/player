@@ -1,5 +1,5 @@
 import React from "react";
-import { AudiosetProject } from "../../audioset";
+import { Project } from "../../audioset";
 import { Readme } from "../Player/Readme";
 import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
@@ -9,7 +9,7 @@ import { AudiosetItem } from "./AudiosetItem";
 import "./Browser.css";
 
 interface BrowserProps {
-  audioset: AudiosetProject;
+  audioset: Project;
 }
 
 export const Browser = ({ audioset }: BrowserProps) => {
