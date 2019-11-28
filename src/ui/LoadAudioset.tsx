@@ -1,28 +1,28 @@
 import React from "react";
-import { Audioset, AudiosetProject } from "../audioset";
+import { isAudioset, Project } from "../audioset";
 import "./App.css";
 import { Browser } from "./Browser";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { Player } from "./Player";
-import { useAudiosetLoadStatus } from "./useAudiosetLoad";
+import { useBundleLoadStatus } from "./useBundleLoadStatus";
 
 interface LoadAudiosetProps {
   idOrUrl: string;
 }
 
 export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
-  const loadStatus = useAudiosetLoadStatus(idOrUrl);
+  const loadStatus = useBundleLoadStatus(idOrUrl);
 
   switch (loadStatus.stage) {
     case "loading":
       return <Loading />;
     case "ready":
-      const audioset = loadStatus.audioset;
-      return audioset.type === "project" ? (
-        <Browser audioset={audioset as AudiosetProject} />
+      const bundle = loadStatus.payload;
+      return isAudioset(bundle) ? (
+        <Player audioset={bundle} />
       ) : (
-        <Player audioset={audioset as Audioset} />
+        <Browser project={bundle as Project} />
       );
     case "error":
       return <NotFound />;

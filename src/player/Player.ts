@@ -1,5 +1,5 @@
-import { Audioset, AudiosetData, EmptyAudioset } from "../audioset";
-import { AudiosetLoader, AudiosetLoadStatus } from "../audioset/AudiosetLoader";
+import { Audioset, Bundle, EmptyAudioset, isAudioset } from "../audioset";
+import { BundleLoader, BundleLoadStatus } from "../audioset/";
 import { AudioEngine, DebugAudioEngine } from "./Audio";
 import {
   AudiosetControl,
@@ -7,9 +7,27 @@ import {
   ControlListener,
   ControlState,
 } from "./AudiosetControl";
-import { Emitter, Listener } from "./Emitter";
-import { ResourceLoader, ResourceLoadStatus } from "./ResourceLoader";
+import { Emitter, Listener, Unsubscribe } from "./Emitter";
+import {
+  ResourceLoader,
+  ResourceLoadStatus,
+  Resources,
+} from "./ResourceLoader";
 import { Sampler } from "./Sampler";
+const NoOp = (param: any) => undefined;
+const NoControl = new AudiosetControl(EmptyAudioset, {
+  onControlCommand: NoOp,
+  onControlStateChanged: NoOp,
+});
+const NoResources = new ResourceLoader(EmptyAudioset, NoOp);
+const NoEngine = new DebugAudioEngine();
+const NoSampler = new Sampler(EmptyAudioset, NoResources, NoEngine);
+
+const NoPlayer = {
+  control: NoControl,
+  resources: NoResources,
+  sampler: NoSampler,
+};
 
 /**
  * A player is the facade for the rest of the components:
@@ -20,111 +38,144 @@ import { Sampler } from "./Sampler";
  * - Keyboard: receive keyboard events
  * - Sampler: play the audio
  */
-export class Player {
-  public readonly loader: AudiosetLoader;
-  public control: AudiosetControl;
-  public resources: ResourceLoader;
+export interface Player {
+  readonly loader: BundleLoader;
+  readonly resources: Resources;
+  readonly control: AudiosetControl;
+  setAudioEngine(audio: AudioEngine): void;
+  onControlStateChanged(listener: Listener<ControlState>): Unsubscribe;
+  onResourceStatusChanged(listener: Listener<ResourceLoadStatus>): Unsubscribe;
+  onCommand(listener: Listener<ControlCommand>): Unsubscribe;
+}
 
-  // private //
-  private sampler: Sampler;
-
-  private noSampler: Sampler;
-  private noControl: AudiosetControl;
-  private noResources: ResourceLoader;
-
-  private readonly controlListener: ControlListener;
+class AudiosetPlayer {
+  public resources: Resources = NoResources;
+  private audioset: Audioset = EmptyAudioset;
   private readonly resourceListener: (status: ResourceLoadStatus) => void;
-
-  private readonly audiosetChanged = new Emitter<AudiosetData>();
-  private readonly audiosetLoadStatusChanged = new Emitter<
-    AudiosetLoadStatus
-  >();
-  private readonly controlStateChanged = new Emitter<ControlState>();
-  private readonly controlCommand = new Emitter<ControlCommand>();
   private readonly resourceStatusChanged = new Emitter<ResourceLoadStatus>();
 
-  private audio: AudioEngine = new DebugAudioEngine();
-  private audioset: Audioset = EmptyAudioset;
-
-  constructor() {
-    this.loader = new AudiosetLoader(status =>
-      this.setAudiosetLoadStatus(status),
-    );
-    this.controlListener = {
-      onControlStateChanged: state => this.emitControlState(state),
-      onControlCommand: command => this.runCommand(command),
-    };
+  public constructor() {
     this.resourceListener = (status: ResourceLoadStatus) => {
-      this.resourceStatusChanged.emit(status);
+      this.handleResourceChanged(status);
     };
-    this.noControl = this.control = new AudiosetControl(
-      this.audioset,
-      this.controlListener,
-    );
-    this.noResources = this.resources = new ResourceLoader(
-      this.audioset,
-      this.resourceListener,
-    );
-    this.noSampler = this.sampler = new Sampler(
-      this.audioset,
-      this.resources,
-      this.audio,
-    );
   }
 
-  public setAudioEngine(audio: AudioEngine) {
-    this.audio = audio;
-    // this.sampler.dispose()
-    this.sampler = new Sampler(this.audioset, this.resources, this.audio);
+  public getAudioset() {
+    return this.audioset;
   }
 
   public onResourceStatusChanged(listener: Listener<ResourceLoadStatus>) {
     return this.resourceStatusChanged.on(listener);
   }
 
-  public onControlStateChanged(listener: Listener<ControlState>) {
-    return this.controlStateChanged.on(listener);
+  // PRIVATE //
+
+  protected setAudioset(audioset: Audioset) {
+    this.audioset = audioset;
+    this.resources = new ResourceLoader(audioset, this.resourceListener);
   }
 
-  public onCommand(listener: Listener<ControlCommand>) {
-    return this.controlCommand.on(listener);
-  }
-
-  //// PRIVATE /////
-
-  // allow pub/sub of contro state
-  private emitControlState(controlState: ControlState) {
-    this.controlStateChanged.emit(controlState);
-  }
-
-  // allows pub/sub of commands (for visuals)
-  private runCommand(command: ControlCommand) {
-    this.sampler.run(command);
-    this.controlCommand.emit(command);
-  }
-  private setAudiosetLoadStatus(status: AudiosetLoadStatus) {
-    this.audiosetLoadStatusChanged.emit(status);
-    if (status.stage === "ready") {
-      this.setDelegates(status.audioset);
-      this.audiosetChanged.emit(status.audioset);
-    }
-  }
-
-  private setDelegates(audioset: AudiosetData) {
-    this.control.stopAll(0);
-    if (isAudiosetPlay(audioset)) {
-      this.audioset = audioset;
-      this.control = new AudiosetControl(audioset, this.controlListener);
-      this.resources = new ResourceLoader(audioset, this.resourceListener);
-      this.sampler = new Sampler(audioset, this.resources, this.audio);
-    } else {
-      this.control = this.noControl;
-      this.sampler = this.noSampler;
-      this.resources = this.noResources;
-    }
+  private handleResourceChanged(status: ResourceLoadStatus) {
+    this.resourceStatusChanged.emit(status);
   }
 }
 
-function isAudiosetPlay(audioset: AudiosetData): audioset is Audioset {
-  return audioset.type === "audioset";
+export class ControlPlayer extends AudiosetPlayer {
+  public control: AudiosetControl = NoControl;
+  protected readonly controlListener: ControlListener;
+
+  private readonly stateEvent = new Emitter<ControlState>();
+  private readonly controlCommandEvent = new Emitter<ControlCommand>();
+
+  constructor() {
+    super();
+    this.controlListener = {
+      onControlStateChanged: state => this.handleControlStateChanged(state),
+      onControlCommand: command => this.handleControlCommand(command),
+    };
+  }
+
+  /**
+   * @override
+   */
+  public setAudioset(audioset: Audioset) {
+    this.control = new AudiosetControl(audioset, this.controlListener);
+    super.setAudioset(audioset);
+  }
+
+  public onControlStateChanged(listener: Listener<ControlState>) {
+    return this.stateEvent.on(listener);
+  }
+
+  public onCommand(listener: Listener<ControlCommand>) {
+    return this.controlCommandEvent.on(listener);
+  }
+
+  protected handleControlCommand(command: ControlCommand) {
+    this.controlCommandEvent.emit(command);
+  }
+
+  private handleControlStateChanged(controlState: ControlState) {
+    this.stateEvent.emit(controlState);
+  }
+}
+
+class AudioPlayer extends ControlPlayer {
+  protected audio: AudioEngine = new DebugAudioEngine();
+  private sampler: Sampler = NoSampler;
+
+  constructor() {
+    super();
+    this.sampler = NoSampler;
+  }
+
+  /**
+   * @override
+   */
+  public setAudioset(audioset: Audioset) {
+    this.sampler = new Sampler(audioset, this.resources, this.audio);
+    super.setAudioset(audioset);
+  }
+
+  public setAudioEngine(audio: AudioEngine) {
+    this.audio = audio;
+    // this.sampler.dispose()
+    this.sampler = new Sampler(this.getAudioset(), this.resources, this.audio);
+  }
+  protected handleControlCommand(command: ControlCommand) {
+    this.sampler.run(command);
+    super.handleControlCommand(command);
+  }
+}
+
+/**
+ * A player with a audioset loader.
+ * The idea is a player with state, but not well modelled
+ */
+export class PlayerState extends AudioPlayer implements Player {
+  public readonly loader: BundleLoader;
+  private readonly BundleLoadStatusChanged = new Emitter<BundleLoadStatus>();
+
+  constructor() {
+    super();
+    this.loader = new BundleLoader(status =>
+      this.handleLoadStatusChanged(status),
+    );
+  }
+
+  private handleLoadStatusChanged(status: BundleLoadStatus) {
+    this.BundleLoadStatusChanged.emit(status);
+    if (status.stage === "ready") {
+      this.setBundle(status.payload);
+    }
+  }
+
+  private setBundle(bundle: Bundle) {
+    this.control.stopAll(0);
+    if (isAudioset(bundle)) {
+      this.setAudioset(bundle);
+    } else {
+      Object.assign(this, NoPlayer);
+    }
+  }
 }

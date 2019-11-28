@@ -1,7 +1,6 @@
 import { Audioset } from "./Audioset";
 
 export const EmptyAudioset: Audioset = {
-  format: "atpls-audioset",
   type: "audioset",
   id: "none",
   meta: {
@@ -11,6 +10,15 @@ export const EmptyAudioset: Audioset = {
     parent_path: "",
     logo_url: "",
     readme: "",
+  },
+  audio: {
+    bpm: 120,
+    defaults: {
+      loop: true,
+    },
+    signature: [4, 4],
+    trackMaxVoices: 1,
+    quantize: 0,
   },
   visuals: {
     mode: "map",

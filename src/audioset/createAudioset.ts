@@ -1,29 +1,24 @@
 import debug from "debug";
-import {
-  Audioset,
-  AudiosetData,
-  AudiosetIndexes,
-  isAudiosetData,
-  isAudiosetPack,
-} from "./Audioset";
+import { Audioset, AudiosetIndexes, isAudioset } from "./Audioset";
+import { Bundle, isBundle } from "./Bundle";
 
 const log = debug("atpls:audioset");
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export function createAudioset(data: any): AudiosetData {
-  if (!isAudiosetData(data)) {
-    log("Invalid format %o", data);
+export function createAudioset(bundle: any): Bundle {
+  if (!isBundle(bundle)) {
+    log("Invalid format %o", bundle);
     throw Error("Invalida Audioset format");
   }
-  if (isAudiosetPack(data)) {
-    migrateOrDerive(data);
-    createIndices(data);
+  if (isAudioset(bundle)) {
+    migrateOrDerive(bundle);
+    createIndices(bundle);
   }
-  return data;
+  return bundle;
 }
 
 function migrateOrDerive(audioset: Audioset) {
-  const bpm = audioset.meta.bpm || 120;
+  const bpm = audioset.audio.bpm || 120;
   audioset.clips.forEach(clip => {
     clip.name = clip.name || capitalize(clip.id);
     clip.artist = clip.artist || "";

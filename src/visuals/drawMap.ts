@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import * as d3geo from "d3-geo-projection";
-import { MapVisuals } from "../audioset";
+import { MapMetadata } from "../audioset";
 import { WORLDRATIO } from "./dimensions";
 
 export function drawMap(
@@ -8,7 +8,7 @@ export function drawMap(
   countries: any,
   width: number,
   height: number,
-  visuals: MapVisuals,
+  visuals: MapMetadata,
 ) {
   const scaleFactor = visuals.geomap.scaleFactor;
   const center = visuals.geomap.center;

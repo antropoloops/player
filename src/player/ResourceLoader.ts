@@ -28,7 +28,14 @@ export type ResourceLoadStatus =
   | ResourcesLoaded
   | ResourceLoadError;
 
-export class ResourceLoader {
+export interface Resources {
+  getStatus(): ResourceLoadStatus;
+  getBuffer(clipId: string): any;
+  load(): Promise<any>;
+  preload(): Promise<any>;
+}
+
+export class ResourceLoader implements Resources {
   public status: ResourceLoadStatus;
   private preloadImage: (url: string) => void;
   private total: number;
@@ -46,6 +53,10 @@ export class ResourceLoader {
     this.preloadImage = preloadImage;
   }
 
+  public getStatus() {
+    return this.status;
+  }
+
   public getBuffer(clipId: string): any {
     return this.buffers[clipId];
   }
@@ -53,18 +64,20 @@ export class ResourceLoader {
   public preload() {
     log("Preload");
     const { visuals, clips } = this.audioset;
+    const promises: Array<Promise<any>> = [];
     if (visuals.mode === "map" && visuals.geomap.url) {
-      fetch(visuals.geomap.url);
+      promises.push(fetch(visuals.geomap.url));
     }
     clips.forEach(clip => {
       this.preloadImage(clip.resources.cover.small);
     });
+    return Promise.all(promises);
   }
 
   public load() {
     const { total, completed } = this;
     if (total === completed) {
-      return;
+      return Promise.resolve();
     }
 
     this.setStatus({ stage: "loading", total, completed: 0 });
@@ -105,14 +118,15 @@ export class ResourceLoader {
   }
 }
 
-function preloadImage(url: string) {
-  if (url && url.length) {
-    return new Promise(resolve => {
-      const image = new Image();
-      image.addEventListener("load", () => {
-        resolve(image);
-      });
-      image.src = url;
-    });
+function preloadImage(url: string): Promise<any> {
+  if (!url || !url.length) {
+    return Promise.resolve();
   }
+  return new Promise(resolve => {
+    const image = new Image();
+    image.addEventListener("load", () => {
+      resolve(image);
+    });
+    image.src = url;
+  });
 }
