@@ -1,7 +1,7 @@
 import debug from "debug";
 import { Audioset } from "../audioset";
 import { AudioEngine, AudioSource, AudioTrack } from "./Audio";
-import { ControlCommand } from "./AudiosetControl";
+import { ControlCommand } from "./Control";
 import { Resources } from "./ResourceLoader";
 
 const log = debug("atpls:sampler");

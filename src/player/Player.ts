@@ -6,7 +6,7 @@ import {
   ControlCommand,
   ControlListener,
   ControlState,
-} from "./AudiosetControl";
+} from "./Control";
 import { Emitter, Listener, Unsubscribe } from "./Emitter";
 import {
   ResourceLoader,

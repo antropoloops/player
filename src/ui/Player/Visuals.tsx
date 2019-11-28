@@ -1,7 +1,7 @@
 import React, { RefObject, useEffect, useRef } from "react";
 import { Audioset } from "../../audioset";
 import { player } from "../../player";
-import { ControlCommand } from "../../player/AudiosetControl";
+import { ControlCommand } from "../../player/Control";
 import { VisualControl as VisualControlType } from "../../visuals";
 
 function handleCommands(visuals: VisualControlType) {
