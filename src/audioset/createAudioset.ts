@@ -5,16 +5,16 @@ import { AudiosetBundle, isAudiosetBundle } from "./AudiosetBundle";
 const log = debug("atpls:audioset");
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export function createAudioset(data: any): AudiosetBundle {
-  if (!isAudiosetBundle(data)) {
-    log("Invalid format %o", data);
+export function createAudioset(bundle: any): AudiosetBundle {
+  if (!isAudiosetBundle(bundle)) {
+    log("Invalid format %o", bundle);
     throw Error("Invalida Audioset format");
   }
-  if (isAudioset(data)) {
-    migrateOrDerive(data);
-    createIndices(data);
+  if (isAudioset(bundle)) {
+    migrateOrDerive(bundle);
+    createIndices(bundle);
   }
-  return data;
+  return bundle;
 }
 
 function migrateOrDerive(audioset: Audioset) {
