@@ -1,5 +1,6 @@
 import debug from "debug";
-export let context: AudioContext | undefined;
+
+let context: AudioContext | undefined;
 
 const log = debug("atpls:context");
 

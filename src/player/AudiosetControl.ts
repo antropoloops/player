@@ -1,6 +1,6 @@
 import debug from "debug";
 import { Audioset, Clip } from "../audioset";
-import { KeyboardControler } from "./KeyboardControler";
+import { KeyboardControler } from "./Control/KeyboardControler";
 
 const log = debug("atpls:control");
 

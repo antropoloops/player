@@ -6,6 +6,7 @@ import {
   ControlCommand,
   ControlListener,
   ControlState,
+  PlayerControl,
 } from "./Control";
 import { Emitter, Listener, Unsubscribe } from "./Emitter";
 import {
@@ -41,7 +42,7 @@ const NoPlayer = {
 export interface Player {
   readonly loader: BundleLoader;
   readonly resources: Resources;
-  readonly control: AudiosetControl;
+  readonly control: PlayerControl;
   setAudioEngine(audio: AudioEngine): void;
   onControlStateChanged(listener: Listener<ControlState>): Unsubscribe;
   onResourceStatusChanged(listener: Listener<ResourceLoadStatus>): Unsubscribe;

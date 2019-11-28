@@ -1,0 +1,169 @@
+import debug from "debug";
+import { Audioset, Clip } from "../../audioset";
+import { TimeManager } from "../TimeManager";
+import { ControlCommand } from "./ControlCommand";
+import { ControlState } from "./ControlState";
+import { ControlStateManager } from "./ControlStateManager";
+import { KeyboardControler } from "./KeyboardControler";
+
+const log = debug("atpls:control");
+
+export interface ControlListener {
+  onControlStateChanged: (state: ControlState) => void;
+  onControlCommand: (command: ControlCommand) => void;
+}
+
+export interface PlayerControl {
+  readonly keyboard: KeyboardControler;
+  getState(): ControlState;
+  toggleClip(clipId: string, time: number): void;
+  stopClip(clipId: string, time: number): void;
+  startClip(clipId: string, time: number): void;
+  stopAll(time: number): void;
+}
+
+/**
+ * Controls the playing state of clips and tracks
+ *
+ * It uses a listener for side effects (using commands) and state changees
+ */
+export class AudiosetControl implements PlayerControl {
+  public readonly keyboard: KeyboardControler;
+  private time: TimeManager;
+  private commands: ControlCommand[] = [];
+  private manager = new ControlStateManager();
+
+  constructor(audioset: Audioset, private listener: ControlListener) {
+    log("create control");
+    this.time = new TimeManager(audioset.audio);
+    this.keyboard = new KeyboardControler(audioset, this);
+    audioset.clips.forEach((clip: Clip) => this.manager.addClip(clip));
+    audioset.tracks.forEach(track => this.manager.addTrack(track));
+  }
+
+  public toggleClip(clipId: string, time: number) {
+    const clipState = this.manager.getClipState(clipId);
+    if (!clipState) {
+      return;
+    } else if (clipState.state === "stopped") {
+      this.startClip(clipId, time);
+    } else if (clipState.state === "playing") {
+      this.stopClip(clipId, time);
+    }
+  }
+
+  /**
+   * Start a clip
+   * @param clipId
+   */
+  public startClip(clipId: string, time: number) {
+    const clipState = this.manager.getClipState(clipId);
+    if (!clipState || clipState.state === "playing") {
+      return;
+    }
+
+    time = this.time.startTime(time);
+    log("start clip %s %o", clipId, time);
+
+    const trackId = this.manager.getTrackIdOfClip(clipId);
+    const sameTrackClipIds = this.manager.getClipIdsOfTrack(trackId);
+    sameTrackClipIds.forEach(trackClipId =>
+      this.stopClipCommand(trackClipId, time),
+    );
+    this.startTrackCommand(trackId, time);
+    this.startClipCommand(clipId, time);
+    this.sendCommandsAndFireStateChange();
+  }
+
+  /**
+   * Stops a clip
+   */
+  public stopClip(clipId: string, time: number) {
+    const clipState = this.manager.getClipState(clipId);
+    if (!clipState || clipState.state === "stopped") {
+      return;
+    }
+
+    time = this.time.stopTime(time);
+    log("stop clip %s %o", clipId, time);
+
+    const trackId = this.manager.getTrackIdOfClip(clipId);
+
+    this.stopClipCommand(clipId, time);
+    this.stopTrackCommand(trackId, time);
+    this.sendCommandsAndFireStateChange();
+  }
+
+  /**
+   * Stops all clips
+   */
+  public stopAll(time: number) {
+    this.manager
+      .getAllClipIds()
+      .forEach(clipId => this.stopClipCommand(clipId, time));
+    this.manager
+      .getAllTrackIds()
+      .forEach(trackId => this.stopTrackCommand(trackId, time));
+    this.sendCommandsAndFireStateChange();
+  }
+
+  public getState() {
+    return this.manager.getState();
+  }
+
+  //// PRIVATE ////
+  private sendCommandsAndFireStateChange() {
+    this.commands.forEach(command => {
+      this.listener.onControlCommand(command);
+    });
+    this.commands = [];
+
+    this.listener.onControlStateChanged(this.getState());
+  }
+
+  private startClipCommand(clipId: string, time: number) {
+    const clipState = this.manager.getClipState(clipId);
+    if (clipState.state === "playing") {
+      return;
+    }
+
+    this.manager.setClipState(clipId, { state: "playing" });
+    this.commands.push({ command: "startClip", clipId, time });
+  }
+
+  private stopClipCommand(clipId: string, time: number) {
+    const clipState = this.manager.getClipState(clipId);
+    if (clipState.state === "stopped") {
+      return;
+    }
+
+    this.manager.setClipState(clipId, { state: "stopped" });
+    this.commands.push({ command: "stopClip", clipId, time });
+  }
+
+  private startTrackCommand(trackId: string, time: number) {
+    const trackState = this.manager.getTrackState(trackId);
+    if (trackState.state === "playing") {
+      return;
+    }
+
+    this.manager.setTrackState(trackId, {
+      state: "playing",
+      volume: trackState.volume,
+    });
+    this.commands.push({ command: "startTrack", trackId, time });
+  }
+
+  private stopTrackCommand(trackId: string, time: number) {
+    const trackState = this.manager.getTrackState(trackId);
+    if (trackState.state === "stopped") {
+      return;
+    }
+
+    this.manager.setTrackState(trackId, {
+      state: "stopped",
+      volume: trackState.volume,
+    });
+    this.commands.push({ command: "stopTrack", trackId, time });
+  }
+}
