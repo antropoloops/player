@@ -22,7 +22,7 @@ export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
       return isAudioset(bundle) ? (
         <Player audioset={bundle} />
       ) : (
-        <Browser audioset={bundle as Project} />
+        <Browser project={bundle as Project} />
       );
     case "error":
       return <NotFound />;

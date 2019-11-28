@@ -1,5 +1,5 @@
 
-.Browser .Audiosets .AudiosetItem {
+.Browser .Audiosets .AudiosetReference {
   display: flex;
   flex-direction: row;
   align-self: center;
@@ -7,7 +7,7 @@
   margin-bottom: 10px;
   padding-right: 1rem;
 }
-.Browser .Audiosets .AudiosetItem .image {
+.Browser .Audiosets .AudiosetReference .image {
   width: 34%;
   height: auto;
   max-width: 256px;
@@ -15,7 +15,7 @@
   flex-shrink: 0  ;
   margin-right: 1rem;
 }
-.Browser .Audiosets .AudiosetItem p {
+.Browser .Audiosets .AudiosetReference p {
   max-height: 4.5rem;
   overflow: hidden;
 }
