@@ -5,7 +5,7 @@ import { player } from "../player";
 export function useAudiosetLoadStatus(audiosetId: string): AudiosetLoadStatus {
   const [loadStatus, setLoadStatus] = useState<AudiosetLoadStatus>({
     stage: "loading",
-    audiosetId,
+    payload: audiosetId,
   });
   useEffect(() => {
     player.loader

@@ -1,27 +1,7 @@
-import { AudiosetBundle } from ".";
+import { AudiosetBundle } from "./AudiosetBundle";
+import { LoadStatus } from "./LoadStatus";
 
-// TODO: abstract (LoadPending, LoadProgress, LoadReady, LoadError)
-interface LoadPending {
-  readonly stage: "pending";
-}
-interface LoadingAudioset {
-  readonly stage: "loading";
-  readonly audiosetId: string;
-}
-interface AudiosetLoaded {
-  readonly stage: "ready";
-  readonly audioset: AudiosetBundle;
-}
-interface AudiosetLoadError {
-  readonly stage: "error";
-  readonly error: any;
-}
-
-export type AudiosetLoadStatus =
-  | LoadPending
-  | LoadingAudioset
-  | AudiosetLoaded
-  | AudiosetLoadError;
+export type AudiosetLoadStatus = LoadStatus<AudiosetBundle, string>;
 
 export type FetchAudioset = (id: string) => Promise<AudiosetBundle>;
 
@@ -34,9 +14,9 @@ export class AudiosetLoader {
   public fetch: FetchAudioset = () => Promise.reject();
 
   public loadAudioset(audiosetId: string): Promise<AudiosetLoadStatus> {
-    this.setStatus({ stage: "loading", audiosetId });
+    this.setStatus({ stage: "loading", payload: audiosetId });
     return this.fetch(audiosetId)
-      .then(audioset => this.setStatus({ stage: "ready", audioset }))
+      .then(audioset => this.setStatus({ stage: "ready", payload: audioset }))
       .catch(error => this.setStatus({ stage: "error", error }));
   }
 

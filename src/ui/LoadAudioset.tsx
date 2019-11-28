@@ -18,7 +18,7 @@ export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
     case "loading":
       return <Loading />;
     case "ready":
-      const audioset = loadStatus.audioset;
+      const audioset = loadStatus.payload;
       return audioset.type === "project" ? (
         <Browser audioset={audioset as AudiosetProject} />
       ) : (

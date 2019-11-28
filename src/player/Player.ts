@@ -174,7 +174,7 @@ export class PlayerState extends AudioPlayer implements Player {
   private handleLoadStatusChanged(status: AudiosetLoadStatus) {
     this.audiosetLoadStatusChanged.emit(status);
     if (status.stage === "ready") {
-      this.setAudiosetBundle(status.audioset);
+      this.setAudiosetBundle(status.payload);
     }
   }
 
