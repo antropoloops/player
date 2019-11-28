@@ -1,48 +1,20 @@
-import { AudiosetBundle } from "./AudiosetBundle";
-import { AudiosetVisuals } from "./AudiosetVisuals";
+import { AudioMetadata } from "./AudioMetadata";
+import { Bundle } from "./Bundle";
 import { Clip } from "./Clip";
 import { Track } from "./Track";
+import { VisualsMetadata } from "./VisualsMetadata";
 
-export interface Audioset {
-  type: "audioset";
-  meta: AudiosetMetadata;
+export interface Audioset extends Bundle {
   id: string;
   tracks: Track[];
   clips: Clip[];
-  visuals: AudiosetVisuals;
+  audio: AudioMetadata;
+  visuals: VisualsMetadata;
   index: AudiosetIndexes;
 }
 
-export function isAudioset(audioset: AudiosetBundle): audioset is Audioset {
+export function isAudioset(audioset: Bundle): audioset is Audioset {
   return audioset.type === "audioset";
-}
-
-export interface AudiosetMetadata {
-  title: string;
-  description: string;
-  path: string;
-  parent_path: string;
-  logo_url: string;
-  readme: string;
-  // FIXME: move to Audio section
-  bpm?: number;
-}
-/**
- * The audioset metadata extended to include the audioset id and publish path
- * It's used in audioset project to list audiosets
- */
-export interface AudiosetReference extends AudiosetMetadata {
-  id: string;
-  publish_path: string;
-}
-
-/**
- * An AudiosetProject is a group of audiosets
- */
-export interface AudiosetProject {
-  type: "project";
-  meta: AudiosetMetadata;
-  audiosets: AudiosetReference[];
 }
 
 export interface AudiosetIndexes {

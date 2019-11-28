@@ -1,9 +1,9 @@
 /**
  * How visuals data are stored
  */
-export type AudiosetVisuals = MapVisuals | PanelVisuals;
+export type VisualsMetadata = MapMetadata | PanelMetadata;
 
-export interface MapVisuals {
+export interface MapMetadata {
   mode: "map";
   geomap: {
     url: string;
@@ -14,7 +14,7 @@ export interface MapVisuals {
     };
   };
 }
-export interface PanelVisuals {
+export interface PanelMetadata {
   mode: "panel";
   image: {
     url: string;

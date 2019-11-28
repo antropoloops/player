@@ -1,5 +1,5 @@
 /**
- * Draw the panel (in PanelVisuals)
+ * Draw the panel (in PanelMetadata)
  */
 export function drawPanel(
   container: any,

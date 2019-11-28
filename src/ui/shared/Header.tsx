@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AudiosetMetadata } from "../../audioset";
+import { BundleMetadata } from "../../audioset";
 import "./Header.css";
 import { ArrowLeft } from "./Icons";
 
 interface HeaderProps {
-  meta?: AudiosetMetadata;
+  meta?: BundleMetadata;
 }
 
 const getAudiosetPath = (path: string) => (path ? `/set/${path}` : `/`);

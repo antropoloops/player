@@ -11,6 +11,15 @@ export const EmptyAudioset: Audioset = {
     logo_url: "",
     readme: "",
   },
+  audio: {
+    bpm: 120,
+    defaults: {
+      loop: true,
+    },
+    signature: [4, 4],
+    trackMaxVoices: 1,
+    quantize: 0,
+  },
   visuals: {
     mode: "map",
     geomap: {

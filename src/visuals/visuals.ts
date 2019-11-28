@@ -2,7 +2,7 @@ import * as topojson from "topojson";
 
 import { getAlbumHeight } from "./dimensions";
 
-import { Audioset, AudiosetVisuals } from "../audioset";
+import { Audioset, VisualsMetadata } from "../audioset";
 import Display, { Dimension } from "./display";
 import drawAlbum from "./drawAlbum";
 import drawCircle from "./drawCircle";
@@ -19,7 +19,7 @@ const remove = (name: string, group: any) => {
   }
 };
 
-function createProjector(visuals: AudiosetVisuals, dimensions: Dimension) {
+function createProjector(visuals: VisualsMetadata, dimensions: Dimension) {
   const { width, height } = dimensions;
   const albumsHeight = getAlbumHeight(width);
   const scale = calculateMapScale(width, height - albumsHeight);

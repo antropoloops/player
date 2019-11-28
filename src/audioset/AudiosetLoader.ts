@@ -1,9 +1,9 @@
-import { AudiosetBundle } from "./AudiosetBundle";
+import { Bundle } from "./Bundle";
 import { LoadStatus } from "./LoadStatus";
 
-export type AudiosetLoadStatus = LoadStatus<AudiosetBundle, string>;
+export type AudiosetLoadStatus = LoadStatus<Bundle, string>;
 
-export type FetchAudioset = (id: string) => Promise<AudiosetBundle>;
+export type FetchAudioset = (id: string) => Promise<Bundle>;
 
 type LoadListener = (status: AudiosetLoadStatus) => void;
 
