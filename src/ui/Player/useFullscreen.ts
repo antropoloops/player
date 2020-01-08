@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as screen from "screenfull";
+import * as Screenfull from "screenfull";
 
 export interface Fullscreen {
   isFull: boolean;
@@ -9,44 +9,23 @@ export interface Fullscreen {
 export function useFullscreen(): Fullscreen {
   const [isFull, setIsFull] = useState(false);
   useEffect(() => {
-    const handleChange = (event: Event) => {
-      if (screen.isEnabled) {
-        screen.
-      }
-    };
+    if (Screenfull.isEnabled) {
+      const screen = Screenfull;
+      const handleChange = (event: Event) => {
+        setIsFull(screen.isFullscreen);
+      };
 
-    screen.on("change", handleChange);
-    return () => {
-      screen.isEnabled && screen.off("change", handleChange);
-    };
+      screen.on("change", handleChange);
+      return () => {
+        screen.off("change", handleChange);
+      };
+    }
   });
-  useEffect(() => {
-    if (screen.isEnabled) {
-      isFull ? screen.request() : screen.exit();
+  function toggle() {
+    if (Screenfull.isEnabled) {
+      const screen = Screenfull;
+      screen.isFullscreen ? screen.exit() : screen.request();
     }
-  }, [isFull]);
-  const toggle = () => setIsFull(!isFull);
-  return { isFull, toggle };
-}
-
-export function useFullscreenOld(onChange: (isFull: boolean) => void) {
-  const [fullscreen, setFullscreen] = useState();
-  const open = () => setFullscreen(Date.now());
-
-  if (screen.isEnabled) {
-    screen.on("change", () => onChange(screen.isEnabled));
   }
-
-  useEffect(() => {
-    if (!screen.isEnabled) {
-      return;
-    }
-    if (fullscreen) {
-      screen.request();
-    } else {
-      screen.exit();
-    }
-  }, [fullscreen]);
-
-  return { open };
+  return { isFull, toggle };
 }

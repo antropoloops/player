@@ -8,13 +8,15 @@ import { Controller } from "./Controller";
 import { Footer } from "./Footer";
 import Preview from "./Preview";
 import { useFullscreen } from "./useFullscreen";
+import { useKeyboardListener } from "./useKeyboardListener";
 import { useResourceLoader } from "./useResourceLoader";
 import { Visuals } from "./Visuals";
 
 export interface PlayerProps {
   audioset: Audioset;
 }
-const handleStart = () =>
+
+const startPlayer = () =>
   getAudioContext()
     .then(() => player.resources.load())
     .then(() => player.control.keyboard.setActive(true));
@@ -24,13 +26,14 @@ export const Player = ({ audioset }: PlayerProps) => {
   const fullscreen = useFullscreen();
   const isReady = status.stage === "ready";
   const { isDesktop } = useDeviceType();
+  useKeyboardListener();
 
   const isVisual = isDesktop || isReady;
 
-  const handleFullScreen = () => {
+  const toggleFullscreenAndStart = () => {
     fullscreen.toggle();
     if (!isReady) {
-      handleStart();
+      startPlayer();
     }
   };
 
@@ -45,12 +48,12 @@ export const Player = ({ audioset }: PlayerProps) => {
             <Preview
               audioset={audioset}
               resourceStatus={status}
-              onStart={handleStart}
+              onStart={startPlayer}
             />
           )}
         </div>
       </Scroll>
-      <Footer onFullscreen={handleFullScreen} />
+      <Footer onFullscreen={toggleFullscreenAndStart} />
     </>
   );
 

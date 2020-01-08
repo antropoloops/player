@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { player } from "../../player";
 import { FullscreenIcon, Stop } from "../shared/Icons";
 import "./Footer.css";
-import { Fullscreen } from "./useFullscreen";
 
 interface FooterProps {
   onFullscreen: () => void;
