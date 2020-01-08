@@ -15,10 +15,10 @@ export const ClosedClip = ({ clip, onClick }: any) => {
       keyboard.stopMapMode();
     } else {
       keyboard.startMapMode(clip.id, (newKey: string) => {
-        toggleMapKeyboard(null);
+        toggleMapKeyboard();
       });
     }
-    toggleMapKeyboard(null);
+    toggleMapKeyboard();
   }
 
   return (

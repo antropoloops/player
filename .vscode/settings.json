@@ -18,5 +18,9 @@
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
       "source.fixAll.tslint": true
-  }
+  },
+  "cSpell.words": [
+    "audioset",
+    "screenfull"
+  ]
 }

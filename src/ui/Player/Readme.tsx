@@ -3,16 +3,16 @@ import { ArrowDown, ArrowUp } from "../shared/Icons";
 import { Markdown } from "../shared/Markdown";
 import "./Readme.css";
 
-interface ReeadmeProps {
+interface ReadmeProps {
   closed: boolean;
   content: string;
 }
 
-export const Readme = ({ closed, content }: ReeadmeProps) => {
+export const Readme = ({ closed, content }: ReadmeProps) => {
   const [isOpen, toggleOpen] = useReducer(x => !x, false);
   useEffect(() => {
     if (isOpen) {
-      toggleOpen(null);
+      toggleOpen();
     }
   }, [content, toggleOpen, isOpen]);
 

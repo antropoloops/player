@@ -4,15 +4,12 @@ import { player } from "../../player";
 import { ControlState } from "../../player/Control";
 import "./Controller.css";
 import { Track } from "./Track";
-import { useKeyboardListener } from "./useKeyboardListener";
 
 interface ControllerProps {
   audioset: Audioset;
 }
 
 export const Controller = ({ audioset }: ControllerProps) => {
-  useKeyboardListener();
-
   const state = useControlState();
 
   if (!audioset || !audioset.tracks) {

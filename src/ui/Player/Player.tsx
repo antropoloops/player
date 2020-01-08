@@ -7,28 +7,38 @@ import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Footer } from "./Footer";
 import Preview from "./Preview";
+import { useFullscreen } from "./useFullscreen";
+import { useKeyboardListener } from "./useKeyboardListener";
 import { useResourceLoader } from "./useResourceLoader";
 import { Visuals } from "./Visuals";
 
 export interface PlayerProps {
   audioset: Audioset;
 }
-const handleStart = () =>
+
+const startPlayer = () =>
   getAudioContext()
     .then(() => player.resources.load())
     .then(() => player.control.keyboard.setActive(true));
 
 export const Player = ({ audioset }: PlayerProps) => {
   const { status } = useResourceLoader();
+  const fullscreen = useFullscreen();
   const isReady = status.stage === "ready";
   const { isDesktop } = useDeviceType();
+  useKeyboardListener();
 
   const isVisual = isDesktop || isReady;
 
-  // useAutoStartAudio(isReady, audioset, handleStart);
+  const toggleFullscreenAndStart = () => {
+    fullscreen.toggle();
+    if (!isReady) {
+      startPlayer();
+    }
+  };
 
-  return (
-    <div className="App Player">
+  const Sidebar = () => (
+    <>
       <Header meta={audioset.meta} />
       <Scroll>
         <div className="content">
@@ -38,12 +48,21 @@ export const Player = ({ audioset }: PlayerProps) => {
             <Preview
               audioset={audioset}
               resourceStatus={status}
-              onStart={handleStart}
+              onStart={startPlayer}
             />
           )}
         </div>
       </Scroll>
-      {isReady && <Footer />}
+      <Footer onFullscreen={toggleFullscreenAndStart} />
+    </>
+  );
+
+  const isSidebarVisible = !fullscreen.isFull;
+  // useAutoStartAudio(isReady, audioset, handleStart);
+
+  return (
+    <div className="App Player">
+      {isSidebarVisible && <Sidebar />}
       {isVisual && (
         <div className="visuals">{<Visuals audioset={audioset} />}</div>
       )}
