@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Audioset } from "../../audioset";
-import { player } from "../../player";
 import { ControlState } from "../../player/Control";
 import "./Controller.css";
 import { Track } from "./Track";
 
 interface ControllerProps {
   audioset: Audioset;
+  state: ControlState;
 }
 
-export const Controller = ({ audioset }: ControllerProps) => {
-  const state = useControlState();
-
+export const Controller = ({ audioset, state }: ControllerProps) => {
   if (!audioset || !audioset.tracks) {
     return <div>Audioset not loaded</div>;
   }
@@ -24,14 +22,3 @@ export const Controller = ({ audioset }: ControllerProps) => {
     </div>
   );
 };
-
-function useControlState(): ControlState {
-  const [state, setState] = useState(player.control.getState());
-
-  useEffect(() =>
-    player.onControlStateChanged(controlState => {
-      setState(controlState);
-    }),
-  );
-  return state;
-}

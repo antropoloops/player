@@ -17,3 +17,8 @@ export interface ControlState {
 }
 export type ClipPlayingStateByClipId = Record<string, ClipPlayingState>;
 export type TrackPlayingStateByTrackId = Record<string, TrackPlayingState>;
+
+export const EmptyControlState = {
+  clips: {},
+  tracks: {},
+};

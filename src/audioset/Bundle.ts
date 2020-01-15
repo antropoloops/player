@@ -1,5 +1,5 @@
 /**
- * An unsepecified audioset type
+ * An unspecified audioset type
  */
 export interface Bundle {
   type: "audioset" | "project";
