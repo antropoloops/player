@@ -1,11 +1,11 @@
 import React from "react";
 import { isAudioset, Project } from "../../audioset";
-import { Browser } from "../Browser";
 import { Player } from "../Player";
-import { useBundleLoadStatus } from "../useBundleLoadStatus";
+import { Project as ProjectView } from "../Project";
 import "./App.css";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
+import { useBundleLoadStatus } from "./useBundleLoadStatus";
 
 interface BundleProps {
   idOrUrl: string;
@@ -22,7 +22,7 @@ export const Bundle = ({ idOrUrl }: BundleProps) => {
       return isAudioset(bundle) ? (
         <Player audioset={bundle} />
       ) : (
-        <Browser project={bundle as Project} />
+        <ProjectView project={bundle as Project} />
       );
     case "error":
       return <NotFound />;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { BundleLoadStatus } from "../audioset";
-import { player } from "../player";
+import { BundleLoadStatus } from "../../audioset";
+import { player } from "../../player";
 
 export function useBundleLoadStatus(audiosetId: string): BundleLoadStatus {
   const [loadStatus, setLoadStatus] = useState<BundleLoadStatus>({
