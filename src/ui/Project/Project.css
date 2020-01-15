@@ -1,5 +1,5 @@
 
-.Project .Audiosets .AudiosetReference {
+.Project .Audiosets .Item {
   display: flex;
   flex-direction: row;
   align-self: center;
@@ -7,7 +7,7 @@
   margin-bottom: 10px;
   padding-right: 1rem;
 }
-.Project .Audiosets .AudiosetReference .image {
+.Project .Audiosets .Item .image {
   width: 34%;
   height: auto;
   max-width: 256px;
@@ -15,7 +15,7 @@
   flex-shrink: 0  ;
   margin-right: 1rem;
 }
-.Project .Audiosets .AudiosetReference p {
+.Project .Audiosets .Item p {
   max-height: 4.5rem;
   overflow: hidden;
 }

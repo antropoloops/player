@@ -1,15 +1,15 @@
 import React from "react";
-import { Project as IProject } from "../../audioset";
+import { Project as ProjectData } from "../../audioset";
 import { Readme } from "../Player/Readme";
 import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
-import { AudiosetReference } from "./AudiosetReference";
+import { Item } from "./Item";
 import "./Project.css";
 
 interface ProjectProps {
-  project: IProject;
+  project: ProjectData;
 }
 
 export const Project = ({ project }: ProjectProps) => {
@@ -33,7 +33,7 @@ export const Project = ({ project }: ProjectProps) => {
           )}
           <ul className="Audiosets">
             {references.map(reference => (
-              <AudiosetReference key={reference.id} reference={reference} />
+              <Item key={reference.id} reference={reference} />
             ))}
           </ul>
         </div>

@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AudiosetReference as Reference } from "../../audioset";
+import { AudiosetReference } from "../../audioset";
 
-interface AudiosetReferenceProps {
-  reference: Reference;
+interface ItemProps {
+  reference: AudiosetReference;
 }
 
-export const AudiosetReference = ({ reference }: AudiosetReferenceProps) => (
+export const Item = ({ reference }: ItemProps) => (
   <Link to={`/set/${reference.publish_path}`}>
-    <div className="AudiosetReference">
+    <div className="Item">
       <div className="image">
         {/* This is hack to keep img in Safari responsive */}
         <img src={reference.logo_url} alt={reference.title} />
