@@ -16,10 +16,14 @@ export class Sampler {
     private buffers: Resources,
     private audio: AudioEngine,
   ) {
-    log("create sampler");
-    this.master = audio.createTrack({ volume: 0.8 });
+    log("create sampler %s", audioset.meta.title);
+    this.master = audio.createTrack("master", { volume: 0.8 });
     audioset.tracks.forEach(track => {
-      this.tracks[track.id] = audio.createTrack({ volume: 1 }, this.master);
+      this.tracks[track.id] = audio.createTrack(
+        track.name,
+        { volume: 1 },
+        this.master,
+      );
     });
   }
 

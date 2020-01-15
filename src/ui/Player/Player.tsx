@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Audioset } from "../../audioset";
-import { getAudioContext, player } from "../../player";
+import { getActiveAudioContext, player } from "../../player";
 import { Header } from "../shared/Header";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
@@ -17,14 +17,15 @@ export interface PlayerProps {
 }
 
 const startPlayer = () =>
-  getAudioContext()
-    .then(() => player.resources.load())
-    .then(() => player.control.keyboard.setActive(true));
+  getActiveAudioContext().then(() => {
+    player.resources.load();
+    player.control.keyboard.setActive(true);
+  });
 
 export const Player = ({ audioset }: PlayerProps) => {
   const { status } = useResourceLoader();
   const fullscreen = useFullscreen();
-  const isReady = status.stage === "ready";
+  const isReady = status.stage !== "pending" && status.stage !== "error";
   const { isDesktop } = useDeviceType();
   useKeyboardListener();
 

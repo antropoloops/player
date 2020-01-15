@@ -1,5 +1,5 @@
 import React from "react";
-import { Scroll } from "./shared/Scroll";
+import { Scroll } from "../shared/Scroll";
 
 const Loading = () => {
   return (
@@ -12,6 +12,7 @@ const Loading = () => {
         />
       </div>
       <Scroll>
+        <div className="content">Loading</div>
         <div className="footer">Loading...</div>
         <div className="visuals" />
       </Scroll>

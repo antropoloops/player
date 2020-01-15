@@ -1,5 +1,6 @@
 import debug from "debug";
-import { getAudioContext } from "./AudioContext";
+import { IAudioContext } from "standardized-audio-context";
+import { getActiveAudioContext } from "./AudioContext";
 
 const log = debug("atpls:time");
 
@@ -13,13 +14,13 @@ export class TimeManager {
   public quantize: number;
   private count: number = 0;
   private startedAt: number = 0;
-  private context?: AudioContext;
+  private context?: IAudioContext;
 
   constructor(config: Config) {
     log("time %o", config);
     this.bpm = config.bpm;
     this.quantize = config.quantize || 1;
-    getAudioContext().then(ctx => (this.context = ctx));
+    getActiveAudioContext().then(ctx => (this.context = ctx));
   }
 
   public startTime(time: number) {
@@ -27,13 +28,13 @@ export class TimeManager {
       return time;
     }
 
-    time = this.nextTime(time);
+    const startTime = this.nextTime(time);
     this.count += 1;
 
     if (this.count === 1) {
-      this.startedAt = time;
+      this.startedAt = startTime;
     }
-    return time;
+    return startTime;
   }
 
   public stopTime(time: number) {

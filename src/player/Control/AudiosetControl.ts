@@ -34,7 +34,7 @@ export class AudiosetControl implements PlayerControl {
   private manager = new ControlStateManager();
 
   constructor(audioset: Audioset, private listener: ControlListener) {
-    log("create control");
+    log("create control %s", audioset.meta.title);
     this.time = new TimeManager(audioset.audio);
     this.keyboard = new KeyboardControler(audioset, this);
     audioset.clips.forEach((clip: Clip) => this.manager.addClip(clip));

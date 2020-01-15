@@ -18,7 +18,11 @@ export interface AudioSource {
 }
 
 export interface AudioEngine {
-  createTrack: (props: AudioTrackProperties, destination?: any) => AudioTrack;
+  createTrack: (
+    name: string,
+    props: AudioTrackProperties,
+    destination?: any,
+  ) => AudioTrack;
   createAudioSource: (
     props: AudioSourceProperties,
     destination: any,
@@ -26,7 +30,11 @@ export interface AudioEngine {
 }
 
 export class DebugAudioEngine implements AudioEngine {
-  public createTrack(props: AudioTrackProperties, destination?: any) {
+  public createTrack(
+    name: string,
+    props: AudioTrackProperties,
+    destination?: any,
+  ) {
     return {};
   }
   public createAudioSource(props: AudioSourceProperties, destination: any) {

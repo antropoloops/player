@@ -80,6 +80,7 @@ export class ResourceLoader implements Resources {
       return Promise.resolve();
     }
 
+    log("load audio of %s", this.audioset.meta.title);
     this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
     const promises = clips.map(clip =>
@@ -93,6 +94,9 @@ export class ResourceLoader implements Resources {
 
   //// PRIVATE ////
   private setStatus(status: ResourceLoadStatus) {
+    if (status.stage !== "loading") {
+      log("stage %s", status.stage);
+    }
     this.status = status;
     this.listener(status);
   }

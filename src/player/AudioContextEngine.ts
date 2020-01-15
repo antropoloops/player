@@ -1,3 +1,4 @@
+import { IAudioContext } from "standardized-audio-context";
 import {
   AudioEngine,
   AudioSource,
@@ -7,7 +8,7 @@ import {
 } from "./Audio";
 
 export class AudioContextEngine implements AudioEngine {
-  constructor(private context: AudioContext) {}
+  constructor(private context: IAudioContext) {}
 
   public createAudioSource(
     props: AudioSourceProperties,
@@ -20,11 +21,12 @@ export class AudioContextEngine implements AudioEngine {
     return source;
   }
   public createTrack(
+    name: string,
     props: AudioTrackProperties,
     destination?: any,
   ): AudioTrack {
-    const node = this.context.createGain();
-    node.connect(destination || this.context.destination);
-    return node;
+    const track = this.context.createGain();
+    track.connect(destination || this.context.destination);
+    return track;
   }
 }

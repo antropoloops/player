@@ -1,17 +1,17 @@
 import React from "react";
-import { isAudioset, Project } from "../audioset";
+import { isAudioset, Project } from "../../audioset";
+import { Browser } from "../Browser";
+import { Player } from "../Player";
+import { useBundleLoadStatus } from "../useBundleLoadStatus";
 import "./App.css";
-import { Browser } from "./Browser";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
-import { Player } from "./Player";
-import { useBundleLoadStatus } from "./useBundleLoadStatus";
 
-interface LoadAudiosetProps {
+interface BundleProps {
   idOrUrl: string;
 }
 
-export const LoadAudioset = ({ idOrUrl }: LoadAudiosetProps) => {
+export const Bundle = ({ idOrUrl }: BundleProps) => {
   const loadStatus = useBundleLoadStatus(idOrUrl);
 
   switch (loadStatus.stage) {

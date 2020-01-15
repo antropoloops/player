@@ -1,39 +1,55 @@
 import debug from "debug";
-
-let context: AudioContext | undefined;
+import { AudioContext } from "standardized-audio-context";
 
 const log = debug("atpls:context");
+
+type ResolveContext = (value: AudioContext) => void;
+const activeListeners: ResolveContext[] = [];
+const context = new AudioContext();
+context.onstatechange = handleStateChange;
+
+handleStateChange();
+autoUnlockAudio();
+
+function handleStateChange() {
+  const state = context.state;
+  log("state %s", state);
+  if (state === "running") {
+    const listeners = activeListeners.slice();
+    activeListeners.length = 0;
+    listeners.forEach(listener => listener(context));
+  }
+}
+
+function autoUnlockAudio() {
+  function unlock() {
+    context.resume().then(detach);
+  }
+
+  function detach() {
+    // Remove the touch start listener.
+    log("detach auto unlock", context.state);
+    document.removeEventListener("touchstart", unlock, true);
+    document.removeEventListener("touchend", unlock, true);
+    document.removeEventListener("click", unlock, true);
+  }
+
+  // Setup a touch start listener to attempt an unlock in.
+  log("attach auto unlock");
+  document.addEventListener("touchstart", unlock, true);
+  document.addEventListener("touchend", unlock, true);
+  document.addEventListener("click", unlock, true);
+}
 
 /**
  * @see https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
  */
-export async function getAudioContext(): Promise<AudioContext> {
-  context = context || createAudioContext();
-
-  if (context.state !== "running" && context.resume) {
-    log("waiting for context...");
-    return context
-      .resume()
-      .then(() => startAudioContext(context as AudioContext));
+export function getActiveAudioContext(): Promise<AudioContext> {
+  if (context.state === "running") {
+    return Promise.resolve(context);
   } else {
-    return context;
+    return new Promise<AudioContext>(resolve => {
+      activeListeners.push(resolve);
+    });
   }
-}
-
-function createAudioContext(): AudioContext {
-  log("create context");
-  const ctx = new ((window as any).AudioContext ||
-    (window as any).webkitAudioContext)() as AudioContext;
-  return ctx;
-}
-
-function startAudioContext(ctx: AudioContext): AudioContext {
-  log("start context");
-  // iOS hack. See https://github.com/tambien/StartAudioContext/blob/master/StartAudioContext.js
-  const buffer = ctx.createBuffer(1, 1, ctx.sampleRate);
-  const source = ctx.createBufferSource();
-  source.buffer = buffer;
-  source.connect(ctx.destination);
-  source.start(0);
-  return ctx;
 }
