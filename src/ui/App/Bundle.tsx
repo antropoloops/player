@@ -32,13 +32,19 @@ function useFetchAudioset(idOrUrl: string) {
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
+    let didCancel = false;
     setLoading(true);
     fetchAudioset(idOrUrl)
       .then(result => {
-        setLoading(false);
-        setBundle(result);
+        if (!didCancel) {
+          setLoading(false);
+          setBundle(result);
+        }
       })
       .catch(setError);
+    return () => {
+      didCancel = true;
+    };
   }, [idOrUrl]);
 
   return { bundle, loading, error };

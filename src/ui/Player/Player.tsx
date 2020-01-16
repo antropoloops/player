@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Audioset } from "../../audioset";
-import { getActiveAudioContext } from "../../player";
-import {
-  AudiosetControl,
-  EmptyControlState,
-  PlayerControl,
-} from "../../player/Control";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Preview } from "./Preview";
 import { Sidebar } from "./Sidebar";
 import { useFullscreen } from "./useFullscreen";
 import { useKeyboardListener } from "./useKeyboardListener";
+import { usePlayer } from "./usePlayer";
 import { Visuals } from "./Visuals";
 
 export interface PlayerProps {
@@ -55,25 +50,3 @@ export const Player = ({ audioset }: PlayerProps) => {
     </div>
   );
 };
-
-function usePlayer(audioset: Audioset) {
-  const [control, setControl] = useState<PlayerControl | null>(null);
-  const [state, setState] = useState(EmptyControlState);
-
-  useEffect(() => {
-    getActiveAudioContext().then(ctx => {
-      const ctl = new AudiosetControl(audioset, {
-        onControlStateChanged: newState => {
-          setState(newState);
-        },
-        onControlCommand: command => {
-          // console.log("command!", command);
-        },
-      });
-      setControl(ctl);
-      setState(ctl.getState());
-    });
-  }, [audioset]);
-
-  return { control, state };
-}

@@ -26,8 +26,8 @@ export function Track({
           <Clip
             key={clipId}
             clip={audioset.index.clipById[clipId]}
-            isActive={state.clips[clipId].status === "playing"}
-            onClick={() => control.toggleClip(clipId, 0)}
+            isActive={state.clips[clipId]?.status === "playing"}
+            control={control}
           />
         ))}
       </div>

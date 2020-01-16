@@ -27,6 +27,12 @@ export class Sampler {
     });
   }
 
+  public dispose() {
+    Object.keys(this.tracks).forEach(trackId => {
+      this.tracks[trackId].disconnect();
+    });
+  }
+
   public run(command: ControlCommand) {
     switch (command.command) {
       case "startClip":
