@@ -1,7 +1,7 @@
 import React from "react";
 import { Audioset } from "../../audioset";
+import { Markdown } from "../shared/Markdown";
 import "./Preview.css";
-import { Readme } from "./Readme";
 
 interface PreviewProps {
   audioset: Audioset;
@@ -15,7 +15,6 @@ export const Preview = ({ audioset, isReady, onStart }: PreviewProps) => {
       <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
 
       <div className="inside">
-        <Readme content={audioset.meta.readme} closed={true} />
         {!isReady && (
           <div className="StartButton">
             <button
@@ -27,6 +26,7 @@ export const Preview = ({ audioset, isReady, onStart }: PreviewProps) => {
             </button>
           </div>
         )}
+        <Markdown markdown={audioset.meta.readme} />
       </div>
     </div>
   );

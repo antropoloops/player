@@ -41,8 +41,12 @@
       background-color: #444444;
       grid-area: header;
     }
-    img.play-logo {
+    .play-logo {
+      margin: 0.25rem 1.25rem 0.25rem 0.25rem;
+    }
+    .play-logo img {
       max-width: 100%;
+      max-height: 3rem;
     }
     div.scroll {
       grid-area: content;
@@ -80,8 +84,7 @@
           "content visuals" 1fr
           "footer visuals" auto / 350px 1fr;
       }
-      div.header,
-      div.footer {
+      div.Header, div.Footer {
         margin-right: 1rem;
       }
       div.content {
@@ -89,14 +92,15 @@
       }
     }
   </style>
+    </div>
   <body>
     <div id="root">
       <div class="App">
-        <div class="header">
-          <img class="play-logo" src="/play-logo.png" alt="Play antropoloops" />
+        <div class="Header">
+          <div class="play-logo">
+            <img src="/play-logo.png" alt="Play antropoloops" />
+          </div>
         </div>
-        <div class="footer">Antropoloops v1.0.0</div>
-        <div class="content"></div>
         <div class="visuals welcome"></div>
       </div>
     </div>

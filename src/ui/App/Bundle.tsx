@@ -2,8 +2,8 @@ import React from "react";
 import { isAudioset, Project } from "../../audioset";
 import { Player } from "../Player";
 import { Project as ProjectView } from "../Project";
+import Loading from "../shared/Loading";
 import "./App.css";
-import Loading from "./Loading";
 import NotFound from "./NotFound";
 import { useRemoteBundle } from "./useRemoteBundle";
 

@@ -1,3 +1,3 @@
-import Router from "./Router";
+import { App } from "./App";
 
-export default Router;
+export default App;

@@ -1,12 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Bundle } from "./Bundle";
 import NotFound from "./NotFound";
 
-// App layout styles are defined at index.html
-const AppRouter = () => {
+const Router = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
         <Route
           path="/"
@@ -25,11 +24,10 @@ const AppRouter = () => {
         />
         <Route component={NotFound} />
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 };
-
-export default AppRouter;
+export default Router;
 
 function getUrlFromParams(): string {
   const params = new URLSearchParams(window.location.search);
