@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
 import { getActiveAudioContext } from "../../player";
@@ -13,7 +13,13 @@ import { Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
 export function usePlayer(audioset: Audioset) {
-  const visualsRef = useRef<HTMLDivElement>(null);
+  // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
+  const [el, setReference] = useState<HTMLDivElement | null>(null);
+  const visualsRef = useCallback((newRef: HTMLDivElement) => {
+    setReference(newRef);
+  }, []);
+
+  const [isReady, setReady] = useState<boolean>(false);
   const [control, setControl] = useState<PlayerControl | null>(null);
   const [state, setState] = useState(EmptyControlState);
 
@@ -28,6 +34,13 @@ export function usePlayer(audioset: Audioset) {
       });
       loader.preload();
 
+      if (!el) {
+        // FIXME: if no visuals div, nothing works
+        // this is to prevent create a player without visuals
+        // maybe we want to configure visuals or not
+        return;
+      }
+
       const { VisualControl } = await import("../../visuals/index");
       const ctx = await getActiveAudioContext();
 
@@ -38,9 +51,7 @@ export function usePlayer(audioset: Audioset) {
       loader.load(ctx);
       sampler = createSampler(audioset, ctx, loader);
 
-      if (visualsRef.current) {
-        visuals = new VisualControl(audioset, visualsRef.current);
-      }
+      visuals = new VisualControl(audioset, el);
 
       const ctl = new AudiosetControl(audioset, {
         onControlStateChanged: newState => {
@@ -61,9 +72,9 @@ export function usePlayer(audioset: Audioset) {
       visuals?.detach();
       sampler?.dispose();
     };
-  }, [audioset]);
+  }, [audioset, el]);
 
-  return { visualsRef, control, state };
+  return { visualsRef, control, state, isReady, setReady };
 }
 
 function createSampler(

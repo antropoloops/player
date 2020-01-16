@@ -15,7 +15,7 @@ interface MapMode {
   callback: MapModeCallback;
 }
 
-export class KeyboardControler {
+export class KeyboardController {
   private active: boolean = false;
   private pressed: Record<string, boolean> = {};
   private clipIdToKey: Record<string, string> = {};
@@ -28,6 +28,7 @@ export class KeyboardControler {
       this.clipIdToKey[clip.id] = key;
       this.keyToClipId[key] = clip.id;
     });
+    this.setActive(true);
   }
 
   public getKey(clipId: string) {

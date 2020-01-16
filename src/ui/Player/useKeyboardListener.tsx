@@ -1,15 +1,19 @@
 import debug from "debug";
 import { useEffect } from "react";
-import { player } from "../../player";
+import { KeyboardController } from "../../player/Control";
 
 const log = debug("atpls:useKeyboard");
 
-export function useKeyboardListener() {
-  useEffect(() => addKeyboardListeners(), []);
+export function useKeyboardListener(keyboard: KeyboardController | undefined) {
+  useEffect(() => {
+    if (keyboard) {
+      return addKeyboardListeners(keyboard);
+    }
+  }, [keyboard]);
 }
-function addKeyboardListeners() {
+function addKeyboardListeners(keyboard: KeyboardController) {
   log("Installing keyboard");
-  const keyboard = player.control.keyboard;
+
   const onKeyDown = (event: KeyboardEvent) => keyboard.keyDown(event.key);
   const onKeyUp = (event: KeyboardEvent) => keyboard.keyUp(event.key);
   window.addEventListener("keydown", onKeyDown);

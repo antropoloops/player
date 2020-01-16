@@ -4,7 +4,7 @@ import { TimeManager } from "../TimeManager";
 import { ControlCommand } from "./ControlCommand";
 import { ControlState } from "./ControlState";
 import { ControlStateManager } from "./ControlStateManager";
-import { KeyboardControler } from "./KeyboardControler";
+import { KeyboardController } from "./KeyboardController";
 
 const log = debug("atpls:control");
 
@@ -14,7 +14,7 @@ export interface ControlListener {
 }
 
 export interface PlayerControl {
-  readonly keyboard: KeyboardControler;
+  readonly keyboard: KeyboardController;
   getState(): ControlState;
   toggleClip(clipId: string, time: number): void;
   stopClip(clipId: string, time: number): void;
@@ -28,7 +28,7 @@ export interface PlayerControl {
  * It uses a listener for side effects (using commands) and state changes
  */
 export class AudiosetControl implements PlayerControl {
-  public readonly keyboard: KeyboardControler;
+  public readonly keyboard: KeyboardController;
   private time: TimeManager;
   private commands: ControlCommand[] = [];
   private manager = new ControlStateManager();
@@ -36,7 +36,7 @@ export class AudiosetControl implements PlayerControl {
   constructor(audioset: Audioset, private listener: ControlListener) {
     log("create control %s", audioset.meta.title);
     this.time = new TimeManager(audioset.audio);
-    this.keyboard = new KeyboardControler(audioset, this);
+    this.keyboard = new KeyboardController(audioset, this);
     audioset.clips.forEach((clip: Clip) => this.manager.addClip(clip));
     audioset.tracks.forEach(track => this.manager.addTrack(track));
   }
