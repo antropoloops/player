@@ -28,7 +28,7 @@ export const Project = ({ project }: ProjectProps) => {
           />
           {isMobile && (
             <div>
-              <Readme closed={true} content={project.meta.readme} />
+              <Readme content={project.meta.readme} />
             </div>
           )}
           <ul className="Audiosets">

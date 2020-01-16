@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
   return (
-    <div className="footer PlayerFooter">
+    <div className="Footer PlayerFooter">
       <div className="left">...</div>
       <div className="center" />
       <div className="right">

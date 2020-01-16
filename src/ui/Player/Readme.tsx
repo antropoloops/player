@@ -4,11 +4,10 @@ import { Markdown } from "../shared/Markdown";
 import "./Readme.css";
 
 interface ReadmeProps {
-  closed: boolean;
   content: string;
 }
 
-export const Readme = ({ closed, content }: ReadmeProps) => {
+export const Readme = ({ content }: ReadmeProps) => {
   const [isOpen, toggleOpen] = useReducer(x => !x, false);
 
   if (!content.length) {
