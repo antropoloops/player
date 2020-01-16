@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Audioset } from "../../audioset";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
@@ -14,15 +14,12 @@ export interface PlayerProps {
 
 export const Player = ({ audioset }: PlayerProps) => {
   const player = usePlayer(audioset);
-  const [isReady, setReady] = useState<boolean>(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const { isDesktop } = useDeviceType();
   useKeyboardListener(player.control?.keyboard);
 
-  const isVisual = isDesktop || isReady;
-
+  const areVisualsVisible = isDesktop || player.isReady;
   const isSidebarVisible = !isFullscreen;
-  // useAutoStartAudio(isReady, audioset, handleStart);
 
   return (
     <div className="App Player">
@@ -32,7 +29,7 @@ export const Player = ({ audioset }: PlayerProps) => {
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
         >
-          {isReady && player.control ? (
+          {player.isReady && player.control ? (
             <Controller
               audioset={audioset}
               state={player.state}
@@ -41,13 +38,13 @@ export const Player = ({ audioset }: PlayerProps) => {
           ) : (
             <Preview
               audioset={audioset}
-              isReady={isReady}
-              onStart={() => setReady(true)}
+              isReady={player.isReady}
+              onStart={() => player.setReady(true)}
             />
           )}
         </Sidebar>
       )}
-      {isVisual && (
+      {areVisualsVisible && (
         <div className="visuals">
           <div id="visuals" ref={player.visualsRef} />
         </div>
