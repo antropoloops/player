@@ -25,7 +25,7 @@ export interface PlayerControl {
 /**
  * Controls the playing state of clips and tracks
  *
- * It uses a listener for side effects (using commands) and state changees
+ * It uses a listener for side effects (using commands) and state changes
  */
 export class AudiosetControl implements PlayerControl {
   public readonly keyboard: KeyboardControler;

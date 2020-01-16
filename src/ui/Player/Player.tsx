@@ -7,7 +7,6 @@ import { Sidebar } from "./Sidebar";
 import { useFullscreen } from "./useFullscreen";
 import { useKeyboardListener } from "./useKeyboardListener";
 import { usePlayer } from "./usePlayer";
-import { Visuals } from "./Visuals";
 
 export interface PlayerProps {
   audioset: Audioset;
@@ -45,7 +44,9 @@ export const Player = ({ audioset }: PlayerProps) => {
         </Sidebar>
       )}
       {isVisual && (
-        <div className="visuals">{<Visuals audioset={audioset} />}</div>
+        <div className="visuals">
+          <div id="visuals" ref={player.visualsRef} />
+        </div>
       )}
     </div>
   );
