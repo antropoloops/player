@@ -17,7 +17,7 @@ export const Player = ({ audioset }: PlayerProps) => {
   const [isReady, setReady] = useState<boolean>(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const { isDesktop } = useDeviceType();
-  useKeyboardListener();
+  useKeyboardListener(player.control?.keyboard);
 
   const isVisual = isDesktop || isReady;
 
