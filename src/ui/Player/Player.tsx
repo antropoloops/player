@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Audioset } from "../../audioset";
 import { getActiveAudioContext } from "../../player";
-import { AudiosetControl, EmptyControlState } from "../../player/Control";
+import {
+  AudiosetControl,
+  EmptyControlState,
+  PlayerControl,
+} from "../../player/Control";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Preview } from "./Preview";
@@ -15,7 +19,7 @@ export interface PlayerProps {
 }
 
 export const Player = ({ audioset }: PlayerProps) => {
-  const { playerState } = usePlayer(audioset);
+  const player = usePlayer(audioset);
   const [isReady, setReady] = useState<boolean>(false);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const { isDesktop } = useDeviceType();
@@ -30,8 +34,12 @@ export const Player = ({ audioset }: PlayerProps) => {
     <div className="App Player">
       {isSidebarVisible && (
         <Sidebar audioset={audioset} onFullscreen={toggleFullscreen}>
-          {isReady ? (
-            <Controller audioset={audioset} state={playerState} />
+          {isReady && player.control ? (
+            <Controller
+              audioset={audioset}
+              state={player.state}
+              control={player.control}
+            />
           ) : (
             <Preview
               audioset={audioset}
@@ -49,23 +57,23 @@ export const Player = ({ audioset }: PlayerProps) => {
 };
 
 function usePlayer(audioset: Audioset) {
-  const [player, setPlayer] = useState<any>(null);
-  const [playerState, setPlayerState] = useState(EmptyControlState);
+  const [control, setControl] = useState<PlayerControl | null>(null);
+  const [state, setState] = useState(EmptyControlState);
 
   useEffect(() => {
     getActiveAudioContext().then(ctx => {
-      const control = new AudiosetControl(audioset, {
-        onControlStateChanged: state => {
-          setPlayerState(state);
+      const ctl = new AudiosetControl(audioset, {
+        onControlStateChanged: newState => {
+          setState(newState);
         },
         onControlCommand: command => {
           // console.log("command!", command);
         },
       });
-      setPlayer(control);
-      setPlayerState(control.getState());
+      setControl(ctl);
+      setState(ctl.getState());
     });
   }, [audioset]);
 
-  return { player, playerState };
+  return { control, state };
 }

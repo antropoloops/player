@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
-import { player } from "../../../player";
-import { hasKeyboard } from "../../hasKeyboard";
+import { player } from "../../../../player";
+import { hasKeyboard } from "../../../hasKeyboard";
 import "./ClipClosed.css";
 
 export const ClosedClip = ({ clip, onClick }: any) => {
