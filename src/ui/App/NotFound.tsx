@@ -8,12 +8,7 @@ const NotFound = () => {
       <Header />
       <div className="content">
         <div className="inside">
-          <img
-            width="500"
-            height="500"
-            src="https://66.media.tumblr.com/dbe92884e2815033868d3384fea3053a/tumblr_oyjmykm6Y01sdkrqjo1_500.gif"
-            alt="Fuentes musicales"
-          />
+          <img src="/lik.jpg" alt="Where to find" />
           <p>Lo sentimos, no hemos encontrado lo que buscabas.</p>
           <p>
             Si crees que algo va mal, por favor escríbenos a
