@@ -38,10 +38,10 @@ export interface Resources {
 
 export class ResourceLoader implements Resources {
   public status: ResourceLoadStatus;
-  private preloadImage: (url: string) => void;
   private total: number;
   private completed: number;
   private buffers: Record<string, any> = {};
+  private preloaded: boolean;
 
   constructor(
     private audioset: Audioset,
@@ -49,9 +49,9 @@ export class ResourceLoader implements Resources {
   ) {
     log("create ResourceLoader %s", audioset.id);
     this.status = { stage: "pending" };
+    this.preloaded = false;
     this.total = this.audioset.clips.length;
     this.completed = 0;
-    this.preloadImage = preloadImage;
   }
 
   public getStatus() {
@@ -63,19 +63,25 @@ export class ResourceLoader implements Resources {
   }
 
   public preload() {
+    if (this.preloaded) {
+      return Promise.resolve();
+    }
+
     log("Preload");
+    this.preloaded = true;
     const { visuals, clips } = this.audioset;
     const promises: Array<Promise<any>> = [];
     if (visuals.mode === "map" && visuals.geomap.url) {
       promises.push(fetch(visuals.geomap.url));
     }
     clips.forEach(clip => {
-      this.preloadImage(clip.resources.cover.small);
+      preloadImage(clip.resources.cover.small);
     });
     return Promise.all(promises);
   }
 
   public load(context: IAudioContext) {
+    this.preload();
     const { total, completed } = this;
     if (total === completed) {
       return Promise.resolve();
