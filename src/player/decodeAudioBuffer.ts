@@ -1,11 +1,12 @@
 import { IAudioContext } from "standardized-audio-context";
-import { getActiveAudioContext } from "./AudioContext";
 
 /**
  * Fetch an AudioBuffer from a fetch response
  */
-export async function decodeAudioBuffer(response: Response) {
-  const context = await getActiveAudioContext();
+export async function decodeAudioBuffer(
+  response: Response,
+  context: IAudioContext,
+) {
   const arrayBuffer = await response.arrayBuffer();
   return decodeArrayBuffer(context, arrayBuffer);
 }

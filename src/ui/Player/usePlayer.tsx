@@ -35,7 +35,7 @@ export function usePlayer(audioset: Audioset) {
         return;
       }
 
-      loader.load();
+      loader.load(ctx);
       sampler = createSampler(audioset, ctx, loader);
 
       if (visualsRef.current) {
