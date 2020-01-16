@@ -1,21 +1,13 @@
 import React from "react";
+import { Header } from "../shared/Header";
 import { Scroll } from "../shared/Scroll";
 
 const Loading = () => {
   return (
     <div className="App Loading">
-      <div className="header">
-        <img
-          className="play-logo"
-          src="/play-logo.png"
-          alt="Play antropoloops"
-        />
-      </div>
-      <Scroll>
-        <div className="content">Loading</div>
-        <div className="footer">Loading...</div>
-        <div className="visuals" />
-      </Scroll>
+      <Header />
+      <Scroll />
+      <div className="visuals welcome" />
     </div>
   );
 };
