@@ -7,11 +7,13 @@ import { Footer } from "./Footer";
 interface SidebarProps {
   audioset: Audioset;
   onFullscreen: () => void;
+  onStopAll: () => void;
 }
 
 export const Sidebar: FunctionComponent<SidebarProps> = ({
   audioset,
   onFullscreen,
+  onStopAll,
   children,
 }) => {
   return (
@@ -20,7 +22,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
       <Scroll>
         <div className="content">{children}</div>
       </Scroll>
-      <Footer onFullscreen={onFullscreen} />
+      <Footer onFullscreen={onFullscreen} onStopAll={onStopAll} />
     </>
   );
 };

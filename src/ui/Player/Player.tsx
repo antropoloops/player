@@ -27,7 +27,11 @@ export const Player = ({ audioset }: PlayerProps) => {
   return (
     <div className="App Player">
       {isSidebarVisible && (
-        <Sidebar audioset={audioset} onFullscreen={toggleFullscreen}>
+        <Sidebar
+          audioset={audioset}
+          onFullscreen={toggleFullscreen}
+          onStopAll={() => player?.control?.stopAll(0)}
+        >
           {isReady && player.control ? (
             <Controller
               audioset={audioset}
