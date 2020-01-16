@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import { ArrowDown, ArrowUp } from "../shared/Icons";
 import { Markdown } from "../shared/Markdown";
 import "./Readme.css";
@@ -10,11 +10,6 @@ interface ReadmeProps {
 
 export const Readme = ({ closed, content }: ReadmeProps) => {
   const [isOpen, toggleOpen] = useReducer(x => !x, false);
-  useEffect(() => {
-    if (isOpen) {
-      toggleOpen();
-    }
-  }, [content, toggleOpen, isOpen]);
 
   if (!content.length) {
     return null;

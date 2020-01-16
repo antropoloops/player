@@ -1,23 +1,23 @@
 import React from "react";
-import { Project } from "../../audioset";
+import { Project as ProjectData } from "../../audioset";
 import { Readme } from "../Player/Readme";
 import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
-import { AudiosetReference } from "./AudiosetReference";
-import "./Browser.css";
+import { Item } from "./Item";
+import "./Project.css";
 
-interface BrowserProps {
-  project: Project;
+interface ProjectProps {
+  project: ProjectData;
 }
 
-export const Browser = ({ project }: BrowserProps) => {
+export const Project = ({ project }: ProjectProps) => {
   const references = project.audiosets || [];
   const { isDesktop, isMobile } = useDeviceType();
 
   return (
-    <div className="App Browser">
+    <div className="App Project">
       <Header meta={project.meta} />
       <Scroll>
         <div className="content">
@@ -33,7 +33,7 @@ export const Browser = ({ project }: BrowserProps) => {
           )}
           <ul className="Audiosets">
             {references.map(reference => (
-              <AudiosetReference key={reference.id} reference={reference} />
+              <Item key={reference.id} reference={reference} />
             ))}
           </ul>
         </div>

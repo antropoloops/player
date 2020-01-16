@@ -1,6 +1,6 @@
 {
   "name": "atpls-player",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -41,6 +41,7 @@
     "react-scripts": "^3.3.0",
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^5.0.0",
+    "standardized-audio-context": "^23.1.2",
     "topojson": "^3.0.2",
     "typescript": "^3.7.4"
   },

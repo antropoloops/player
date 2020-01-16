@@ -1,5 +1,6 @@
 .Controller .Clip {
   cursor: pointer;
+  color: #333;
 }
 .Controller .Clip .meta {
   flex-grow: 1;

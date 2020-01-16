@@ -10,7 +10,9 @@ export interface AudioSourceProperties {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface AudioTrack {}
+export interface AudioTrack {
+  disconnect(): void;
+}
 
 export interface AudioSource {
   start: (time: number) => void;
@@ -18,7 +20,11 @@ export interface AudioSource {
 }
 
 export interface AudioEngine {
-  createTrack: (props: AudioTrackProperties, destination?: any) => AudioTrack;
+  createTrack: (
+    name: string,
+    props: AudioTrackProperties,
+    destination?: any,
+  ) => AudioTrack;
   createAudioSource: (
     props: AudioSourceProperties,
     destination: any,
@@ -26,15 +32,23 @@ export interface AudioEngine {
 }
 
 export class DebugAudioEngine implements AudioEngine {
-  public createTrack(props: AudioTrackProperties, destination?: any) {
-    return {};
+  public createTrack(
+    name: string,
+    props: AudioTrackProperties,
+    destination?: any,
+  ) {
+    return new NoAudioTrack();
   }
   public createAudioSource(props: AudioSourceProperties, destination: any) {
     return new NoAudioSource();
   }
 }
 
-export class NoAudioTrack implements AudioTrack {}
+export class NoAudioTrack implements AudioTrack {
+  public disconnect() {
+    // nothing
+  }
+}
 
 export class NoAudioSource implements AudioSource {
   public start(time: number) {

@@ -25,7 +25,7 @@ export interface PlayerControl {
 /**
  * Controls the playing state of clips and tracks
  *
- * It uses a listener for side effects (using commands) and state changees
+ * It uses a listener for side effects (using commands) and state changes
  */
 export class AudiosetControl implements PlayerControl {
   public readonly keyboard: KeyboardControler;
@@ -34,7 +34,7 @@ export class AudiosetControl implements PlayerControl {
   private manager = new ControlStateManager();
 
   constructor(audioset: Audioset, private listener: ControlListener) {
-    log("create control");
+    log("create control %s", audioset.meta.title);
     this.time = new TimeManager(audioset.audio);
     this.keyboard = new KeyboardControler(audioset, this);
     audioset.clips.forEach((clip: Clip) => this.manager.addClip(clip));

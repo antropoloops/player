@@ -20,7 +20,10 @@
       "source.fixAll.tslint": true
   },
   "cSpell.words": [
+    "atpls",
     "audioset",
+    "noselect",
+    "onstatechange",
     "screenfull"
   ]
 }

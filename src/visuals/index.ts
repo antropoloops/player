@@ -1,8 +1,10 @@
 import { Audioset } from "../audioset";
+import { ControlCommand } from "../player/Control";
 import { addResizeObserver } from "./addResizeObserver";
 import Display from "./display";
 import Visuals from "./visuals";
 
+// TODO: move this outside visuals
 export class VisualControl {
   private display: Display;
   private visuals: Visuals;
@@ -18,6 +20,15 @@ export class VisualControl {
         }),
       );
     });
+  }
+
+  public run(command: ControlCommand) {
+    switch (command.command) {
+      case "startClip":
+        return this.startClip(command.clipId);
+      case "stopClip":
+        return this.stopClip(command.clipId);
+    }
   }
 
   public startClip(clipId: string) {

@@ -1,16 +1,16 @@
 import React, { useReducer } from "react";
-import { player } from "../../player";
-import { hasKeyboard } from "../hasKeyboard";
+import { hasKeyboard } from "../../../hasKeyboard";
 import "./ClipClosed.css";
+import { ClipProps } from "./index";
 
-export const ClosedClip = ({ clip, onClick }: any) => {
+export const ClosedClip = ({ clip, control }: ClipProps) => {
   const [isMapKeyboard, toggleMapKeyboard] = useReducer(x => !x, false);
 
-  const clipKey = player.control.keyboard.getKey(clip.id);
+  const { keyboard } = control;
+  const clipKey = keyboard.getKey(clip.id);
+  const startClip = () => control.startClip(clip.id, 0);
 
   function handleKeyToggle() {
-    const { keyboard } = player.control;
-
     if (isMapKeyboard) {
       keyboard.stopMapMode();
     } else {
@@ -28,9 +28,9 @@ export const ClosedClip = ({ clip, onClick }: any) => {
       style={{ backgroundColor: clip.color }}
     >
       <div className="cover">
-        <img alt={clip.title} src={clip.coverUrl} onClick={onClick} />
+        <img alt={clip.title} src={clip.coverUrl} onClick={startClip} />
       </div>
-      <div className="meta noselect" onClick={onClick}>
+      <div className="meta noselect" onClick={startClip}>
         <h3 className="title">{clip.title}</h3>
       </div>
       {hasKeyboard() && (

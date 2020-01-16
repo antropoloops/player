@@ -1,4 +1,5 @@
 import debug from "debug";
+import { IAudioContext } from "standardized-audio-context";
 import { Audioset, Clip } from "../audioset";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
@@ -31,7 +32,7 @@ export type ResourceLoadStatus =
 export interface Resources {
   getStatus(): ResourceLoadStatus;
   getBuffer(clipId: string): any;
-  load(): Promise<any>;
+  load(ctx: IAudioContext): Promise<any>;
   preload(): Promise<any>;
 }
 
@@ -74,16 +75,17 @@ export class ResourceLoader implements Resources {
     return Promise.all(promises);
   }
 
-  public load() {
+  public load(context: IAudioContext) {
     const { total, completed } = this;
     if (total === completed) {
       return Promise.resolve();
     }
 
+    log("load audio of %s", this.audioset.meta.title);
     this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
     const promises = clips.map(clip =>
-      this.loadAudio(clip).catch(err => {
+      this.loadAudio(clip, context).catch(err => {
         this.handleResourceCompleted();
         log("Error %o", err);
       }),
@@ -93,15 +95,18 @@ export class ResourceLoader implements Resources {
 
   //// PRIVATE ////
   private setStatus(status: ResourceLoadStatus) {
+    if (status.stage !== "loading") {
+      log("stage %s", status.stage);
+    }
     this.status = status;
     this.listener(status);
   }
 
-  private async loadAudio(clip: Clip) {
+  private async loadAudio(clip: Clip, context: IAudioContext) {
     // TODO: check other formats
     const url = clip.resources.audio.mp3;
     const response = await fetch(url);
-    const buffer = await decodeAudioBuffer(response);
+    const buffer = await decodeAudioBuffer(response, context);
     this.buffers[clip.id] = buffer;
     this.handleResourceCompleted(url);
 
