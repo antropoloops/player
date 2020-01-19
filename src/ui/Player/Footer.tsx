@@ -8,7 +8,7 @@ interface FooterProps {
 
 export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
   return (
-    <div className="Footer PlayerFooter">
+    <footer className="Footer">
       <div className="left">...</div>
       <div className="center" />
       <div className="right">
@@ -19,6 +19,6 @@ export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
           <Stop />
         </button>
       </div>
-    </div>
+    </footer>
   );
 };

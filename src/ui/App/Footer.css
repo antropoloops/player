@@ -1,4 +1,5 @@
 .App .Footer {
+  grid-area: footer;
   display: flex;
   flex-direction: row;
 }

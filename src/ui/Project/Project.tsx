@@ -44,13 +44,13 @@ export const Project = ({ project }: ProjectProps) => {
           </ul>
         </div>
       </Scroll>
-      <div className="Footer">
+      <footer className="Footer">
         <div className="left">
           <Link to="/about">
             <Info />
           </Link>
         </div>
-      </div>
+      </footer>
       {isDesktop && (
         <div className="visuals">
           <Markdown markdown={project.meta.readme} />
