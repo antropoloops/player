@@ -1,6 +1,9 @@
 # Antropoloops player
 
+
 https://play.antropoloops.com/
+
+
 
 ## Setup
 
@@ -10,13 +13,22 @@ https://play.antropoloops.com/
 
 ## Deploy
 
-#### Staging
+**Staging**: https://play-beta.antropoloops.com
 
-Just push to master: https://play-staging.antropoloops.com
+[![Netlify Status](https://api.netlify.com/api/v1/badges/284452e7-f4ca-42a7-bd30-52e5a5fe66d2/deploy-status)](https://app.netlify.com/sites/agitated-wright-68b7c5/deploys)
 
-#### Production
 
- `yarn deploy`
+Create a PR and merge into master
+
+**Production**: https://play.antropoloops.com
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/de935516-fe15-4ba1-b043-c0fd022552c6/deploy-status)](https://app.netlify.com/sites/mystifying-franklin-00dbbc/deploys)
+
+
+Push master into production:
+```bash
+git push origin master:production
+```
 
 
 ## License
