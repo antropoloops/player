@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Project as ProjectData } from "../../audioset";
 import { Readme } from "../Player/Readme";
 import { Header } from "../shared/Header";
+import { Info } from "../shared/Icons";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 import { useDeviceType } from "../useDeviceType";
@@ -12,6 +14,10 @@ interface ProjectProps {
   project: ProjectData;
 }
 
+/**
+ * A Project is an collection of Audiosets. This view
+ * displays a browser to select on of it.
+ */
 export const Project = ({ project }: ProjectProps) => {
   const references = project.audiosets || [];
   const { isDesktop, isMobile } = useDeviceType();
@@ -38,6 +44,13 @@ export const Project = ({ project }: ProjectProps) => {
           </ul>
         </div>
       </Scroll>
+      <div className="Footer">
+        <div className="left">
+          <Link to="/about">
+            <Info />
+          </Link>
+        </div>
+      </div>
       {isDesktop && (
         <div className="visuals">
           <Markdown markdown={project.meta.readme} />

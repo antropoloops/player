@@ -1,9 +1,18 @@
 
 .Markdown {
   background-color: #505050;
-  color: white;
+  color: #eee;
 }
 
 .Markdown h2   {
   margin-top: 1rem;
+}
+
+.Markdown p {
+  margin-bottom: 1rem;
+}
+
+.Markdown a {
+  color: white;
+  text-decoration: underline;
 }

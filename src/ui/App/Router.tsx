@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { About } from "./About";
 import { Bundle } from "./Bundle";
 import NotFound from "./NotFound";
 
@@ -22,6 +23,7 @@ const Router = () => {
           exact={true}
           render={() => <Bundle idOrUrl={getUrlFromParams()} />}
         />
+        <Route path="/about" exact={true} component={About} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

@@ -1,0 +1,16 @@
+.App .Footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.App .Footer .center {
+  flex-grow: 1;
+}
+
+.App .Footer .icon {
+  margin: 4px 4px 0 4px;
+}
+
+.App .Footer .icon:hover {
+  color: #ccc;
+}

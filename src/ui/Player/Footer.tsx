@@ -1,6 +1,5 @@
 import React from "react";
 import { FullscreenIcon, Stop } from "../shared/Icons";
-import "./Footer.css";
 
 interface FooterProps {
   onStopAll: () => void;

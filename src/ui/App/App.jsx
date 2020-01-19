@@ -1,5 +1,7 @@
 import React, { Suspense } from "react";
 import Loading from "../shared/Loading";
+import "./App.css";
+import "./Footer.css";
 
 const Router = React.lazy(() => import('./Router'));
 
