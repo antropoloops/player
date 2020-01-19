@@ -9,7 +9,6 @@ const context = new AudioContext();
 context.onstatechange = handleStateChange;
 
 handleStateChange();
-autoUnlockAudio();
 
 function handleStateChange() {
   const state = context.state;
@@ -21,7 +20,7 @@ function handleStateChange() {
   }
 }
 
-function autoUnlockAudio() {
+export function autoUnlockAudio() {
   function unlock() {
     context.resume().then(detach);
   }
