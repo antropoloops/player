@@ -40,13 +40,13 @@ const ControlHeader = ({ title, path }: ControlHeaderProps) => (
 const LogoHeader = () => (
   <div className="Header">
     <div className="logo">
-      <a href="/">
+      <Link to="/">
         <img
           className="play-logo"
           src="/play-logo.png"
           alt="Play antropoloops"
         />
-      </a>
+      </Link>
     </div>
   </div>
 );
