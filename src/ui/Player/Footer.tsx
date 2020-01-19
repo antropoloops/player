@@ -1,6 +1,5 @@
 import React from "react";
 import { FullscreenIcon, Stop } from "../shared/Icons";
-import "./Footer.css";
 
 interface FooterProps {
   onStopAll: () => void;
@@ -9,7 +8,7 @@ interface FooterProps {
 
 export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
   return (
-    <div className="Footer PlayerFooter">
+    <footer className="Footer">
       <div className="left">...</div>
       <div className="center" />
       <div className="right">
@@ -20,6 +19,6 @@ export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
           <Stop />
         </button>
       </div>
-    </div>
+    </footer>
   );
 };

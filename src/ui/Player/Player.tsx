@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Audioset } from "../../audioset";
+import { autoUnlockAudio } from "../../player/AudioContext";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Preview } from "./Preview";
@@ -17,6 +18,10 @@ export const Player = ({ audioset }: PlayerProps) => {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const { isDesktop } = useDeviceType();
   useKeyboardListener(player.control?.keyboard);
+
+  useEffect(() => {
+    autoUnlockAudio();
+  }, []);
 
   const areVisualsVisible = isDesktop || player.isReady;
   const isSidebarVisible = !isFullscreen;

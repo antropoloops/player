@@ -1,9 +1,8 @@
 import React from "react";
-import { isAudioset, Project } from "../../audioset";
+import { isAudioset, Project as ProjectData } from "../../audioset";
 import { Player } from "../Player";
-import { Project as ProjectView } from "../Project";
+import { Project } from "../Project";
 import Loading from "../shared/Loading";
-import "./App.css";
 import NotFound from "./NotFound";
 import { useRemoteBundle } from "./useRemoteBundle";
 
@@ -18,7 +17,7 @@ export const Bundle = ({ idOrUrl }: BundleProps) => {
     return isAudioset(bundle) ? (
       <Player audioset={bundle} />
     ) : (
-      <ProjectView project={bundle as Project} />
+      <Project project={bundle as ProjectData} />
     );
   } else {
     return <NotFound />;
