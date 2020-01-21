@@ -1,11 +1,11 @@
 import React from "react";
 import { Spinner } from "./Spinner";
 
-const Loading = () => {
+export const Loading = React.memo(() => {
   return (
     <div className="App">
       <div className="Header">
-        <div className="play-logo">
+        <div className="logo">
           <img src="/play-logo.png" alt="Play antropoloops" />
         </div>
       </div>
@@ -18,6 +18,4 @@ const Loading = () => {
       </div>
     </div>
   );
-};
-
-export default Loading;
+});
