@@ -87,9 +87,12 @@ export class ResourceLoader implements Resources {
       return Promise.resolve();
     }
 
-    log("load audio of %s", this.audioset.meta.title);
+    log("Loading audio of %s", this.audioset.meta.title);
     this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
+    if (clips[0]) {
+      log("Audio format %s", clips[0].resources.audio.ogg ? "ogg" : "mp3");
+    }
     const promises = clips.map(clip =>
       this.loadClipAudio(clip, context).catch(err => {
         this.handleResourceCompleted();
