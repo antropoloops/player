@@ -36,13 +36,14 @@
         "visuals" auto
         "content" 1fr
         "footer" auto / 100%;
+        overflow: hidden;
     }
     div.header {
       background-color: #444444;
       grid-area: header;
     }
     .play-logo {
-      margin: 0.25rem 1.25rem 0.25rem 0.25rem;
+      margin: 0.25rem 0.25rem 0.25rem 0.25rem;
     }
     .play-logo img {
       max-width: 100%;
@@ -51,10 +52,12 @@
     div.scroll {
       grid-area: content;
       overflow-y: auto;
+      scrollbar-width: none;
     }
+    div.scroll::-webkit-scrollbar { display:none; }
     div.content {
       background-color: #505050;
-      min-height: 100vh;
+      min-height: 100%;
     }
     div.footer {
       background-color: #444444;
@@ -88,7 +91,6 @@
         margin-right: 1rem;
       }
       div.content {
-        margin-right: 1rem;
       }
     }
 

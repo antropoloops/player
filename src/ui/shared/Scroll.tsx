@@ -10,7 +10,7 @@ export const Scroll = ({ children }: any) => {
       const el = ref.current;
       el.scrollTo(0, 0);
     }
-  });
+  }, []);
   return (
     <div ref={ref} id="scroll" className="scroll">
       {children}
