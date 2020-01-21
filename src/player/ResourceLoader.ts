@@ -87,11 +87,14 @@ export class ResourceLoader implements Resources {
       return Promise.resolve();
     }
 
-    log("load audio of %s", this.audioset.meta.title);
+    log("Loading audio of %s", this.audioset.meta.title);
     this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
+    if (clips[0]) {
+      log("Audio format %s", clips[0].resources.audio.ogg ? "ogg" : "mp3");
+    }
     const promises = clips.map(clip =>
-      this.loadAudio(clip, context).catch(err => {
+      this.loadClipAudio(clip, context).catch(err => {
         this.handleResourceCompleted();
         log("Error %o", err);
       }),
@@ -108,9 +111,9 @@ export class ResourceLoader implements Resources {
     this.listener(status);
   }
 
-  private async loadAudio(clip: Clip, context: IAudioContext) {
-    // TODO: check other formats
-    const url = clip.resources.audio.mp3;
+  private async loadClipAudio(clip: Clip, context: IAudioContext) {
+    const { audio } = clip.resources;
+    const url = audio.ogg || audio.mp3;
     const response = await fetch(url);
     const buffer = await decodeAudioBuffer(response, context);
     this.buffers[clip.id] = buffer;
