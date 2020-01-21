@@ -16,3 +16,7 @@
   color: white;
   text-decoration: underline;
 }
+
+.Markdown.hidden {
+  display: none;
+}
