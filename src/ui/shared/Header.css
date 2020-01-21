@@ -21,17 +21,7 @@
   line-height: 24px;
 }
 
-/* in mobile, the header fills all the space */
-.Header .logo {
-  margin: 0.25rem;
-}
 
-/* in desktop, the header logo has space for scrollbars */
-@media (orientation: landscape) {
-  .Header .logo {
-    margin: 0.25rem 1.25rem 0.25rem 0.25rem;
-  }
-}
 
 .Header .logo img {
   max-height: 3rem;
