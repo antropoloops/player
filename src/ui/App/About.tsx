@@ -4,7 +4,7 @@ import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 
-const VERSION = "3.3.0";
+const VERSION = "3.4.0";
 const BODY = `
 <h1>Antropoloops Player</h1>
 <p>Versión ${VERSION}</p>
