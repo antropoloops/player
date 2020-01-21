@@ -38,14 +38,14 @@
         "footer" auto / 100%;
         overflow: hidden;
     }
-    div.header {
+    div.Header {
       background-color: #444444;
       grid-area: header;
     }
-    .play-logo {
-      margin: 0.25rem 0.25rem 0.25rem 0.25rem;
+    div.Header .logo {
+      margin: 0.25rem 0.6rem 0.25rem 0.5rem;
     }
-    .play-logo img {
+    .logo img {
       max-width: 100%;
       max-height: 3rem;
     }
@@ -90,8 +90,6 @@
       div.Header, div.Footer {
         margin-right: 1rem;
       }
-      div.content {
-      }
     }
 
     @-webkit-keyframes spin {
@@ -129,7 +127,7 @@
     <div id="root">
       <div class="App">
         <div class="Header">
-          <div class="play-logo">
+          <div class="logo">
             <img src="/play-logo.png" alt="Play antropoloops" />
           </div>
         </div>
