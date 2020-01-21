@@ -16,3 +16,11 @@
   color: white;
   text-decoration: underline;
 }
+
+.Markdown iframe {
+  margin: 1rem auto;
+}
+
+.Markdown.hidden {
+  display: none;
+}
