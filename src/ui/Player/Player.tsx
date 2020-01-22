@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Audioset } from "../../audioset";
 import { autoUnlockAudio } from "../../player/AudioContext";
+import { Spinner } from "../shared/Spinner";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
 import { Preview } from "./Preview";
@@ -23,8 +24,11 @@ export const Player = ({ audioset }: PlayerProps) => {
     autoUnlockAudio();
   }, []);
 
-  const areVisualsVisible = isDesktop || player.isReady;
+  const areVisualsVisible = isDesktop || player.isStarted;
   const isSidebarVisible = !isFullscreen;
+
+  const showSpinner = player.isStarted && !player.clipsReady;
+  const showPreview = !player.isStarted;
 
   return (
     <div className="App Player">
@@ -34,17 +38,23 @@ export const Player = ({ audioset }: PlayerProps) => {
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
         >
-          {player.isReady && player.control ? (
+          {showSpinner && (
+            <div className="spin">
+              <Spinner />
+            </div>
+          )}
+          {showPreview && (
+            <Preview
+              audioset={audioset}
+              isStarted={player.isStarted}
+              onStart={() => player.setStarted(true)}
+            />
+          )}
+          {player.control && (
             <Controller
               audioset={audioset}
               state={player.state}
               control={player.control}
-            />
-          ) : (
-            <Preview
-              audioset={audioset}
-              isReady={player.isReady}
-              onStart={() => player.setReady(true)}
             />
           )}
         </Sidebar>

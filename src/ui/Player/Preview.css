@@ -4,12 +4,12 @@
   color: white;
 }
 
-.Preview .StartButton {
-  margin-bottom: 3rem;
+.Preview .info {
   display: block;
   text-align: center;
 }
-.Preview .StartButton button {
+.Preview .info button.start {
+  margin: 2rem 0;
   border-radius: 30px;
   max-width: 150px;
 }

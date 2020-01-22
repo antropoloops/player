@@ -5,26 +5,24 @@ import "./Preview.css";
 
 interface PreviewProps {
   audioset: Audioset;
-  isReady: boolean;
+  isStarted: boolean;
   onStart: () => void;
 }
 
-export const Preview = ({ audioset, isReady, onStart }: PreviewProps) => {
+export const Preview = ({ audioset, isStarted, onStart }: PreviewProps) => {
+  const showStart = !isStarted;
   return (
     <div className="Preview">
-      <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
-
-      <div className="inside">
-        {!isReady && (
-          <div className="StartButton">
-            <button
-              className="btn-link"
-              title="Start playing"
-              onClick={onStart}
-            >
-              <img src="/play.png" alt="Start" />
-            </button>
-          </div>
+      <div className="info">
+        <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
+        {showStart && (
+          <button
+            className="start btn-link"
+            title="Start playing"
+            onClick={onStart}
+          >
+            <img src="/play.png" alt="Start" />
+          </button>
         )}
         <Markdown markdown={audioset.meta.readme} />
       </div>

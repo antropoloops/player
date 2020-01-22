@@ -69,7 +69,7 @@ export class ResourceLoader implements Resources {
       return Promise.resolve();
     }
 
-    log("Loading audio of %s", this.audioset.meta.title);
+    log("Start clip audio loading [%s]", this.audioset.meta.title);
     this.setStatus({ stage: "loading", total, completed: 0 });
     const clips = this.audioset.clips;
     if (clips[0]) {

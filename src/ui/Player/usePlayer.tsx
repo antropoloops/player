@@ -17,7 +17,9 @@ export function usePlayer(audioset: Audioset) {
   const loader = useMemo<ResourceLoader>(
     () =>
       new ResourceLoader(audioset, status => {
-        setClipsReady(true);
+        if (status.stage === "ready") {
+          setClipsReady(true);
+        }
       }),
     [audioset],
   );
@@ -27,7 +29,7 @@ export function usePlayer(audioset: Audioset) {
     setReference(newRef);
   }, []);
 
-  const [isReady, setReady] = useState<boolean>(false);
+  const [isStarted, setStarted] = useState<boolean>(false);
   const [control, setControl] = useState<PlayerControl | null>(null);
   const [state, setState] = useState(EmptyControlState);
 
@@ -77,7 +79,7 @@ export function usePlayer(audioset: Audioset) {
     };
   }, [audioset, loader, el]);
 
-  return { visualsRef, control, state, isReady, setReady, clipsReady };
+  return { visualsRef, control, state, isStarted, setStarted, clipsReady };
 }
 
 function createSampler(
