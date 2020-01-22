@@ -4,7 +4,7 @@ import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 
-const VERSION = "3.4.1";
+const VERSION = "3.4.2";
 const BODY = `
 <p>Versión ${VERSION}</p>
 <p>
@@ -13,16 +13,27 @@ desarrollada dentro del contexto de los
 <a target="_blank" href="https://talleres.antropoloops.com">Talleres Antropoloops</a>
 </p>
 <p>
-Hecha con ♥️ por <a target="_blank" href="https://github.com/danigb">danigb</a>
-y <a target="_blank" href="https://github.com/mi-mina">mi-mina</a>
+Con ♥️ por:
+<br>
+diseño -
+<a target="_blank" href="https://twitter.com/antropoloops">antropoloops</a>
+<br>
+programación -
+<a target="_blank" href="https://github.com/danigb">danigb</a>
+/
+<a target="_blank" href="https://github.com/mi-mina">mi-mina</a>
 </p>
+<br>
 <p>
-Y la financiación y apoyo   de
+Y la financiación y apoyo de
 <a target="_blank" href="https://www.fondationcarasso.org/es/">
 <img src="/carasso.jpg" alt="Fundación Caraso">
 </a>
 </p>
-<p>¡Muchas gracias!</p>
+<p>
+Gracias también a
+<a target="_blank" href="https://twitter.com/Sanjomix">CEIP San José Obrero</a>
+</p>
 
 <br>
 <br>
