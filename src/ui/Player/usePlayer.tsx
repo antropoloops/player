@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
 import { getActiveAudioContext } from "../../player";
@@ -13,6 +13,14 @@ import { Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
 export function usePlayer(audioset: Audioset) {
+  const [clipsReady, setClipsReady] = useState(false);
+  const loader = useMemo<ResourceLoader>(
+    () =>
+      new ResourceLoader(audioset, status => {
+        setClipsReady(true);
+      }),
+    [audioset],
+  );
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
   const [el, setReference] = useState<HTMLDivElement | null>(null);
   const visualsRef = useCallback((newRef: HTMLDivElement) => {
@@ -29,11 +37,6 @@ export function usePlayer(audioset: Audioset) {
     let visuals: VC | undefined;
 
     async function createPlayer() {
-      const loader = new ResourceLoader(audioset, status => {
-        // TODO: set clip enabled
-      });
-      loader.preload();
-
       if (!el) {
         // FIXME: if no visuals div, nothing works
         // this is to prevent create a player without visuals
@@ -72,9 +75,9 @@ export function usePlayer(audioset: Audioset) {
       visuals?.detach();
       sampler?.dispose();
     };
-  }, [audioset, el]);
+  }, [audioset, loader, el]);
 
-  return { visualsRef, control, state, isReady, setReady };
+  return { visualsRef, control, state, isReady, setReady, clipsReady };
 }
 
 function createSampler(

@@ -33,7 +33,6 @@ export interface Resources {
   getStatus(): ResourceLoadStatus;
   getBuffer(clipId: string): any;
   load(ctx: IAudioContext): Promise<any>;
-  preload(): Promise<any>;
 }
 
 export class ResourceLoader implements Resources {
@@ -52,6 +51,7 @@ export class ResourceLoader implements Resources {
     this.preloaded = false;
     this.total = this.audioset.clips.length;
     this.completed = 0;
+    this.preload();
   }
 
   public getStatus() {
@@ -60,24 +60,6 @@ export class ResourceLoader implements Resources {
 
   public getBuffer(clipId: string): any {
     return this.buffers[clipId];
-  }
-
-  public preload() {
-    if (this.preloaded) {
-      return Promise.resolve();
-    }
-
-    log("Preload");
-    this.preloaded = true;
-    const { visuals, clips } = this.audioset;
-    const promises: Array<Promise<any>> = [];
-    if (visuals.mode === "map" && visuals.geomap.url) {
-      promises.push(fetch(visuals.geomap.url));
-    }
-    clips.forEach(clip => {
-      preloadImage(clip.resources.cover.small);
-    });
-    return Promise.all(promises);
   }
 
   public load(context: IAudioContext) {
@@ -99,6 +81,24 @@ export class ResourceLoader implements Resources {
         log("Error %o", err);
       }),
     );
+    return Promise.all(promises);
+  }
+
+  private preload() {
+    if (this.preloaded) {
+      return Promise.resolve();
+    }
+
+    log("Preload");
+    this.preloaded = true;
+    const { visuals, clips } = this.audioset;
+    const promises: Array<Promise<any>> = [];
+    if (visuals.mode === "map" && visuals.geomap.url) {
+      promises.push(fetch(visuals.geomap.url));
+    }
+    clips.forEach(clip => {
+      preloadImage(clip.resources.cover.small);
+    });
     return Promise.all(promises);
   }
 
