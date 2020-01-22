@@ -1,4 +1,6 @@
-
+.Project .content {
+  background-color: #444444;
+}
 .Project .Audiosets .Item {
   display: flex;
   flex-direction: row;
@@ -18,8 +20,6 @@
 .Project .Audiosets .Item p {
   max-height: 4.5rem;
   overflow: hidden;
-}
-.Project .visuals {
 }
 .Project .visuals .Markdown {
   padding: 1rem;
