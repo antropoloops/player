@@ -1,18 +1,18 @@
 import React from "react";
 import { Audioset } from "../../audioset";
 import { Markdown } from "../shared/Markdown";
-import "./Preview.css";
+import "./Session.css";
 
-interface PreviewProps {
+interface SessionProps {
   audioset: Audioset;
   isStarted: boolean;
   onStart: () => void;
 }
 
-export const Preview = ({ audioset, isStarted, onStart }: PreviewProps) => {
+export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
   const showStart = !isStarted;
   return (
-    <div className="Preview">
+    <div className="Session">
       <div className="info">
         <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
         {showStart && (

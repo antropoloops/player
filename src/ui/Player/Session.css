@@ -1,0 +1,14 @@
+
+
+.Session {
+  color: white;
+}
+
+.Session .info {
+  display: block;
+}
+.Session .info button.start {
+  margin: 2rem auto;
+  border-radius: 30px;
+  max-width: 150px;
+}

@@ -4,7 +4,7 @@ import { autoUnlockAudio } from "../../player/AudioContext";
 import { Spinner } from "../shared/Spinner";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
-import { Preview } from "./Preview";
+import { Session } from "./Session";
 import { Sidebar } from "./Sidebar";
 import { useFullscreen } from "./useFullscreen";
 import { useKeyboardListener } from "./useKeyboardListener";
@@ -28,7 +28,7 @@ export const Player = ({ audioset }: PlayerProps) => {
   const isSidebarVisible = !isFullscreen;
 
   const showSpinner = player.isStarted && !player.clipsReady;
-  const showPreview = !player.isStarted;
+  const showSession = !player.isStarted;
 
   return (
     <div className="App Player">
@@ -43,8 +43,8 @@ export const Player = ({ audioset }: PlayerProps) => {
               <Spinner />
             </div>
           )}
-          {showPreview && (
-            <Preview
+          {showSession && (
+            <Session
               audioset={audioset}
               isStarted={player.isStarted}
               onStart={() => player.setStarted(true)}
