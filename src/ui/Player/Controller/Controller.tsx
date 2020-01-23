@@ -6,13 +6,22 @@ interface ControllerProps {
   audioset: Audioset;
   state: ControlState;
   control?: PlayerControl;
+  onResume: () => void;
 }
-export const Controller = ({ audioset, state, control }: ControllerProps) => {
+export const Controller = ({
+  audioset,
+  state,
+  control,
+  onResume,
+}: ControllerProps) => {
   if (!audioset || !audioset.tracks) {
     return <div>Audioset not loaded</div>;
   }
   return (
-    <div className={`Controller ${!control && "loading"}`}>
+    <div
+      className={`Controller ${!control && "loading"}`}
+      onClick={control ? undefined : onResume}
+    >
       {audioset.tracks.map(track => (
         <Track
           key={track.id}

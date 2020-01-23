@@ -106,10 +106,12 @@
     }
 
     .Spinner {
-      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+    }
+    .Spinner.full {
+      height: 100vh;
+      align-items: center;
     }
 
     .spin {
@@ -133,7 +135,7 @@
         </div>
         <div class="scroll">
           <div class="content">
-            <div class="Spinner">
+            <div class="Spinner full">
               <svg class="spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
               <g class="circleGroup" transform="translate(70, 70)">
               <g class="circle" style="transform: rotate(0);">

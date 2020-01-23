@@ -48,7 +48,7 @@ export const Player = ({ audioset }: PlayerProps) => {
   const showControl = true;
 
   const Header = () =>
-    session.started ? (
+    session.started && !session.visible ? (
       <SessionHeader meta={audioset.meta} session={session} />
     ) : (
       <BundleHeader meta={audioset.meta} />
@@ -63,11 +63,7 @@ export const Player = ({ audioset }: PlayerProps) => {
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
         >
-          {session.loading && (
-            <div className="spin">
-              <Spinner />
-            </div>
-          )}
+          {session.loading && <Spinner center="horizontal" />}
           {session.visible && (
             <Session
               audioset={audioset}
@@ -79,7 +75,8 @@ export const Player = ({ audioset }: PlayerProps) => {
             <Controller
               audioset={audioset}
               state={player.state}
-              control={session.started ? player.control : undefined}
+              control={!session.visible ? player.control : undefined}
+              onResume={session.start}
             />
           )}
         </Sidebar>
