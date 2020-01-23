@@ -30,7 +30,7 @@ export function usePlayer(audioset: Audioset) {
   }, []);
 
   const [isStarted, setStarted] = useState<boolean>(false);
-  const [control, setControl] = useState<PlayerControl | null>(null);
+  const [control, setControl] = useState<PlayerControl | undefined>();
   const [state, setState] = useState(EmptyControlState);
 
   useEffect(() => {
@@ -38,14 +38,7 @@ export function usePlayer(audioset: Audioset) {
     let sampler: Sampler | undefined;
     let visuals: VC | undefined;
 
-    async function createPlayer() {
-      if (!el) {
-        // FIXME: if no visuals div, nothing works
-        // this is to prevent create a player without visuals
-        // maybe we want to configure visuals or not
-        return;
-      }
-
+    async function createControl() {
       const { VisualControl } = await import("../../visuals/index");
       const ctx = await getActiveAudioContext();
 
@@ -53,7 +46,12 @@ export function usePlayer(audioset: Audioset) {
         return;
       }
 
-      loader.load(ctx);
+      await loader.load(ctx);
+
+      if (cancelled) {
+        return;
+      }
+
       sampler = createSampler(audioset, ctx, loader);
 
       visuals = new VisualControl(audioset, el);
@@ -67,11 +65,17 @@ export function usePlayer(audioset: Audioset) {
           visuals?.run(command);
         },
       });
-      setControl(ctl);
-      setState(ctl.getState());
+      return ctl;
+    }
+    if (el) {
+      createControl().then(instance => {
+        if (instance) {
+          setControl(instance);
+          setState(instance.getState());
+        }
+      });
     }
 
-    createPlayer();
     return () => {
       cancelled = true;
       visuals?.detach();

@@ -29,6 +29,7 @@ export const Player = ({ audioset }: PlayerProps) => {
 
   const showSpinner = player.isStarted && !player.clipsReady;
   const showSession = !player.isStarted;
+  const showControl = true;
 
   return (
     <div className="App Player">
@@ -50,11 +51,11 @@ export const Player = ({ audioset }: PlayerProps) => {
               onStart={() => player.setStarted(true)}
             />
           )}
-          {player.control && (
+          {showControl && (
             <Controller
               audioset={audioset}
               state={player.state}
-              control={player.control}
+              control={player.isStarted ? player.control : undefined}
             />
           )}
         </Sidebar>

@@ -7,7 +7,7 @@ import { OpenClip } from "./ClipOpen";
 export interface ClipProps {
   clip: any;
   isActive?: boolean;
-  control: PlayerControl;
+  control?: PlayerControl;
 }
 
 export const Clip = ({ clip, isActive, control }: ClipProps) => {

@@ -5,14 +5,14 @@ import { Track } from "./Track";
 interface ControllerProps {
   audioset: Audioset;
   state: ControlState;
-  control: PlayerControl;
+  control?: PlayerControl;
 }
 export const Controller = ({ audioset, state, control }: ControllerProps) => {
   if (!audioset || !audioset.tracks) {
     return <div>Audioset not loaded</div>;
   }
   return (
-    <div className="Controller">
+    <div className={`Controller ${!control && "loading"}`}>
       {audioset.tracks.map(track => (
         <Track
           key={track.id}

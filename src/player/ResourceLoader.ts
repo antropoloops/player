@@ -51,7 +51,9 @@ export class ResourceLoader implements Resources {
     this.preloaded = false;
     this.total = this.audioset.clips.length;
     this.completed = 0;
-    this.preload();
+    setTimeout(() => {
+      this.preload();
+    }, 2000);
   }
 
   public getStatus() {
@@ -99,7 +101,14 @@ export class ResourceLoader implements Resources {
     clips.forEach(clip => {
       preloadImage(clip.resources.cover.small);
     });
-    return Promise.all(promises);
+    const loadAll = () => {
+      log("Preload images");
+      return Promise.all(promises);
+    };
+
+    return preloadImage(this.audioset.meta.logo_url)
+      .then(loadAll)
+      .catch(loadAll);
   }
 
   //// PRIVATE ////
