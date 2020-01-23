@@ -9,13 +9,15 @@ import { Sidebar } from "./Sidebar";
 import { useFullscreen } from "./useFullscreen";
 import { useKeyboardListener } from "./useKeyboardListener";
 import { usePlayer } from "./usePlayer";
+import { useSession } from "./useSession";
 
 export interface PlayerProps {
   audioset: Audioset;
 }
 
 export const Player = ({ audioset }: PlayerProps) => {
-  const player = usePlayer(audioset);
+  const session = useSession(audioset);
+  const player = usePlayer(audioset, session.loader);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
   const { isDesktop } = useDeviceType();
   useKeyboardListener(player.control?.keyboard);
@@ -24,17 +26,20 @@ export const Player = ({ audioset }: PlayerProps) => {
     autoUnlockAudio();
   }, []);
 
-  const areVisualsVisible = isDesktop || player.isStarted;
+  const areVisualsVisible = isDesktop || session.isStarted;
   const isSidebarVisible = !isFullscreen;
 
-  const showSpinner = player.isStarted && !player.clipsReady;
-  const showSession = !player.isStarted;
+  const showSpinner = session.isStarted && !session.isLoaded;
+  const showSession = !session.isStarted;
   const showControl = true;
+
+  const Header = () => <div className="Header">Hola!</div>;
 
   return (
     <div className="App Player">
       {isSidebarVisible && (
         <Sidebar
+          header={Header}
           audioset={audioset}
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
@@ -47,15 +52,15 @@ export const Player = ({ audioset }: PlayerProps) => {
           {showSession && (
             <Session
               audioset={audioset}
-              isStarted={player.isStarted}
-              onStart={() => player.setStarted(true)}
+              isStarted={session.isStarted}
+              onStart={() => session.start()}
             />
           )}
           {showControl && (
             <Controller
               audioset={audioset}
               state={player.state}
-              control={player.isStarted ? player.control : undefined}
+              control={session.isStarted ? player.control : undefined}
             />
           )}
         </Sidebar>

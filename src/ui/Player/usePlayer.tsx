@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
 import { getActiveAudioContext } from "../../player";
@@ -12,24 +12,13 @@ import { ResourceLoader } from "../../player/ResourceLoader";
 import { Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
-export function usePlayer(audioset: Audioset) {
-  const [clipsReady, setClipsReady] = useState(false);
-  const loader = useMemo<ResourceLoader>(
-    () =>
-      new ResourceLoader(audioset, status => {
-        if (status.stage === "ready") {
-          setClipsReady(true);
-        }
-      }),
-    [audioset],
-  );
+export function usePlayer(audioset: Audioset, loader: ResourceLoader) {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
   const [el, setReference] = useState<HTMLDivElement | null>(null);
   const visualsRef = useCallback((newRef: HTMLDivElement) => {
     setReference(newRef);
   }, []);
 
-  const [isStarted, setStarted] = useState<boolean>(false);
   const [control, setControl] = useState<PlayerControl | undefined>();
   const [state, setState] = useState(EmptyControlState);
 
@@ -41,12 +30,6 @@ export function usePlayer(audioset: Audioset) {
     async function createControl() {
       const { VisualControl } = await import("../../visuals/index");
       const ctx = await getActiveAudioContext();
-
-      if (cancelled) {
-        return;
-      }
-
-      await loader.load(ctx);
 
       if (cancelled) {
         return;
@@ -83,7 +66,7 @@ export function usePlayer(audioset: Audioset) {
     };
   }, [audioset, loader, el]);
 
-  return { visualsRef, control, state, isStarted, setStarted, clipsReady };
+  return { visualsRef, control, state };
 }
 
 function createSampler(
