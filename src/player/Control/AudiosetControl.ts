@@ -1,6 +1,6 @@
 import debug from "debug";
 import { Audioset, Clip } from "../../audioset";
-import { TimeManager } from "../TimeManager";
+import { TimeManager } from "../Audio";
 import { ControlCommand } from "./ControlCommand";
 import { ControlState } from "./ControlState";
 import { ControlStateManager } from "./ControlStateManager";

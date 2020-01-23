@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
-import { getActiveAudioContext } from "../../player";
-import { AudioContextEngine } from "../../player/AudioContextEngine";
+import {
+  AudioContextEngine,
+  getActiveAudioContext,
+  SampleBuffers,
+  Sampler,
+} from "../../player/Audio";
 import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
 } from "../../player/Control";
-import { SampleBuffers, Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
 export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {

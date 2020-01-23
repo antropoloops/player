@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Audioset, BundleMetadata } from "../../audioset";
-import { autoUnlockAudio } from "../../player/AudioContext";
+import { autoUnlockAudio } from "../../player/Audio";
 import { BundleHeader } from "../shared/Header";
 import { Info } from "../shared/Icons";
 import { Spinner } from "../shared/Spinner";

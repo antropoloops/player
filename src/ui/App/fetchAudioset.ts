@@ -1,6 +1,6 @@
 import { Bundle, createAudioset } from "../../audioset";
 
-const PRODUCTION = `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/`;
+const PRODUCTION = `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files`;
 const HOST = PRODUCTION;
 
 const getUrl = (idOrUrl: string) =>
