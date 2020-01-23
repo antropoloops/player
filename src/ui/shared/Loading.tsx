@@ -11,9 +11,7 @@ export const Loading = React.memo(() => {
       </div>
       <div className="scroll">
         <div className="content">
-          <div className="Spinner">
-            <Spinner />
-          </div>
+          <Spinner center="full" />
         </div>
       </div>
     </div>

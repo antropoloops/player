@@ -8,7 +8,7 @@ interface TrackProps {
   audioset: Audioset;
   track: TrackModel;
   state: ControlState;
-  control: PlayerControl;
+  control?: PlayerControl;
 }
 
 export function Track({

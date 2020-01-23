@@ -4,7 +4,7 @@ import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 
-const VERSION = "3.4.2";
+const VERSION = "3.5.0";
 const BODY = `
 <p>Versión ${VERSION}</p>
 <p>

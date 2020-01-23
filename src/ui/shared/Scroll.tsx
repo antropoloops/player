@@ -1,16 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import { useScrollTop } from "./useScroll";
 
 /**
  *
  */
 export const Scroll = ({ children }: any) => {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (ref.current) {
-      const el = ref.current;
-      el.scrollTo(0, 0);
-    }
-  }, []);
+  const ref = useScrollTop();
   return (
     <div ref={ref} id="scroll" className="scroll">
       {children}

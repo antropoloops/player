@@ -9,7 +9,7 @@ export const OpenClip = ({ clip, control }: ClipProps) => {
   const hasReadme = clip.readme;
 
   const Icon = isReadmeVisible ? ArrowUp : ArrowDown;
-  const stopClip = () => control.stopClip(clip.id, 0);
+  const stopClip = () => control && control.stopClip(clip.id, 0);
 
   const clipToggle = (
     <div

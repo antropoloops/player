@@ -3,3 +3,7 @@
   background-color:#505050;
 }
 
+.Controller.loading {
+  opacity: 0.3;
+}
+

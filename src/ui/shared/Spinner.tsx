@@ -1,9 +1,13 @@
 import React from "react";
 import { ReactComponent as Circle } from "../shared/spinner.svg";
+import "./Spinner.css";
 
-/**
- * Abanico
- *
- * CSS: Spinner and spin class are defined in index.html
- */
-export const Spinner = () => <Circle className="spin" />;
+interface SpinnerProps {
+  center: "full" | "horizontal";
+}
+
+export const Spinner = ({ center }: SpinnerProps) => (
+  <div className={`Spinner ${center}`}>
+    <Circle className="spin" />
+  </div>
+);

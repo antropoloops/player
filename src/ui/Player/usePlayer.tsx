@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
-import { getActiveAudioContext } from "../../player";
-import { AudioContextEngine } from "../../player/AudioContextEngine";
+import {
+  AudioContextEngine,
+  getActiveAudioContext,
+  SampleBuffers,
+  Sampler,
+} from "../../player/Audio";
 import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
 } from "../../player/Control";
-import { ResourceLoader } from "../../player/ResourceLoader";
-import { Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
-export function usePlayer(audioset: Audioset) {
+export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
   const [el, setReference] = useState<HTMLDivElement | null>(null);
   const visualsRef = useCallback((newRef: HTMLDivElement) => {
     setReference(newRef);
   }, []);
 
-  const [isReady, setReady] = useState<boolean>(false);
-  const [control, setControl] = useState<PlayerControl | null>(null);
+  const [control, setControl] = useState<PlayerControl | undefined>();
   const [state, setState] = useState(EmptyControlState);
 
   useEffect(() => {
@@ -28,19 +29,7 @@ export function usePlayer(audioset: Audioset) {
     let sampler: Sampler | undefined;
     let visuals: VC | undefined;
 
-    async function createPlayer() {
-      const loader = new ResourceLoader(audioset, status => {
-        // TODO: set clip enabled
-      });
-      loader.preload();
-
-      if (!el) {
-        // FIXME: if no visuals div, nothing works
-        // this is to prevent create a player without visuals
-        // maybe we want to configure visuals or not
-        return;
-      }
-
+    async function createControl() {
       const { VisualControl } = await import("../../visuals/index");
       const ctx = await getActiveAudioContext();
 
@@ -48,8 +37,7 @@ export function usePlayer(audioset: Audioset) {
         return;
       }
 
-      loader.load(ctx);
-      sampler = createSampler(audioset, ctx, loader);
+      sampler = createSampler(audioset, ctx, buffers);
 
       visuals = new VisualControl(audioset, el);
 
@@ -62,25 +50,31 @@ export function usePlayer(audioset: Audioset) {
           visuals?.run(command);
         },
       });
-      setControl(ctl);
-      setState(ctl.getState());
+      return ctl;
+    }
+    if (el) {
+      createControl().then(instance => {
+        if (instance) {
+          setControl(instance);
+          setState(instance.getState());
+        }
+      });
     }
 
-    createPlayer();
     return () => {
       cancelled = true;
       visuals?.detach();
       sampler?.dispose();
     };
-  }, [audioset, el]);
+  }, [audioset, buffers, el]);
 
-  return { visualsRef, control, state, isReady, setReady };
+  return { visualsRef, control, state };
 }
 
 function createSampler(
   audioset: Audioset,
   ctx: IAudioContext,
-  buffers: ResourceLoader,
+  buffers: SampleBuffers,
 ): Sampler {
   const audio = new AudioContextEngine(ctx);
   const sampler = new Sampler(audioset, buffers, audio);

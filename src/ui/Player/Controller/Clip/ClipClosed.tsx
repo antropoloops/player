@@ -6,12 +6,14 @@ import { ClipProps } from "./index";
 export const ClosedClip = ({ clip, control }: ClipProps) => {
   const [isMapKeyboard, toggleMapKeyboard] = useReducer(x => !x, false);
 
-  const { keyboard } = control;
-  const clipKey = keyboard.getKey(clip.id);
-  const startClip = () => control.startClip(clip.id, 0);
+  const keyboard = control && control.keyboard;
+  const clipKey = keyboard && keyboard.getKey(clip.id);
+  const startClip = () => control && control.startClip(clip.id, 0);
 
   function handleKeyToggle() {
-    if (isMapKeyboard) {
+    if (!keyboard) {
+      // no control
+    } else if (isMapKeyboard) {
       keyboard.stopMapMode();
     } else {
       keyboard.startMapMode(clip.id, (newKey: string) => {
