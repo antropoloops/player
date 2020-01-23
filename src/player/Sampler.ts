@@ -2,9 +2,12 @@ import debug from "debug";
 import { Audioset } from "../audioset";
 import { AudioEngine, AudioSource, AudioTrack } from "./Audio";
 import { ControlCommand } from "./Control";
-import { Resources } from "./ResourceLoader";
 
 const log = debug("atpls:sampler");
+
+export interface SampleBuffers {
+  getBuffer(clipId: string): any;
+}
 
 export class Sampler {
   private master: AudioTrack;
@@ -13,7 +16,7 @@ export class Sampler {
 
   constructor(
     private audioset: Audioset,
-    private buffers: Resources,
+    private buffers: SampleBuffers,
     private audio: AudioEngine,
   ) {
     log("create sampler %s", audioset.meta.title);

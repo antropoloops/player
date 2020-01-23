@@ -8,11 +8,10 @@ import {
   EmptyControlState,
   PlayerControl,
 } from "../../player/Control";
-import { ResourceLoader } from "../../player/ResourceLoader";
-import { Sampler } from "../../player/Sampler";
+import { SampleBuffers, Sampler } from "../../player/Sampler";
 import { VisualControl as VC } from "../../visuals";
 
-export function usePlayer(audioset: Audioset, loader: ResourceLoader) {
+export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
   const [el, setReference] = useState<HTMLDivElement | null>(null);
   const visualsRef = useCallback((newRef: HTMLDivElement) => {
@@ -35,7 +34,7 @@ export function usePlayer(audioset: Audioset, loader: ResourceLoader) {
         return;
       }
 
-      sampler = createSampler(audioset, ctx, loader);
+      sampler = createSampler(audioset, ctx, buffers);
 
       visuals = new VisualControl(audioset, el);
 
@@ -64,7 +63,7 @@ export function usePlayer(audioset: Audioset, loader: ResourceLoader) {
       visuals?.detach();
       sampler?.dispose();
     };
-  }, [audioset, loader, el]);
+  }, [audioset, buffers, el]);
 
   return { visualsRef, control, state };
 }
@@ -72,7 +71,7 @@ export function usePlayer(audioset: Audioset, loader: ResourceLoader) {
 function createSampler(
   audioset: Audioset,
   ctx: IAudioContext,
-  buffers: ResourceLoader,
+  buffers: SampleBuffers,
 ): Sampler {
   const audio = new AudioContextEngine(ctx);
   const sampler = new Sampler(audioset, buffers, audio);
