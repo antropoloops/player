@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { Audioset } from "../../audioset";
+import { Audioset, BundleMetadata } from "../../audioset";
 import { autoUnlockAudio } from "../../player/AudioContext";
+import { BundleHeader } from "../shared/Header";
+import { Info } from "../shared/Icons";
 import { Spinner } from "../shared/Spinner";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
@@ -15,6 +17,20 @@ export interface PlayerProps {
   audioset: Audioset;
 }
 
+interface SessionHeaderProps {
+  meta: BundleMetadata;
+  session: any;
+}
+const SessionHeader = ({ meta, session }: SessionHeaderProps) => (
+  <div className="Header">
+    <div className="navigation">
+      <Info />
+      <button className="btn-link" onClick={session.toggle}>
+        {meta.title}
+      </button>
+    </div>
+  </div>
+);
 export const Player = ({ audioset }: PlayerProps) => {
   const session = useSession(audioset);
   const player = usePlayer(audioset, session.loader);
@@ -26,14 +42,17 @@ export const Player = ({ audioset }: PlayerProps) => {
     autoUnlockAudio();
   }, []);
 
-  const areVisualsVisible = isDesktop || session.isStarted;
+  const areVisualsVisible = isDesktop || session.started;
   const isSidebarVisible = !isFullscreen;
 
-  const showSpinner = session.isStarted && !session.isLoaded;
-  const showSession = !session.isStarted;
   const showControl = true;
 
-  const Header = () => <div className="Header">Hola!</div>;
+  const Header = () =>
+    session.started ? (
+      <SessionHeader meta={audioset.meta} session={session} />
+    ) : (
+      <BundleHeader meta={audioset.meta} />
+    );
 
   return (
     <div className="App Player">
@@ -44,15 +63,15 @@ export const Player = ({ audioset }: PlayerProps) => {
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
         >
-          {showSpinner && (
+          {session.loading && (
             <div className="spin">
               <Spinner />
             </div>
           )}
-          {showSession && (
+          {session.visible && (
             <Session
               audioset={audioset}
-              isStarted={session.isStarted}
+              isStarted={session.started}
               onStart={() => session.start()}
             />
           )}
@@ -60,7 +79,7 @@ export const Player = ({ audioset }: PlayerProps) => {
             <Controller
               audioset={audioset}
               state={player.state}
-              control={session.isStarted ? player.control : undefined}
+              control={session.started ? player.control : undefined}
             />
           )}
         </Sidebar>

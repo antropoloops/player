@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../audioset";
 import { getActiveAudioContext } from "../../player";
 import { ResourceLoader } from "../../player/ResourceLoader";
+import { scrollToTop } from "../shared/useScroll";
 
 export function useSession(audioset: Audioset) {
-  const [isStarted, setStarted] = useState(false);
-  const [isLoaded, setLoaded] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const loader = useMemo<ResourceLoader>(
     () =>
       new ResourceLoader(audioset, status => {
@@ -15,12 +16,29 @@ export function useSession(audioset: Audioset) {
       }),
     [audioset],
   );
+  const loading = started && !loaded;
+
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    if (visible) {
+      scrollToTop();
+    }
+  }, [visible]);
 
   async function start() {
-    setStarted(true);
-    const ctx = await getActiveAudioContext();
-    await loader.load(ctx);
+    setVisible(false);
+    if (!started) {
+      setStarted(true);
+      const ctx = await getActiveAudioContext();
+      await loader.load(ctx);
+    }
   }
 
-  return { isLoaded, isStarted, start, loader };
+  function toggle() {
+    if (started) {
+      setVisible(!visible);
+    }
+  }
+
+  return { visible, loading, loaded, started, start, loader, toggle };
 }

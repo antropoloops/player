@@ -5,10 +5,19 @@
 }
 
 .Session .info {
-  display: block;
+  padding: 1rem;
 }
-.Session .info button.start {
-  margin: 2rem auto;
+.Session .actions {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.Session .actions button.start {
   border-radius: 30px;
   max-width: 150px;
+}
+
+.Session .actions button.action {
+  /*background-color:#7ffa0b;*/
+  color: white;
+  padding: 0.25rem 0.5rem;
 }

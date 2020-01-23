@@ -10,12 +10,11 @@ interface SessionProps {
 }
 
 export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
-  const showStart = !isStarted;
   return (
     <div className="Session">
+      <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
       <div className="info">
-        <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
-        {showStart && (
+        <div className="actions">
           <button
             className="start btn-link"
             title="Start playing"
@@ -23,7 +22,7 @@ export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
           >
             <img src="/play.png" alt="Start" />
           </button>
-        )}
+        </div>
         <Markdown markdown={audioset.meta.readme} />
       </div>
     </div>
