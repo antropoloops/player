@@ -9,6 +9,10 @@
   background-color: #6a6a6a;
   margin-bottom: 10px;
   padding-right: 1rem;
+  opacity: 0.95;
+}
+.Project .Audiosets .Item:hover {
+  opacity: 1;
 }
 .Project .Audiosets .Item .image {
   width: 34%;

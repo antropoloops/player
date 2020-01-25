@@ -1,6 +1,10 @@
 .Controller .Clip {
   cursor: pointer;
   color: #333;
+  opacity: 0.95;
+}
+.Controller .Clip:hover {
+  opacity: 1;
 }
 .Controller .Clip .meta {
   flex-grow: 1;

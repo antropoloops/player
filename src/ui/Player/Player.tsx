@@ -35,16 +35,15 @@ export const Player = ({ audioset }: PlayerProps) => {
   const session = useSession(audioset);
   const player = usePlayer(audioset, session.loader);
   const { isFullscreen, toggleFullscreen } = useFullscreen();
-  const { isDesktop } = useDeviceType();
+  const { isMobile } = useDeviceType();
   useKeyboardListener(player.control?.keyboard);
 
   useEffect(() => {
     autoUnlockAudio();
   }, []);
 
-  const areVisualsVisible = isDesktop || session.started;
   const isSidebarVisible = !isFullscreen;
-
+  const areVisualsHidden = isMobile && session.visible;
   const showControl = true;
 
   const Header = () =>
@@ -81,11 +80,13 @@ export const Player = ({ audioset }: PlayerProps) => {
           )}
         </Sidebar>
       )}
-      {areVisualsVisible && (
-        <div className="visuals">
-          <div id="visuals" ref={player.visualsRef} />
-        </div>
-      )}
+      <div className="visuals">
+        <div
+          className={areVisualsHidden ? "hidden" : "visible"}
+          id="visuals"
+          ref={player.visualsRef}
+        />
+      </div>
     </div>
   );
 };

@@ -12,7 +12,11 @@ interface SessionProps {
 export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
   return (
     <div className="Session">
-      <img alt={audioset.meta.title} src={audioset.meta.logo_url} />
+      <img
+        className="responsive"
+        alt={audioset.meta.title}
+        src={audioset.meta.logo_url}
+      />
       <div className="info">
         <div className="actions">
           <button
