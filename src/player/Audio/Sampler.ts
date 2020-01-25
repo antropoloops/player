@@ -1,68 +1,54 @@
-import debug from "debug";
-import { Audioset } from "../../audioset";
-import { ControlCommand } from "../Control";
-import { AudioEngine, AudioSource, AudioTrack } from "./Audio";
-
-const log = debug("atpls:sampler");
+import { IAudioContext } from "standardized-audio-context";
+import { AudioSource, AudioTrack } from "./Audio";
+import { AudioContextEngine } from "./AudioContextEngine";
 
 export interface SampleBuffers {
   getBuffer(clipId: string): any;
+}
+
+export interface SamplerTrack {
+  id: string;
+  name: string;
+  volume?: number;
 }
 
 export class Sampler {
   private master: AudioTrack;
   private tracks: Record<string, AudioTrack> = {};
   private audioSources: Record<string, AudioSource | undefined> = {};
-
-  constructor(
-    private audioset: Audioset,
-    private buffers: SampleBuffers,
-    private audio: AudioEngine,
-  ) {
-    log("create sampler %s", audioset.meta.title);
-    this.master = audio.createTrack("master", { volume: 0.8 });
-    audioset.tracks.forEach(track => {
-      this.tracks[track.id] = audio.createTrack(
+  private audio: AudioContextEngine;
+  constructor(private buffers: SampleBuffers, ctx: IAudioContext) {
+    this.audio = new AudioContextEngine(ctx);
+    this.master = this.audio.createTrack("master", { volume: 0.8 });
+  }
+  public initTracks(tracks: SamplerTrack[]) {
+    tracks.forEach(track => {
+      this.tracks[track.id] = this.audio.createTrack(
         track.name,
         { volume: 1 },
         this.master,
       );
     });
   }
-
-  public dispose() {
+  public connect() {
+    // nothing to do?
+  }
+  public disconnect() {
     Object.keys(this.tracks).forEach(trackId => {
       this.tracks[trackId].disconnect();
     });
   }
-
-  public run(command: ControlCommand) {
-    switch (command.command) {
-      case "startClip":
-        return this.start(command.clipId, command.time);
-      case "stopClip":
-        return this.stop(command.clipId, command.time);
-      default:
-    }
-  }
-
-  public start(clipId: string, time: number) {
-    log("start %s", clipId);
+  public start(clipId: string, trackId: string, time: number) {
     if (this.audioSources[clipId]) {
       return;
     }
-
     const buffer = this.buffers.getBuffer(clipId);
-    const trackId = this.audioset.index.trackIdOfClip[clipId];
     const track = this.tracks[trackId];
     const source = this.audio.createAudioSource({ buffer }, track);
     this.audioSources[clipId] = source;
-
     source.start(time);
   }
-
   public stop(clipId: string, time: number) {
-    log("stop %s", clipId);
     const source = this.audioSources[clipId];
     if (source !== undefined) {
       source.stop(time);

@@ -1,12 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
-import {
-  AudioContextEngine,
-  getActiveAudioContext,
-  SampleBuffers,
-  Sampler,
-} from "../../player/Audio";
+import { createAudioEffects, getActiveAudioContext } from "../../player/Audio";
+import { SampleBuffers } from "../../player/Audio/Sampler";
 import {
   AudiosetControl,
   EmptyControlState,
@@ -26,7 +21,7 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
 
   useEffect(() => {
     let cancelled = false;
-    let sampler: Sampler | undefined;
+    let audio: Effects | undefined;
     let visuals: Effects | undefined;
 
     async function createControl() {
@@ -36,7 +31,7 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
         return;
       }
 
-      sampler = createSampler(audioset, ctx, buffers);
+      audio = createAudioEffects(audioset, ctx, buffers);
 
       if (el) {
         const { createVisualEffects } = await import(
@@ -51,7 +46,7 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
           setState(newState);
         },
         onControlCommand: command => {
-          sampler?.run(command);
+          audio?.run(command);
           visuals?.run(command);
         },
       });
@@ -67,19 +62,9 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
     return () => {
       cancelled = true;
       visuals?.detach();
-      sampler?.dispose();
+      audio?.detach();
     };
   }, [audioset, buffers, el]);
 
   return { visualsRef, control, state };
-}
-
-function createSampler(
-  audioset: Audioset,
-  ctx: IAudioContext,
-  buffers: SampleBuffers,
-): Sampler {
-  const audio = new AudioContextEngine(ctx);
-  const sampler = new Sampler(audioset, buffers, audio);
-  return sampler;
 }
