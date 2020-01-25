@@ -26,6 +26,7 @@ export class AudioContextEngine implements AudioEngine {
     destination?: any,
   ): AudioTrack {
     const track = this.context.createGain();
+    track.gain.value = props.volume;
     track.connect(destination || this.context.destination);
     return track;
   }

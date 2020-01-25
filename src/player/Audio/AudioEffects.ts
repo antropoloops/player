@@ -1,8 +1,8 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../../audioset";
+import { SampleBuffers, Sampler } from "../../sampler";
 import { ControlCommand, Effects } from "../Control";
-import { SampleBuffers, Sampler } from "./Sampler";
 
 const log = debug("atpls:sampler");
 

@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { getActiveAudioContext } from "../../active-audio-context";
 import { Audioset } from "../../audioset";
 import { createAudioEffects } from "../../player/Audio";
-import { SampleBuffers } from "../../player/Audio/Sampler";
 import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
 } from "../../player/Control";
 import { Effects } from "../../player/Control";
+import { SampleBuffers } from "../../sampler";
 
 export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo

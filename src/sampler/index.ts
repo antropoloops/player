@@ -6,6 +6,10 @@ export interface SampleBuffers {
   getBuffer(clipId: string): any;
 }
 
+export function createSampler(buffers: SampleBuffers, ctx: IAudioContext) {
+  return new Sampler(buffers, ctx);
+}
+
 export interface SamplerTrack {
   id: string;
   name: string;
@@ -17,6 +21,7 @@ export class Sampler {
   private tracks: Record<string, AudioTrack> = {};
   private audioSources: Record<string, AudioSource | undefined> = {};
   private audio: AudioContextEngine;
+
   constructor(private buffers: SampleBuffers, ctx: IAudioContext) {
     this.audio = new AudioContextEngine(ctx);
     this.master = this.audio.createTrack("master", { volume: 0.8 });
