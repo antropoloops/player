@@ -8,15 +8,18 @@ const activeListeners: ResolveContext[] = [];
 const context = new AudioContext();
 context.onstatechange = handleStateChange;
 
-handleStateChange();
-
-function handleStateChange() {
-  const state = context.state;
-  log("state %s", state);
-  if (state === "running") {
-    const listeners = activeListeners.slice();
-    activeListeners.length = 0;
-    listeners.forEach(listener => listener(context));
+/**
+ * Waits until the AudioContext is in "running" state
+ *
+ * @see https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
+ */
+export function getActiveAudioContext(): Promise<AudioContext> {
+  if (context.state === "running") {
+    return Promise.resolve(context);
+  } else {
+    return new Promise<AudioContext>(resolve => {
+      activeListeners.push(resolve);
+    });
   }
 }
 
@@ -40,15 +43,14 @@ export function autoUnlockAudio() {
   document.addEventListener("click", unlock, true);
 }
 
-/**
- * @see https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio
- */
-export function getActiveAudioContext(): Promise<AudioContext> {
-  if (context.state === "running") {
-    return Promise.resolve(context);
-  } else {
-    return new Promise<AudioContext>(resolve => {
-      activeListeners.push(resolve);
-    });
+function handleStateChange() {
+  const state = context.state;
+  log("state %s", state);
+  if (state === "running") {
+    const listeners = activeListeners.slice();
+    activeListeners.length = 0;
+    listeners.forEach(listener => listener(context));
   }
 }
+
+handleStateChange();

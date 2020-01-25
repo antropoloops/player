@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
+import { getActiveAudioContext } from "../../active-audio-context";
 import { Audioset } from "../../audioset";
-import { createAudioEffects, getActiveAudioContext } from "../../player/Audio";
+import { createAudioEffects } from "../../player/Audio";
 import { SampleBuffers } from "../../player/Audio/Sampler";
 import {
   AudiosetControl,

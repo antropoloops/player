@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { getActiveAudioContext } from "../../active-audio-context";
 import { Audioset } from "../../audioset";
-import { getActiveAudioContext } from "../../player/Audio";
 import { ResourceLoader } from "../../player/Loader";
 import { scrollToTop } from "../shared/useScroll";
 
