@@ -1,7 +1,7 @@
 import { Audioset } from "../../audioset";
 import { Visuals } from "../../visuals";
 import { ControlCommand } from "../Control";
-import { Effects } from "../Control/Effects";
+import { Effects } from "../Control";
 import { addResizeObserver } from "./addResizeObserver";
 
 export function createVisualEffects(audioset: Audioset): Effects {
