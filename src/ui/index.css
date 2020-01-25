@@ -26,6 +26,12 @@ button.btn-link {
   padding: 0;
 }
 
+.react-css-collapse-transition {
+  transition: height 250ms;
+  /*transition: height 250ms cubic-bezier(.4, 0, .2, 1);*/
+}
+
+
 .hidden {
   display:none;
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Collapse from "react-css-collapse";
 import { autoUnlockAudio } from "../../active-audio-context";
 import { Audioset, BundleMetadata } from "../../audioset";
 import { BundleHeader } from "../shared/Header";
@@ -60,22 +61,24 @@ export const Player = ({ audioset }: PlayerProps) => {
           onFullscreen={toggleFullscreen}
           onStopAll={() => player?.control?.stopAll(0)}
         >
-          {session.loading && <Spinner center="horizontal" />}
-          {session.visible && (
+          <Collapse isOpen={session.loading}>
+            <Spinner center="horizontal" />
+          </Collapse>
+          <Collapse isOpen={session.visible}>
             <Session
               audioset={audioset}
               isStarted={session.started}
               onStart={() => session.start()}
             />
-          )}
-          {showControl && (
+          </Collapse>
+          <Collapse isOpen={showControl}>
             <Controller
               audioset={audioset}
               state={player.state}
               control={!session.visible ? player.control : undefined}
               onResume={session.start}
             />
-          )}
+          </Collapse>
         </Sidebar>
       )}
       <div className="visuals">
