@@ -3,7 +3,7 @@ import * as topojson from "topojson";
 import { getAlbumHeight } from "./dimensions";
 
 import { Audioset, VisualsMetadata } from "../audioset";
-import Display, { Dimension } from "./display";
+import { Dimension, Display } from "./display";
 import drawAlbum from "./drawAlbum";
 import drawCircle from "./drawCircle";
 import { calculateMapScale, createMapProjector, drawMap } from "./drawMap";
@@ -44,7 +44,7 @@ function createProjector(visuals: VisualsMetadata, dimensions: Dimension) {
 /**
  * It stores the state required to render visualizations
  */
-export default class Visuals {
+export class Visuals {
   public circles: Record<string, any>;
   public albums: Record<string, any>;
   public refLines: Record<string, any>;
@@ -54,8 +54,10 @@ export default class Visuals {
   public albumsContainer!: Record<string, any>;
   public refLinesContainer!: Record<string, any>;
   public wavesContainer!: Record<string, any>;
+  private display: Display;
 
-  constructor(private set: Audioset, private display: Display) {
+  constructor(private set: Audioset, el: any) {
+    this.display = new Display(el);
     this.circles = {};
     this.albums = {};
     this.refLines = {};
