@@ -39,7 +39,12 @@ class VisualEffects implements Effects {
 }
 function setupVisuals(audioset: Audioset, visuals: Visuals): Promise<Visuals> {
   if (audioset.visuals.mode === "map") {
-    const url = audioset.visuals.geomap.url;
+    // TODO: remove it when found a solution for mobile / desktop
+    let url = audioset.visuals.geomap.url;
+    if (url === "https://unpkg.com/world-atlas@1.1.4/world/50m.json") {
+      url = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json";
+    }
+
     return fetch(url)
       .then(response => response.json())
       .then(data => visuals.setGeodata(data))
