@@ -28,6 +28,7 @@ export const Project = ({ project }: ProjectProps) => {
       <Scroll>
         <div className="content">
           <img
+            className="responsive"
             alt={project.meta.title}
             src={project.meta.logo_url}
             style={{ width: "100%" }}
