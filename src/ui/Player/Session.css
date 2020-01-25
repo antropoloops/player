@@ -16,6 +16,11 @@
   max-width: 150px;
 }
 
+.Session .actions a {
+  color: #7ffa0b;
+  text-decoration: underline;
+}
+
 .Session .actions button.action {
   /*background-color:#7ffa0b;*/
   color: white;

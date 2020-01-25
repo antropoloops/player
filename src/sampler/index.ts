@@ -41,16 +41,17 @@ class AudioSampler implements Sampler {
   private audioSources: Record<string, AudioSource | undefined> = {};
 
   constructor(private buffers: SampleBuffers, private audio: AudioEngine) {
+    const volume = 0.2;
     this.master = this.audio.createTrack({
+      volume,
       output: audio.output,
-      volume: 0.2,
     });
   }
 
   public createTrack(track: SamplerTrack) {
     const audioTrack = this.audio.createTrack({
       volume: 1,
-      output: this.master,
+      output: this.master.input,
       ...track,
     });
     this.tracks[track.id] = audioTrack;
@@ -74,7 +75,10 @@ class AudioSampler implements Sampler {
     }
     const buffer = this.buffers.getBuffer(clipId);
     const track = this.tracks[trackId];
-    const source = this.audio.createAudioSource({ output: track, buffer });
+    const source = this.audio.createAudioSource({
+      output: track.input,
+      buffer,
+    });
     this.audioSources[clipId] = source;
     source.start(time);
   }

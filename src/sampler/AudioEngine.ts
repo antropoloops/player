@@ -1,5 +1,6 @@
-import { IAudioContext } from "standardized-audio-context";
+import { IAudioContext, IAudioNode } from "standardized-audio-context";
 
+type AudioNode = IAudioNode<IAudioContext>;
 /**
  * Creates an AudioEngine instance
  * @param context
@@ -7,30 +8,30 @@ import { IAudioContext } from "standardized-audio-context";
 export function createAudioEngine(context: IAudioContext): AudioEngine {
   return new AudioContextEngine(context);
 }
+export interface AudioEngine {
+  output: AudioNode;
+  createTrack: (props: AudioTrackProps) => AudioTrack;
+  createAudioSource: (props: AudioSourceProperties) => AudioSource;
+}
 
 export interface AudioTrackProps {
-  output: any;
+  output: AudioNode;
   volume: number;
 }
 export interface AudioSourceProperties {
-  output: any;
+  output: AudioNode;
   buffer: any;
 }
 
 // tslint:disable-next-line: no-empty-interface
 export interface AudioTrack {
+  input: AudioNode;
   disconnect(): void;
 }
 
 export interface AudioSource {
   start: (time: number) => void;
   stop: (time: number) => void;
-}
-
-export interface AudioEngine {
-  output: any;
-  createTrack: (props: AudioTrackProps) => AudioTrack;
-  createAudioSource: (props: AudioSourceProperties) => AudioSource;
 }
 
 class AudioContextEngine implements AudioEngine {
@@ -48,8 +49,8 @@ class AudioContextEngine implements AudioEngine {
   }
   public createTrack(props: AudioTrackProps): AudioTrack {
     const track = this.context.createGain();
-    track.gain.value = props.volume;
+    track.gain.value = props.volume || 0.7;
     track.connect(props.output);
-    return track;
+    return { input: track, disconnect: () => track.disconnect() };
   }
 }
