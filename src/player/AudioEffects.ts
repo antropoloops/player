@@ -1,7 +1,7 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset } from "../audioset";
-import { SampleBuffers, Sampler } from "../sampler";
+import { createSampler, SampleBuffers, Sampler } from "../sampler";
 import { ControlCommand, Effects } from "./Control";
 
 const log = debug("atpls:sampler");
@@ -22,7 +22,7 @@ class AudioEffects implements Effects {
     buffers: SampleBuffers,
   ) {
     log("init AudioEffects %s", audioset.meta.title);
-    this.sampler = new Sampler(buffers, ctx);
+    this.sampler = createSampler(buffers, ctx);
     this.sampler.initTracks(audioset.tracks);
   }
 

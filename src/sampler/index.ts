@@ -1,13 +1,31 @@
 import { IAudioContext } from "standardized-audio-context";
-import { AudioSource, AudioTrack } from "./Audio";
-import { AudioContextEngine } from "./AudioContextEngine";
+import {
+  AudioEngine,
+  AudioSource,
+  AudioTrack,
+  createAudioEngine,
+} from "./AudioEngine";
+
+/**
+ * Sampler: the audio player
+ */
+export interface Sampler {
+  connect(): void;
+  disconnect(): void;
+  initTracks(tracks: SamplerTrack[]): void;
+  start(clipId: string, trackId: string, time: number): void;
+  stop(clipId: string, time: number): void;
+}
 
 export interface SampleBuffers {
   getBuffer(clipId: string): any;
 }
 
-export function createSampler(buffers: SampleBuffers, ctx: IAudioContext) {
-  return new Sampler(buffers, ctx);
+export function createSampler(
+  buffers: SampleBuffers,
+  ctx: IAudioContext,
+): Sampler {
+  return new AudioSampler(buffers, ctx);
 }
 
 export interface SamplerTrack {
@@ -16,20 +34,19 @@ export interface SamplerTrack {
   volume?: number;
 }
 
-export class Sampler {
-  private master: AudioTrack;
+export class AudioSampler implements Sampler {
+  public master: AudioTrack;
   private tracks: Record<string, AudioTrack> = {};
   private audioSources: Record<string, AudioSource | undefined> = {};
-  private audio: AudioContextEngine;
+  private audio: AudioEngine;
 
   constructor(private buffers: SampleBuffers, ctx: IAudioContext) {
-    this.audio = new AudioContextEngine(ctx);
-    this.master = this.audio.createTrack("master", { volume: 0.8 });
+    this.audio = createAudioEngine(ctx);
+    this.master = this.audio.createTrack({ volume: 0.8 });
   }
   public initTracks(tracks: SamplerTrack[]) {
     tracks.forEach(track => {
       this.tracks[track.id] = this.audio.createTrack(
-        track.name,
         { volume: 1 },
         this.master,
       );
