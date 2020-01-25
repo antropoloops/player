@@ -1,18 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { IAudioContext } from "standardized-audio-context";
+import { getActiveAudioContext } from "../../active-audio-context";
 import { Audioset } from "../../audioset";
-import {
-  AudioContextEngine,
-  getActiveAudioContext,
-  SampleBuffers,
-  Sampler,
-} from "../../player/Audio";
 import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
 } from "../../player/Control";
-import { VisualControl as VC } from "../../visuals";
+import { Effects } from "../../player/Control";
+import { SampleBuffers } from "../../sampler";
 
 export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
@@ -26,57 +21,51 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
 
   useEffect(() => {
     let cancelled = false;
-    let sampler: Sampler | undefined;
-    let visuals: VC | undefined;
+    let audio: Effects | undefined;
+    let visuals: Effects | undefined;
 
     async function createControl() {
-      const { VisualControl } = await import("../../visuals/index");
       const ctx = await getActiveAudioContext();
 
       if (cancelled) {
         return;
       }
+      const { createAudioEffects } = await import("../../player/AudioEffects");
 
-      sampler = createSampler(audioset, ctx, buffers);
+      audio = createAudioEffects(audioset, ctx, buffers);
 
-      visuals = new VisualControl(audioset, el);
+      if (el) {
+        const { createVisualEffects } = await import(
+          "../../player/VisualEffects"
+        );
+        visuals = createVisualEffects(audioset);
+        visuals.attach(el);
+      }
 
       const ctl = new AudiosetControl(audioset, {
         onControlStateChanged: newState => {
           setState(newState);
         },
         onControlCommand: command => {
-          sampler?.run(command);
+          audio?.run(command);
           visuals?.run(command);
         },
       });
       return ctl;
     }
-    if (el) {
-      createControl().then(instance => {
-        if (instance) {
-          setControl(instance);
-          setState(instance.getState());
-        }
-      });
-    }
+    createControl().then(instance => {
+      if (instance) {
+        setControl(instance);
+        setState(instance.getState());
+      }
+    });
 
     return () => {
       cancelled = true;
       visuals?.detach();
-      sampler?.dispose();
+      audio?.detach();
     };
   }, [audioset, buffers, el]);
 
   return { visualsRef, control, state };
-}
-
-function createSampler(
-  audioset: Audioset,
-  ctx: IAudioContext,
-  buffers: SampleBuffers,
-): Sampler {
-  const audio = new AudioContextEngine(ctx);
-  const sampler = new Sampler(audioset, buffers, audio);
-  return sampler;
 }

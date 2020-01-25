@@ -11,7 +11,7 @@ export interface Dimension {
  * @param {*} el
  */
 
-export default class Display {
+export class Display {
   public el: any;
   public svg: any;
 

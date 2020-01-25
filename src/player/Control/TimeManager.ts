@@ -1,6 +1,6 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
-import { getActiveAudioContext } from "./AudioContext";
+import { getActiveAudioContext } from "../../active-audio-context";
 
 const log = debug("atpls:time");
 

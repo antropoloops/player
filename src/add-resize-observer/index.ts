@@ -1,7 +1,7 @@
 import debounce from "lodash.debounce";
 import ResizeObserver from "resize-observer-polyfill";
 
-type ResizeListener = (width: number, heigth: number) => void;
+type ResizeListener = (width: number, height: number) => void;
 
 export function addResizeObserver(element: any, callback: ResizeListener) {
   const debouncedCallback = debounce(callback, 250);
