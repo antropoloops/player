@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { getActiveAudioContext } from "../../active-audio-context";
 import { Audioset } from "../../audioset";
-import { createAudioEffects } from "../../player/Audio";
 import {
   AudiosetControl,
   EmptyControlState,
@@ -31,6 +30,7 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
       if (cancelled) {
         return;
       }
+      const { createAudioEffects } = await import("../../player/AudioEffects");
 
       audio = createAudioEffects(audioset, ctx, buffers);
 

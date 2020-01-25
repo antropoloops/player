@@ -1,8 +1,8 @@
-import { Audioset } from "../../audioset";
-import { Visuals } from "../../visuals";
-import { ControlCommand } from "../Control";
-import { Effects } from "../Control";
-import { addResizeObserver } from "./addResizeObserver";
+import { addResizeObserver } from "../add-resize-observer";
+import { Audioset } from "../audioset";
+import { Visuals } from "../visuals";
+import { ControlCommand } from "./Control";
+import { Effects } from "./Control";
 
 export function createVisualEffects(audioset: Audioset): Effects {
   return new VisualEffects(audioset);
@@ -37,6 +37,8 @@ class VisualEffects implements Effects {
     }
   }
 }
+
+// TODO: this should be part of resource loader
 function setupVisuals(audioset: Audioset, visuals: Visuals): Promise<Visuals> {
   if (audioset.visuals.mode === "map") {
     // TODO: remove it when found a solution for mobile / desktop
