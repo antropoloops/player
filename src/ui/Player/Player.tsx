@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { autoUnlockAudio } from "../../active-audio-context";
 import { Audioset, BundleMetadata } from "../../audioset";
 import { BundleHeader } from "../shared/Header";
-import { Info } from "../shared/Icons";
+import { ArrowDown } from "../shared/Icons";
 import { Spinner } from "../shared/Spinner";
 import { useDeviceType } from "../useDeviceType";
 import { Controller } from "./Controller";
@@ -23,12 +23,10 @@ interface SessionHeaderProps {
 }
 const SessionHeader = ({ meta, session }: SessionHeaderProps) => (
   <div className="Header">
-    <div className="navigation">
-      <Info />
-      <button className="btn-link" onClick={session.toggle}>
-        {meta.title}
-      </button>
-    </div>
+    <button className="navigation btn-link" onClick={session.toggle}>
+      <ArrowDown />
+      {meta.title}
+    </button>
   </div>
 );
 export const Player = ({ audioset }: PlayerProps) => {
