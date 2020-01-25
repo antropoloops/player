@@ -23,7 +23,10 @@ class AudioEffects implements Effects {
   ) {
     log("init AudioEffects %s", audioset.meta.title);
     this.sampler = createSampler(buffers, ctx);
-    this.sampler.initTracks(audioset.tracks);
+    // init tracks
+    audioset.tracks.forEach(track => {
+      this.sampler.createTrack(track);
+    });
   }
 
   public attach() {
@@ -40,7 +43,7 @@ class AudioEffects implements Effects {
       case "startClip":
         const clipId = command.clipId;
         const trackId = this.audioset.index.trackIdOfClip[clipId];
-        log("start %s", clipId);
+        log("start %s %s", clipId, trackId);
         return this.sampler.start(clipId, trackId, time);
       case "stopClip":
         log("stop %s", command.clipId);

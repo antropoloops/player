@@ -9,9 +9,11 @@ export function createAudioEngine(context: IAudioContext): AudioEngine {
 }
 
 export interface AudioTrackProps {
+  output: any;
   volume: number;
 }
 export interface AudioSourceProperties {
+  output: any;
   buffer: any;
 }
 
@@ -26,30 +28,28 @@ export interface AudioSource {
 }
 
 export interface AudioEngine {
-  createTrack: (props: AudioTrackProps, destination?: any) => AudioTrack;
-  createAudioSource: (
-    props: AudioSourceProperties,
-    destination: any,
-  ) => AudioSource;
+  output: any;
+  createTrack: (props: AudioTrackProps) => AudioTrack;
+  createAudioSource: (props: AudioSourceProperties) => AudioSource;
 }
 
 class AudioContextEngine implements AudioEngine {
-  constructor(private context: IAudioContext) {}
+  public output: any;
+  constructor(private context: IAudioContext) {
+    this.output = context.destination;
+  }
 
-  public createAudioSource(
-    props: AudioSourceProperties,
-    destination: any,
-  ): AudioSource {
+  public createAudioSource(props: AudioSourceProperties): AudioSource {
     const source = this.context.createBufferSource();
     source.buffer = props.buffer;
     source.loop = true;
-    source.connect(destination);
+    source.connect(props.output);
     return source;
   }
-  public createTrack(props: AudioTrackProps, destination?: any): AudioTrack {
+  public createTrack(props: AudioTrackProps): AudioTrack {
     const track = this.context.createGain();
     track.gain.value = props.volume;
-    track.connect(destination || this.context.destination);
+    track.connect(props.output);
     return track;
   }
 }
