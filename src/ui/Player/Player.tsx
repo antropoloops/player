@@ -76,7 +76,10 @@ export const Player = ({ audioset }: PlayerProps) => {
           </Collapse>
         </Sidebar>
       )}
-      <div className="visuals">
+      <div
+        className="visuals"
+        style={{ display: areVisualsHidden ? "none" : "" }}
+      >
         <div
           className={areVisualsHidden ? "" : "visuals-display"}
           ref={player.visualsRef}
