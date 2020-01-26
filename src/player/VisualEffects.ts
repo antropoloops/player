@@ -1,8 +1,11 @@
+import debug from "debug";
 import { addResizeObserver } from "../add-resize-observer";
 import { Audioset } from "../audioset";
 import { Visuals } from "../visuals";
 import { ControlCommand } from "./Control";
 import { Effects } from "./Control";
+
+const log = debug("atpls:visuals");
 
 export function createVisualEffects(audioset: Audioset): Effects {
   return new VisualEffects(audioset);
@@ -42,17 +45,17 @@ class VisualEffects implements Effects {
 function setupVisuals(audioset: Audioset, visuals: Visuals): Promise<Visuals> {
   if (audioset.visuals.mode === "map") {
     // TODO: remove it when found a solution for mobile / desktop
-    let url = audioset.visuals.geomap.url;
-    if (url === "https://unpkg.com/world-atlas@1.1.4/world/50m.json") {
-      url = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json";
-    }
-
-    return fetch(url)
-      .then(response => response.json())
-      .then(data => visuals.setGeodata(data))
+    return fetchGeomap(audioset.visuals.geomap.url)
+      .then((data: object) => visuals.setGeodata(data))
       .then(() => visuals);
   } else {
     visuals.setup();
     return Promise.resolve(visuals);
   }
+}
+
+function fetchGeomap(url: string): Promise<object> {
+  log("Geomap url %s", url);
+
+  return fetch(url).then(response => response.json());
 }

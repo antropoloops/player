@@ -129,13 +129,15 @@ export class Visuals {
     this.wavesContainer = createGroup(svg, "waves", albumsHeight);
 
     if (this.set.visuals.mode === "map") {
-      drawMap(
-        this.backgroundContainer,
-        this.countries,
-        backgroundWidth,
-        backgroundHeight,
-        this.set.visuals,
-      );
+      if (this.countries) {
+        drawMap(
+          this.backgroundContainer,
+          this.countries,
+          backgroundWidth,
+          backgroundHeight,
+          this.set.visuals,
+        );
+      }
     } else {
       drawPanel(
         this.backgroundContainer,
