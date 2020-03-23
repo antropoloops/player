@@ -1,5 +1,6 @@
 import React from "react";
 import { isAudioset, Project as ProjectData } from "../../audioset";
+import useAnalytics from "../hooks/useAnalytics";
 import { Player } from "../Player";
 import { Project } from "../Project";
 import { Loading } from "../shared/Loading";
@@ -10,6 +11,7 @@ interface BundleProps {
   idOrUrl: string;
 }
 export const Bundle = ({ idOrUrl }: BundleProps) => {
+  useAnalytics();
   const { bundle, loading } = useRemoteBundle(idOrUrl);
   if (loading) {
     return <Loading />;

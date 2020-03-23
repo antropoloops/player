@@ -8,7 +8,8 @@ interface HeaderProps {
   meta: BundleMetadata;
 }
 
-const getAudiosetPath = (path: string) => (path ? `/set/${path}` : `/`);
+const getAudiosetPath = (path: string) =>
+  path && path !== "index" ? `/set/${path}` : `/`;
 
 /**
  * The header
