@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FullscreenIcon, Info, Stop } from "../shared/Icons";
+import { FullscreenIcon, Info, Stop } from "../../shared/Icons";
 
 interface FooterProps {
   onStopAll: () => void;

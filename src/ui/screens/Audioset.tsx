@@ -1,15 +1,17 @@
 import React from "react";
 import { isAudioset, Project as ProjectData } from "../../audioset";
-import { Player } from "../Player";
-import { Project } from "../Project";
+import { Player } from "../components/Player";
+import { Project } from "../components/Project";
+import useAnalytics from "../hooks/useAnalytics";
+import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import { Loading } from "../shared/Loading";
 import NotFound from "./NotFound";
-import { useRemoteBundle } from "./useRemoteBundle";
 
-interface BundleProps {
+interface Props {
   idOrUrl: string;
 }
-export const Bundle = ({ idOrUrl }: BundleProps) => {
+export const Audioset = ({ idOrUrl }: Props) => {
+  useAnalytics();
   const { bundle, loading } = useRemoteBundle(idOrUrl);
   if (loading) {
     return <Loading />;

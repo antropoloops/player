@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from "react";
-import { Audioset } from "../../audioset";
-import { Header } from "../shared/Header";
-import { Scroll } from "../shared/Scroll";
+import { Audioset } from "../../../audioset";
+import { Header } from "../../shared/Header";
+import { Scroll } from "../../shared/Scroll";
 import { Footer } from "./Footer";
 
 interface SidebarProps {

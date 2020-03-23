@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Project as ProjectData } from "../../audioset";
+import { Project as ProjectData } from "../../../audioset";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import { Header } from "../../shared/Header";
+import { Info } from "../../shared/Icons";
+import { Markdown } from "../../shared/Markdown";
+import { Scroll } from "../../shared/Scroll";
 import { Readme } from "../Player/Readme";
-import { Header } from "../shared/Header";
-import { Info } from "../shared/Icons";
-import { Markdown } from "../shared/Markdown";
-import { Scroll } from "../shared/Scroll";
-import { useDeviceType } from "../useDeviceType";
 import { Item } from "./Item";
 import "./Project.css";
 

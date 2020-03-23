@@ -15,7 +15,7 @@
     "statusBar.foreground": "#e7e7e7"
   },
   "peacock.color": "#571c66",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
       "source.fixAll.tslint": true
   },
@@ -24,6 +24,7 @@
     "Audiosets",
     "atpls",
     "audioset",
+    "geomap",
     "noselect",
     "onstatechange",
     "screenfull"

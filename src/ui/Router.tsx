@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { About } from "./About";
-import { Bundle } from "./Bundle";
-import NotFound from "./NotFound";
+import { About } from "./screens/About";
+import { Audioset } from "./screens/Audioset";
+import NotFound from "./screens/NotFound";
 
 const Router = () => {
   return (
@@ -11,17 +11,17 @@ const Router = () => {
         <Route
           path="/"
           exact={true}
-          render={() => <Bundle idOrUrl="index" />}
+          render={() => <Audioset idOrUrl="index" />}
         />
         <Route
           path="/set/:id"
           exact={true}
-          render={({ match }) => <Bundle idOrUrl={match.params.id} />}
+          render={({ match }) => <Audioset idOrUrl={match.params.id} />}
         />
         <Route
           path="/test"
           exact={true}
-          render={() => <Bundle idOrUrl={getUrlFromParams()} />}
+          render={() => <Audioset idOrUrl={getUrlFromParams()} />}
         />
         <Route path="/about" exact={true} component={About} />
         <Route component={NotFound} />
