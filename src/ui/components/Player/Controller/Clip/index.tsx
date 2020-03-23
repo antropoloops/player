@@ -1,5 +1,5 @@
 import React from "react";
-import { PlayerControl } from "../../../../player/Control";
+import { PlayerControl } from "../../../../../player/Control";
 import "./Clip.css";
 import { ClosedClip } from "./ClipClosed";
 import { OpenClip } from "./ClipOpen";

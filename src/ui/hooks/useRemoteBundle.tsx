@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Bundle as BundleData } from "../../audioset";
-import { fetchAudioset } from "./fetchAudioset";
+import { fetchAudioset } from "../lib/fetchAudioset";
 
 export function useRemoteBundle(idOrUrl: string) {
   const [bundle, setBundle] = useState<BundleData | null>(null);

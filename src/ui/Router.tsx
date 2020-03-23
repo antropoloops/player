@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { About } from "./About";
-import { Bundle } from "./Bundle";
-import NotFound from "./NotFound";
+import { About } from "./screens/About";
+import { Bundle } from "./screens/Bundle";
+import NotFound from "./screens/NotFound";
 
 const Router = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { BundleMetadata } from "../../audioset";
-import { ArrowDown, ArrowUp } from "../shared/Icons";
+import { BundleMetadata } from "../../../audioset";
+import { ArrowDown, ArrowUp } from "../../shared/Icons";
 
 export const SessionHeader = ({
   meta,

@@ -1,11 +1,11 @@
 import React from "react";
 import { isAudioset, Project as ProjectData } from "../../audioset";
+import { Player } from "../components/Player";
+import { Project } from "../components/Project";
 import useAnalytics from "../hooks/useAnalytics";
-import { Player } from "../Player";
-import { Project } from "../Project";
+import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import { Loading } from "../shared/Loading";
 import NotFound from "./NotFound";
-import { useRemoteBundle } from "./useRemoteBundle";
 
 interface BundleProps {
   idOrUrl: string;

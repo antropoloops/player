@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { getActiveAudioContext } from "../../active-audio-context";
-import { Audioset } from "../../audioset";
-import { ResourceLoader } from "../../player/Loader";
-import { scrollToTop } from "../shared/useScroll";
+import { getActiveAudioContext } from "../../../active-audio-context";
+import { Audioset } from "../../../audioset";
+import { ResourceLoader } from "../../../player/Loader";
+import { scrollToTop } from "../../shared/useScroll";
 
 export function useSession(audioset: Audioset) {
   const [started, setStarted] = useState(false);

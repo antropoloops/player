@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAnalytics from "../hooks/useAnalytics";
 import { Header } from "../shared/Header";
 import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
@@ -55,6 +56,7 @@ o
 `;
 
 export const About = () => {
+  useAnalytics();
   return (
     <div className="App NotFound">
       <Header />

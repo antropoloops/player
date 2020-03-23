@@ -1,3 +1,8 @@
+
+.App .content .inside {
+  padding: 1rem;
+}
+
 .App .Footer {
   grid-area: footer;
   display: flex;

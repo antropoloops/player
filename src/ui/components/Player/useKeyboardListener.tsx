@@ -1,6 +1,6 @@
 import debug from "debug";
 import { useEffect } from "react";
-import { KeyboardController } from "../../player/Control";
+import { KeyboardController } from "../../../player/Control";
 
 const log = debug("atpls:useKeyboard");
 
