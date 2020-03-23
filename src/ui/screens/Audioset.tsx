@@ -7,10 +7,10 @@ import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import { Loading } from "../shared/Loading";
 import NotFound from "./NotFound";
 
-interface BundleProps {
+interface Props {
   idOrUrl: string;
 }
-export const Bundle = ({ idOrUrl }: BundleProps) => {
+export const Audioset = ({ idOrUrl }: Props) => {
   useAnalytics();
   const { bundle, loading } = useRemoteBundle(idOrUrl);
   if (loading) {
