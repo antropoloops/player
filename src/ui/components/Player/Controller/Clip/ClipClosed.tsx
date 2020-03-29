@@ -3,7 +3,7 @@ import { hasKeyboard } from "../../../../lib/hasKeyboard";
 import "./ClipClosed.css";
 import { ClipProps } from "./index";
 
-export const ClosedClip = ({ clip, control }: ClipProps) => {
+export const ClosedClip: React.FC<ClipProps> = ({ clip, control }) => {
   const [isMapKeyboard, toggleMapKeyboard] = useReducer(x => !x, false);
 
   const keyboard = control && control.keyboard;

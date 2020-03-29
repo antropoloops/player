@@ -1,6 +1,7 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset, Clip } from "../../audioset";
+import getSupportedAudioCodecs from "../../test-audio-codecs";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
 const log = debug("atpls:resources");
@@ -122,7 +123,12 @@ export class ResourceLoader implements Resources {
 
   private async loadClipAudio(clip: Clip, context: IAudioContext) {
     const { audio } = clip.resources;
-    const url = audio.ogg || audio.mp3;
+    const codecs = getSupportedAudioCodecs();
+    const url = codecs.ogg ? audio.ogg : audio.mp3;
+    if (!url) {
+      log("Valid audio format not found", clip, codecs);
+      return;
+    }
     const response = await fetch(url);
     const buffer = await decodeAudioBuffer(response, context);
     this.buffers[clip.id] = buffer;

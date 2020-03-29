@@ -23,7 +23,6 @@ export interface AudioSourceProperties {
   buffer: any;
 }
 
-// tslint:disable-next-line: no-empty-interface
 export interface AudioTrack {
   input: AudioNode;
   disconnect(): void;

@@ -10,7 +10,7 @@ export interface ClipProps {
   control?: PlayerControl;
 }
 
-export const Clip = ({ clip, isActive, control }: ClipProps) => {
+export const Clip: React.FC<ClipProps> = ({ clip, isActive, control }) => {
   const View = isActive ? OpenClip : ClosedClip;
 
   return <View clip={clip} control={control} />;
