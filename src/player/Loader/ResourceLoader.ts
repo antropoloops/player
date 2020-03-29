@@ -42,13 +42,16 @@ export class ResourceLoader implements Resources {
   private completed: number;
   private buffers: Record<string, any> = {};
   private preloaded: boolean;
+  private readonly format: "mp3" | "ogg" | "wav";
 
   constructor(
     private audioset: Audioset,
     private listener: (status: ResourceLoadStatus) => void,
   ) {
     log("create ResourceLoader %s", audioset.id);
-    log("codecs %o", getSupportedAudioCodecs());
+    const codecs = getSupportedAudioCodecs();
+    this.format = codecs.ogg ? "ogg" : codecs.mp3 ? "mp3" : "wav";
+    log("Preferred audio format %s", this.format);
     this.status = { stage: "pending" };
     this.preloaded = false;
     this.total = this.audioset.clips.length;
@@ -124,15 +127,16 @@ export class ResourceLoader implements Resources {
 
   private async loadClipAudio(clip: Clip, context: IAudioContext) {
     const { audio } = clip.resources;
-    const codecs = getSupportedAudioCodecs();
-    const url = codecs.ogg ? audio.ogg : codecs.mp3 ? audio.mp3 : audio.wav;
-    if (!url) {
-      log("Valid audio format not found", clip, codecs);
-      return null;
+    const url = audio[this.format] || "";
+    // tslint:disable-next-line
+    console.log("Audio URL", url);
+    if (url === "") {
+      log("Valid audio format not found", clip, this.format);
     }
     const response = await fetch(url);
     const buffer = await decodeAudioBuffer(response, context);
     this.buffers[clip.id] = buffer;
+
     this.handleResourceCompleted(url);
 
     return buffer;

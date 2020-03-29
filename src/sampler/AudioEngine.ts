@@ -41,7 +41,8 @@ class AudioContextEngine implements AudioEngine {
 
   public createAudioSource(props: AudioSourceProperties): AudioSource {
     const source = this.context.createBufferSource();
-    source.buffer = props.buffer;
+    source.buffer =
+      props.buffer || this.context.createBuffer(2, 10, this.context.sampleRate);
     source.loop = true;
     source.connect(props.output);
     return source;
