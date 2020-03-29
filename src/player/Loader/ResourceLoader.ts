@@ -48,6 +48,7 @@ export class ResourceLoader implements Resources {
     private listener: (status: ResourceLoadStatus) => void,
   ) {
     log("create ResourceLoader %s", audioset.id);
+    log("codecs %o", getSupportedAudioCodecs());
     this.status = { stage: "pending" };
     this.preloaded = false;
     this.total = this.audioset.clips.length;
@@ -124,10 +125,10 @@ export class ResourceLoader implements Resources {
   private async loadClipAudio(clip: Clip, context: IAudioContext) {
     const { audio } = clip.resources;
     const codecs = getSupportedAudioCodecs();
-    const url = codecs.ogg ? audio.ogg : audio.mp3;
+    const url = codecs.ogg ? audio.ogg : codecs.mp3 ? audio.mp3 : audio.wav;
     if (!url) {
       log("Valid audio format not found", clip, codecs);
-      return;
+      return null;
     }
     const response = await fetch(url);
     const buffer = await decodeAudioBuffer(response, context);
