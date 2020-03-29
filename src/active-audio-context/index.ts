@@ -1,5 +1,6 @@
 import debug from "debug";
 import { AudioContext } from "standardized-audio-context";
+import unmute from "./unmute";
 
 const log = debug("atpls:context");
 
@@ -25,6 +26,7 @@ export function getActiveAudioContext(): Promise<AudioContext> {
 
 export function autoUnlockAudio() {
   function unlock() {
+    unmute(context);
     context.resume().then(detach);
   }
 
