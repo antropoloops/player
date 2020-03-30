@@ -128,8 +128,6 @@ export class ResourceLoader implements Resources {
   private async loadClipAudio(clip: Clip, context: IAudioContext) {
     const { audio } = clip.resources;
     const url = audio[this.format] || "";
-    // tslint:disable-next-line
-    console.log("Audio URL", url);
     if (url === "") {
       log("Valid audio format not found", clip, this.format);
     }
