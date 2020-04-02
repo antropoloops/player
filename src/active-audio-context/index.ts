@@ -27,6 +27,14 @@ export function getActiveAudioContext(): Promise<AudioContext> {
 export function autoUnlockAudio() {
   function unlock() {
     unmute(context);
+    const prevHandler = context.onstatechange;
+    // FIXME: think better how to fix this
+    context.onstatechange = args => {
+      handleStateChange();
+      if (prevHandler) {
+        prevHandler(args);
+      }
+    };
     context.resume().then(detach);
   }
 

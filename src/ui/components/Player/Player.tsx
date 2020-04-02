@@ -24,9 +24,7 @@ export const Player = ({ audioset }: PlayerProps) => {
   const { isMobile } = useDeviceType();
   useKeyboardListener(player.control?.keyboard);
 
-  useEffect(() => {
-    autoUnlockAudio();
-  }, []);
+  useEffect(() => autoUnlockAudio(), []);
 
   const isSidebarVisible = !isFullscreen;
   const areVisualsHidden = isMobile && session.visible;
