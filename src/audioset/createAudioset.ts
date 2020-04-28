@@ -20,6 +20,7 @@ export function createAudioset(bundle: any): Bundle {
 function migrateOrDerive(audioset: Audioset) {
   const bpm = audioset.audio.bpm || 120;
   audioset.clips.forEach(clip => {
+    clip.id = "" + clip.id;
     clip.name = clip.name || capitalize(clip.id);
     clip.artist = clip.artist || "";
     clip.place = clip.place || "";

@@ -11,7 +11,8 @@
     "deploy": "serverless deploy -v && yarn run cloudfront:invalidate",
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
     "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api:mock": "json-server -p 1234 --watch server/db.json"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
@@ -89,6 +90,7 @@
   },
   "devDependencies": {
     "@types/react-responsive": "^8.0.2",
+    "json-server": "^0.16.1",
     "serverless": "^1.61.1",
     "source-map-explorer": "^2.2.2",
     "tslint": "^5.20.1",
