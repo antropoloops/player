@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { About } from "./screens/About";
-import { Audioset } from "./screens/Audioset";
-import NotFound from "./screens/NotFound";
+import { About } from "./pages/About";
+import { Audioset } from "./pages/Audioset";
+import NotFound from "./pages/NotFound";
+import "./App.css";
 
-const Router = () => {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -29,7 +30,8 @@ const Router = () => {
     </BrowserRouter>
   );
 };
-export default Router;
+
+export default App;
 
 function getUrlFromParams(): string {
   const params = new URLSearchParams(window.location.search);
