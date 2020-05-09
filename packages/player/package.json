@@ -13,6 +13,7 @@
     "api:mock": "json-server -p 1234 --watch server/db.json"
   },
   "dependencies": {
+    "@atpls/add-resize-observer": "^1.0.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@types/chroma-js": "^1.4.3",
