@@ -7,7 +7,7 @@ export async function fetchCountries(visuals: MapMetadata) {
 
   const collection = topojson.feature(
     geodata,
-    geodata.objects.countries,
+    geodata.objects.countries
   ) as any;
   return collection.features.filter((country: any) => country.id !== "010");
 }

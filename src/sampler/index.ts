@@ -23,7 +23,7 @@ export interface SampleBuffers {
 
 export function createSampler(
   buffers: SampleBuffers,
-  ctx: IAudioContext,
+  ctx: IAudioContext
 ): Sampler {
   const audio = createAudioEngine(ctx);
   return new AudioSampler(buffers, audio);
@@ -63,7 +63,7 @@ class AudioSampler implements Sampler {
   }
 
   public disconnect() {
-    Object.keys(this.tracks).forEach(trackId => {
+    Object.keys(this.tracks).forEach((trackId) => {
       this.tracks[trackId].disconnect();
     });
     this.master.disconnect();

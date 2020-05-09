@@ -5,7 +5,7 @@ export function drawPanel(
   container: any,
   width: number,
   height: number,
-  imageUrl: string,
+  imageUrl: string
 ) {
   container
     .append("svg:image")
@@ -21,7 +21,7 @@ export function createPanelProjector(
   containerWidth: number,
   containerHeight: number,
   realImageWidth: number,
-  realImageHeight: number,
+  realImageHeight: number
 ) {
   const containerRatio = containerWidth / containerHeight;
   const imageRatio = realImageWidth / realImageHeight;

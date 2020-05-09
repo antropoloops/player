@@ -309,7 +309,7 @@ export default function unmute(context) {
     document.addEventListener(
       pageVisibilityAPI.visibilitychange,
       doc_visChange,
-      true,
+      true
     );
   if (isIOS) {
     // Watch for blur / focus events on ios because it doesn't dispatch vis change events properly

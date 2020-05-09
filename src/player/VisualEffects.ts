@@ -57,5 +57,5 @@ function setupVisuals(audioset: Audioset, visuals: Visuals): Promise<Visuals> {
 function fetchGeomap(url: string): Promise<object> {
   log("Geomap url %s", url);
 
-  return fetch(url).then(response => response.json());
+  return fetch(url).then((response) => response.json());
 }

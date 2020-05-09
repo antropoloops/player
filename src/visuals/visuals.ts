@@ -29,14 +29,14 @@ function createProjector(visuals: VisualsMetadata, dimensions: Dimension) {
       width,
       height - albumsHeight,
       scaleFactor * scale,
-      center,
+      center
     );
   } else {
     return createPanelProjector(
       width,
       height - albumsHeight,
       visuals.image.size.width,
-      visuals.image.size.height,
+      visuals.image.size.height
     );
   }
 }
@@ -66,10 +66,10 @@ export class Visuals {
   public setGeodata(geodata: any) {
     const collection = topojson.feature(
       geodata,
-      geodata.objects.countries,
+      geodata.objects.countries
     ) as any;
     this.countries = collection.features.filter(
-      (country: any) => country.id !== "010",
+      (country: any) => country.id !== "010"
     );
   }
 
@@ -135,7 +135,7 @@ export class Visuals {
           this.countries,
           backgroundWidth,
           backgroundHeight,
-          this.set.visuals,
+          this.set.visuals
         );
       }
     } else {
@@ -143,7 +143,7 @@ export class Visuals {
         this.backgroundContainer,
         backgroundWidth,
         backgroundHeight,
-        this.set.visuals.image.url,
+        this.set.visuals.image.url
       );
     }
   }

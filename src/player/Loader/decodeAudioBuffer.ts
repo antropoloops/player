@@ -5,7 +5,7 @@ import { IAudioContext } from "standardized-audio-context";
  */
 export async function decodeAudioBuffer(
   response: Response,
-  context: IAudioContext,
+  context: IAudioContext
 ) {
   const arrayBuffer = await response.arrayBuffer();
   return decodeArrayBuffer(context, arrayBuffer);
@@ -13,7 +13,7 @@ export async function decodeAudioBuffer(
 
 function decodeArrayBuffer(
   ctx: IAudioContext,
-  buffer: ArrayBuffer,
+  buffer: ArrayBuffer
 ): Promise<AudioBuffer> {
   return new Promise((resolve, reject) => {
     ctx.decodeAudioData(buffer, resolve, reject);

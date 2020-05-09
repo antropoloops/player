@@ -25,6 +25,6 @@ const getUrl = getStaginUrl;
 
 export function fetchAudioset(idOrUrl: string): Promise<Bundle> {
   return fetch(getUrl(idOrUrl))
-    .then(r => r.json())
+    .then((r) => r.json())
     .then(createAudioset);
 }

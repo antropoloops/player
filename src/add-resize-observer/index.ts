@@ -5,7 +5,7 @@ type ResizeListener = (width: number, height: number) => void;
 
 export function addResizeObserver(element: any, callback: ResizeListener) {
   const debouncedCallback = debounce(callback, 250);
-  const resizeObserver = new ResizeObserver(entries => {
+  const resizeObserver = new ResizeObserver((entries) => {
     if (!Array.isArray(entries)) {
       return;
     }

@@ -8,7 +8,7 @@ export function drawMap(
   countries: any,
   width: number,
   height: number,
-  visuals: MapMetadata,
+  visuals: MapMetadata
 ) {
   const scaleFactor = visuals.geomap.scaleFactor;
   const center = visuals.geomap.center;
@@ -18,7 +18,7 @@ export function drawMap(
     width,
     height,
     scale * scaleFactor,
-    center,
+    center
   );
 
   const path = d3.geoPath().projection(projector);
@@ -40,7 +40,7 @@ export function createMapProjector(
   width: number,
   height: number,
   scale: number,
-  center: { x: any; y: any },
+  center: { x: any; y: any }
 ) {
   return d3geo
     .geoRobinson()

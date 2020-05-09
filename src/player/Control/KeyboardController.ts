@@ -23,7 +23,7 @@ export class KeyboardController {
   private mapMode?: MapMode = undefined;
 
   constructor(audioset: Audioset, private control: Control) {
-    audioset.clips.forEach(clip => {
+    audioset.clips.forEach((clip) => {
       const key = clip.keyMap.toUpperCase();
       this.clipIdToKey[clip.id] = key;
       this.keyToClipId[key] = clip.id;

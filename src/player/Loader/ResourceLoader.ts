@@ -46,7 +46,7 @@ export class ResourceLoader implements Resources {
 
   constructor(
     private audioset: Audioset,
-    private listener: (status: ResourceLoadStatus) => void,
+    private listener: (status: ResourceLoadStatus) => void
   ) {
     log("create ResourceLoader %s", audioset.id);
     const codecs = getSupportedAudioCodecs();
@@ -82,11 +82,11 @@ export class ResourceLoader implements Resources {
     if (clips[0]) {
       log("Audio format %s", clips[0].resources.audio.ogg ? "ogg" : "mp3");
     }
-    const promises = clips.map(clip =>
-      this.loadClipAudio(clip, context).catch(err => {
+    const promises = clips.map((clip) =>
+      this.loadClipAudio(clip, context).catch((err) => {
         this.handleResourceCompleted();
         log("Error %o", err);
-      }),
+      })
     );
     return Promise.all(promises);
   }
@@ -103,7 +103,7 @@ export class ResourceLoader implements Resources {
     if (visuals.mode === "map" && visuals.geomap.url) {
       promises.push(fetch(visuals.geomap.url));
     }
-    clips.forEach(clip => {
+    clips.forEach((clip) => {
       preloadImage(clip.resources.cover.small);
     });
     const loadAll = () => {
@@ -154,7 +154,7 @@ function preloadImage(url: string): Promise<any> {
   if (!url || !url.length) {
     return Promise.resolve();
   }
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const image = new Image();
     image.addEventListener("load", () => {
       resolve(image);

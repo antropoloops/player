@@ -9,7 +9,7 @@ const log = debug("atpls:sampler");
 export function createAudioEffects(
   audioset: Audioset,
   ctx: IAudioContext,
-  buffers: SampleBuffers,
+  buffers: SampleBuffers
 ): AudioEffects {
   return new AudioEffects(audioset, ctx, buffers);
 }
@@ -19,12 +19,12 @@ class AudioEffects implements Effects {
   constructor(
     private audioset: Audioset,
     ctx: IAudioContext,
-    buffers: SampleBuffers,
+    buffers: SampleBuffers
   ) {
     log("init AudioEffects %s", audioset.meta.title);
     this.sampler = createSampler(buffers, ctx);
     // init tracks
-    audioset.tracks.forEach(track => {
+    audioset.tracks.forEach((track) => {
       this.sampler.createTrack(track);
     });
   }

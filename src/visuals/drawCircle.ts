@@ -15,7 +15,7 @@ export default function drawCircle(
   width: number,
   cx: number,
   cy: number,
-  clip: Clip,
+  clip: Clip
 ) {
   const duration = clip.audio.durationSeconds;
   const trackVolume = clip.audio.volume;
@@ -76,10 +76,7 @@ export default function drawCircle(
   const turnTimer = d3.timer(turn);
   function turn(elapsed: number) {
     const elapsedSeconds = (elapsed / 1000) % duration;
-    const turnScale = d3
-      .scaleLinear()
-      .range([1, 0])
-      .domain([0, duration]);
+    const turnScale = d3.scaleLinear().range([1, 0]).domain([0, duration]);
     circle.style("transform", `rotate(${-turnScale(elapsedSeconds)}turn)`);
     if (d3.select(".circle").empty()) {
       turnTimer.stop();

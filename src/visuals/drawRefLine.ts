@@ -7,7 +7,7 @@ export default function drawRefLine(
   visualsWidth: number,
   cx: any,
   cy: any,
-  clip: Clip,
+  clip: Clip
 ) {
   const x1 = getCoverSize(visualsWidth) * (clip.trackNum + 0.5);
   const y1 = 0;

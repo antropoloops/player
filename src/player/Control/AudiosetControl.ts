@@ -38,7 +38,7 @@ export class AudiosetControl implements PlayerControl {
     this.time = new TimeManager(audioset.audio);
     this.keyboard = new KeyboardController(audioset, this);
     audioset.clips.forEach((clip: Clip) => this.manager.addClip(clip));
-    audioset.tracks.forEach(track => this.manager.addTrack(track));
+    audioset.tracks.forEach((track) => this.manager.addTrack(track));
   }
 
   public toggleClip(clipId: string, time: number) {
@@ -67,8 +67,8 @@ export class AudiosetControl implements PlayerControl {
 
     const trackId = this.manager.getTrackIdOfClip(clipId);
     const sameTrackClipIds = this.manager.getClipIdsOfTrack(trackId);
-    sameTrackClipIds.forEach(trackClipId =>
-      this.stopClipCommand(trackClipId, time),
+    sameTrackClipIds.forEach((trackClipId) =>
+      this.stopClipCommand(trackClipId, time)
     );
     this.startTrackCommand(trackId, time);
     this.startClipCommand(clipId, time);
@@ -100,10 +100,10 @@ export class AudiosetControl implements PlayerControl {
   public stopAll(time: number) {
     this.manager
       .getAllClipIds()
-      .forEach(clipId => this.stopClipCommand(clipId, time));
+      .forEach((clipId) => this.stopClipCommand(clipId, time));
     this.manager
       .getAllTrackIds()
-      .forEach(trackId => this.stopTrackCommand(trackId, time));
+      .forEach((trackId) => this.stopTrackCommand(trackId, time));
     this.sendCommandsAndFireStateChange();
   }
 
@@ -113,7 +113,7 @@ export class AudiosetControl implements PlayerControl {
 
   //// PRIVATE ////
   private sendCommandsAndFireStateChange() {
-    this.commands.forEach(command => {
+    this.commands.forEach((command) => {
       this.listener.onControlCommand(command);
     });
     this.commands = [];

@@ -19,7 +19,7 @@ export function createAudioset(bundle: any): Bundle {
 
 function migrateOrDerive(audioset: Audioset) {
   const bpm = audioset.audio.bpm || 120;
-  audioset.clips.forEach(clip => {
+  audioset.clips.forEach((clip) => {
     clip.id = "" + clip.id;
     clip.name = clip.name || capitalize(clip.id);
     clip.artist = clip.artist || "";
@@ -37,11 +37,11 @@ function createIndices(audioset: Audioset) {
     clipIdsOfTrack: {},
     trackIdOfClip: {},
   };
-  audioset.clips.forEach(clip => {
+  audioset.clips.forEach((clip) => {
     index.clipById[clip.id] = clip;
     index.trackIdOfClip[clip.id] = clip.trackId;
   });
-  audioset.tracks.forEach(track => {
+  audioset.tracks.forEach((track) => {
     index.trackById[track.id] = track;
     index.clipIdsOfTrack[track.id] = track.clipIds;
   });

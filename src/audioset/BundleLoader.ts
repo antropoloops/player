@@ -17,8 +17,8 @@ export class BundleLoader {
   public loadBundle(audiosetId: string): Promise<BundleLoadStatus> {
     this.setStatus({ stage: "loading", payload: audiosetId });
     return this.fetch(audiosetId)
-      .then(audioset => this.setStatus({ stage: "ready", payload: audioset }))
-      .catch(error => this.setStatus({ stage: "error", error }));
+      .then((audioset) => this.setStatus({ stage: "ready", payload: audioset }))
+      .catch((error) => this.setStatus({ stage: "error", error }));
   }
 
   private setStatus(status: BundleLoadStatus) {

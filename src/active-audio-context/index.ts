@@ -18,7 +18,7 @@ export function getActiveAudioContext(): Promise<AudioContext> {
   if (context.state === "running") {
     return Promise.resolve(context);
   } else {
-    return new Promise<AudioContext>(resolve => {
+    return new Promise<AudioContext>((resolve) => {
       activeListeners.push(resolve);
     });
   }
@@ -29,7 +29,7 @@ export function autoUnlockAudio() {
     unmute(context);
     const prevHandler = context.onstatechange;
     // FIXME: think better how to fix this
-    context.onstatechange = args => {
+    context.onstatechange = (args) => {
       handleStateChange();
       if (prevHandler) {
         prevHandler(args);
@@ -59,7 +59,7 @@ function handleStateChange() {
   if (state === "running") {
     const listeners = activeListeners.slice();
     activeListeners.length = 0;
-    listeners.forEach(listener => listener(context));
+    listeners.forEach((listener) => listener(context));
   }
 }
 

@@ -20,7 +20,7 @@ export class TimeManager {
     log("time %o", config);
     this.bpm = config.bpm;
     this.quantize = config.quantize || 1;
-    getActiveAudioContext().then(ctx => (this.context = ctx));
+    getActiveAudioContext().then((ctx) => (this.context = ctx));
   }
 
   public startTime(time: number) {
@@ -78,7 +78,7 @@ export function quantizeTime(
   bpm: number,
   now: number,
   startedAt: number,
-  beats = BEATS,
+  beats = BEATS
 ): number {
   const factor = bpm / (60 * beats);
   const absolute = now - startedAt;
