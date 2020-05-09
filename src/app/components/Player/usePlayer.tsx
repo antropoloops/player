@@ -45,17 +45,17 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
       }
 
       const ctl = new AudiosetControl(audioset, {
-        onControlStateChanged: newState => {
+        onControlStateChanged: (newState) => {
           setState(newState);
         },
-        onControlCommand: command => {
+        onControlCommand: (command) => {
           audio?.run(command);
           visuals?.run(command);
         },
       });
       return ctl;
     }
-    createControl().then(instance => {
+    createControl().then((instance) => {
       if (instance) {
         setControl(instance);
         setState(instance.getState());

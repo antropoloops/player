@@ -17,7 +17,7 @@ function isTouchDevice(): boolean {
   // include the 'heartz' as a way to have a non matching MQ to help terminate the join
   // https://git.io/vznFH
   const query = ["(", prefixes.join("touch-enabled),("), "heartz", ")"].join(
-    "",
+    ""
   );
   return window.matchMedia(query).matches;
 }

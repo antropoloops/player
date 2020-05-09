@@ -8,7 +8,7 @@ interface ReadmeProps {
 }
 
 export const Readme = ({ content }: ReadmeProps) => {
-  const [isOpen, toggleOpen] = useReducer(x => !x, false);
+  const [isOpen, toggleOpen] = useReducer((x) => !x, false);
 
   if (!content.length) {
     return null;

@@ -5,7 +5,7 @@ import { Markdown } from "../../../../shared/Markdown";
 import "./ClipOpen.css";
 
 export const OpenClip = ({ clip, control }: ClipProps) => {
-  const [isReadmeVisible, toggleReadme] = useReducer(x => !x, false);
+  const [isReadmeVisible, toggleReadme] = useReducer((x) => !x, false);
   const hasReadme = clip.readme;
 
   const Icon = isReadmeVisible ? ArrowUp : ArrowDown;

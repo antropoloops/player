@@ -22,7 +22,7 @@ export const Controller = ({
       className={`Controller ${!control && "loading"}`}
       onClick={control ? undefined : onResume}
     >
-      {audioset.tracks.map(track => (
+      {audioset.tracks.map((track) => (
         <Track
           key={track.id}
           track={track}

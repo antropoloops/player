@@ -13,7 +13,7 @@ export function useRemoteBundle(idOrUrl: string) {
     function fetch() {
       setLoading(true);
       fetchAudioset(idOrUrl)
-        .then(result => {
+        .then((result) => {
           if (!didCancel) {
             setLoading(false);
             setBundle(result);

@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { About } from "./screens/About";
 import { Audioset } from "./screens/Audioset";
 import NotFound from "./screens/NotFound";
+import "./App.css";
 
-const Router = () => {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -29,7 +30,7 @@ const Router = () => {
     </BrowserRouter>
   );
 };
-export default Router;
+export default App;
 
 function getUrlFromParams(): string {
   const params = new URLSearchParams(window.location.search);

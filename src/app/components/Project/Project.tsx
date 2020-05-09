@@ -39,7 +39,7 @@ export const Project = ({ project }: ProjectProps) => {
             </div>
           )}
           <ul className="Audiosets">
-            {references.map(reference => (
+            {references.map((reference) => (
               <Item key={reference.id} reference={reference} />
             ))}
           </ul>

@@ -9,12 +9,12 @@ export function useSession(audioset: Audioset) {
   const [loaded, setLoaded] = useState(false);
   const loader = useMemo<ResourceLoader>(
     () =>
-      new ResourceLoader(audioset, status => {
+      new ResourceLoader(audioset, (status) => {
         if (status.stage === "ready") {
           setLoaded(true);
         }
       }),
-    [audioset],
+    [audioset]
   );
   const loading = started && !loaded;
 
