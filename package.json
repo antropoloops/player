@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "start": "cd packages/player && npm run start",
+    "setup": "yarn workspaces run setup",
     "build": "rm -rf build/ && cd packages/player && npm run build && mv build ../.."
   },
   "workspaces": [

@@ -1,7 +1,7 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset, Clip } from "../../audioset";
-import getSupportedAudioCodecs from "../../test-audio-codecs";
+import getSupportedAudioCodecs from "@atpls/test-audio-codecs";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
 const log = debug("atpls:resources");

@@ -3,6 +3,7 @@
   "version": "3.5.1",
   "private": true,
   "scripts": {
+    "setup": "echo 'Done.'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -14,10 +15,9 @@
   },
   "dependencies": {
     "@atpls/add-resize-observer": "^1.0.0",
+    "@atpls/test-audio-codecs": "^1.0.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
-    "@types/chroma-js": "^1.4.3",
-    "@types/d3": "^5.7.2",
     "@types/debug": "^4.1.5",
     "@types/jest": "^24.9.1",
     "@types/lodash.debounce": "^4.0.6",
@@ -25,10 +25,6 @@
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
     "@types/react-router-dom": "^5.1.5",
-    "@types/topojson": "^3.2.2",
-    "chroma-js": "^2.1.0",
-    "d3": "^5.16.0",
-    "d3-geo-projection": "^2.9.0",
     "debug": "^4.1.1",
     "husky": "^3.1.0",
     "lint-staged": "^10.2.2",
@@ -44,7 +40,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^5.0.2",
     "standardized-audio-context": "^23.1.2",
-    "topojson": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "lint-staged": {
@@ -76,8 +71,8 @@
   },
   "devDependencies": {
     "@types/react-responsive": "^8.0.2",
+    "prop-types": "^15.6.0",
     "json-server": "^0.16.1",
-    "serverless": "^1.70.0",
     "source-map-explorer": "^2.4.2",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",

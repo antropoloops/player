@@ -1,17 +1,13 @@
 {
-  "name": "@atpls/add-resize-observer",
+  "name": "@atpls/visuals",
   "private": true,
   "version": "1.0.0",
-  "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "setup": "npm run build",
     "start": "tsdx watch",
@@ -20,15 +16,21 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "peerDependencies": {},
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
-    "resize-observer-polyfill": "^1.5.1"
+    "@atpls/audioset": "^1.0.0",
+    "chroma-js": "^2.1.0",
+    "d3": "^5.16.0",
+    "d3-geo-projection": "^2.9.0",
+    "topojson": "^3.0.2"
   },
-  "module": "dist/add-resize-observer.esm.js",
+  "module": "dist/visuals.esm.js",
   "devDependencies": {
     "tsdx": "^0.13.2",
     "tslib": "^1.11.2",
-    "typescript": "^3.8.3"
-  }
+    "typescript": "^3.8.3",
+    "@types/chroma-js": "^1.4.3",
+    "@types/d3": "^5.7.2",
+    "@types/topojson": "^3.2.2"
+  },
+  "license": "MIT"
 }
