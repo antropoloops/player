@@ -1,6 +1,6 @@
 import React from "react";
 import { Audioset } from "@atpls/audioset";
-import { ControlState, PlayerControl } from "../../../../player/Control";
+import { ControlState, PlayerControl } from "../../../player/Control";
 import { Track } from "./Track";
 interface ControllerProps {
   audioset: Audioset;

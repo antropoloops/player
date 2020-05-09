@@ -1,10 +1,10 @@
 import React from "react";
 import { isAudioset, Project as ProjectData } from "@atpls/audioset";
-import { Player } from "../ui/components/Player";
-import { Project } from "../ui/components/Project";
-import useAnalytics from "../ui/hooks/useAnalytics";
-import { useRemoteBundle } from "../ui/hooks/useRemoteBundle";
-import { Loading } from "../ui/shared/Loading";
+import { Player } from "../components/Player";
+import { Project } from "../components/Project";
+import useAnalytics from "../hooks/useAnalytics";
+import { useRemoteBundle } from "../hooks/useRemoteBundle";
+import { Loading } from "../shared/Loading";
 import NotFound from "./NotFound";
 
 interface Props {

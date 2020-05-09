@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useAnalytics from "../ui/hooks/useAnalytics";
-import { Header } from "../ui/shared/Header";
-import { Markdown } from "../ui/shared/Markdown";
-import { Scroll } from "../ui/shared/Scroll";
+import useAnalytics from "../hooks/useAnalytics";
+import { Header } from "../shared/Header";
+import { Markdown } from "../shared/Markdown";
+import { Scroll } from "../shared/Scroll";
 
 const VERSION = "3.5.0";
 const BODY = `

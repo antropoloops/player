@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getActiveAudioContext } from "@atpls/active-audio-context";
 import { Audioset } from "@atpls/audioset";
-import { ResourceLoader } from "../../../player/Loader";
+import { ResourceLoader } from "../../player/Loader";
 import { scrollToTop } from "../../shared/useScroll";
 
 export function useSession(audioset: Audioset) {

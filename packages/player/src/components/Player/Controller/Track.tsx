@@ -1,6 +1,6 @@
 import React from "react";
 import { Audioset, Track as TrackModel } from "@atpls/audioset";
-import { ControlState, PlayerControl } from "../../../../player/Control";
+import { ControlState, PlayerControl } from "../../../player/Control";
 import { Clip } from "./Clip";
 import "./Track.css";
 

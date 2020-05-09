@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useAnalytics from "../ui/hooks/useAnalytics";
-import { Header } from "../ui/shared/Header";
+import useAnalytics from "../hooks/useAnalytics";
+import { Header } from "../shared/Header";
 
 const NotFound = () => {
   useAnalytics();
