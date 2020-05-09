@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactNode } from "react";
-import { Audioset } from "../../../audioset";
+import { Audioset } from "@atpls/audioset";
 import { Header } from "../../shared/Header";
 import { Scroll } from "../../shared/Scroll";
 import { Footer } from "./Footer";

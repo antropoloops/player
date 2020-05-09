@@ -1,4 +1,4 @@
-import { Clip, Track } from "../../audioset";
+import { Clip, Track } from "@atpls/audioset";
 import {
   ClipPlayingState,
   ClipPlayingStateByClipId,

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { getActiveAudioContext } from "../../../active-audio-context";
-import { Audioset } from "../../../audioset";
+import { getActiveAudioContext } from "@atpls/active-audio-context";
+import { Audioset } from "@atpls/audioset";
 import { ResourceLoader } from "../../../player/Loader";
 import { scrollToTop } from "../../shared/useScroll";
 
@@ -9,12 +9,12 @@ export function useSession(audioset: Audioset) {
   const [loaded, setLoaded] = useState(false);
   const loader = useMemo<ResourceLoader>(
     () =>
-      new ResourceLoader(audioset, status => {
+      new ResourceLoader(audioset, (status) => {
         if (status.stage === "ready") {
           setLoaded(true);
         }
       }),
-    [audioset],
+    [audioset]
   );
   const loading = started && !loaded;
 

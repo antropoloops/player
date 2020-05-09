@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Bundle as BundleData } from "../../audioset";
+import { Bundle as BundleData } from "@atpls/audioset";
 import { fetchAudioset } from "../lib/fetchAudioset";
 
 export function useRemoteBundle(idOrUrl: string) {
@@ -13,7 +13,7 @@ export function useRemoteBundle(idOrUrl: string) {
     function fetch() {
       setLoading(true);
       fetchAudioset(idOrUrl)
-        .then(result => {
+        .then((result) => {
           if (!didCancel) {
             setLoading(false);
             setBundle(result);

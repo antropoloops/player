@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Collapse from "react-css-collapse";
-import { autoUnlockAudio } from "../../../active-audio-context";
-import { Audioset } from "../../../audioset";
+import { autoUnlockAudio } from "@atpls/active-audio-context";
+import { Audioset } from "@atpls/audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Spinner } from "../../shared/Spinner";
 import { Controller } from "./Controller";

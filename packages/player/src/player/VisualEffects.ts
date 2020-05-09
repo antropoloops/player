@@ -1,7 +1,7 @@
 import debug from "debug";
 import { addResizeObserver } from "@atpls/add-resize-observer";
-import { Audioset } from "../audioset";
-import { Visuals } from "../visuals";
+import { Audioset } from "@atpls/audioset";
+import { Visuals } from "@atpls/visuals";
 import { ControlCommand } from "./Control";
 import { Effects } from "./Control";
 

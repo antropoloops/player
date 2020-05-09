@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AudiosetReference } from "../../../audioset";
+import { AudiosetReference } from "@atpls/audioset";
 
 interface ItemProps {
   reference: AudiosetReference;

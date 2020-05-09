@@ -1,6 +1,6 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
-import { Audioset, Clip } from "../../audioset";
+import { Audioset, Clip } from "@atpls/audioset";
 import getSupportedAudioCodecs from "@atpls/test-audio-codecs";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 

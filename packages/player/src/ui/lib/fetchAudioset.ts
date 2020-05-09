@@ -1,4 +1,4 @@
-import { Bundle, createAudioset } from "../../audioset";
+import { Bundle, createAudioset } from "@atpls/audioset";
 
 const PRODUCTION = `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files`;
 const STAGING = `https://play-admin.antropoloops.com/api/1.0/index`;

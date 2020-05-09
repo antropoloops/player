@@ -1,6 +1,6 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
-import { Audioset } from "../audioset";
+import { Audioset } from "@atpls/audioset";
 import { createSampler, SampleBuffers, Sampler } from "../sampler";
 import { ControlCommand, Effects } from "./Control";
 

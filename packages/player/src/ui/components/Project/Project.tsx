@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Project as ProjectData } from "../../../audioset";
+import { Project as ProjectData } from "@atpls/audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Header } from "../../shared/Header";
 import { Info } from "../../shared/Icons";
@@ -39,7 +39,7 @@ export const Project = ({ project }: ProjectProps) => {
             </div>
           )}
           <ul className="Audiosets">
-            {references.map(reference => (
+            {references.map((reference) => (
               <Item key={reference.id} reference={reference} />
             ))}
           </ul>

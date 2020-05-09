@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BundleMetadata } from "../../audioset";
+import { BundleMetadata } from "@atpls/audioset";
 import "./Header.css";
 import { ArrowLeft } from "./Icons";
 

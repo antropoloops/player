@@ -1,5 +1,5 @@
 import debug from "debug";
-import { Audioset, Clip } from "../../audioset";
+import { Audioset, Clip } from "@atpls/audioset";
 import { ControlCommand } from "./ControlCommand";
 import { ControlState } from "./ControlState";
 import { ControlStateManager } from "./ControlStateManager";

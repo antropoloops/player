@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Audioset } from "../../../audioset";
+import { Audioset } from "@atpls/audioset";
 import { Markdown } from "../../shared/Markdown";
 import "./Session.css";
 

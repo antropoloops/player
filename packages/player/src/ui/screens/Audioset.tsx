@@ -1,5 +1,5 @@
 import React from "react";
-import { isAudioset, Project as ProjectData } from "../../audioset";
+import { isAudioset, Project as ProjectData } from "@atpls/audioset";
 import { Player } from "../components/Player";
 import { Project } from "../components/Project";
 import useAnalytics from "../hooks/useAnalytics";

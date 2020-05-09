@@ -1,5 +1,5 @@
 import React from "react";
-import { BundleMetadata } from "../../../audioset";
+import { BundleMetadata } from "@atpls/audioset";
 import { ArrowDown, ArrowUp } from "../../shared/Icons";
 
 export const SessionHeader = ({
