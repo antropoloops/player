@@ -1,7 +1,7 @@
 import React from "react";
-import { Spinner } from "./Spinner";
+import { Spinner } from "../shared/Spinner";
 
-export const Loading = React.memo(() => {
+const LoadingPage = React.memo(() => {
   return (
     <div className="App">
       <div className="Header">
@@ -17,3 +17,5 @@ export const Loading = React.memo(() => {
     </div>
   );
 });
+
+export default LoadingPage;

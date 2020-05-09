@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useAnalytics from "../hooks/useAnalytics";
 import { Header } from "../shared/Header";
 
-const NotFound = () => {
+const NotFoundPage = () => {
   useAnalytics();
   return (
     <div className="App NotFound">
@@ -23,4 +23,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default NotFoundPage;

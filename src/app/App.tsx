@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
-import AudiosetPage from "./pages/AudiosetPage";
+import SetConductorPage from "./pages/BundlePage";
 import NotFoundPage from "./pages/NotFoundPage";
+
+import "./styles/reset.css";
+import "./styles/index.css";
 import "./App.css";
 
 const App = () => {
@@ -12,17 +15,17 @@ const App = () => {
         <Route
           path="/"
           exact={true}
-          render={() => <AudiosetPage idOrUrl="index" />}
+          render={() => <SetConductorPage idOrUrl="index" />}
         />
         <Route
           path="/set/:id"
           exact={true}
-          render={({ match }) => <AudiosetPage idOrUrl={match.params.id} />}
+          render={({ match }) => <SetConductorPage idOrUrl={match.params.id} />}
         />
         <Route
           path="/test"
           exact={true}
-          render={() => <AudiosetPage idOrUrl={getUrlFromParams()} />}
+          render={() => <SetConductorPage idOrUrl={getUrlFromParams()} />}
         />
         <Route path="/about" exact={true} component={AboutPage} />
         <Route component={NotFoundPage} />

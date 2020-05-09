@@ -1,0 +1,26 @@
+import React from "react";
+import { isAudioset, isProject } from "../../audioset";
+import { Project } from "../components/Project";
+import useAnalytics from "../hooks/useAnalytics";
+import { useRemoteBundle } from "../hooks/useRemoteBundle";
+import LoadingPage from "./LoadingPage";
+import AudiosetPage from "./AudiosetPage";
+
+type Props = {
+  idOrUrl: string;
+};
+
+const SetConductorPage: React.FC<Props> = ({ idOrUrl }) => {
+  useAnalytics();
+  const { bundle, loading } = useRemoteBundle(idOrUrl);
+
+  return loading ? (
+    <LoadingPage />
+  ) : bundle && isProject(bundle) ? (
+    <Project project={bundle} />
+  ) : bundle && isAudioset(bundle) ? (
+    <AudiosetPage audioset={bundle} />
+  ) : null;
+};
+
+export default SetConductorPage;

@@ -1,29 +1,62 @@
-import React from "react";
-import { isAudioset, Project as ProjectData } from "../../audioset";
-import { Player } from "../components/Player";
-import { Project } from "../components/Project";
-import useAnalytics from "../hooks/useAnalytics";
-import { useRemoteBundle } from "../hooks/useRemoteBundle";
-import { Loading } from "../shared/Loading";
-import NotFound from "./NotFoundPage";
+import React, { useEffect, useState, useMemo } from "react";
+import { Audioset } from "../../audioset";
+import PlayerPage from "./PlayerPage";
+import PreviewPage from "./PreviewPage";
+import { ResourceLoader } from "../../player/Loader";
+import {
+  getActiveAudioContext,
+  autoUnlockAudio,
+} from "../../active-audio-context";
 
-interface Props {
-  idOrUrl: string;
-}
-const AudiosetPage = ({ idOrUrl }: Props) => {
-  useAnalytics();
-  const { bundle, loading } = useRemoteBundle(idOrUrl);
-  if (loading) {
-    return <Loading />;
-  } else if (bundle) {
-    return isAudioset(bundle) ? (
-      <Player audioset={bundle} />
-    ) : (
-      <Project project={bundle as ProjectData} />
-    );
-  } else {
-    return <NotFound />;
+type Props = {
+  audioset: Audioset;
+};
+
+const AudiosetPage: React.FC<Props> = ({ audioset }) => {
+  const [isPlaying, setPlaying] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const resources = useMemo<ResourceLoader>(
+    () =>
+      new ResourceLoader(audioset, (status) => {
+        if (status.stage === "ready") {
+          setLoaded(true);
+        }
+      }),
+    [audioset]
+  );
+  // const loading = started && !loaded;
+
+  async function startLoading() {
+    if (!started) {
+      setStarted(true);
+      const ctx = await getActiveAudioContext();
+      await resources.load(ctx);
+    }
   }
+
+  useEffect(() => {
+    setPlaying(false);
+  }, [audioset]);
+
+  useEffect(() => autoUnlockAudio(), []);
+
+  return isPlaying ? (
+    <PlayerPage
+      ready={loaded}
+      audioset={audioset}
+      buffers={resources}
+      onStop={() => setPlaying(false)}
+    />
+  ) : (
+    <PreviewPage
+      audioset={audioset}
+      onStart={() => {
+        startLoading();
+        setPlaying(true);
+      }}
+    />
+  );
 };
 
 export default AudiosetPage;
