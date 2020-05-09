@@ -6,6 +6,26 @@ import { Markdown } from "../shared/Markdown";
 import { Scroll } from "../shared/Scroll";
 
 const VERSION = "3.5.0";
+
+const AboutPage = () => {
+  useAnalytics();
+  return (
+    <div className="App NotFound">
+      <Header />
+      <Scroll>
+        <div className="content">
+          <div className="inside">
+            <Markdown markdown={BODY} />
+            <Link to="/">Volver al inicio</Link>
+          </div>
+        </div>
+      </Scroll>
+    </div>
+  );
+};
+
+export default AboutPage;
+
 const BODY = `
 <p>Versión ${VERSION}</p>
 <p>
@@ -54,20 +74,3 @@ o
 <a target="_blank" href="https://twitter.com/antropoloopsEDU">https://twitter.com/antropoloopsEDU</a>
 </p>
 `;
-
-export const About = () => {
-  useAnalytics();
-  return (
-    <div className="App NotFound">
-      <Header />
-      <Scroll>
-        <div className="content">
-          <div className="inside">
-            <Markdown markdown={BODY} />
-            <Link to="/">Volver al inicio</Link>
-          </div>
-        </div>
-      </Scroll>
-    </div>
-  );
-};

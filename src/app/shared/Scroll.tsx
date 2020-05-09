@@ -1,5 +1,5 @@
 import React from "react";
-import { useScrollTop } from "./useScroll";
+import { useScrollTop } from "../hooks/useScrollTop";
 
 /**
  *

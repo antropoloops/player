@@ -5,12 +5,12 @@ import { Project } from "../components/Project";
 import useAnalytics from "../hooks/useAnalytics";
 import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import { Loading } from "../shared/Loading";
-import NotFound from "./NotFound";
+import NotFound from "./NotFoundPage";
 
 interface Props {
   idOrUrl: string;
 }
-export const Audioset = ({ idOrUrl }: Props) => {
+const AudiosetPage = ({ idOrUrl }: Props) => {
   useAnalytics();
   const { bundle, loading } = useRemoteBundle(idOrUrl);
   if (loading) {
@@ -25,3 +25,5 @@ export const Audioset = ({ idOrUrl }: Props) => {
     return <NotFound />;
   }
 };
+
+export default AudiosetPage;
