@@ -8,9 +8,7 @@
     "test": "react-scripts test",
     "test:types": "tsc --noUnusedLocals",
     "lint": "tslint --fix 'src/**/*.{ts,tsx}'",
-    "deploy": "serverless deploy -v && yarn run cloudfront:invalidate",
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
-    "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'",
     "eject": "react-scripts eject",
     "api:mock": "json-server -p 1234 --watch server/db.json"
   },
@@ -78,7 +76,6 @@
   "devDependencies": {
     "@types/react-responsive": "^8.0.2",
     "json-server": "^0.16.1",
-    "serverless": "^1.70.0",
     "source-map-explorer": "^2.4.2",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
