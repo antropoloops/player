@@ -1,0 +1,34 @@
+{
+  "name": "@atpls/add-resize-observer",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "setup": "npm run build",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {},
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "module": "dist/add-resize-observer.esm.js",
+  "devDependencies": {
+    "tsdx": "^0.13.2",
+    "tslib": "^1.11.2",
+    "typescript": "^3.8.3"
+  }
+}

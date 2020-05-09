@@ -28,5 +28,6 @@
     "noselect",
     "onstatechange",
     "screenfull"
-  ]
+  ],
+  "npm.packageManager": "yarn"
 }
