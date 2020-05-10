@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import { getActiveAudioContext } from "../../../active-audio-context";
-import { Audioset } from "../../../audioset";
+import { getActiveAudioContext } from "../../active-audio-context";
+import { Audioset } from "../../audioset";
 import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
   ControlState,
-} from "../../../player/Control";
-import { Effects } from "../../../player/Control";
-import { SampleBuffers } from "../../../sampler";
+} from "../../player/Control";
+import { Effects } from "../../player/Control";
+import { SampleBuffers } from "../../sampler";
 
 export type PlayerComponentState = {
   control?: PlayerControl;
@@ -40,15 +40,13 @@ export function usePlayer(
       if (cancelled) {
         return;
       }
-      const { createAudioEffects } = await import(
-        "../../../player/AudioEffects"
-      );
+      const { createAudioEffects } = await import("../../player/AudioEffects");
 
       audio = createAudioEffects(audioset, ctx, buffers);
 
       if (el) {
         const { createVisualEffects } = await import(
-          "../../../player/VisualEffects"
+          "../../player/VisualEffects"
         );
         visuals = createVisualEffects(audioset);
         visuals.attach(el);

@@ -16,7 +16,7 @@ const PreviewPage: React.FC<Props> = ({ audioset, onStart }) => {
       <Scroll>
         <div className="content">
           <img
-            className="responsive"
+            className="w-full"
             alt={audioset.meta.title}
             src={audioset.meta.logo_url}
           />
@@ -26,7 +26,7 @@ const PreviewPage: React.FC<Props> = ({ audioset, onStart }) => {
         </div>
       </Scroll>
       <footer className="Footer">
-        <div className="w-full p-4 bg-gray-medium">
+        <div className="w-full p-4 bg-gray-medium shadow-inner">
           <div className="w-full flex justify-center">
             <button
               className="p-2 rounded-full bg-green"

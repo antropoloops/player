@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Audioset } from "../../audioset";
 import { Scroll } from "../components/Scroll";
-import { PlayerComponentState } from "../components/Player/usePlayer";
+import { PlayerComponentState } from "../hooks/usePlayer";
 import { Controller } from "../components/Player/Controller";
 import { ArrowUp, ArrowDown } from "../components/Icons";
 import { Spinner } from "../components/Spinner";

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run css:prod && react-scripts build",
     "test": "react-scripts test",
     "test:types": "tsc --noUnusedLocals",
     "lint": "tslint --fix 'src/**/*.{ts,tsx}'",

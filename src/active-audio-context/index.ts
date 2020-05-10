@@ -25,32 +25,34 @@ export function getActiveAudioContext(): Promise<AudioContext> {
 }
 
 export function autoUnlockAudio() {
-  function unlock() {
-    unmute(context);
-    const prevHandler = context.onstatechange;
-    // FIXME: think better how to fix this
-    context.onstatechange = (args) => {
-      handleStateChange();
-      if (prevHandler) {
-        prevHandler(args);
-      }
-    };
-    context.resume().then(detach);
-  }
+  return new Promise((resolve) => {
+    function unlock() {
+      unmute(context);
+      const prevHandler = context.onstatechange;
+      // FIXME: think better how to fix this
+      context.onstatechange = (args) => {
+        handleStateChange();
+        if (prevHandler) {
+          prevHandler(args);
+        }
+      };
+      context.resume().then(detach).then(resolve);
+    }
 
-  function detach() {
-    // Remove the touch start listener.
-    log("detach auto unlock", context.state);
-    document.removeEventListener("touchstart", unlock, true);
-    document.removeEventListener("touchend", unlock, true);
-    document.removeEventListener("click", unlock, true);
-  }
+    function detach() {
+      // Remove the touch start listener.
+      log("detach auto unlock", context.state);
+      document.removeEventListener("touchstart", unlock, true);
+      document.removeEventListener("touchend", unlock, true);
+      document.removeEventListener("click", unlock, true);
+    }
 
-  // Setup a touch start listener to attempt an unlock in.
-  log("attach auto unlock");
-  document.addEventListener("touchstart", unlock, true);
-  document.addEventListener("touchend", unlock, true);
-  document.addEventListener("click", unlock, true);
+    // Setup a touch start listener to attempt an unlock in.
+    log("attach auto unlock");
+    document.addEventListener("touchstart", unlock, true);
+    document.addEventListener("touchend", unlock, true);
+    document.addEventListener("click", unlock, true);
+  });
 }
 
 function handleStateChange() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useFullscreen } from "./Player/useFullscreen";
+import { useFullscreen } from "../hooks/useFullscreen";
 
 type Props = {
   onClose: () => void;

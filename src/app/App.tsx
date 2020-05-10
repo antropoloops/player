@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import SetConductorPage from "./pages/BundlePage";
@@ -6,8 +6,12 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import "./styles/tailwind.css";
 import "./App.css";
+import { autoUnlockAudio } from "../active-audio-context";
 
 const App = () => {
+  useEffect(() => {
+    autoUnlockAudio();
+  });
   return (
     <BrowserRouter>
       <Switch>

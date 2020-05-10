@@ -1,12 +1,17 @@
 import React, { useReducer } from "react";
 import { ArrowDown, ArrowUp } from "../Icons";
 import { Markdown } from "../Markdown";
+import { AnimatePresence, motion } from "framer-motion";
 import "./Readme.css";
 
 interface ReadmeProps {
   className?: string;
   content: string;
 }
+const variants = {
+  open: { height: "auto" },
+  collapsed: { height: "6rem" },
+};
 
 export const Readme = ({ className, content }: ReadmeProps) => {
   const [isOpen, toggleOpen] = useReducer((x) => !x, false);
@@ -19,10 +24,21 @@ export const Readme = ({ className, content }: ReadmeProps) => {
   const isLarge = content.length > summary.length;
 
   return (
-    <div className={`${className} `}>
-      <Markdown markdown={isOpen ? content : summary} />
+    <div className={`${className}`}>
+      <motion.div
+        className="overflow-hidden"
+        initial={isOpen ? "open" : "collapsed"}
+        animate={isOpen ? "open" : "collapsed"}
+        variants={variants}
+        transition={{ duration: 0.3 }}
+      >
+        <Markdown markdown={content} />
+      </motion.div>
       <div className="outline-none flex justify-center p-2">
-        <button className="rounded-full" onClick={toggleOpen}>
+        <button
+          className="rounded-full shadow outline-none"
+          onClick={toggleOpen}
+        >
           {isLarge &&
             (isOpen ? (
               <ArrowUp className="text-gray-medium" />
