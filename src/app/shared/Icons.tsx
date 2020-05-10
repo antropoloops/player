@@ -3,18 +3,20 @@ import React from "react";
 const DEFAULT_SIZE = 24;
 
 interface IconProps {
+  className?: string;
   color?: string;
   size?: string;
   onClick?: (event: any) => void;
 }
 
 const Icon = (name: string, path: string, viewBox = "0 0 512 512") => ({
+  className = "",
   color,
   size,
   onClick,
 }: IconProps) => (
   <svg
-    className={`icon ${name}-arrow`}
+    className={`${className} icon ${name}-arrow`}
     width={size || DEFAULT_SIZE}
     height={size || DEFAULT_SIZE}
     focusable="false"
@@ -23,7 +25,7 @@ const Icon = (name: string, path: string, viewBox = "0 0 512 512") => ({
     viewBox={viewBox}
     onClick={onClick}
   >
-    <path fill={color || "#6a6a6a"} d={path} />
+    <path fill={color || "currentColor"} d={path} />
   </svg>
 );
 

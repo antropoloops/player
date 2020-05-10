@@ -24,8 +24,11 @@ export interface BundleHeaderProps {
 
 export const BundleHeader = ({ meta }: HeaderProps) => (
   <div className="Header">
-    <Link className="navigation" to={getAudiosetPath(meta.parent_path)}>
-      <ArrowLeft />
+    <Link
+      className="p-2 flex items-center text-white"
+      to={getAudiosetPath(meta.parent_path)}
+    >
+      <ArrowLeft className="text-gray-light" />
       <h1>{meta?.title}</h1>
     </Link>
   </div>

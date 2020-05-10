@@ -1,11 +1,12 @@
-
 .Markdown {
-  background-color: #505050;
-  color: #eee;
 }
 
-.Markdown h2   {
+.Markdown h2 {
   margin-top: 1rem;
+}
+
+.Markdown > *:first-child {
+  margin-top: 0;
 }
 
 .Markdown p {

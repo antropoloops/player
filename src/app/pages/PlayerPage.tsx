@@ -1,52 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Audioset } from "../../audioset";
 import { Scroll } from "../shared/Scroll";
-import { usePlayer } from "../components/Player/usePlayer";
+import { PlayerComponentState } from "../components/Player/usePlayer";
 import { Controller } from "../components/Player/Controller";
-import { useFullscreen } from "../components/Player/useFullscreen";
-import { useKeyboardListener } from "../components/Player/useKeyboardListener";
-import { autoUnlockAudio } from "../../active-audio-context";
-import { Footer } from "../components/Player/Footer";
-import { SampleBuffers } from "../../sampler";
-import { ArrowLeft } from "../shared/Icons";
+import { ArrowUp, ArrowDown } from "../shared/Icons";
 import { Spinner } from "../shared/Spinner";
+import ConfigPage from "../components/AudiosetConfig";
 
 type Props = {
   ready: boolean;
   audioset: Audioset;
-  buffers: SampleBuffers;
   onStop: () => void;
+  player: PlayerComponentState;
 };
 
-const PlayerPage: React.FC<Props> = ({ ready, audioset, buffers, onStop }) => {
-  const player = usePlayer(audioset, buffers);
-  const { toggleFullscreen } = useFullscreen();
-  useKeyboardListener(player.control?.keyboard);
+const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
+  const [isConfig, setIsConfig] = useState(false);
 
-  useEffect(() => autoUnlockAudio(), []);
   return (
     <div className="App Audioset">
-      <div className="Header">
-        <button className="navigation" onClick={onStop}>
-          <ArrowLeft />
-          <h1>{audioset.meta.title}</h1>
+      <div className="Header overflow-hidden">
+        <button
+          className="p-2 flex shadow-none outline-none w-full items-center rounded-lg text-gray-light"
+          onClick={() => setIsConfig(!isConfig)}
+        >
+          <h1 className="flex-grow text-white text-light">
+            {audioset.meta.title}
+          </h1>
+          <svg
+            className={`fill-current h-4 w-4
+            transform duration-300 ${
+              isConfig
+                ? "-rotate-90 ease-out transition-medium"
+                : "rotate-0 ease-in transition-medium"
+            }`}
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
         </button>
       </div>
-      <Scroll>
-        <div className="content">
-          {!ready && <Spinner center="horizontal" />}
-          <Controller
-            audioset={audioset}
-            state={player.state}
-            control={player.control}
-            onResume={() => undefined}
-          />
-        </div>
-      </Scroll>
-      <Footer
-        onFullscreen={toggleFullscreen}
-        onStopAll={() => player?.control?.stopAll(0)}
-      />
+      {isConfig ? (
+        <ConfigPage
+          onClose={() => setIsConfig(false)}
+          onStop={() => player.control?.stopAll(0)}
+          onQuit={onStop}
+        />
+      ) : (
+        <Scroll>
+          <div className="content">
+            {!ready && <Spinner center="horizontal" />}
+            <Controller
+              audioset={audioset}
+              state={player.state}
+              control={player.control}
+              onResume={() => undefined}
+            />
+          </div>
+        </Scroll>
+      )}
       <div className="visuals">
         <div className="visuals-display" ref={player.visualsRef} />
       </div>

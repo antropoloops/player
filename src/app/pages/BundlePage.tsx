@@ -5,6 +5,7 @@ import useAnalytics from "../hooks/useAnalytics";
 import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import LoadingPage from "./LoadingPage";
 import AudiosetPage from "./AudiosetPage";
+import BrowsePage from "./BrowsePage";
 
 type Props = {
   idOrUrl: string;
@@ -17,7 +18,7 @@ const SetConductorPage: React.FC<Props> = ({ idOrUrl }) => {
   return loading ? (
     <LoadingPage />
   ) : bundle && isProject(bundle) ? (
-    <Project project={bundle} />
+    <BrowsePage project={bundle} />
   ) : bundle && isAudioset(bundle) ? (
     <AudiosetPage audioset={bundle} />
   ) : null;

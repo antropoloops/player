@@ -6,8 +6,18 @@ export interface Fullscreen {
   toggleFullscreen: () => void;
 }
 
+const isFull = () => {
+  if (Screenfull.isEnabled) {
+    const screen = Screenfull;
+    return screen.isFullscreen;
+  } else {
+    return false;
+  }
+};
+
 export function useFullscreen(): Fullscreen {
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(isFull);
+
   useEffect(() => {
     if (Screenfull.isEnabled) {
       const screen = Screenfull;

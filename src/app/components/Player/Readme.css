@@ -1,7 +1,3 @@
 .Readme {
   padding: 0.5rem;
 }
-
-.Readme .Markdown > h2:first-child {
-  margin-top: 0;
-}

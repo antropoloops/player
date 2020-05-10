@@ -4,8 +4,7 @@ import AboutPage from "./pages/AboutPage";
 import SetConductorPage from "./pages/BundlePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-import "./styles/reset.css";
-import "./styles/index.css";
+import "./styles/tailwind.css";
 import "./App.css";
 
 const App = () => {

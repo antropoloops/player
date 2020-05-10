@@ -4,10 +4,11 @@ import { Markdown } from "../../shared/Markdown";
 import "./Readme.css";
 
 interface ReadmeProps {
+  className?: string;
   content: string;
 }
 
-export const Readme = ({ content }: ReadmeProps) => {
+export const Readme = ({ className, content }: ReadmeProps) => {
   const [isOpen, toggleOpen] = useReducer((x) => !x, false);
 
   if (!content.length) {
@@ -18,11 +19,13 @@ export const Readme = ({ content }: ReadmeProps) => {
   const isLarge = content.length > summary.length;
 
   return (
-    <div className="Readme">
+    <div className={`${className} `}>
       <Markdown markdown={isOpen ? content : summary} />
-      <button className="btn-link" onClick={toggleOpen}>
-        {isLarge && (isOpen ? <ArrowUp /> : <ArrowDown />)}
-      </button>
+      <div className="outline-none flex justify-center p-2">
+        <button className="rounded-full" onClick={toggleOpen}>
+          {isLarge && (isOpen ? <ArrowUp /> : <ArrowDown />)}
+        </button>
+      </div>
     </div>
   );
 };

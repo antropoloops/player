@@ -20,22 +20,24 @@ const PreviewPage: React.FC<Props> = ({ audioset, onStart }) => {
             alt={audioset.meta.title}
             src={audioset.meta.logo_url}
           />
-          <div className="info">
-            <div className="actions">
-              <button
-                className="start btn-link"
-                title="Start playing"
-                onClick={onStart}
-              >
-                <img src="/play.png" alt="Start" />
-              </button>
-            </div>
-            <Markdown markdown={audioset.meta.readme} />
+          <div className="p-4">
+            <Markdown className="text-white" markdown={audioset.meta.readme} />
           </div>
-          >
         </div>
       </Scroll>
-      <div>Adios</div>
+      <footer className="Footer">
+        <div className="w-full p-4 bg-gray-medium">
+          <div className="w-full flex justify-center">
+            <button
+              className="p-2 rounded-full bg-green"
+              title="Start playing"
+              onClick={onStart}
+            >
+              <img className="h-8" src="/play.png" alt="Start" />
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

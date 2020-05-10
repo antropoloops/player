@@ -5,11 +5,21 @@ import {
   AudiosetControl,
   EmptyControlState,
   PlayerControl,
+  ControlState,
 } from "../../../player/Control";
 import { Effects } from "../../../player/Control";
 import { SampleBuffers } from "../../../sampler";
 
-export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
+export type PlayerComponentState = {
+  control?: PlayerControl;
+  state: ControlState;
+  visualsRef: (el: HTMLDivElement) => void;
+};
+
+export function usePlayer(
+  audioset: Audioset,
+  buffers: SampleBuffers
+): PlayerComponentState {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
   const [el, setReference] = useState<HTMLDivElement | null>(null);
   const visualsRef = useCallback((newRef: HTMLDivElement) => {
@@ -55,6 +65,7 @@ export function usePlayer(audioset: Audioset, buffers: SampleBuffers) {
       });
       return ctl;
     }
+
     createControl().then((instance) => {
       if (instance) {
         setControl(instance);
