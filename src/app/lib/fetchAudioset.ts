@@ -21,7 +21,7 @@ const getStaginUrl = (idOrUrl: string) =>
     : `${STAGING}/${idOrUrl}`;
 
 // const getUrl = getProductionUrl; // dbServerUrl;
-const getUrl = getProductionUrl || getStaginUrl;
+const getUrl = getStaginUrl;
 
 export function fetchAudioset(idOrUrl: string): Promise<Bundle> {
   return fetch(getUrl(idOrUrl))
