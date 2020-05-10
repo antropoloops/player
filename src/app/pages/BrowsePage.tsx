@@ -4,6 +4,7 @@ import { useDeviceType } from "../hooks/useDeviceType";
 import { Readme } from "../components/Player/Readme";
 import { Link } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
+import { ArrowLeft } from "../components/Icons";
 
 type Props = {
   project: Project;
@@ -16,18 +17,27 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
     <div className="App">
       <div className="Header">
         <div className="p-2">
-          <Link to="/" className="">
-            <img src="/play-logo.png" alt="Play antropoloops" />
-          </Link>
+          {project.meta.parent_path === "" ? (
+            <Link to="/" className="">
+              <img src="/play-logo.png" alt="Play antropoloops" />
+            </Link>
+          ) : (
+            <Link
+              className="flex align-center text-white"
+              to={project.meta.parent_path}
+            >
+              <ArrowLeft className="text-gray-light" />
+              {project.meta.title}
+            </Link>
+          )}
         </div>
       </div>
       <div className="scroll">
         <div className="h-full bg-gray-dark">
           <img
-            className="responsive"
+            className="w-full"
             alt={project.meta.title}
             src={project.meta.logo_url}
-            style={{ width: "100%" }}
           />
           {isMobile && (
             <div>
