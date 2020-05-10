@@ -1,6 +1,6 @@
 .Controller .Track {
   position: relative;
-  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
   color: white;
 }
 
@@ -31,10 +31,10 @@
   margin-bottom: 0.25rem;
 }
 
-.Controller  .Track:last-child {
+.Controller .Track:last-child {
   border-bottom: 0;
 }
-.Controller  .Track > .title {
+.Controller .Track > .title {
   font-size: 1.2rem;
   padding: 8px;
 }

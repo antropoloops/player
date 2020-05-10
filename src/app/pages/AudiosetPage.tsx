@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { Audioset } from "../../audioset";
 import PlayerPage from "./PlayerPage";
 import PreviewPage from "./PreviewPage";
 import { ResourceLoader } from "../../player/Loader";
-import {
-  getActiveAudioContext,
-  autoUnlockAudio,
-} from "../../active-audio-context";
+import { getActiveAudioContext } from "../../active-audio-context";
 import { usePlayer } from "../hooks/usePlayer";
 import { useKeyboardListener } from "../hooks/useKeyboardListener";
 
@@ -16,7 +13,6 @@ type Props = {
 
 const AudiosetPage: React.FC<Props> = ({ audioset }) => {
   const [isPlaying, setPlaying] = useState(false);
-  const [started, setStarted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const resources = useMemo<ResourceLoader>(
     () =>
@@ -32,12 +28,13 @@ const AudiosetPage: React.FC<Props> = ({ audioset }) => {
   useKeyboardListener(player.control?.keyboard);
 
   const startLoading = useCallback(async () => {
-    if (!started) {
-      setStarted(true);
-      const ctx = await getActiveAudioContext();
-      await resources.load(ctx);
-    }
-  }, [started, setStarted, resources]);
+    const ctx = await getActiveAudioContext();
+    await resources.load(ctx);
+  }, [resources]);
+
+  useEffect(() => {
+    startLoading();
+  });
 
   return isPlaying ? (
     <PlayerPage

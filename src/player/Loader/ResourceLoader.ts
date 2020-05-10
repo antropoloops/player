@@ -99,7 +99,8 @@ export class ResourceLoader implements Resources {
     log("Preload");
     this.preloaded = true;
     const { visuals, clips } = this.audioset;
-    const promises: Array<Promise<any>> = [];
+    const promises: Promise<any>[] = [];
+
     if (visuals.mode === "map" && visuals.geomap.url) {
       promises.push(fetch(visuals.geomap.url));
     }

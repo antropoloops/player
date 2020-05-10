@@ -3,9 +3,8 @@ import { Audioset } from "../../audioset";
 import { Scroll } from "../components/Scroll";
 import { PlayerComponentState } from "../hooks/usePlayer";
 import { Controller } from "../components/Player/Controller";
-import { ArrowUp, ArrowDown } from "../components/Icons";
-import { Spinner } from "../components/Spinner";
-import ConfigPage from "../components/AudiosetConfig";
+import AudiosetConfig from "../components/AudiosetConfig";
+import Collapsable from "../components/Collapsable";
 
 type Props = {
   ready: boolean;
@@ -42,25 +41,23 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
           </svg>
         </button>
       </div>
-      {isConfig ? (
-        <ConfigPage
-          onClose={() => setIsConfig(false)}
-          onStop={() => player.control?.stopAll(0)}
-          onQuit={onStop}
-        />
-      ) : (
-        <Scroll>
-          <div className="content">
-            {!ready && <Spinner center="horizontal" />}
-            <Controller
-              audioset={audioset}
-              state={player.state}
-              control={player.control}
-              onResume={() => undefined}
-            />
-          </div>
-        </Scroll>
-      )}
+      <Scroll>
+        <Collapsable isOpen={isConfig}>
+          <AudiosetConfig
+            onClose={() => setIsConfig(false)}
+            onStop={() => player.control?.stopAll(0)}
+            onQuit={onStop}
+          />
+        </Collapsable>
+        <div className="content">
+          <Controller
+            audioset={audioset}
+            state={player.state}
+            control={player.control}
+            onResume={() => undefined}
+          />
+        </div>
+      </Scroll>
       <div className="visuals">
         <div className="visuals-display" ref={player.visualsRef} />
       </div>

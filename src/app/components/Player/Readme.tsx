@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { ArrowDown, ArrowUp } from "../Icons";
 import { Markdown } from "../Markdown";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import "./Readme.css";
 
 interface ReadmeProps {
