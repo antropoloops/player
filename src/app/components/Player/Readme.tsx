@@ -23,7 +23,12 @@ export const Readme = ({ className, content }: ReadmeProps) => {
       <Markdown markdown={isOpen ? content : summary} />
       <div className="outline-none flex justify-center p-2">
         <button className="rounded-full" onClick={toggleOpen}>
-          {isLarge && (isOpen ? <ArrowUp /> : <ArrowDown />)}
+          {isLarge &&
+            (isOpen ? (
+              <ArrowUp className="text-gray-medium" />
+            ) : (
+              <ArrowDown className="text-gray-light" />
+            ))}
         </button>
       </div>
     </div>

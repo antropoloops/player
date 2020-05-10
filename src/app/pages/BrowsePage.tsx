@@ -51,7 +51,7 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
                 </div>
                 <div className="mx-2">
                   <h3 className="font-normal">{reference.title}</h3>
-                  <p className="text">{reference.description}</p>
+                  <p className="text-sm">{reference.description}</p>
                 </div>
               </Link>
             ))}
