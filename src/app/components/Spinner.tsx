@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as Circle } from "../shared/spinner.svg";
+import { ReactComponent as Circle } from "./spinner.svg";
 import "./Spinner.css";
 
 interface SpinnerProps {

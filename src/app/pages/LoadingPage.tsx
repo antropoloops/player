@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner } from "../shared/Spinner";
+import { Spinner } from "../components/Spinner";
 
 const LoadingPage = React.memo(() => {
   return (

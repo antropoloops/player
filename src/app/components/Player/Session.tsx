@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Audioset } from "../../../audioset";
-import { Markdown } from "../../shared/Markdown";
+import { Markdown } from "../Markdown";
 import "./Session.css";
 
 interface SessionProps {

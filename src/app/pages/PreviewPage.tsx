@@ -1,8 +1,8 @@
 import React from "react";
 import { Audioset } from "../../audioset";
-import { Scroll } from "../shared/Scroll";
-import { Header } from "../shared/Header";
-import { Markdown } from "../shared/Markdown";
+import { Scroll } from "../components/Scroll";
+import { Header } from "../components/Header";
+import { Markdown } from "../components/Markdown";
 
 type Props = {
   audioset: Audioset;

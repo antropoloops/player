@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Audioset } from "../../audioset";
-import { Scroll } from "../shared/Scroll";
+import { Scroll } from "../components/Scroll";
 import { PlayerComponentState } from "../components/Player/usePlayer";
 import { Controller } from "../components/Player/Controller";
-import { ArrowUp, ArrowDown } from "../shared/Icons";
-import { Spinner } from "../shared/Spinner";
+import { ArrowUp, ArrowDown } from "../components/Icons";
+import { Spinner } from "../components/Spinner";
 import ConfigPage from "../components/AudiosetConfig";
 
 type Props = {

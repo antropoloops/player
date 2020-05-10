@@ -3,7 +3,7 @@ import { Project } from "../../audioset";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { Readme } from "../components/Player/Readme";
 import { Link } from "react-router-dom";
-import { Markdown } from "../shared/Markdown";
+import { Markdown } from "../components/Markdown";
 
 type Props = {
   project: Project;

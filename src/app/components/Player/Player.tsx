@@ -3,7 +3,7 @@ import Collapse from "react-css-collapse";
 import { autoUnlockAudio } from "../../../active-audio-context";
 import { Audioset } from "../../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import { Spinner } from "../../shared/Spinner";
+import { Spinner } from "../Spinner";
 import { Controller } from "./Controller";
 import { Session } from "./Session";
 import { SessionHeader } from "./SessionHeader";

@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
-import { ArrowDown, ArrowUp } from "../../shared/Icons";
-import { Markdown } from "../../shared/Markdown";
+import { ArrowDown, ArrowUp } from "../Icons";
+import { Markdown } from "../Markdown";
 import "./Readme.css";
 
 interface ReadmeProps {
