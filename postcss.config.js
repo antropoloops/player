@@ -1,6 +1,6 @@
 const purgecss = require("@fullhuman/postcss-purgecss")({
   content: ["./src/**/*.tsx"],
-  css: ["./src/app/styles/index.css"],
+  defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
 });
 
 const cssnano = require("cssnano")({
