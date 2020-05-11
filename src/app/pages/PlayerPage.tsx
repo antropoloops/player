@@ -18,7 +18,7 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
 
   return (
     <div className="App Audioset">
-      <div className="Header overflow-hidden">
+      <div className="Header">
         <button
           className="p-2 flex shadow-none outline-none w-full items-center rounded-lg text-gray-light"
           onClick={() => setIsConfig(!isConfig)}
@@ -40,8 +40,6 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
         </button>
-      </div>
-      <Scroll>
         <Collapsable isOpen={isConfig}>
           <AudiosetConfig
             onClose={() => setIsConfig(false)}
@@ -49,15 +47,15 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
             onQuit={onStop}
           />
         </Collapsable>
-        <div className="content">
-          <Controller
-            audioset={audioset}
-            state={player.state}
-            control={player.control}
-            onResume={() => undefined}
-          />
-        </div>
-      </Scroll>
+      </div>
+      <div className="Content">
+        <Controller
+          audioset={audioset}
+          state={player.state}
+          control={player.control}
+          onResume={() => undefined}
+        />
+      </div>
       <div className="visuals">
         <div className="visuals-display" ref={player.visualsRef} />
       </div>

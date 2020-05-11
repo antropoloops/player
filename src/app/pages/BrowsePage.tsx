@@ -32,7 +32,7 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
           )}
         </div>
       </div>
-      <div className="scroll">
+      <div className="Content">
         <div className="h-full bg-gray-dark">
           <img
             className="w-full"
@@ -57,8 +57,8 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
                     alt={reference.title}
                   />
                 </div>
-                <div className="mx-2">
-                  <h3 className="font-normal">{reference.title}</h3>
+                <div className="p-2">
+                  <h3 className="font-normal mb-2">{reference.title}</h3>
                   <p className="text-sm">{reference.description}</p>
                 </div>
               </Link>

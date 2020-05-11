@@ -5,13 +5,13 @@ const LoadingPage = React.memo(() => {
   return (
     <div className="App">
       <div className="Header">
-        <div className="logo">
+        <div className="p-2">
           <img src="/play-logo.png" alt="Play antropoloops" />
         </div>
       </div>
-      <div className="scroll">
-        <div className="content">
-          <Spinner center="full" />
+      <div className="Content">
+        <div className="flex flex-grow items-center justify-center">
+          <Spinner />
         </div>
       </div>
     </div>

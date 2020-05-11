@@ -10,10 +10,7 @@ type Props = {
 const ConfigPage: React.FC<Props> = ({ onClose, onStop, onQuit }) => {
   const { toggleFullscreen, isFullscreen } = useFullscreen();
   return (
-    <div className="p-4 flex flex-col">
-      <h3 className="text-lg text-gray-light font-medium pb-4">
-        Configuración
-      </h3>
+    <div className="p-4 flex flex-col bg-gray-medium">
       <button
         className="p-2 opacity-50 bg-gray-light"
         onClick={() => {
