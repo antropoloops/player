@@ -3,7 +3,7 @@ import { Audioset } from "../../audioset";
 import PlayerPage from "./PlayerPage";
 import PreviewPage from "./PreviewPage";
 import { ResourceLoader } from "../../player/Loader";
-import { getActiveAudioContext } from "../../active-audio-context";
+import { getActiveAudioContext } from "../../lib/active-audio-context";
 import { usePlayer } from "../hooks/usePlayer";
 import { useKeyboardListener } from "../hooks/useKeyboardListener";
 

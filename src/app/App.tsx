@@ -6,7 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import "./styles/tailwind.css";
 import "./App.css";
-import { autoUnlockAudio } from "../active-audio-context";
+import { autoUnlockAudio } from "../lib/active-audio-context";
 
 const App = () => {
   useEffect(() => {

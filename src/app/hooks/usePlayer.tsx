@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { getActiveAudioContext } from "../../active-audio-context";
+import { getActiveAudioContext } from "../../lib/active-audio-context";
 import { Audioset } from "../../audioset";
 import {
   AudiosetControl,

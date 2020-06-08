@@ -1,6 +1,5 @@
 import React from "react";
 import { isAudioset, isProject } from "../../audioset";
-import { Project } from "../components/Project";
 import useAnalytics from "../hooks/useAnalytics";
 import { useRemoteBundle } from "../hooks/useRemoteBundle";
 import LoadingPage from "./LoadingPage";
