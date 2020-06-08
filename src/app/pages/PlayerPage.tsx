@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Audioset } from "../../audioset";
-import { Scroll } from "../components/Scroll";
 import { PlayerComponentState } from "../hooks/usePlayer";
 import { Controller } from "../components/Player/Controller";
 import AudiosetConfig from "../components/AudiosetConfig";
@@ -20,7 +19,7 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
     <div className="App Audioset">
       <div className="Header">
         <button
-          className="p-2 flex shadow-none outline-none w-full items-center rounded-lg text-gray-light"
+          className="p-2 flex shadow-none focus:outline-none w-full items-center rounded-lg text-gray-light"
           onClick={() => setIsConfig(!isConfig)}
         >
           <h1 className="flex-grow text-white text-light">

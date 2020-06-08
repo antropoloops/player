@@ -34,14 +34,14 @@ export const Readme = ({ className, content }: ReadmeProps) => {
       >
         <Markdown markdown={content} />
       </motion.div>
-      <div className="outline-none flex justify-center p-2">
+      <div className="flex justify-center p-2">
         <button
-          className="rounded-full shadow outline-none"
+          className="rounded-full shadow focus:outline-none"
           onClick={toggleOpen}
         >
           {isLarge &&
             (isOpen ? (
-              <ArrowUp className="text-gray-medium" />
+              <ArrowUp className="text-gray-light" />
             ) : (
               <ArrowDown className="text-gray-light" />
             ))}
