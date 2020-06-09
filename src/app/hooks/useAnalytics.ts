@@ -1,12 +1,17 @@
 import { useEffect } from "react";
 import ReactGA from "react-ga";
+import { TRACKING_CODE } from "../config";
 
-ReactGA.initialize(process.env.REACT_APP_GA || "");
+if (TRACKING_CODE) {
+  ReactGA.initialize(TRACKING_CODE);
+}
 
 export default function useAnalytics(
-  location: string = window.location.pathname + window.location.search
+  location = window.location.pathname + window.location.search
 ) {
   useEffect(() => {
-    ReactGA.pageview(location);
+    if (TRACKING_CODE) {
+      ReactGA.pageview(location);
+    }
   }, [location]);
 }
