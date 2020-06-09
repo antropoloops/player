@@ -5,7 +5,6 @@ import SetConductorPage from "./pages/BundlePage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import "./styles/tailwind.css";
-import "./App.css";
 import { autoUnlockAudio } from "../lib/active-audio-context";
 
 const App = () => {

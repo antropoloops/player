@@ -40,7 +40,10 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
             src={project.meta.logo_url}
           />
           {isMobile && (
-            <Readme className="px-2" content={project.meta.readme} />
+            <Readme
+              className="bg-gray-medium p-4"
+              content={project.meta.readme}
+            />
           )}
           <ul className="Audiosets">
             {references.map((reference) => (
