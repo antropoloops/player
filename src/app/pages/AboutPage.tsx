@@ -1,20 +1,27 @@
 import React from "react";
 import { Markdown } from "../components/Markdown";
 import Layout from "../components/Layout";
+import { useDeviceType } from "../hooks/useDeviceType";
+import { Link } from "react-router-dom";
+import routes from "../routes";
 
 const VERSION = "3.5.0";
 
 const AboutPage = () => {
-  const visuals = (
-    <div className="h-full flex flex-col items-center justify-center">
-      <img alt="team" src="/talleres.jpg" />
-    </div>
-  );
-
+  const { isMobile } = useDeviceType();
   return (
-    <Layout visuals={visuals}>
+    <Layout desktop={<img className="w-full" alt="team" src="/talleres.jpg" />}>
+      {isMobile && <img alt="team" src="/talleres.jpg" />}
       <div className="p-4 text-white">
         <Markdown markdown={BODY} />
+      </div>
+      <div className="my-8 flex justify-center">
+        <Link
+          className="py-2 px-4 rounded-full bg-gray-light text-white"
+          to={routes.root()}
+        >
+          Volver al inicio
+        </Link>
       </div>
     </Layout>
   );
