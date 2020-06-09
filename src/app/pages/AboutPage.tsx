@@ -1,27 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import useAnalytics from "../hooks/useAnalytics";
-import { Header } from "../components/Header";
 import { Markdown } from "../components/Markdown";
-import { Scroll } from "../components/Scroll";
-import routes from "../routes";
+import Layout from "../components/Layout";
 
 const VERSION = "3.5.0";
 
 const AboutPage = () => {
-  useAnalytics();
-  return (
-    <div className="App NotFound">
-      <Header />
-      <Scroll>
-        <div className="content">
-          <div className="inside">
-            <Markdown markdown={BODY} />
-            <Link to={routes.root()}>Volver al inicio</Link>
-          </div>
-        </div>
-      </Scroll>
+  const visuals = (
+    <div className="h-full flex flex-col items-center justify-center">
+      <img alt="team" src="/talleres.jpg" />
     </div>
+  );
+
+  return (
+    <Layout visuals={visuals}>
+      <div className="p-4 text-white">
+        <Markdown markdown={BODY} />
+      </div>
+    </Layout>
   );
 };
 
