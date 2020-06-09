@@ -4,6 +4,7 @@ import useAnalytics from "../hooks/useAnalytics";
 import { Header } from "../components/Header";
 import { Markdown } from "../components/Markdown";
 import { Scroll } from "../components/Scroll";
+import routes from "../routes";
 
 const VERSION = "3.5.0";
 
@@ -16,7 +17,7 @@ const AboutPage = () => {
         <div className="content">
           <div className="inside">
             <Markdown markdown={BODY} />
-            <Link to="/">Volver al inicio</Link>
+            <Link to={routes.root()}>Volver al inicio</Link>
           </div>
         </div>
       </Scroll>

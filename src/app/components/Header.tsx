@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BundleMetadata } from "../../audioset";
 import "./Header.css";
 import { ArrowLeft } from "./Icons";
+import routes from "../routes";
 
 interface HeaderProps {
   meta: BundleMetadata;
@@ -37,7 +38,7 @@ export const BundleHeader = ({ meta }: HeaderProps) => (
 export const LogoHeader = () => (
   <div className="Header">
     <div className="logo">
-      <Link to="/">
+      <Link to={routes.root()}>
         <img
           className="play-logo"
           src="/play-logo.png"

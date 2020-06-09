@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAnalytics from "../hooks/useAnalytics";
 import { Header } from "../components/Header";
+import routes from "../routes";
 
 const NotFoundPage = () => {
   useAnalytics();
@@ -16,7 +17,7 @@ const NotFoundPage = () => {
             Si crees que algo va mal, por favor escríbenos a
             hola@antropoloops.com
           </p>
-          <Link to="/">Volver al inicio</Link>
+          <Link to={routes.root()}>Volver al inicio</Link>
         </div>
       </div>
     </div>

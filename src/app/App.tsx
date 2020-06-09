@@ -6,30 +6,31 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 import "./styles/tailwind.css";
 import { autoUnlockAudio } from "../lib/active-audio-context";
+import routes from "./routes";
 
 const App = () => {
   useEffect(() => {
     autoUnlockAudio();
-  });
+  }, []);
   return (
     <BrowserRouter>
       <Switch>
         <Route
-          path="/"
+          path={routes.root()}
           exact={true}
           render={() => <SetConductorPage idOrUrl="index" />}
         />
         <Route
-          path="/set/:id"
+          path={routes.set(":id")}
           exact={true}
           render={({ match }) => <SetConductorPage idOrUrl={match.params.id} />}
         />
         <Route
-          path="/test"
+          path={routes.testSet()}
           exact={true}
           render={() => <SetConductorPage idOrUrl={getUrlFromParams()} />}
         />
-        <Route path="/about" exact={true} component={AboutPage} />
+        <Route path={routes.about()} exact={true} component={AboutPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>

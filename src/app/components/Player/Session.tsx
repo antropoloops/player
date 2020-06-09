@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Audioset } from "../../../audioset";
 import { Markdown } from "../Markdown";
 import "./Session.css";
+import routes from "../../routes";
 
 interface SessionProps {
   audioset: Audioset;
@@ -26,7 +27,11 @@ export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
           </button>
         </div>
         <div className="actions">
-          <Link to={`/set/${meta.parent_path || "index"}`}>Cerrar</Link>
+          <Link
+            to={meta.parent_path ? routes.set(meta.parent_path) : routes.sets()}
+          >
+            Cerrar
+          </Link>
         </div>
         <Markdown markdown={meta.readme} />
       </div>

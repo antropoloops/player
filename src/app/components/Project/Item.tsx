@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AudiosetReference } from "../../../audioset";
+import routes from "../../routes";
 
 interface ItemProps {
   reference: AudiosetReference;
 }
 
 export const Item = ({ reference }: ItemProps) => (
-  <Link to={`/set/${reference.publish_path}`}>
+  <Link to={routes.set(reference.publish_path)}>
     <div className="Item">
       <div className="image">
         {/* This is hack to keep img in Safari responsive */}

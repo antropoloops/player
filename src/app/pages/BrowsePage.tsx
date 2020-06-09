@@ -5,6 +5,7 @@ import { Readme } from "../components/Player/Readme";
 import { Link } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import { ArrowLeft } from "../components/Icons";
+import routes from "../routes";
 
 type Props = {
   project: Project;
@@ -18,7 +19,7 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
       <div className="Header">
         <div className="p-2">
           {project.meta.parent_path === "" ? (
-            <Link to="/" className="">
+            <Link to={routes.root()} className="">
               <img src="/play-logo.png" alt="Play antropoloops" />
             </Link>
           ) : (

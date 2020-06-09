@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FullscreenIcon, Info, Stop } from "../Icons";
+import routes from "../../routes";
 
 interface FooterProps {
   onStopAll: () => void;
@@ -11,7 +12,7 @@ export const Footer = ({ onFullscreen, onStopAll }: FooterProps) => {
   return (
     <footer className="Footer">
       <div className="left">
-        <Link to="/about">
+        <Link to={routes.about()}>
           <Info />
         </Link>
       </div>

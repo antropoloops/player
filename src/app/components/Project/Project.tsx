@@ -9,6 +9,7 @@ import { Scroll } from "../Scroll";
 import { Readme } from "../Player/Readme";
 import { Item } from "./Item";
 import "./Project.css";
+import routes from "../../routes";
 
 interface ProjectProps {
   project: ProjectData;
@@ -50,7 +51,7 @@ export const Project = ({ project }: ProjectProps) => {
       </Scroll>
       <footer className="Footer">
         <div className="left">
-          <Link to="/about">
+          <Link to={routes.about()}>
             <Info />
           </Link>
         </div>
