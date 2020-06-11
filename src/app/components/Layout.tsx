@@ -27,7 +27,7 @@ const Layout: React.FC<Props> = ({
       <div className="Header">
         <div className="p-2 group">
           {header ? (
-            <Link className="flex align-center text-white" to={headerPath}>
+            <Link className="flex items-center text-white" to={headerPath}>
               <ArrowLeft className="mr-2 text-gray-light group-hover:text-white" />
               {header}
             </Link>

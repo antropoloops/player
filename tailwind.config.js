@@ -6,7 +6,8 @@ module.exports = {
         transparent: "transparent",
 
         black: "#000",
-        white: "#fff",
+        white: "#ddd",
+        "white-light": "#fff",
 
         gray: {
           dark: "#444444",
@@ -15,6 +16,9 @@ module.exports = {
         },
         green: "#7ffa0b",
         red: "#ff0000",
+      },
+      spacing: {
+        "1px": "1px",
       },
     },
   },
