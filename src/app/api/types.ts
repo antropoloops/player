@@ -3,9 +3,14 @@ export type Topic = {
   title: string;
   path: string;
   readme: string;
+  group: {
+    id: string;
+    title: string;
+  };
 };
 
 export type TopicGroup = {
+  id: string;
   title: string;
   topics: {
     id: string;

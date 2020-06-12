@@ -8,7 +8,7 @@ async function listTopics(): Promise<TopicGroupList> {
     image_url: "https://i.picsum.photos/id/200/900/600.jpg",
     groups: GROUPS.map((group) => ({
       ...group,
-      topics: TOPICS.filter((topic) => topic.groupId === group.id),
+      topics: TOPICS.filter((topic) => topic.group.id === group.id),
     })),
   };
 }

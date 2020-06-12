@@ -3,13 +3,13 @@ import cc from "classcat";
 import { Link } from "react-router-dom";
 import { Topic, TopicGroupList } from "../../api/types";
 import routes from "../../routes";
-import { ArrowRight, ArrowDown, ArrowUp } from "../Icons";
+import { ArrowRight, ArrowUp } from "../Icons";
 import { Markdown } from "../Markdown";
 
 type Props = {
   topics: TopicGroupList;
   active?: Topic;
-  inline: boolean;
+  inline?: boolean;
 };
 
 const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
@@ -25,7 +25,6 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
     }, 100);
   }, []);
 
-  const Arrow = inline ? ArrowDown : ArrowRight;
   return (
     <>
       {topics.groups.map((group) => (
@@ -61,7 +60,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                 >
                   {topic.title}
                 </span>
-                <Arrow
+                <ArrowRight
                   className={cc([
                     "flex-shrink-0 ml-2 my-2",
                     topic.id === active?.id

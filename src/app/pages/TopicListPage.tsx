@@ -13,7 +13,6 @@ const TopicListPage: React.FC<Props> = () => {
 
   return (
     <Layout header="Temas">
-      {topics && <img src={topics.image_url} alt="Hola" />}
       {topics && <TopicBrowser topics={topics} inline={isMobile} />}
     </Layout>
   );

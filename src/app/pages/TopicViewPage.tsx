@@ -6,6 +6,8 @@ import TopicBrowser from "../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import { useDeviceType } from "../hooks/useDeviceType";
+import LoadingPage from "./LoadingPage";
+import routes from "../routes";
 
 type Props = {};
 
@@ -15,15 +17,18 @@ type RouteParams = {
 
 const TopicViewPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { isMobile } = useDeviceType();
+  const { isDesktop } = useDeviceType();
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
   const { data: topic } = useQuery(["topic", { path: params.id }], (_, p) =>
     API.topics.get(p)
   );
 
-  return (
+  if (!topic) return <LoadingPage />;
+
+  return isDesktop ? (
     <Layout
       header="Temas"
+      headerPath={routes.topics()}
       desktop={
         topic && (
           <div className="h-full bg-gray-medium text-white px-4 py-2">
@@ -33,10 +38,14 @@ const TopicViewPage: React.FC<Props> = () => {
         )
       }
     >
-      {topics && <img src={topics.image_url} alt="Hola" />}
-      {topics && (
-        <TopicBrowser topics={topics} active={topic} inline={isMobile} />
-      )}
+      {topics && <TopicBrowser topics={topics} active={topic} />}
+    </Layout>
+  ) : (
+    <Layout header={`Temas: ${topic.group.title}`} headerPath={routes.topics()}>
+      <div className="p-4 text-white">
+        <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
+        <Markdown markdown={topic.readme} />
+      </div>
     </Layout>
   );
 };

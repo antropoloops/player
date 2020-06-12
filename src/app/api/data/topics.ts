@@ -1,3 +1,5 @@
+import { Topic } from "../types";
+
 export const GROUPS = [
   {
     id: "1",
@@ -58,11 +60,15 @@ const TOPICS_BASE = [
   },
 ];
 
-export const TOPICS = GROUPS.map((group) =>
+export const TOPICS: Topic[] = GROUPS.map((group) =>
   TOPICS_BASE.map((topic, i) => ({
     id: group.id + "-" + i,
     title: `${topic.title}`,
     path: `${group.path}-${topic.path}`,
-    groupId: group.id,
+    readme: "",
+    group: {
+      id: group.id,
+      title: group.title,
+    },
   }))
 ).flat();
