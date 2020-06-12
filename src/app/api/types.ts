@@ -1,3 +1,13 @@
+export type Page = {
+  id: string;
+  path: string;
+  title: string;
+  locale: string;
+  image_url: string;
+  summary: string;
+  content: string;
+};
+
 export type Topic = {
   id: string;
   title: string;
@@ -21,6 +31,5 @@ export type TopicGroup = {
 
 export type TopicGroupList = {
   locale: string;
-  image_url: string;
   groups: TopicGroup[];
 };

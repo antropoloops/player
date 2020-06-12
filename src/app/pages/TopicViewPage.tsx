@@ -23,8 +23,6 @@ const TopicViewPage: React.FC<Props> = () => {
     API.topics.get(p)
   );
 
-  if (!topic) return <LoadingPage />;
-
   return isDesktop ? (
     <Layout
       header="Temas"
@@ -41,10 +39,15 @@ const TopicViewPage: React.FC<Props> = () => {
       {topics && <TopicBrowser topics={topics} active={topic} />}
     </Layout>
   ) : (
-    <Layout header={`Temas: ${topic.group.title}`} headerPath={routes.topics()}>
+    <Layout
+      header={`Temas: ${topic ? topic.group.title : "..."}`}
+      headerPath={routes.topics()}
+    >
       <div className="p-4 text-white">
-        <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
-        <Markdown markdown={topic.readme} />
+        {topic && (
+          <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
+        )}
+        {topic && <Markdown markdown={topic.readme} />}
       </div>
     </Layout>
   );

@@ -1,11 +1,22 @@
 import { GROUPS, TOPICS } from "./data/topics";
-import { README } from "./data/pages";
-import { TopicGroupList, Topic } from "./types";
+import { PAGES } from "./data/pages";
+import { TopicGroupList, Topic, Page } from "./types";
+
+const API = {
+  topics: {
+    list: listTopics,
+    get: getTopic,
+  },
+  pages: {
+    get: getPage,
+  },
+};
+
+export default API;
 
 async function listTopics(): Promise<TopicGroupList> {
   return {
     locale: "es",
-    image_url: "https://i.picsum.photos/id/200/900/600.jpg",
     groups: GROUPS.map((group) => ({
       ...group,
       topics: TOPICS.filter((topic) => topic.group.id === group.id),
@@ -16,14 +27,15 @@ async function listTopics(): Promise<TopicGroupList> {
 async function getTopic({ path }: { path: string }): Promise<Topic> {
   const topic = TOPICS.find((t) => t.path === path);
   if (!topic) throw Error("not found");
-  return { ...topic, readme: README };
+  return topic;
 }
 
-const API = {
-  topics: {
-    list: listTopics,
-    get: getTopic,
-  },
+type GetPage = {
+  path: string;
+  locale: string;
 };
-
-export default API;
+async function getPage({ path, locale }: GetPage): Promise<Page> {
+  const page = PAGES.find((p) => p.path === path && p.locale === locale);
+  if (!page) throw Error("Not found");
+  return page;
+}
