@@ -25,8 +25,8 @@ const ProjectPage: React.FC<Props> = () => {
 
   return (
     <Layout
-      header={params.id ? project.meta.title : "Proyectos"}
-      headerPath={
+      title={params.id ? project.meta.title : "Proyectos"}
+      backTo={
         project.meta.parent_path
           ? routes.project(project.meta.parent_path)
           : routes.projects()

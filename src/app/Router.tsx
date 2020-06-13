@@ -7,7 +7,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TopicListPage from "./pages/TopicListPage";
 import TopicViewPage from "./pages/TopicViewPage";
 import ProjectPage from "./pages/new/ProjectPage";
-import AudiosetExplorePage from "./pages/new/AudiosetExplorePage";
+import AudiosetPage from "./pages/new/NewAudiosetPage";
+import PlayerPage from "./pages/new/NewPlayerPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -40,7 +41,10 @@ const Router = () => (
         <TopicViewPage />
       </Route>
       <Route exact={true} path={routes.audioset(":id")}>
-        <AudiosetExplorePage />
+        <AudiosetPage />
+      </Route>
+      <Route exact={true} path={routes.player(":id")}>
+        <PlayerPage />
       </Route>
       <Route path={routes.about()} exact={true} component={AboutPage} />
       <Route component={NotFoundPage} />

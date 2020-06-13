@@ -6,15 +6,15 @@ import useAnalytics from "../hooks/useAnalytics";
 import { useDeviceType } from "../hooks/useDeviceType";
 
 type Props = {
-  header?: string;
-  headerPath?: string;
+  title?: string;
+  backTo?: string;
   visuals?: ReactNode;
   desktop?: ReactNode;
 };
 
 const Layout: React.FC<Props> = ({
-  header,
-  headerPath = routes.root(),
+  title,
+  backTo = routes.root(),
   children,
   visuals,
   desktop,
@@ -26,13 +26,13 @@ const Layout: React.FC<Props> = ({
     <div className="App">
       <div className="Header">
         <div className="p-2 group">
-          {header ? (
-            <Link className="flex items-center text-white" to={headerPath}>
+          {title ? (
+            <Link className="flex items-center text-white" to={backTo}>
               <ArrowLeft className="mr-2 text-gray-light group-hover:text-white" />
-              {header}
+              {title}
             </Link>
           ) : (
-            <Link to={headerPath} className="">
+            <Link to={backTo} className="">
               <img src="/play-logo.png" alt="Play antropoloops" />
             </Link>
           )}

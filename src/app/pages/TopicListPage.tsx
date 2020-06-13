@@ -21,7 +21,7 @@ const TopicListPage: React.FC<Props> = () => {
 
   return (
     <Layout
-      header="Temas"
+      title="Temas"
       desktop={
         page && (
           <div className="p-4 text-white">

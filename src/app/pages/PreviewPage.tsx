@@ -13,8 +13,8 @@ const PreviewPage: React.FC<Props> = ({ audioset, onStart }) => {
   const { isMobile } = useDeviceType();
   return (
     <Layout
-      header={audioset.meta.title}
-      headerPath={audioset.meta.parent_path}
+      title={audioset.meta.title}
+      backTo={audioset.meta.parent_path}
       desktop={
         <Markdown className="text-white p-4" markdown={audioset.meta.readme} />
       }

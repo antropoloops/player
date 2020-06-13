@@ -24,8 +24,8 @@ const TopicViewPage: React.FC<Props> = () => {
 
   return isDesktop ? (
     <Layout
-      header="Temas"
-      headerPath={routes.topics()}
+      title="Temas"
+      backTo={routes.topics()}
       desktop={
         topic && (
           <div className="h-full bg-gray-medium text-white px-4 py-2">
@@ -39,8 +39,8 @@ const TopicViewPage: React.FC<Props> = () => {
     </Layout>
   ) : (
     <Layout
-      header={`Temas: ${topic ? topic.group.title : "..."}`}
-      headerPath={routes.topics()}
+      title={`Temas: ${topic ? topic.group.title : "..."}`}
+      backTo={routes.topics()}
     >
       <div className="p-4 text-white">
         {topic && (

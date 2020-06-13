@@ -16,8 +16,8 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
 
   return (
     <Layout
-      header={project.meta.path === "home" ? undefined : project.meta.title}
-      headerPath={project.meta.parent_path || routes.sets()}
+      title={project.meta.path === "home" ? undefined : project.meta.title}
+      backTo={project.meta.parent_path || routes.sets()}
       desktop={
         <Markdown
           className="h-full bg-gray-medium text-white px-4 py-2"
