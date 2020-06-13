@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import { useQuery } from "react-query";
 import API from "../api";
 import TopicBrowser from "../components/topics/TopicBrowser";

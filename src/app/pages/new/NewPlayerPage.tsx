@@ -1,12 +1,14 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layout/Layout";
 import { useRouteMatch } from "react-router-dom";
-import { useDeviceType } from "../../hooks/useDeviceType";
 import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import { Audioset, Clip, Track } from "../../../audioset";
-import { ArrowRight } from "../../components/Icons";
+import { GearIcon, ArrowLeft } from "../../components/Icons";
+import Overview from "../../components/player2/Overview";
+import Options from "../../components/player2/Options";
+import TrackView from "../../components/player2/TrackView";
 
 type Props = {};
 
@@ -14,19 +16,15 @@ type RouteParams = {
   id: string;
 };
 
-type PlayerView =
-  | { view: "overview" }
-  | { view: "track"; id: string }
-  | { view: "clip"; id: string };
+type PlayerView = { name?: string; track?: Track; clip?: Clip };
 
 const PlayerPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { isMobile } = useDeviceType();
   const { data: audioset } = useQuery(
     ["project", { path: params.id }],
     (_, p) => API.audiosets.get(p)
   );
-  const [current, setView] = useState<PlayerView>({ view: "overview" });
+  const [view, setView] = useState<PlayerView>({});
 
   const clipsByTrack = useMemo(
     () => (audioset ? getClipsByTrack(audioset) : {}),
@@ -35,12 +33,51 @@ const PlayerPage: React.FC<Props> = () => {
 
   if (!audioset) return <LoadingPage />;
 
+  const Header = () => {
+    return (
+      <div className="p-2 flex text-white font-normal">
+        <span className="flex-grow">{audioset.meta.title}</span>
+        <button
+          className="text-white opacity-75 hover:opacity-100 flex-shrink-0 focus:outline-none"
+          onClick={() =>
+            setView(view.name === "options" ? {} : { name: "options" })
+          }
+        >
+          <GearIcon />
+        </button>
+      </div>
+    );
+  };
+
   return (
-    <Layout title={audioset.meta.title}>
+    <Layout
+      title={audioset.meta.title}
+      header={
+        view.track ? (
+          <TrackHeader track={view.track} onClick={() => setView({})} />
+        ) : (
+          <Header />
+        )
+      }
+    >
       <div className="flex-grow overflow-y-scroll text-white">
-        {current.view === "overview" ? (
-          <Overview tracks={audioset.tracks} clipsByTrack={clipsByTrack} />
-        ) : null}
+        {view.track ? (
+          <TrackView
+            active={view.clip}
+            track={view.track}
+            clips={clipsByTrack[view.track.id]}
+            onClick={(clip, track) => setView({ clip, track })}
+          />
+        ) : view.name === "options" ? (
+          <Options audioset={audioset} />
+        ) : (
+          <Overview
+            tracks={audioset.tracks}
+            clipsByTrack={clipsByTrack}
+            onTrack={(track) => setView({ track })}
+            onClip={(clip, track) => setView({ clip, track })}
+          />
+        )}
       </div>
       <div className="grid grid-cols-8 gap-1 bg-gray-dark p-1">
         {audioset.tracks.map((track) => (
@@ -56,6 +93,7 @@ const PlayerPage: React.FC<Props> = () => {
     </Layout>
   );
 };
+export default PlayerPage;
 
 function getClipsByTrack(audioset: Audioset) {
   return audioset.clips.reduce((index, clip) => {
@@ -65,46 +103,24 @@ function getClipsByTrack(audioset: Audioset) {
   }, {} as Record<string, Clip[]>);
 }
 
-export default PlayerPage;
-
-type OverviewProps = {
-  tracks: Track[];
-  clipsByTrack: Record<string, Clip[]>;
+type TrackHeaderProps = {
+  track: Track;
+  onClick: () => void;
 };
 
-const Overview: React.FC<OverviewProps> = ({ tracks, clipsByTrack }) => (
-  <>
-    {tracks.map((track) => (
-      <div key={track.id} className="relative">
-        <div
-          className="absolute inset-x-0 inset-y-0 z-0 opacity-75"
-          style={{ backgroundColor: track.color }}
-        />
-        <button className="w-full flex p-2 z-10 relative">
-          <div className="flex-grow text-left">{track.name}</div>
-          <ArrowRight />
-        </button>
-        <div className="relative">
-          {clipsByTrack[track.id].map((clip) => (
-            <div
-              key={clip.id}
-              data-testid={`clip-${clip.id}`}
-              className="flex mb-1 items-center"
-              style={{ backgroundColor: track.color }}
-            >
-              <img
-                className="w-1/4"
-                alt={clip.title}
-                src={clip.resources.cover.thumb}
-              />
-              <div className="ml-2 flex-grow">{clip.name}</div>
-              <div className="flex-shrink-0 uppercase mr-2 w-8 h-8 text-center leading-8 rounded-full bg-gray-dark">
-                {clip.keyMap}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    ))}
-  </>
-);
+const TrackHeader: React.FC<TrackHeaderProps> = ({ track, onClick }) => {
+  return (
+    <div
+      className="p-2 text-white font-normal"
+      style={{ backgroundColor: track.color }}
+    >
+      <button
+        className="flex items-center text-white opacity-75 hover:opacity-100 flex-shrink-0 focus:outline-none mr-2"
+        onClick={onClick}
+      >
+        <ArrowLeft className="mr-2" />
+        {track.name}
+      </button>
+    </div>
+  );
+};

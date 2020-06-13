@@ -1,7 +1,7 @@
 import React from "react";
 import { Audioset } from "../../audioset";
 import { Markdown } from "../components/Markdown";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import { useDeviceType } from "../hooks/useDeviceType";
 
 type Props = {

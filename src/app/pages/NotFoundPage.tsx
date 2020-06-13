@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import routes from "../routes";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import { useDeviceType } from "../hooks/useDeviceType";
 
 const NotFoundPage = () => {

@@ -5,7 +5,7 @@ import { Readme } from "../components/Player/Readme";
 import { Link } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import routes from "../routes";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 
 type Props = {
   project: Project;
@@ -14,9 +14,18 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
   const references = project.audiosets || [];
   const { isMobile } = useDeviceType();
 
+  const isRoot = project.meta.path === "home";
+
   return (
     <Layout
-      title={project.meta.path === "home" ? undefined : project.meta.title}
+      header={
+        isRoot ? (
+          <div className="p-2">
+            <img src="/play-logo.png" alt="Play antropoloops" />
+          </div>
+        ) : undefined
+      }
+      title={isRoot ? "Antropoloops" : project.meta.title}
       backTo={project.meta.parent_path || routes.sets()}
       desktop={
         <Markdown

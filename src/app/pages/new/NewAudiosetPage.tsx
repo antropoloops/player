@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
-import Layout from "../../components/Layout";
+import Layout from "../../components/layout/Layout";
 import { useRouteMatch, Link } from "react-router-dom";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import API from "../../api";

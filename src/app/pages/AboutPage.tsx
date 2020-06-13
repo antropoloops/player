@@ -1,6 +1,6 @@
 import React from "react";
 import { Markdown } from "../components/Markdown";
-import Layout from "../components/Layout";
+import Layout from "../components/layout/Layout";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { Link } from "react-router-dom";
 import routes from "../routes";
