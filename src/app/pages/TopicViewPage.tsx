@@ -6,7 +6,6 @@ import TopicBrowser from "../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import { useDeviceType } from "../hooks/useDeviceType";
-import LoadingPage from "./LoadingPage";
 import routes from "../routes";
 
 type Props = {};

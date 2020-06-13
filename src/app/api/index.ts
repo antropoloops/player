@@ -1,8 +1,16 @@
 import { GROUPS, TOPICS } from "./data/topics";
 import { PAGES } from "./data/pages";
 import { TopicGroupList, Topic, Page } from "./types";
+import { getProject } from "./projects";
+import { getAudioset } from "./audiosets";
 
 const API = {
+  projects: {
+    get: getProject,
+  },
+  audiosets: {
+    get: getAudioset,
+  },
   topics: {
     list: listTopics,
     get: getTopic,

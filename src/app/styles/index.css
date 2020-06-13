@@ -20,3 +20,11 @@ button {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
+
+/* https://stackoverflow.com/a/53245657/181850 */
+.ratio {
+  display: grid;
+}
+.ratio > * {
+  grid-area: 1/1/1/1;
+}
