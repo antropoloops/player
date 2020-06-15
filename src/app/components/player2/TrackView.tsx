@@ -12,7 +12,13 @@ type Props = {
 const TrackView: React.FC<Props> = ({ track, clips, active, onClick }) => {
   return (
     <div className="">
-      {active && <img src={active.resources.cover.small} alt={active.name} />}
+      {active && (
+        <img
+          className="w-1/2"
+          src={active.resources.cover.thumb}
+          alt={active.name}
+        />
+      )}
 
       <div className="m-4">
         <label>Volumen</label>

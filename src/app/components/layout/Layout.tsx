@@ -1,17 +1,16 @@
 import React, { ReactNode } from "react";
 import useAnalytics from "../../hooks/useAnalytics";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import Header from "./Header";
+import Header, { HeaderProps } from "./Header";
 
-type Props = {
-  title?: string;
-  backTo?: string;
+type Props = HeaderProps & {
   header?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
 };
 
 const Layout: React.FC<Props> = ({
+  logo,
   title,
   backTo,
   header,
@@ -22,7 +21,7 @@ const Layout: React.FC<Props> = ({
   useAnalytics();
   const { isDesktop } = useDeviceType();
 
-  header = header || <Header title={title} backTo={backTo} />;
+  header = header || <Header logo={logo} title={title} backTo={backTo} />;
 
   return (
     <div className="App">

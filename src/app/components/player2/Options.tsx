@@ -8,7 +8,12 @@ type Props = { audioset: Audioset };
 const Options: React.FC<Props> = ({ audioset }) => {
   return (
     <div className="p-4">
-      <Link to={routes.audioset(audioset.meta.path)}>Cerrar</Link>
+      <Link
+        className="bg-gray-light shadow rounded p-2 hover:text-white-light"
+        to={routes.audioset(audioset.meta.path)}
+      >
+        Parar y salir
+      </Link>
     </div>
   );
 };

@@ -18,13 +18,7 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
 
   return (
     <Layout
-      header={
-        isRoot ? (
-          <div className="p-2">
-            <img src="/play-logo.png" alt="Play antropoloops" />
-          </div>
-        ) : undefined
-      }
+      logo={isRoot}
       title={isRoot ? "Antropoloops" : project.meta.title}
       backTo={project.meta.parent_path || routes.sets()}
       desktop={

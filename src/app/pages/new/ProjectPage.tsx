@@ -29,7 +29,7 @@ const ProjectPage: React.FC<Props> = () => {
       backTo={
         project.meta.parent_path
           ? routes.project(project.meta.parent_path)
-          : routes.projects()
+          : routes.root()
       }
     >
       <div className="h-full bg-gray-dark">

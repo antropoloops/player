@@ -66,7 +66,9 @@ const PlayerPage: React.FC<Props> = () => {
             active={view.clip}
             track={view.track}
             clips={clipsByTrack[view.track.id]}
-            onClick={(clip, track) => setView({ clip, track })}
+            onClick={(clip, track) => {
+              setView({ clip, track });
+            }}
           />
         ) : view.name === "options" ? (
           <Options audioset={audioset} />
@@ -81,13 +83,14 @@ const PlayerPage: React.FC<Props> = () => {
       </div>
       <div className="grid grid-cols-8 gap-1 bg-gray-dark p-1">
         {audioset.tracks.map((track) => (
-          <div
+          <button
             key={track.id}
             className="ratio border-2"
             style={{ borderColor: track.color }}
+            onClick={() => setView({ track })}
           >
             <svg viewBox="0 0 1 1" />
-          </div>
+          </button>
         ))}
       </div>
     </Layout>

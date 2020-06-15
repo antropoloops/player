@@ -1,11 +1,11 @@
 import React from "react";
-import Layout from "../components/layout/Layout";
+import Layout from "../../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../api";
-import TopicBrowser from "../components/topics/TopicBrowser";
-import { useDeviceType } from "../hooks/useDeviceType";
-import { Markdown } from "../components/Markdown";
-import { Readme } from "../components/Player/Readme";
+import API from "../../api";
+import TopicBrowser from "../../components/topics/TopicBrowser";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import { Markdown } from "../../components/Markdown";
+import { Readme } from "../../components/Player/Readme";
 
 type Props = {};
 
@@ -31,7 +31,6 @@ const TopicListPage: React.FC<Props> = () => {
         )
       }
     >
-      {page && <img src={page.image_url} alt="Hola" />}
       {isMobile && page && <Readme className="p-4" content={page.content} />}
       {topics && <TopicBrowser topics={topics} inline={isMobile} />}
     </Layout>

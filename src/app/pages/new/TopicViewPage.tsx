@@ -1,12 +1,12 @@
 import React from "react";
-import Layout from "../components/layout/Layout";
+import Layout from "../../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../api";
-import TopicBrowser from "../components/topics/TopicBrowser";
+import API from "../../api";
+import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
-import { Markdown } from "../components/Markdown";
-import { useDeviceType } from "../hooks/useDeviceType";
-import routes from "../routes";
+import { Markdown } from "../../components/Markdown";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import routes from "../../routes";
 
 type Props = {};
 
