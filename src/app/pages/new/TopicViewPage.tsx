@@ -28,7 +28,7 @@ const TopicViewPage: React.FC<Props> = () => {
       backTo={routes.topics()}
       desktop={
         topic && (
-          <div className="h-full bg-gray-medium text-white px-4 py-2">
+          <div className="min-h-full bg-gray-medium text-white px-4 py-2">
             <h1 className="text-4xl mb-4">{topic.title}</h1>
             <Markdown markdown={topic.readme} />
           </div>

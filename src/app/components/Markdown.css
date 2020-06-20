@@ -11,6 +11,10 @@
   margin-bottom: 1rem;
 }
 
+.Markdown ol {
+  margin-left: 1rem;
+}
+
 .Markdown a {
   color: white;
   text-decoration: underline;

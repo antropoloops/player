@@ -1,9 +1,9 @@
-import { GROUPS, TOPICS } from "./data/topics";
 import { PAGES } from "./data/pages";
-import { TopicGroupList, Topic, Page } from "./types";
+import { Page } from "./types";
 import { getProject } from "./projects";
 import { getAudioset } from "./audiosets";
 import { listSections, getSection } from "./sections";
+import { listTopics, getTopic } from "./topics";
 
 const API = {
   projects: {
@@ -26,22 +26,6 @@ const API = {
 };
 
 export default API;
-
-async function listTopics(): Promise<TopicGroupList> {
-  return {
-    locale: "es",
-    groups: GROUPS.map((group) => ({
-      ...group,
-      topics: TOPICS.filter((topic) => topic.group.id === group.id),
-    })),
-  };
-}
-
-async function getTopic({ path }: { path: string }): Promise<Topic> {
-  const topic = TOPICS.find((t) => t.path === path);
-  if (!topic) throw Error("not found");
-  return topic;
-}
 
 type GetPage = {
   path: string;

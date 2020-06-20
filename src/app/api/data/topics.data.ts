@@ -1,4 +1,4 @@
-import { Topic } from "../types";
+import { Topic } from "../topics";
 
 const README = `
 <p>Durante el segundo trimestre del curso 2018-19 en el CEIP San José Obrero, el alumnado de 5º trajo a clase las canciones que habían elegido para sus historias de vida musicales. Usando fragmentos de estas canciones preparamos dos sets musicales y durante el tercer trimestre estuvieron componiendo sus propias piezas de remezcla. Estos son los sets que utilizamos.</p>
@@ -32,13 +32,13 @@ const TOPICS_BASE = [
     id: "1",
     title: "¿Qué es play.antropoloops?",
     image_url: "https://i.picsum.photos/id/10/900/600.jpg",
-    path: "que-es",
+    path: "que-es-playantropoloops",
   },
   {
     id: "2",
     title: "Edicación musical intercultural y remezcla",
     image_url: "https://i.picsum.photos/id/11/900/600.jpg",
-    path: "educacion-musical",
+    path: "educacion-musical-intercultural",
   },
   {
     id: "3",
@@ -70,7 +70,7 @@ export const TOPICS: Topic[] = GROUPS.map((group) =>
   TOPICS_BASE.map((topic, i) => ({
     id: group.id + "-" + i,
     title: `${topic.title}`,
-    path: `${group.path}-${topic.path}`,
+    path: topic.path,
     readme: README,
     group: {
       id: group.id,

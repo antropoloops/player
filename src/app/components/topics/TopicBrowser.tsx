@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import cc from "classcat";
 import { Link } from "react-router-dom";
-import { Topic, TopicGroupList } from "../../api/types";
+import { Topic, TopicGroupList } from "../../api/topics";
 import routes from "../../routes";
 import { ArrowRight, ArrowUp } from "../Icons";
 import { Markdown } from "../Markdown";
