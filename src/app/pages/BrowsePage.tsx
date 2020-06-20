@@ -6,21 +6,29 @@ import { Link } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import routes from "../routes";
 import Layout from "../components/layout/Layout";
+import { useQuery } from "react-query";
+import API from "../api";
+import useLocale from "../hooks/useLocale";
 
 type Props = {
   project: Project;
 };
 const BrowsePage: React.FC<Props> = ({ project }) => {
-  const references = project.audiosets || [];
+  const { formatMessage: f } = useLocale();
   const { isMobile } = useDeviceType();
+  const { data: section } = useQuery(["section", "projecs"], () =>
+    API.sections.get("projects")
+  );
 
+  const references = project.audiosets || [];
   const isRoot = project.meta.path === "home";
 
   return (
     <Layout
-      logo={isRoot}
-      title={isRoot ? "Antropoloops" : project.meta.title}
-      backTo={project.meta.parent_path || routes.sets()}
+      title={isRoot ? f(section?.id.toUpperCase() || "") : project.meta.title}
+      backTo={
+        project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
+      }
       desktop={
         <Markdown
           className="h-full bg-gray-medium text-white px-4 py-2"
@@ -32,7 +40,7 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
         <img
           className="w-full"
           alt={project.meta.title}
-          src={project.meta.logo_url}
+          src={isRoot ? section?.image_url : project.meta.logo_url}
         />
         {isMobile && (
           <Readme

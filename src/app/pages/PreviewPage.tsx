@@ -3,6 +3,7 @@ import { Audioset } from "../../audioset";
 import { Markdown } from "../components/Markdown";
 import Layout from "../components/layout/Layout";
 import { useDeviceType } from "../hooks/useDeviceType";
+import routes from "../routes";
 
 type Props = {
   audioset: Audioset;
@@ -14,7 +15,7 @@ const PreviewPage: React.FC<Props> = ({ audioset, onStart }) => {
   return (
     <Layout
       title={audioset.meta.title}
-      backTo={audioset.meta.parent_path}
+      backTo={audioset.meta.parent_path || routes.sets()}
       desktop={
         <Markdown className="text-white p-4" markdown={audioset.meta.readme} />
       }

@@ -12,8 +12,8 @@ const HomePage: React.FC<Props> = () => {
   const { formatMessage: f } = useLocale();
   const home = sections && sections.find((section) => section.id === "home");
   return (
-    <Layout>
-      {home && <img src={home.image_url} />}
+    <Layout logo={true}>
+      {home && <img alt={home.id} src={home.image_url} />}
       {sections &&
         sections
           .filter((section) => section.home)

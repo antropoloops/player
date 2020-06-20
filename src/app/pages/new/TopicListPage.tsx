@@ -15,7 +15,7 @@ const TopicListPage: React.FC<Props> = () => {
     ["page", { path: "topics", locale: "es" }],
     (_, params) => API.pages.get(params)
   );
-  const { data: section } = useQuery("section", () =>
+  const { data: section } = useQuery(["section", "topics"], () =>
     API.sections.get("topics")
   );
   const { isMobile } = useDeviceType();

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ArrowLeft } from "../Icons";
 import routes from "../../routes";
 import { Section } from "../../api/sections";
@@ -11,11 +10,6 @@ type Props = {
   title?: string;
   backTo?: string;
   sections: Section[];
-};
-
-const variants = {
-  collapsed: { height: "0" },
-  open: { height: "auto" },
 };
 
 const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
