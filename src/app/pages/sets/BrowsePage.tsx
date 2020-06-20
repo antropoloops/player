@@ -2,7 +2,6 @@ import React from "react";
 import { Project } from "../../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Readme } from "../../components/Player/Readme";
-import { Link } from "react-router-dom";
 import { Markdown } from "../../components/Markdown";
 import routes from "../../routes";
 import Layout from "../../components/layout/Layout";
