@@ -7,6 +7,7 @@ import { useDeviceType } from "../../hooks/useDeviceType";
 import LoadingPage from "../LoadingPage";
 import { Readme } from "../../components/Player/Readme";
 import routes from "../../routes";
+import MediaObject from "../../components/MediaObject";
 
 type Props = {};
 
@@ -47,24 +48,19 @@ const ProjectPage: React.FC<Props> = () => {
           />
         )}
         {project.audiosets.map((audioset) => (
-          <Link
+          <MediaObject
+            key={audioset.id}
             to={
               audioset.type === "audioset"
                 ? routes.audioset(audioset.publish_path)
                 : routes.project(audioset.publish_path)
             }
-            className="mb-2 flex w-full text-white bg-gray-light"
-            key={audioset.id}
+            image={audioset.logo_url}
+            alt={audioset.title}
           >
-            <div className="ratio w-1/3 flex-shrink-0">
-              <svg viewBox="0 0 16 9" />
-              <img className="" src={audioset.logo_url} alt={audioset.title} />
-            </div>
-            <div className="p-2">
-              <h3 className="font-normal mb-2">{audioset.title}</h3>
-              <p className="text-sm">{audioset.description}</p>
-            </div>
-          </Link>
+            <h3 className="font-normal mb-2">{audioset.title}</h3>
+            <p className="text-sm">{audioset.description}</p>
+          </MediaObject>
         ))}
       </div>
     </Layout>

@@ -1,7 +1,7 @@
 const routes = {
   root: () => `/`,
   about: () => `/about`,
-  sets: () => `/`,
+  sets: () => `/set`,
   set: (id: string) => `/set/${id}`,
   projects: () => `/proyectos`,
   project: (id: string) => `/proyecto/${id}`,

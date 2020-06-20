@@ -15,6 +15,9 @@ const TopicListPage: React.FC<Props> = () => {
     ["page", { path: "topics", locale: "es" }],
     (_, params) => API.pages.get(params)
   );
+  const { data: section } = useQuery("section", () =>
+    API.sections.get("topics")
+  );
   const { isMobile } = useDeviceType();
 
   if (!topics) return null;
@@ -31,6 +34,7 @@ const TopicListPage: React.FC<Props> = () => {
         )
       }
     >
+      {section && <img alt="" src={section.image_url} />}
       {isMobile && page && <Readme className="p-4" content={page.content} />}
       {topics && <TopicBrowser topics={topics} inline={isMobile} />}
     </Layout>

@@ -3,33 +3,39 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "../Icons";
 import routes from "../../routes";
+import { Section } from "../../api/sections";
+import Navigation from "./Navigation";
 
-export type HeaderProps = {
+type Props = {
   logo?: boolean;
   title?: string;
   backTo?: string;
+  sections: Section[];
 };
-
-const NAVIGATION = [
-  { label: "Inicio", path: routes.root() },
-  { label: "Proyectos", path: routes.projects() },
-  { label: "Temas", path: routes.topics() },
-];
 
 const variants = {
   collapsed: { height: "0" },
   open: { height: "auto" },
 };
 
-const Header: React.FC<HeaderProps> = ({ logo, title, backTo }) => {
+const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
   const [open, setOpen] = useState(false);
+
+  const toggleOpen = () => setOpen(!open);
   return (
     <div className="">
       <div className="p-2 flex items-center text-gray-light">
         {logo ? (
-          <Link className="flex-grow mr-4" to={backTo || routes.root()}>
-            <img className="h-6" src="/play-logo.png" alt="Play antropoloops" />
-          </Link>
+          <button
+            className="flex-grow mr-4 focus:outline-none"
+            onClick={toggleOpen}
+          >
+            <img
+              className="h-6"
+              src="/images/play-logo-gray.png"
+              alt="Play antropoloops"
+            />
+          </button>
         ) : (
           <Link
             className="flex flex-grow mr-2 hover:text-green transition-medium"
@@ -41,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ logo, title, backTo }) => {
         )}
         <button
           className="hover:text-white focus:outline-none"
-          onClick={() => setOpen(!open)}
+          onClick={toggleOpen}
         >
           <svg
             className={`fill-current h-4 w-4
@@ -58,26 +64,7 @@ const Header: React.FC<HeaderProps> = ({ logo, title, backTo }) => {
           </svg>
         </button>
       </div>
-
-      <motion.div
-        className="overflow-hidden"
-        initial={open ? "open" : "collapsed"}
-        animate={open ? "open" : "collapsed"}
-        variants={variants}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="flex flex-col text-white border-t border-gray-medium">
-          {NAVIGATION.map((nav) => (
-            <Link
-              key={nav.label}
-              className="py-1 px-2 hover:bg-gray-light border-b border-gray-medium"
-              to={nav.path}
-            >
-              {nav.label}
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+      <Navigation open={open} sections={sections} />
     </div>
   );
 };

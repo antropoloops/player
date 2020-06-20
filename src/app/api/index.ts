@@ -3,6 +3,7 @@ import { PAGES } from "./data/pages";
 import { TopicGroupList, Topic, Page } from "./types";
 import { getProject } from "./projects";
 import { getAudioset } from "./audiosets";
+import { listSections, getSection } from "./sections";
 
 const API = {
   projects: {
@@ -17,6 +18,10 @@ const API = {
   },
   pages: {
     get: getPage,
+  },
+  sections: {
+    list: listSections,
+    get: getSection,
   },
 };
 

@@ -1,9 +1,14 @@
 import React, { ReactNode } from "react";
 import useAnalytics from "../../hooks/useAnalytics";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import Header, { HeaderProps } from "./Header";
+import Header from "./Header";
+import { useQuery } from "react-query";
+import { listSections } from "../../api/sections";
 
-type Props = HeaderProps & {
+type Props = {
+  logo?: boolean;
+  title?: string;
+  backTo?: string;
   header?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
@@ -20,8 +25,16 @@ const Layout: React.FC<Props> = ({
 }) => {
   useAnalytics();
   const { isDesktop } = useDeviceType();
+  const { data: sections } = useQuery("sections", () => listSections());
 
-  header = header || <Header logo={logo} title={title} backTo={backTo} />;
+  header = header || (
+    <Header
+      logo={logo}
+      title={title}
+      backTo={backTo}
+      sections={sections || []}
+    />
+  );
 
   return (
     <div className="App">
