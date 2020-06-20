@@ -12,7 +12,7 @@ const ConfigPage: React.FC<Props> = ({ onClose, onStop, onQuit }) => {
   return (
     <div className="p-4 flex flex-col bg-gray-medium">
       <button
-        className="p-2 opacity-50 bg-gray-light"
+        className="p-2 opacity-75 bg-gray-light"
         onClick={() => {
           toggleFullscreen();
           onClose();

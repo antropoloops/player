@@ -31,13 +31,17 @@ const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
             />
           </button>
         ) : (
-          <Link
-            className="flex flex-grow mr-2 hover:text-green transition-medium"
-            to={backTo || routes.root()}
-          >
-            <ArrowLeft />
-            <span className="ml-2 text-white">{title || "Antropoloops"}</span>
-          </Link>
+          <>
+            <Link
+              className="flex mr-2 hover:text-green duration-300 transition-medium"
+              to={backTo || routes.root()}
+            >
+              <ArrowLeft />
+            </Link>
+            <span className="flex-grow text-white">
+              {title || "Antropoloops"}
+            </span>
+          </>
         )}
         <button
           className="hover:text-white focus:outline-none"

@@ -10,6 +10,7 @@ const routes = {
   testSet: () => `/test`,
   topics: () => `/topics`,
   topic: (id: string) => `/topic/${id}`,
+  guides: () => `/guides`,
 };
 
 export default routes;

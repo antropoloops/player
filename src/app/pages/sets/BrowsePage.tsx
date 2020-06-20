@@ -1,14 +1,15 @@
 import React from "react";
-import { Project } from "../../audioset";
-import { useDeviceType } from "../hooks/useDeviceType";
-import { Readme } from "../components/Player/Readme";
+import { Project } from "../../../audioset";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import { Readme } from "../../components/Player/Readme";
 import { Link } from "react-router-dom";
-import { Markdown } from "../components/Markdown";
-import routes from "../routes";
-import Layout from "../components/layout/Layout";
+import { Markdown } from "../../components/Markdown";
+import routes from "../../routes";
+import Layout from "../../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../api";
-import useLocale from "../hooks/useLocale";
+import API from "../../api";
+import useLocale from "../../hooks/useLocale";
+import MediaObject from "../../components/MediaObject";
 
 type Props = {
   project: Project;
@@ -50,23 +51,17 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
         )}
         <ul className="Audiosets">
           {references.map((reference) => (
-            <Link
-              className="mb-2 flex w-full text-white bg-gray-light"
-              to={`/set/${reference.publish_path}`}
+            <MediaObject
               key={reference.id}
+              to={`/set/${reference.publish_path}`}
+              image={reference.logo_url}
+              alt={reference.title}
             >
-              <div className="w-1/3 flex-shrink-0">
-                <img
-                  className="w-full"
-                  src={reference.logo_url}
-                  alt={reference.title}
-                />
-              </div>
               <div className="p-2">
                 <h3 className="font-normal mb-2">{reference.title}</h3>
                 <p className="text-sm">{reference.description}</p>
               </div>
-            </Link>
+            </MediaObject>
           ))}
         </ul>
       </div>

@@ -14,7 +14,7 @@ const MediaObject: React.FC<Props> = ({ to, alt, image, children }) => (
       <svg viewBox="0 0 16 9" />
       <img className="" src={image} alt={alt} />
     </div>
-    <div className="p-2">{children}</div>
+    {children}
   </Link>
 );
 

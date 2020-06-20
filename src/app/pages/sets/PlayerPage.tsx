@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Audioset } from "../../audioset";
-import { PlayerComponentState } from "../hooks/usePlayer";
-import { Controller } from "../components/Player/Controller";
-import AudiosetConfig from "../components/AudiosetConfig";
-import Collapsable from "../components/Collapsable";
+import { Audioset } from "../../../audioset";
+import { PlayerComponentState } from "../../hooks/usePlayer";
+import { Controller } from "../../components/Player/Controller";
+import AudiosetConfig from "../../components/AudiosetConfig";
+import Collapsable from "../../components/Collapsable";
+import { GearIcon } from "../../components/Icons";
 
 type Props = {
   ready: boolean;
@@ -19,25 +20,13 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
     <div className="App Audioset">
       <div className="Header">
         <button
-          className="p-2 flex shadow-none focus:outline-none w-full items-center rounded-lg text-gray-light"
+          className="p-2 flex w-full items-center rounded-lg text-gray-light focus:outline-none"
           onClick={() => setIsConfig(!isConfig)}
         >
           <h1 className="flex-grow text-white text-light">
             {audioset.meta.title}
           </h1>
-          <svg
-            className={`fill-current h-4 w-4
-            transform duration-300 ${
-              isConfig
-                ? "-rotate-90 ease-out transition-medium"
-                : "rotate-0 ease-in transition-medium"
-            }`}
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
+          <GearIcon />
         </button>
         <Collapsable isOpen={isConfig}>
           <AudiosetConfig

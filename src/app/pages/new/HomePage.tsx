@@ -24,9 +24,11 @@ const HomePage: React.FC<Props> = () => {
               image={section.image_url}
               alt={f(section.id.toUpperCase())}
             >
-              <h3 className="font-normal mb-2">
-                {f(section.id.toUpperCase())}
-              </h3>
+              <div className="flex flex-col justify-center p-2 group">
+                <h3 className="font-normal group-hover:text-green">
+                  {f(section.id.toUpperCase())}
+                </h3>
+              </div>
             </MediaObject>
           ))}
     </Layout>

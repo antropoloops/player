@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import routes from "./routes";
 import AboutPage from "./pages/AboutPage";
-import BundlePage from "./pages/BundlePage";
+import BundlePage from "./pages/sets/BundlePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TopicListPage from "./pages/new/TopicListPage";
 import TopicViewPage from "./pages/new/TopicViewPage";
@@ -10,6 +10,7 @@ import ProjectPage from "./pages/new/ProjectPage";
 import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayerPage from "./pages/new/NewPlayerPage";
 import HomePage from "./pages/new/HomePage";
+import GuideListPage from "./pages/new/GuideListPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -21,13 +22,13 @@ const Router = () => (
         render={() => <BundlePage idOrUrl="index" />}
       />
       <Route
-        path={routes.set(":id")}
         exact={true}
+        path={routes.set(":id")}
         render={({ match }) => <BundlePage idOrUrl={match.params.id} />}
       />
       <Route
-        path={routes.testSet()}
         exact={true}
+        path={routes.testSet()}
         render={() => <BundlePage idOrUrl={getUrlFromParams()} />}
       />
       <Route exact={true} path={routes.projects()}>
@@ -41,6 +42,9 @@ const Router = () => (
       </Route>
       <Route exact={true} path={routes.topic(":id")}>
         <TopicViewPage />
+      </Route>
+      <Route exact={true} path={routes.guides()}>
+        <GuideListPage />
       </Route>
       <Route exact={true} path={routes.audioset(":id")}>
         <AudiosetPage />

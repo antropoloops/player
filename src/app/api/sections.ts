@@ -29,7 +29,7 @@ const SECTIONS: Section[] = [
   {
     id: "guides",
     image_url: "/images/sections/guides.jpg",
-    path: routes.root(),
+    path: routes.guides(),
     home: true,
   },
   {

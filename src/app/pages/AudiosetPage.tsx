@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { Audioset } from "../../audioset";
-import PlayerPage from "./PlayerPage";
-import PreviewPage from "./PreviewPage";
+import PlayerPage from "./sets/PlayerPage";
+import PreviewPage from "./sets/PreviewPage";
 import { ResourceLoader } from "../../player/Loader";
 import { getActiveAudioContext } from "../../lib/active-audio-context";
 import { usePlayer } from "../hooks/usePlayer";

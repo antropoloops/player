@@ -1,9 +1,9 @@
 import React from "react";
-import { Audioset } from "../../audioset";
-import { Markdown } from "../components/Markdown";
-import Layout from "../components/layout/Layout";
-import { useDeviceType } from "../hooks/useDeviceType";
-import routes from "../routes";
+import { Audioset } from "../../../audioset";
+import { Markdown } from "../../components/Markdown";
+import Layout from "../../components/layout/Layout";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import routes from "../../routes";
 
 type Props = {
   audioset: Audioset;
