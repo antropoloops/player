@@ -30,7 +30,14 @@ export const ClosedClip: React.FC<ClipProps> = ({ clip, control }) => {
       style={{ backgroundColor: clip.color }}
     >
       <div className="cover">
-        <img alt={clip.title} src={clip.coverUrl} onClick={startClip} />
+        <img
+          className="bg-light-gray"
+          alt={clip.title}
+          src={clip.coverUrl}
+          width="400"
+          height="400"
+          onClick={startClip}
+        />
       </div>
       <div className="meta noselect" onClick={startClip}>
         <h3 className="title">{clip.title}</h3>
