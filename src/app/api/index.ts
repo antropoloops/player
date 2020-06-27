@@ -1,10 +1,9 @@
-import { PAGES } from "./data/pages";
-import { Page } from "./types";
 import { getProject } from "./projects";
 import { getAudioset } from "./audiosets";
 import { getBundle } from "./bundles";
 import { listSections, getSection } from "./sections";
 import { listTopics, getTopic } from "./topics";
+import { getPage } from "./pages";
 
 const API = {
   projects: {
@@ -30,13 +29,3 @@ const API = {
 };
 
 export default API;
-
-type GetPage = {
-  path: string;
-  locale: string;
-};
-async function getPage({ path, locale }: GetPage): Promise<Page> {
-  const page = PAGES.find((p) => p.path === path && p.locale === locale);
-  if (!page) throw Error("Not found");
-  return page;
-}

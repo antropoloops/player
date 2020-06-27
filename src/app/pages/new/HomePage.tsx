@@ -4,15 +4,30 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import MediaObject from "../../components/MediaObject";
 import useLocale from "../../hooks/useLocale";
+import { Markdown } from "../../components/Markdown";
 
 type Props = {};
 
 const HomePage: React.FC<Props> = () => {
   const { data: sections } = useQuery("sections", () => API.sections.list());
+  const { data: page } = useQuery(
+    ["page", { slug: "inicio", locale: "es" }],
+    (_, params) => API.pages.get(params)
+  );
   const { formatMessage: f } = useLocale();
   const home = sections && sections.find((section) => section.id === "home");
   return (
-    <Layout logo={true} desktop={<div>Bienvenidx</div>}>
+    <Layout
+      logo={true}
+      desktop={
+        page && (
+          <div className="p-4 text-white">
+            <h1 className="text-4xl mb-4">{page.title}</h1>
+            <Markdown markdown={page.content} />
+          </div>
+        )
+      }
+    >
       {home && <img alt={home.id} src={home.image_url} />}
       {sections &&
         sections

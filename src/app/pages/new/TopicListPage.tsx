@@ -12,7 +12,7 @@ type Props = {};
 const TopicListPage: React.FC<Props> = () => {
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
   const { data: page } = useQuery(
-    ["page", { path: "topics", locale: "es" }],
+    ["page", { slug: "temas", locale: "es" }],
     (_, params) => API.pages.get(params)
   );
   const { data: section } = useQuery(["section", "topics"], () =>
