@@ -21,10 +21,12 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
   );
 
   const references = project.audiosets || [];
-  const isRoot = project.meta.path === "home";
+  // index is the old name
+  const isRoot = project.meta.path === "home" || project.meta.path === "index";
 
   return (
     <Layout
+      className="BrowserPage"
       title={isRoot ? f(section?.id.toUpperCase() || "") : project.meta.title}
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())

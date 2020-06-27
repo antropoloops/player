@@ -16,7 +16,7 @@ const VARIANTS = {
 
 const STYLES = {
   link:
-    "py-1 px-2 border-b border-gray-medium hover:bg-gray-light hover:text-green",
+    "py-2 px-2 border-b border-gray-medium hover:bg-gray-light hover:text-green",
 };
 
 const Navigation: React.FC<Props> = ({ open, sections }) => {

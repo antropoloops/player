@@ -1,18 +1,18 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { Audioset } from "../../audioset";
-import PlayerPage from "./sets/PlayerPage";
-import PreviewPage from "./sets/PreviewPage";
-import { ResourceLoader } from "../../player/Loader";
-import { getActiveAudioContext } from "../../lib/active-audio-context";
-import { usePlayer } from "../hooks/usePlayer";
-import { useKeyboardListener } from "../hooks/useKeyboardListener";
+import { Audioset } from "../../../audioset";
+import PlayerPage from "./PlayerPage";
+import PreviewPage from "./PreviewPage";
+import { ResourceLoader } from "../../../player/Loader";
+import { getActiveAudioContext } from "../../../lib/active-audio-context";
+import { usePlayer } from "../../hooks/usePlayer";
+import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 
 type Props = {
   audioset: Audioset;
 };
 
 const AudiosetPage: React.FC<Props> = ({ audioset }) => {
-  const [isPlaying, setPlaying] = useState(false);
+  const [isPlaying, setPlaying] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const resources = useMemo<ResourceLoader>(
     () =>

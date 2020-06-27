@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { listSections } from "../../api/sections";
 
 type Props = {
+  className?: string;
   logo?: boolean;
   title?: string;
   backTo?: string;
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const Layout: React.FC<Props> = ({
+  className,
   logo,
   title,
   backTo,
@@ -37,7 +39,7 @@ const Layout: React.FC<Props> = ({
   );
 
   return (
-    <div className="App">
+    <div className={`App ${className || ""}`}>
       <div className="Header">{header}</div>
       <div className="Content">{children}</div>
       {visuals ? (

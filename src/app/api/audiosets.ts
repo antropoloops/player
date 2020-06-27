@@ -1,6 +1,7 @@
 import ky from "ky";
-import { API_URL } from "../config";
 import { Audioset } from "../../audioset";
+
+const API_URL = `https://play-admin.antropoloops.com/api/1.0/index`;
 
 type GetAudioset = {
   path: string;

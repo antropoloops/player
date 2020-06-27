@@ -1,5 +1,6 @@
 import ky from "ky";
-import { API_URL } from "../config";
+
+const API_URL = `https://play-admin.antropoloops.com/api/1.0/index`;
 
 type Meta = {
   id: string;

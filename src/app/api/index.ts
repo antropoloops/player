@@ -2,6 +2,7 @@ import { PAGES } from "./data/pages";
 import { Page } from "./types";
 import { getProject } from "./projects";
 import { getAudioset } from "./audiosets";
+import { getBundle } from "./bundles";
 import { listSections, getSection } from "./sections";
 import { listTopics, getTopic } from "./topics";
 
@@ -11,6 +12,9 @@ const API = {
   },
   audiosets: {
     get: getAudioset,
+  },
+  bundles: {
+    get: getBundle,
   },
   topics: {
     list: listTopics,
