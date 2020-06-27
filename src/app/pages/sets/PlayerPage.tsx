@@ -20,7 +20,7 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
   useEffect(() => {
     window.onbeforeunload = () => true;
     return () => {
-      window.onbeforeunload = () => false;
+      window.onbeforeunload = null;
     };
   }, []);
 

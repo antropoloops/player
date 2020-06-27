@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Section } from "../../api/sections";
 import useLocale from "../../hooks/useLocale";
@@ -21,6 +21,7 @@ const STYLES = {
 
 const Navigation: React.FC<Props> = ({ open, sections }) => {
   const { formatMessage: f } = useLocale();
+  const { pathname } = useLocation();
 
   return (
     <motion.div
@@ -33,9 +34,15 @@ const Navigation: React.FC<Props> = ({ open, sections }) => {
       <div className="flex flex-col text-white border-t border-gray-medium">
         {sections.map((section) =>
           section.path ? (
-            <Link key={section.id} className={STYLES.link} to={section.path}>
-              {f(section.id.toUpperCase())}
-            </Link>
+            section.path === pathname ? (
+              <label className="p-2 border-b border-gray-medium font-medium">
+                {f(section.id.toUpperCase())}
+              </label>
+            ) : (
+              <Link key={section.id} className={STYLES.link} to={section.path}>
+                {f(section.id.toUpperCase())}
+              </Link>
+            )
           ) : (
             <a
               href={section.url}
