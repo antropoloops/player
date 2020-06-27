@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Audioset } from "../../../audioset";
 import { PlayerComponentState } from "../../hooks/usePlayer";
 import { Controller } from "../../components/Player/Controller";
 import AudiosetConfig from "../../components/AudiosetConfig";
 import Collapsable from "../../components/Collapsable";
 import { GearIcon } from "../../components/Icons";
+import { Prompt } from "react-router-dom";
 
 type Props = {
   ready: boolean;
@@ -16,8 +17,16 @@ type Props = {
 const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
   const [configOpen, setConfigOpen] = useState(false);
 
+  useEffect(() => {
+    window.onbeforeunload = () => true;
+    return () => {
+      window.onbeforeunload = () => false;
+    };
+  }, []);
+
   return (
     <div className="App Audioset">
+      <Prompt when={true} message={(location) => "Leave?"} />
       <div className="Header">
         <button
           className="p-2 flex w-full items-center rounded-lg text-white hover:text-white-light focus:outline-none duration-300 transition-medium"
