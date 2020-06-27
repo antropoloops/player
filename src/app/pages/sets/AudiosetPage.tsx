@@ -12,17 +12,15 @@ type Props = {
 };
 
 const AudiosetPage: React.FC<Props> = ({ audioset }) => {
-  const [isPlaying, setPlaying] = useState(true);
+  const [isPlaying, setPlaying] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const resources = useMemo<ResourceLoader>(
-    () =>
-      new ResourceLoader(audioset, (status) => {
-        if (status.stage === "ready") {
-          setLoaded(true);
-        }
-      }),
-    [audioset]
-  );
+  const resources = useMemo<ResourceLoader>(() => {
+    return new ResourceLoader(audioset, (status) => {
+      if (status.stage === "ready") {
+        setLoaded(true);
+      }
+    });
+  }, [audioset]);
   // const loading = started && !loaded;
   const player = usePlayer(audioset, resources);
   useKeyboardListener(player.control?.keyboard);
@@ -34,7 +32,7 @@ const AudiosetPage: React.FC<Props> = ({ audioset }) => {
 
   useEffect(() => {
     startLoading();
-  });
+  }, [startLoading]);
 
   return isPlaying ? (
     <PlayerPage

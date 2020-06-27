@@ -14,23 +14,21 @@ type Props = {
 };
 
 const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
-  const [isConfig, setIsConfig] = useState(false);
+  const [configOpen, setConfigOpen] = useState(false);
 
   return (
     <div className="App Audioset">
       <div className="Header">
         <button
-          className="p-2 flex w-full items-center rounded-lg text-gray-light focus:outline-none"
-          onClick={() => setIsConfig(!isConfig)}
+          className="p-2 flex w-full items-center rounded-lg text-white hover:text-white-light focus:outline-none duration-300 transition-medium"
+          onClick={() => setConfigOpen(!configOpen)}
         >
-          <h1 className="flex-grow text-white text-light">
-            {audioset.meta.title}
-          </h1>
-          <GearIcon />
+          <h1 className="flex-grow">{audioset.meta.title}</h1>
+          <GearIcon className="" />
         </button>
-        <Collapsable isOpen={isConfig}>
+        <Collapsable isOpen={configOpen}>
           <AudiosetConfig
-            onClose={() => setIsConfig(false)}
+            onClose={() => setConfigOpen(false)}
             onStop={() => player.control?.stopAll(0)}
             onQuit={onStop}
           />
