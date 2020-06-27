@@ -4,7 +4,7 @@ import { PlayerComponentState } from "../../hooks/usePlayer";
 import { Controller } from "../../components/Player/Controller";
 import AudiosetConfig from "../../components/AudiosetConfig";
 import Collapsable from "../../components/Collapsable";
-import { GearIcon } from "../../components/Icons";
+import { ArrowDown, ArrowUp } from "../../components/Icons";
 import { Prompt } from "react-router-dom";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
-  const [configOpen, setConfigOpen] = useState(false);
+  const [isConfigOpen, setConfigOpen] = useState(false);
 
   useEffect(() => {
     window.onbeforeunload = () => true;
@@ -30,12 +30,16 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
       <div className="Header">
         <button
           className="p-2 flex w-full items-center rounded-lg text-white hover:text-white-light focus:outline-none duration-300 transition-medium"
-          onClick={() => setConfigOpen(!configOpen)}
+          onClick={() => setConfigOpen(!isConfigOpen)}
         >
           <h1 className="flex-grow">{audioset.meta.title}</h1>
-          <GearIcon className="" />
+          {isConfigOpen ? (
+            <ArrowUp className="text-gray-light" />
+          ) : (
+            <ArrowDown className="text-gray-light" />
+          )}
         </button>
-        <Collapsable isOpen={configOpen}>
+        <Collapsable isOpen={isConfigOpen}>
           <AudiosetConfig
             onClose={() => setConfigOpen(false)}
             onStop={() => player.control?.stopAll(0)}

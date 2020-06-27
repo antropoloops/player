@@ -12,7 +12,7 @@ const HomePage: React.FC<Props> = () => {
   const { formatMessage: f } = useLocale();
   const home = sections && sections.find((section) => section.id === "home");
   return (
-    <Layout logo={true}>
+    <Layout logo={true} desktop={<div>Bienvenidx</div>}>
       {home && <img alt={home.id} src={home.image_url} />}
       {sections &&
         sections
@@ -20,7 +20,7 @@ const HomePage: React.FC<Props> = () => {
           .map((section) => (
             <MediaObject
               key={section.id}
-              to={section.path || ""}
+              to={section.to}
               image={section.image_url}
               alt={f(section.id.toUpperCase())}
             >

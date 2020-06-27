@@ -8,9 +8,9 @@ const routes = {
   audioset: (id: string) => `/audioset/${id}`,
   player: (id: string) => `/play/${id}`,
   testSet: () => `/test`,
-  topics: () => `/topics`,
-  topic: (id: string) => `/topic/${id}`,
-  guides: () => `/guides`,
+  topics: () => `/temas`,
+  topic: (id: string) => `/temas/${id}`,
+  guides: () => `/guias`,
 };
 
 export default routes;

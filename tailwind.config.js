@@ -20,6 +20,18 @@ module.exports = {
       spacing: {
         "1px": "1px",
       },
+      gridTemplateRows: {
+        // Complex site-specific row configuration
+        "layout-desktop": "auto 1fr",
+      },
+      minWidth: {
+        sidebar: "300px",
+      },
+      maxHeight: {
+        "6": "1.5rem",
+        "7": "1.75rem",
+        "8": "2rem",
+      },
     },
   },
   variants: {

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Section } from "../../api/sections";
 import useLocale from "../../hooks/useLocale";
+import NavLink from "./NavLink";
 
 type Props = {
   open: boolean;
@@ -12,11 +13,6 @@ type Props = {
 const VARIANTS = {
   collapsed: { height: "0" },
   open: { height: "auto" },
-};
-
-const STYLES = {
-  link:
-    "py-2 px-2 border-b border-gray-medium hover:bg-gray-light hover:text-green",
 };
 
 const Navigation: React.FC<Props> = ({ open, sections }) => {
@@ -32,29 +28,17 @@ const Navigation: React.FC<Props> = ({ open, sections }) => {
       transition={{ duration: 0.3 }}
     >
       <div className="flex flex-col text-white border-t border-gray-medium">
-        {sections.map((section) =>
-          section.path ? (
-            section.path === pathname ? (
-              <label className="p-2 border-b border-gray-medium font-medium">
-                {f(section.id.toUpperCase())}
-              </label>
-            ) : (
-              <Link key={section.id} className={STYLES.link} to={section.path}>
-                {f(section.id.toUpperCase())}
-              </Link>
-            )
-          ) : (
-            <a
-              href={section.url}
-              key={section.id}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={STYLES.link}
-            >
-              {f(section.id.toUpperCase())}
-            </a>
-          )
-        )}
+        {sections.map((section) => (
+          <NavLink
+            key={section.id}
+            to={section.to}
+            isActive={section.to === pathname}
+            isExternal={section.external}
+            className="p-2 border-b border-gray-medium"
+          >
+            {f(section.id.toUpperCase())}
+          </NavLink>
+        ))}
       </div>
     </motion.div>
   );
