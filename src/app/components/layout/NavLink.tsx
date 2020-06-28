@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 type Props = {
   to: string;
-  className: string;
+  className?: string;
   isActive?: boolean;
   isExternal?: boolean;
 };

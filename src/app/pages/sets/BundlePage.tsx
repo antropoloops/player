@@ -3,7 +3,7 @@ import { isAudioset, isProject } from "../../../audioset";
 import useAnalytics from "../../hooks/useAnalytics";
 import LoadingPage from "../LoadingPage";
 import AudiosetPage from "./AudiosetPage";
-import BrowsePage from "./BrowsePage";
+import BrowseProjectPage from "./BrowseProjectPage";
 import { useQuery } from "react-query";
 import API from "../../api";
 
@@ -17,15 +17,18 @@ const SetConductorPage: React.FC<Props> = ({ idOrUrl }) => {
     ["bundle", { path: idOrUrl }],
     (_, params) => API.bundles.get(params)
   );
+  const { data: section } = useQuery(["section", "projecs"], () =>
+    API.sections.get("projects")
+  );
 
   const loading = status === "loading";
 
   return loading ? (
     <LoadingPage />
   ) : bundle && isProject(bundle) ? (
-    <BrowsePage project={bundle} />
+    <BrowseProjectPage section={section} project={bundle} />
   ) : bundle && isAudioset(bundle) ? (
-    <AudiosetPage audioset={bundle} />
+    <AudiosetPage section={section} audioset={bundle} />
   ) : null;
 };
 

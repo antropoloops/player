@@ -5,22 +5,20 @@ import { Readme } from "../../components/Player/Readme";
 import { Markdown } from "../../components/Markdown";
 import routes from "../../routes";
 import Layout from "../../components/layout/Layout";
-import { useQuery } from "react-query";
-import API from "../../api";
 import useLocale from "../../hooks/useLocale";
 import MediaObject from "../../components/MediaObject";
 import usePage from "../../hooks/usePage";
 import Page from "../../components/Page";
+import Breadcrums from "../../components/Breadcrumbs";
+import { Section } from "../../api/sections";
 
 type Props = {
+  section?: Section;
   project: Project;
 };
-const BrowsePage: React.FC<Props> = ({ project }) => {
-  const { formatMessage: f } = useLocale();
+const BrowsePage: React.FC<Props> = ({ section, project }) => {
+  const { formatMessage: FMT } = useLocale();
   const { isMobile } = useDeviceType();
-  const { data: section } = useQuery(["section", "projecs"], () =>
-    API.sections.get("projects")
-  );
   // index is the old name
   const isRoot = project.meta.path === "home" || project.meta.path === "index";
   const { data: page } = usePage("proyectos", { refetchOnMount: isRoot });
@@ -30,18 +28,29 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
   return (
     <Layout
       className="BrowserPage"
-      title={isRoot ? f(section?.id || "") : project.meta.title}
+      title={isRoot ? FMT(section?.id || "") : project.meta.title}
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
       desktop={
-        page ? (
+        isRoot && page ? (
           <Page page={page} />
         ) : (
-          <Markdown
-            className="h-full bg-gray-medium text-white px-4 py-2"
-            markdown={project.meta.readme}
-          />
+          <div className="h-full bg-gray-medium text-white px-4 py-2">
+            {section && (
+              <Breadcrums
+                items={[
+                  { label: FMT(section.id), to: section.to },
+                  {
+                    label: project.meta.parent_path,
+                    to: project.meta.parent_path,
+                  },
+                ]}
+              />
+            )}
+            <h1 className="text-4xl mb-4">{project.meta.title}</h1>
+            <Markdown className="" markdown={project.meta.readme} />
+          </div>
         )
       }
     >

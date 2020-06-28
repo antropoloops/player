@@ -10,12 +10,23 @@ const AboutPage = () => {
 
   return (
     <Layout
-      desktop={<img className="w-full" alt="team" src="/talleres.jpg" />}
+      desktop={
+        <div
+          className="h-full w-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url(/images/team-large.jpg)" }}
+        />
+      }
       sidebar={
         page && <Markdown className="p-4 text-white" markdown={page.content} />
       }
     >
-      <img width="360" height="360" alt="team" src="/talleres.jpg" />
+      <img
+        className="w-full"
+        width="360"
+        height="360"
+        alt="team"
+        src="/talleres.jpg"
+      />
       <div className="p-4 text-white">
         {page && <Markdown markdown={page.content} />}
       </div>

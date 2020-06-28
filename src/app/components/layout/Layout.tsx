@@ -59,9 +59,11 @@ const Layout: React.FC<Props> = ({
             <NavLink
               key={section.id}
               to={section.to}
-              isActive={section.to === pathname}
+              isActive={pathname === section.to}
               isExternal={section.external}
-              className={`mr-4 ${section.to === pathname ? "text-green" : ""}`}
+              className={`mr-4 ${
+                pathname.startsWith(section.to) ? "text-green" : ""
+              }`}
             >
               {f(section.id)}
             </NavLink>

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import routes from "./routes";
 import AboutPage from "./pages/AboutPage";
 import BundlePage from "./pages/sets/BundlePage";
@@ -25,6 +25,12 @@ const Router = () => (
         exact={true}
         path={routes.set(":id")}
         render={({ match }) => <BundlePage idOrUrl={match.params.id} />}
+      />
+      {/** LEGACY REDIRECT */}
+      <Route
+        exact={true}
+        path="/set/:id"
+        render={({ match }) => <Redirect to={routes.set(match.params.id)} />}
       />
       <Route
         exact={true}
