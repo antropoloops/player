@@ -14,6 +14,7 @@ type Props = {
   title?: string;
   backTo?: string;
   header?: ReactNode;
+  sidebar?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
 };
@@ -24,6 +25,7 @@ const Layout: React.FC<Props> = ({
   title,
   backTo,
   header,
+  sidebar,
   children,
   visuals,
   desktop,
@@ -59,7 +61,9 @@ const Layout: React.FC<Props> = ({
             </NavLink>
           ))}
         </div>
-        <div className="overflow-y-auto bg-gray-medium">{children}</div>
+        <div className="overflow-y-auto bg-gray-medium">
+          {sidebar || children}
+        </div>
         <div className="overflow-y-auto col-span-4 bg-gray-dark">{desktop}</div>
       </div>
     );

@@ -5,7 +5,6 @@ import API from "../../api";
 import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
 import { Markdown } from "../../components/Markdown";
-import { useDeviceType } from "../../hooks/useDeviceType";
 import routes from "../../routes";
 
 type Props = {};
@@ -16,15 +15,17 @@ type RouteParams = {
 
 const TopicViewPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { isDesktop } = useDeviceType();
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
   const { data: topic } = useQuery(["topic", { path: params.id }], (_, p) =>
     API.topics.get(p)
   );
+  const { data: section } = useQuery(["section", "topics"], () =>
+    API.sections.get("topics")
+  );
 
-  return isDesktop ? (
+  return (
     <Layout
-      title="Temas"
+      title={`Temas: ${topic ? topic.metadata.group : "..."}`}
       backTo={routes.topics()}
       desktop={
         topic && (
@@ -37,13 +38,12 @@ const TopicViewPage: React.FC<Props> = () => {
           </div>
         )
       }
-    >
-      {topics && <TopicBrowser topics={topics} active={topic} />}
-    </Layout>
-  ) : (
-    <Layout
-      title={`Temas: ${topic ? topic.metadata.group : "..."}`}
-      backTo={routes.topics()}
+      sidebar={
+        <>
+          {section && <img alt="" src={section.image_url} />}
+          {topics && <TopicBrowser topics={topics} active={topic} />}
+        </>
+      }
     >
       <div className="p-4 text-white">
         {topic && (
