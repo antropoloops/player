@@ -13,10 +13,11 @@ export const listTopicsUrl = () =>
   `${URL}/objects/?hide_metafields=true&read_key=${COSMIC_KEY}&type=temas&props=slug,title,metadata,`;
 
 export type Topic = {
-  title: string;
   slug: string;
+  title: string;
   content?: string;
   metadata: {
+    subtitle?: string;
     group: string;
     position: number;
   };

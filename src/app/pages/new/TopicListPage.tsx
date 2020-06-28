@@ -10,7 +10,10 @@ import { Readme } from "../../components/Player/Readme";
 type Props = {};
 
 const TopicListPage: React.FC<Props> = () => {
-  const { data: topics } = useQuery(["topics"], () => API.topics.list());
+  const { data: topics } = useQuery({
+    queryKey: ["topics"],
+    queryFn: () => API.topics.list(),
+  });
   const { data: page } = useQuery(
     ["page", { slug: "temas", locale: "es" }],
     (_, params) => API.pages.get(params)
