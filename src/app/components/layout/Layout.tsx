@@ -38,8 +38,11 @@ const Layout: React.FC<Props> = ({
 
   if (isDesktop) {
     return (
-      <div className="w-screen h-screen grid grid-cols-5 grid-rows-layout-desktop">
-        <div className="col-span-1 p-2">
+      <div
+        data-testid="App"
+        className="w-screen h-screen grid grid-cols-3 lg:grid-cols-4 grid-rows-layout-desktop"
+      >
+        <div data-testid="Header" className="col-span-1 p-2">
           <Link className="w-full" to={sections ? sections[0].to : "/"}>
             <img
               className="max-h-7"
@@ -48,7 +51,10 @@ const Layout: React.FC<Props> = ({
             />
           </Link>
         </div>
-        <div className="col-span-4 flex text-white items-center">
+        <div
+          data-testid="Navigation"
+          className="col-span-2 lg:col-span-3 flex text-white items-center"
+        >
           {sections?.slice(1).map((section) => (
             <NavLink
               key={section.id}
@@ -57,14 +63,19 @@ const Layout: React.FC<Props> = ({
               isExternal={section.external}
               className={`mr-4 ${section.to === pathname ? "text-green" : ""}`}
             >
-              {f(section.id.toUpperCase())}
+              {f(section.id)}
             </NavLink>
           ))}
         </div>
-        <div className="overflow-y-auto bg-gray-medium">
+        <div data-testid="Sidebar" className="overflow-y-auto bg-gray-medium">
           {sidebar || children}
         </div>
-        <div className="overflow-y-auto col-span-4 bg-gray-dark">{desktop}</div>
+        <div
+          data-testid="Content"
+          className="overflow-y-auto col-span-2 lg:col-span-3 bg-gray-dark"
+        >
+          {desktop}
+        </div>
       </div>
     );
   } else {

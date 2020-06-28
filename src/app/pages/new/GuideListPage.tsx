@@ -3,6 +3,9 @@ import Layout from "../../components/layout/Layout";
 import { useQuery } from "react-query";
 import API from "../../api";
 import useLocale from "../../hooks/useLocale";
+import usePage from "../../hooks/usePage";
+import { Markdown } from "../../components/Markdown";
+import PageView from "../../components/Page";
 
 type Props = {};
 
@@ -12,14 +15,18 @@ const GuideListPage: React.FC<Props> = () => {
     API.sections.get(id)
   );
 
+  const { data: page } = usePage("guias");
+
   if (!section) return null;
 
   return (
-    <Layout title={f(section.id.toUpperCase())}>
+    <Layout
+      title={f(section.id)}
+      sidebar={section && <img alt="" src={section.image_url} />}
+      desktop={<PageView page={page} />}
+    >
       {section && <img alt="" src={section.image_url} />}
-      <p className="p-4 text-white leading-8">
-        Estamos trabajando en las guías didácticas, aún no están listas
-      </p>
+      {page && <Markdown className="m-4" markdown={page?.content} />}
     </Layout>
   );
 };

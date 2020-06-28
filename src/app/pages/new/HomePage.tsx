@@ -4,8 +4,8 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import MediaObject from "../../components/MediaObject";
 import useLocale from "../../hooks/useLocale";
-import { Markdown } from "../../components/Markdown";
 import { Readme } from "../../components/Player/Readme";
+import Page from "../../components/Page";
 
 type Props = {};
 
@@ -27,11 +27,11 @@ const HomePage: React.FC<Props> = () => {
           key={section.id}
           to={section.to}
           image={section.image_url}
-          alt={f(section.id.toUpperCase())}
+          alt={f(section.id)}
         >
           <div className="flex flex-col justify-center p-2 group">
             <h3 className="font-normal group-hover:text-green">
-              {f(section.id.toUpperCase())}
+              {f(section.id)}
             </h3>
           </div>
         </MediaObject>
@@ -40,14 +40,7 @@ const HomePage: React.FC<Props> = () => {
   return (
     <Layout
       logo={true}
-      desktop={
-        page && (
-          <div className="p-4 text-white">
-            <h1 className="text-4xl mb-4">{page.title}</h1>
-            <Markdown markdown={page.content} />
-          </div>
-        )
-      }
+      desktop={<Page page={page} />}
       sidebar={
         <>
           {home && <img alt={home.id} src={home.image_url} />}

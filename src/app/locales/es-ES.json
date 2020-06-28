@@ -1,8 +1,11 @@
 {
-  "HOME": "Inicio",
-  "PROJECTS": "Proyectos sonoros",
-  "TOPICS": "Documentación",
-  "GUIDES": "Guías didácticas",
-  "BLOG": "Blog",
-  "INFO": "Info"
+  "blog": "Blog",
+  "guides": "Guías didácticas",
+  "home": "Inicio",
+  "info": "Info",
+  "loops": "Loops",
+  "maps": "Mapas",
+  "play": "Play",
+  "projects": "Proyectos sonoros",
+  "topics": "Documentación"
 }

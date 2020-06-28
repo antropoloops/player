@@ -6,6 +6,7 @@ import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Markdown } from "../../components/Markdown";
 import { Readme } from "../../components/Player/Readme";
+import usePage from "../../hooks/usePage";
 
 type Props = {};
 
@@ -14,10 +15,7 @@ const TopicListPage: React.FC<Props> = () => {
     queryKey: ["topics"],
     queryFn: () => API.topics.list(),
   });
-  const { data: page } = useQuery(
-    ["page", { slug: "temas", locale: "es" }],
-    (_, params) => API.pages.get(params)
-  );
+  const { data: page } = usePage("temas");
   const { data: section } = useQuery(["section", "topics"], () =>
     API.sections.get("topics")
   );

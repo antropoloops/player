@@ -5,6 +5,7 @@ import { Topic, GroupedTopics } from "../../api/topics";
 import routes from "../../routes";
 import { ArrowRight, ArrowUp } from "../Icons";
 import { Markdown } from "../Markdown";
+import useLocale from "../../hooks/useLocale";
 
 type Props = {
   topics: GroupedTopics;
@@ -14,6 +15,7 @@ type Props = {
 
 const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
   const inlineRef = useRef<HTMLDivElement>(null);
+  const { formatMessage: f } = useLocale();
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,7 +32,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
       {topics.groups.map((group) => (
         <div key={group.id} className="bg-gray-dark">
           <div className="py-1 px-2 mb-1 bg-green text-black font-normal text-base">
-            {group.id}
+            {f(group.id)}
           </div>
           {group.topics.map((topic) =>
             active && inline && topic.slug === active.slug ? (

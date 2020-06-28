@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <ReactQueryConfigProvider config={queryConfig}>
-      <Router />;
+      <Router />
     </ReactQueryConfigProvider>
   );
 };

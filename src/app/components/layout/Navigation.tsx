@@ -36,7 +36,7 @@ const Navigation: React.FC<Props> = ({ open, sections }) => {
             isExternal={section.external}
             className="p-2 border-b border-gray-medium"
           >
-            {f(section.id.toUpperCase())}
+            {f(section.id)}
           </NavLink>
         ))}
       </div>

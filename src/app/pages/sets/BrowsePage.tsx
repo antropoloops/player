@@ -9,6 +9,8 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import useLocale from "../../hooks/useLocale";
 import MediaObject from "../../components/MediaObject";
+import usePage from "../../hooks/usePage";
+import Page from "../../components/Page";
 
 type Props = {
   project: Project;
@@ -19,23 +21,28 @@ const BrowsePage: React.FC<Props> = ({ project }) => {
   const { data: section } = useQuery(["section", "projecs"], () =>
     API.sections.get("projects")
   );
-
-  const references = project.audiosets || [];
   // index is the old name
   const isRoot = project.meta.path === "home" || project.meta.path === "index";
+  const { data: page } = usePage("proyectos", { refetchOnMount: isRoot });
+
+  const references = project.audiosets || [];
 
   return (
     <Layout
       className="BrowserPage"
-      title={isRoot ? f(section?.id.toUpperCase() || "") : project.meta.title}
+      title={isRoot ? f(section?.id || "") : project.meta.title}
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
       desktop={
-        <Markdown
-          className="h-full bg-gray-medium text-white px-4 py-2"
-          markdown={project.meta.readme}
-        />
+        page ? (
+          <Page page={page} />
+        ) : (
+          <Markdown
+            className="h-full bg-gray-medium text-white px-4 py-2"
+            markdown={project.meta.readme}
+          />
+        )
       }
     >
       <div className="h-full bg-gray-dark">
