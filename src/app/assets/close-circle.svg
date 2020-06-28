@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+    <g >
+        <line fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" x1="49.942" y1="49.843" x2="34.896" y2="34.865"/>
+        <line fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" x1="49.942" y1="49.887" x2="64.896" y2="34.911"/>
+        <line fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" x1="49.942" y1="49.887" x2="64.895" y2="64.865"/>
+        <line fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" x1="49.942" y1="49.887" x2="34.99" y2="64.864"/>
+    </g>
+    <circle fill="none" stroke="currentColor" stroke-width="8" stroke-miterlimit="10" cx="50" cy="49.917" r="39.833"/>
+</svg>
