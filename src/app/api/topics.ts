@@ -1,64 +1,55 @@
-import { GROUPS, TOPICS } from "./data/topics.data";
 import { COSMIC_KEY } from "../config";
 import ky from "ky";
 
 const PROPS = "slug,title,content,metadata,";
 const URL = "https://api.cosmicjs.com/v1/playantropoloops";
 
-export const cosmicUrl = (slug: string) =>
-  `${URL}/object/${slug}?pretty=true&hide_metafields=true&read_key=${COSMIC_KEY}&props=${PROPS}
-  `;
+const GROUPS = ["play", "maps", "loops"];
+
+export const getTopicUrl = (slug: string) =>
+  `${URL}/object/${slug}?pretty=true&hide_metafields=true&read_key=${COSMIC_KEY}&props=${PROPS}`;
+
+export const listTopicsUrl = () =>
+  `${URL}/objects/?hide_metafields=true&read_key=${COSMIC_KEY}&type=temas&props=slug,title,metadata,`;
 
 export type Topic = {
-  id: string;
   title: string;
-  path: string;
-  readme: string;
-  group: {
-    id: string;
-    title: string;
+  slug: string;
+  content?: string;
+  metadata: {
+    group: string;
+    position: number;
   };
 };
 
-export type TopicGroup = {
-  id: string;
-  title: string;
-  topics: {
+export type GroupedTopics = {
+  locale: string;
+  groups: {
     id: string;
-    title: string;
-    path: string;
+    topics: Topic[];
   }[];
 };
 
-export type TopicGroupList = {
-  locale: string;
-  groups: TopicGroup[];
-};
+export async function listTopics(): Promise<GroupedTopics> {
+  const data = await ky.get(listTopicsUrl()).json();
+  if (!data) throw Error("Not found");
 
-export async function listTopics(): Promise<TopicGroupList> {
+  const topics = (data as any).objects as Topic[];
+  const byPosition = (a: Topic, b: Topic) =>
+    a.metadata.position - b.metadata.position;
+
   return {
     locale: "es",
     groups: GROUPS.map((group) => ({
-      ...group,
-      topics: TOPICS.filter((topic) => topic.group.id === group.id),
+      id: group,
+      topics: topics.filter((t) => t.metadata.group === group).sort(byPosition),
     })),
   };
 }
 
 export async function getTopic({ path }: { path: string }): Promise<Topic> {
-  const data = await ky.get(cosmicUrl(path)).json();
+  const data = await ky.get(getTopicUrl(path)).json();
   if (!data) throw Error("Not found");
 
-  const object = (data as any).object as any;
-
-  return {
-    id: object.slug,
-    title: object.title,
-    path: object.slug,
-    readme: object.content,
-    group: {
-      id: object.metadata.group,
-      title: object.metadata.group,
-    },
-  };
+  return (data as any).object as Topic;
 }

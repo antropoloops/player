@@ -30,7 +30,7 @@ const TopicViewPage: React.FC<Props> = () => {
         topic && (
           <div className="min-h-full bg-gray-medium text-white px-4 py-2">
             <h1 className="text-4xl mb-4">{topic.title}</h1>
-            <Markdown markdown={topic.readme} />
+            <Markdown markdown={topic.content || ""} />
           </div>
         )
       }
@@ -39,14 +39,14 @@ const TopicViewPage: React.FC<Props> = () => {
     </Layout>
   ) : (
     <Layout
-      title={`Temas: ${topic ? topic.group.title : "..."}`}
+      title={`Temas: ${topic ? topic.metadata.group : "..."}`}
       backTo={routes.topics()}
     >
       <div className="p-4 text-white">
         {topic && (
           <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
         )}
-        {topic && <Markdown markdown={topic.readme} />}
+        {topic && <Markdown markdown={topic.content || ""} />}
       </div>
     </Layout>
   );
