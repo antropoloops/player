@@ -10,7 +10,7 @@ const NotFoundPage = () => {
     <Layout
       desktop={
         <div className="h-full flex items-center justify-center">
-          <img src="/notfound.jpg" alt="Where to find" />
+          <img src="/images/not-found.jpg" alt="not found" />
         </div>
       }
     >

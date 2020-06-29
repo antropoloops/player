@@ -4,7 +4,7 @@ import ky from "ky";
 const PROPS = "slug,title,content,metadata,";
 const URL = "https://api.cosmicjs.com/v1/playantropoloops";
 
-const GROUPS = ["play", "maps", "loops"];
+const GROUPS = ["play", "loops", "maps"];
 
 export const getTopicUrl = (slug: string) =>
   `${URL}/object/${slug}?pretty=true&hide_metafields=true&read_key=${COSMIC_KEY}&props=${PROPS}`;
