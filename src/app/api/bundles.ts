@@ -30,9 +30,10 @@ const getUrl =
 
 type GetBundle = {
   path: string;
+  url?: string;
 };
-export function getBundle({ path }: GetBundle): Promise<Bundle> {
-  return fetch(getUrl(path))
+export function getBundle({ url, path }: GetBundle): Promise<Bundle> {
+  return fetch(url || getUrl(path))
     .then((r) => r.json())
     .then(createAudioset);
 }

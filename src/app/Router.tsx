@@ -11,6 +11,7 @@ import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayerPage from "./pages/new/NewPlayerPage";
 import HomePage from "./pages/new/HomePage";
 import GuideListPage from "./pages/new/GuideListPage";
+import Player2Page from "./pages/new/Player2RibbonPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -57,6 +58,9 @@ const Router = () => (
       </Route>
       <Route exact={true} path={routes.player(":id")}>
         <PlayerPage />
+      </Route>
+      <Route exact={true} path={"/next/player"}>
+        <Player2Page />
       </Route>
       <Route path={routes.about()} exact={true} component={AboutPage} />
       <Route component={NotFoundPage} />
