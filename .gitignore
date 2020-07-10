@@ -24,3 +24,5 @@ yarn-error.log*
 tmp/
 design/
 server
+tailwind.css
+.env

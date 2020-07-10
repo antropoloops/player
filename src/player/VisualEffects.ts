@@ -1,5 +1,5 @@
 import debug from "debug";
-import { addResizeObserver } from "../add-resize-observer";
+import { addResizeObserver } from "../lib/add-resize-observer";
 import { Audioset } from "../audioset";
 import { Visuals } from "../visuals";
 import { ControlCommand } from "./Control";

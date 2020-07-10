@@ -1,0 +1,15 @@
+{
+  "blog": "Blog",
+  "fullscreen-enter": "Poner en pantalla completa",
+  "fullscreen-exit": "Salir de pantalla completa",
+  "guides": "Guías didácticas",
+  "home": "Inicio",
+  "info": "Info",
+  "loops": "Loops",
+  "maps": "Mapas",
+  "play": "Play",
+  "projects": "Proyectos sonoros",
+  "stop-all": "Parar todos los sonidos",
+  "stop-and-exit": "Parar y cerrar reproductor",
+  "topics": "Documentación"
+}

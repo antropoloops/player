@@ -3,6 +3,7 @@ import { Bundle } from "./Bundle";
 import { Clip } from "./Clip";
 import { Track } from "./Track";
 import { VisualsMetadata } from "./VisualsMetadata";
+import { Project } from "./Project";
 
 export interface Audioset extends Bundle {
   id: string;
@@ -15,6 +16,9 @@ export interface Audioset extends Bundle {
 
 export function isAudioset(audioset: Bundle): audioset is Audioset {
   return audioset.type === "audioset";
+}
+export function isProject(audioset: Bundle): audioset is Project {
+  return audioset.type === "project";
 }
 
 export interface AudiosetIndexes {

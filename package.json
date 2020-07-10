@@ -1,18 +1,18 @@
 {
   "name": "atpls-player",
-  "version": "3.5.1",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run css:prod && react-scripts build",
     "test": "react-scripts test",
     "test:types": "tsc --noUnusedLocals",
     "lint": "tslint --fix 'src/**/*.{ts,tsx}'",
-    "deploy": "serverless deploy -v && yarn run cloudfront:invalidate",
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
-    "cloudfront:invalidate": "aws cloudfront create-invalidation --distribution-id E4L5YC3BGPSO1 --paths '/*'",
     "eject": "react-scripts eject",
-    "api:mock": "json-server -p 1234 --watch server/db.json"
+    "api:mock": "json-server -p 1234 --watch server/db.json",
+    "css:dev": "postcss src/app/styles/index.css -o src/app/styles/tailwind.css",
+    "css:prod": "postcss src/app/styles/index.css -o src/app/styles/tailwind.css --env production"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -22,31 +22,38 @@
     "@types/debug": "^4.1.5",
     "@types/jest": "^24.9.1",
     "@types/lodash.debounce": "^4.0.6",
-    "@types/node": "^12.12.38",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.7",
+    "@types/node": "^12.12.47",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/topojson": "^3.2.2",
     "chroma-js": "^2.1.0",
+    "classcat": "^4.1.0",
     "d3": "^5.16.0",
     "d3-geo-projection": "^2.9.0",
     "debug": "^4.1.1",
+    "framer-motion": "^1.11.1",
     "husky": "^3.1.0",
-    "lint-staged": "^10.2.2",
+    "ky": "^0.20.0",
+    "lint-staged": "^10.2.11",
     "lodash.debounce": "^4.0.8",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-css-collapse": "^4.0.6",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
-    "react-responsive": "^8.0.3",
-    "react-router-dom": "^5.1.0",
+    "react-gesture-responder": "^2.1.0",
+    "react-query": "^1.5.9",
+    "react-responsive": "^8.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
+    "react-scroll-to": "^3.0.0-beta.6",
+    "react-spring": "^8.0.27",
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^5.0.2",
     "standardized-audio-context": "^23.1.2",
     "topojson": "^3.0.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.5"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -57,11 +64,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test:types"
+      "pre-commit": "lint-staged"
     }
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-unused-vars": "error",
+      "no-console": "error"
+    }
   },
   "browserslist": {
     "production": [
@@ -76,10 +87,13 @@
     ]
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.3.0",
     "@types/react-responsive": "^8.0.2",
     "json-server": "^0.16.1",
-    "serverless": "^1.70.0",
+    "postcss-cli": "^7.1.1",
+    "postcss-import": "^12.0.1",
     "source-map-explorer": "^2.4.2",
+    "tailwindcss": "^1.4.6",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.3.0",

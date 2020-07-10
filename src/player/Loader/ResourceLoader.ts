@@ -1,7 +1,7 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset, Clip } from "../../audioset";
-import getSupportedAudioCodecs from "../../test-audio-codecs";
+import getSupportedAudioCodecs from "../../lib/test-audio-codecs";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
 const log = debug("atpls:resources");
@@ -99,7 +99,8 @@ export class ResourceLoader implements Resources {
     log("Preload");
     this.preloaded = true;
     const { visuals, clips } = this.audioset;
-    const promises: Array<Promise<any>> = [];
+    const promises: Promise<any>[] = [];
+
     if (visuals.mode === "map" && visuals.geomap.url) {
       promises.push(fetch(visuals.geomap.url));
     }

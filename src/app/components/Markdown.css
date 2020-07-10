@@ -1,0 +1,29 @@
+.Markdown h2 {
+  margin-top: 1rem;
+}
+
+.Markdown > *:first-child {
+  margin-top: 0;
+}
+
+.Markdown p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.Markdown ol {
+  margin-left: 1rem;
+}
+
+.Markdown a {
+  color: white;
+  text-decoration: underline;
+}
+
+.Markdown iframe {
+  margin-bottom: 1rem;
+}
+
+.Markdown.hidden {
+  display: none;
+}
