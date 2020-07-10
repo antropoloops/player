@@ -30,11 +30,13 @@ const TopicViewPage: React.FC<Props> = () => {
       desktop={
         topic && (
           <div className="min-h-full bg-gray-medium text-white px-4 py-2">
-            {topic.metadata.subtitle && (
-              <h2 className="text-xl italic">{topic.metadata.subtitle}</h2>
-            )}
-            <h1 className="text-4xl mb-4">{topic.title}</h1>
-            <Markdown markdown={topic.content || ""} />
+            <div className="max-w-content mx-auto text-justify p-8 bg-white text-black">
+              {topic.metadata.subtitle && (
+                <h2 className="text-xl italic">{topic.metadata.subtitle}</h2>
+              )}
+              <h1 className="text-4xl mb-4">{topic.title}</h1>
+              <Markdown markdown={topic.content || ""} />
+            </div>
           </div>
         )
       }
