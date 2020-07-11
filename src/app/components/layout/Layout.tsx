@@ -72,17 +72,24 @@ const Layout: React.FC<Props> = ({
         <div data-testid="Sidebar" className="overflow-y-auto bg-gray-medium">
           {sidebar || children}
         </div>
-        <div
-          data-testid="Content"
-          className="overflow-y-auto col-span-2 lg:col-span-3 bg-gray-dark"
-        >
-          {desktop}
-        </div>
+        {visuals ? (
+          <div className="overflow-hidden col-span-2 lg:col-span-3 bg-gray-dark">
+            {visuals}
+          </div>
+        ) : (
+          <div
+            data-testid="Content"
+            className="overflow-y-auto col-span-2 lg:col-span-3 bg-gray-dark"
+          >
+            {desktop}
+          </div>
+        )}
       </div>
     );
   } else {
     return (
       <div className={`App ${className || ""}`}>
+        {visuals && <div className="visuals">{visuals}</div>}
         <div className="Header">
           {header || (
             <Header
@@ -94,11 +101,6 @@ const Layout: React.FC<Props> = ({
           )}
         </div>
         <div className="Content">{children}</div>
-        {visuals ? (
-          <div className="visuals">{visuals}</div>
-        ) : desktop && isDesktop ? (
-          <div className="visuals overflow-y-scroll">{desktop}</div>
-        ) : null}
       </div>
     );
   }

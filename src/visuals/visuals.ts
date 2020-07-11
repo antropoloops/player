@@ -106,7 +106,7 @@ export class Visuals {
     remove(name, this.refLines);
   }
 
-  public resizeSvg(width: number, height: number) {
+  public resize() {
     // TODO: create a resize function that only changes the svg viewBox
     this.setup();
   }

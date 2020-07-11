@@ -8,6 +8,7 @@ import React, {
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import useSound from "use-sound";
+import { useWindowSize } from "@react-hook/window-size";
 import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import Layout from "../../components/layout/Layout";
@@ -15,6 +16,7 @@ import { Markdown } from "../../components/Markdown";
 import { Clip, Track, Audioset } from "../../../audioset";
 import cx from "classcat";
 import { Visuals } from "../../../visuals";
+import { useDeviceType } from "../../hooks/useDeviceType";
 
 type RouteParams = {
   id: string;
@@ -34,6 +36,8 @@ function reducer(state: State, action: Action) {
 }
 
 const ExplorePage: React.FC = () => {
+  const windowSize = useWindowSize();
+  const { isDesktop } = useDeviceType();
   const { params } = useRouteMatch<RouteParams>();
   const { data: audioset } = useQuery(
     ["project", { path: params.id }],
@@ -42,28 +46,33 @@ const ExplorePage: React.FC = () => {
   const { visuals, visualsRef } = useVisuals(audioset);
   const [playing, dispatch] = useReducer(reducer, {});
 
+  useEffect(() => {
+    if (visuals) visuals.resize();
+  }, [windowSize, visuals]);
+
   if (!audioset) return <LoadingPage />;
 
   return (
     <Layout
-      desktop={
-        <div className="visuals">
-          <div className="visuals-display" ref={visualsRef} />
-        </div>
-      }
+      title={audioset.meta.title}
+      visuals={<div className="visuals-display" ref={visualsRef} />}
     >
       <div className="flex-grow overflow-y-scroll">
-        <img
-          className="w-full"
-          alt={audioset.meta.title}
-          src={audioset.meta.logo_url}
-        />
-        <div className="p-4">
-          <Markdown className="text-white" markdown={audioset.meta.readme} />
-        </div>
+        {isDesktop && (
+          <img
+            className="w-full"
+            alt={audioset.meta.title}
+            src={audioset.meta.logo_url}
+          />
+        )}
+        {isDesktop && (
+          <div className="p-4">
+            <Markdown className="text-white" markdown={audioset.meta.readme} />
+          </div>
+        )}
         {audioset.tracks.map((track) => (
           <div
-            className="relative"
+            className="w-full relative"
             key={track.id}
             style={{ backgroundColor: track.color }}
           >
@@ -126,7 +135,7 @@ const ClipView: React.FC<ClipViewProps> = ({
 
   return (
     <button
-      className="flex items-center font-thin focus:outline-none mb-1"
+      className="w-full flex items-center font-thin focus:outline-none mb-1"
       style={{ backgroundColor: track.color, opacity: isLoaded ? 1 : 0.5 }}
       onClick={() => {
         if (!isLoaded) return;
@@ -152,6 +161,7 @@ const ClipView: React.FC<ClipViewProps> = ({
 const NoVisuals = {
   show: (id: string) => undefined,
   hide: (id: string) => undefined,
+  resize: () => undefined,
 };
 
 function useVisuals(audioset: Audioset | undefined) {
