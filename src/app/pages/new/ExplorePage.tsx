@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import useSound from "use-sound";
@@ -12,9 +6,8 @@ import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import Layout from "../../components/layout/Layout";
 import { Markdown } from "../../components/Markdown";
-import { Clip, Track, Audioset } from "../../../audioset";
+import { Clip, Track } from "../../../audioset";
 import cx from "classcat";
-import { Visuals } from "../../../visuals";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import ExploreVisuals from "../../components/visuals/ExploreVisuals";
 

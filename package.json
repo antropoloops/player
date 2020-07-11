@@ -7,7 +7,7 @@
     "build": "npm run css:prod && react-scripts build",
     "test": "react-scripts test",
     "test:types": "tsc --noUnusedLocals",
-    "lint": "tslint --fix 'src/**/*.{ts,tsx}'",
+    "lint": "CI=true tslint --fix 'src/**/*.{ts,tsx}'",
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "api:mock": "json-server -p 1234 --watch server/db.json",
