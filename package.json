@@ -53,7 +53,8 @@
     "screenfull": "^5.0.2",
     "standardized-audio-context": "^23.1.2",
     "topojson": "^3.0.2",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "use-sound": "^1.0.2"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

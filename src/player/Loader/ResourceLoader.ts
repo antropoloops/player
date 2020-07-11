@@ -61,7 +61,7 @@ export class ResourceLoader implements Resources {
     }, 2000);
   }
 
-  public getStatus() {
+  public getStatus(): ResourceLoadStatus {
     return this.status;
   }
 
@@ -69,11 +69,11 @@ export class ResourceLoader implements Resources {
     return this.buffers[clipId];
   }
 
-  public load(context: IAudioContext) {
+  public load(context: IAudioContext): Promise<ResourceLoadStatus> {
     this.preload();
     const { total, completed } = this;
     if (total === completed) {
-      return Promise.resolve();
+      return Promise.resolve(this.status);
     }
 
     log("Start clip audio loading [%s]", this.audioset.meta.title);
@@ -88,7 +88,7 @@ export class ResourceLoader implements Resources {
         log("Error %o", err);
       })
     );
-    return Promise.all(promises);
+    return Promise.all(promises).then(() => this.status);
   }
 
   private preload() {

@@ -12,6 +12,7 @@ import PlayerPage from "./pages/new/NewPlayerPage";
 import HomePage from "./pages/new/HomePage";
 import GuideListPage from "./pages/new/GuideListPage";
 import Player2Page from "./pages/new/Player2RibbonPage";
+import ExplorePage from "./pages/new/ExplorePage";
 
 const Router = () => (
   <BrowserRouter>
@@ -37,6 +38,11 @@ const Router = () => (
         exact={true}
         path={routes.testSet()}
         render={() => <BundlePage idOrUrl={getUrlFromParams()} />}
+      />
+      <Route
+        exact={true}
+        path={routes.explore(":id")}
+        component={ExplorePage}
       />
       <Route exact={true} path={routes.projects()}>
         <ProjectPage />
