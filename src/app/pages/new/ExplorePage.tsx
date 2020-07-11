@@ -23,16 +23,16 @@ type RouteParams = {
   id: string;
 };
 
-type State = Record<string, boolean>;
+type State = { clipId: string };
 
 type Action = { type: "start" | "stop"; clipId: string };
 
-function reducer(state: State, action: Action) {
+function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "start":
-      return { [action.clipId]: true };
+      return { clipId: action.clipId };
     case "stop":
-      return { ...state, [action.clipId]: false };
+      return { clipId: "" };
   }
 }
 
@@ -45,7 +45,7 @@ const ExplorePage: React.FC = () => {
     (_, p) => API.audiosets.get(p)
   );
   const { visuals, visualsRef } = useVisuals(audioset);
-  const [playing, dispatch] = useReducer(reducer, {});
+  const [playing, dispatch] = useReducer(reducer, { clipId: "" });
 
   useEffect(() => {
     if (visuals) visuals.resize();
@@ -56,7 +56,9 @@ const ExplorePage: React.FC = () => {
   return (
     <Layout
       title={audioset.meta.title}
-      visuals={<ExploreVisuals audioset={audioset} />}
+      visuals={
+        <ExploreVisuals audioset={audioset} activeClipId={playing.clipId} />
+      }
     >
       <div className="flex-grow overflow-y-scroll">
         {isDesktop && (
@@ -84,7 +86,7 @@ const ExplorePage: React.FC = () => {
                   key={clipId}
                   track={track}
                   clip={audioset.index.clipById[clipId]}
-                  isOpen={playing[clipId] || false}
+                  isOpen={playing.clipId === clipId}
                   start={() => dispatch({ type: "start", clipId })}
                   stop={() => dispatch({ type: "stop", clipId })}
                   visuals={visuals}
