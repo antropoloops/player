@@ -21,7 +21,7 @@ class VisualEffects implements Effects {
     setupVisuals(this.audioset, this.visuals);
     const resize = (width: number, height: number) => {
       if (this.visuals) {
-        this.visuals.resizeSvg(width, height);
+        this.visuals.resize();
       }
     };
     this.detach = addResizeObserver(el, resize);

@@ -3,6 +3,7 @@ const routes = {
   about: () => `/about`,
   sets: () => `/sets`,
   set: (id: string) => `/sets/${id}`,
+  explore: (id: string) => `/explorar/${id}`,
   projects: () => `/proyectos`,
   project: (id: string) => `/proyecto/${id}`,
   audioset: (id: string) => `/audioset/${id}`,
