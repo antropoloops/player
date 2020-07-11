@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Section } from "../../api/sections";
 import useLocale from "../../hooks/useLocale";
 import NavLink from "./NavLink";
+import { ENV } from "../../config";
 
 type Props = {
   open: boolean;
@@ -39,6 +40,14 @@ const Navigation: React.FC<Props> = ({ open, sections }) => {
             {f(section.id)}
           </NavLink>
         ))}
+        {ENV === "development" && (
+          <NavLink
+            className="p-2 border-b border-gray-medium"
+            to="/explorar/hdvm-macarena-audioset"
+          >
+            Explorar
+          </NavLink>
+        )}
       </div>
     </motion.div>
   );

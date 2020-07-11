@@ -17,6 +17,7 @@ import { Clip, Track, Audioset } from "../../../audioset";
 import cx from "classcat";
 import { Visuals } from "../../../visuals";
 import { useDeviceType } from "../../hooks/useDeviceType";
+import ExploreVisuals from "../../components/visuals/ExploreVisuals";
 
 type RouteParams = {
   id: string;
@@ -55,7 +56,7 @@ const ExplorePage: React.FC = () => {
   return (
     <Layout
       title={audioset.meta.title}
-      visuals={<div className="visuals-display" ref={visualsRef} />}
+      visuals={<ExploreVisuals audioset={audioset} />}
     >
       <div className="flex-grow overflow-y-scroll">
         {isDesktop && (

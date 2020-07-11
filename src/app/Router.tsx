@@ -44,6 +44,7 @@ const Router = () => (
         path={routes.explore(":id")}
         component={ExplorePage}
       />
+
       <Route exact={true} path={routes.projects()}>
         <ProjectPage />
       </Route>
