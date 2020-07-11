@@ -136,7 +136,7 @@ const ClipView: React.FC<ClipViewProps> = ({
   return (
     <button
       className="w-full flex items-center font-thin focus:outline-none mb-1"
-      style={{ backgroundColor: track.color, opacity: isLoaded ? 1 : 0.5 }}
+      style={{ backgroundColor: track.color, opacity: isLoaded ? 1 : 0.1 }}
       onClick={() => {
         if (!isLoaded) return;
         if (isOpen) stop();
