@@ -8,7 +8,6 @@ import React, {
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import useSound from "use-sound";
-import { useWindowSize } from "@react-hook/window-size";
 import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import Layout from "../../components/layout/Layout";
@@ -37,19 +36,13 @@ function reducer(state: State, action: Action): State {
 }
 
 const ExplorePage: React.FC = () => {
-  const windowSize = useWindowSize();
   const { isDesktop } = useDeviceType();
   const { params } = useRouteMatch<RouteParams>();
   const { data: audioset } = useQuery(
     ["project", { path: params.id }],
     (_, p) => API.audiosets.get(p)
   );
-  const { visuals, visualsRef } = useVisuals(audioset);
   const [playing, dispatch] = useReducer(reducer, { clipId: "" });
-
-  useEffect(() => {
-    if (visuals) visuals.resize();
-  }, [windowSize, visuals]);
 
   if (!audioset) return <LoadingPage />;
 
@@ -89,7 +82,6 @@ const ExplorePage: React.FC = () => {
                   isOpen={playing.clipId === clipId}
                   start={() => dispatch({ type: "start", clipId })}
                   stop={() => dispatch({ type: "stop", clipId })}
-                  visuals={visuals}
                 />
               ))}
             </div>
@@ -107,7 +99,6 @@ type ClipViewProps = {
   isOpen: boolean;
   start: () => void;
   stop: () => void;
-  visuals: Visuals | typeof NoVisuals;
 };
 
 const ClipView: React.FC<ClipViewProps> = ({
@@ -116,7 +107,6 @@ const ClipView: React.FC<ClipViewProps> = ({
   isOpen,
   start,
   stop,
-  visuals,
 }) => {
   const [isLoaded, setLoaded] = useState(false);
 
@@ -129,12 +119,10 @@ const ClipView: React.FC<ClipViewProps> = ({
   useEffect(() => {
     if (isOpen) {
       playAudio();
-      visuals.show(clip.id);
     } else {
       stopAudio();
-      visuals.hide(clip.id);
     }
-  }, [isOpen, playAudio, stopAudio, visuals, clip.id]);
+  }, [isOpen, playAudio, stopAudio]);
 
   return (
     <button
@@ -160,27 +148,3 @@ const ClipView: React.FC<ClipViewProps> = ({
     </button>
   );
 };
-
-const NoVisuals = {
-  show: (id: string) => undefined,
-  hide: (id: string) => undefined,
-  resize: () => undefined,
-};
-
-function useVisuals(audioset: Audioset | undefined) {
-  // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
-  const [el, setReference] = useState<HTMLDivElement | null>(null);
-  const visualsRef = useCallback((newRef: HTMLDivElement) => {
-    setReference(newRef);
-  }, []);
-
-  const visuals = useMemo(() => {
-    if (!audioset || !el) return NoVisuals;
-
-    const v = new Visuals(audioset, el);
-    v.setup();
-    return v;
-  }, [audioset, el]);
-
-  return { visualsRef, visuals };
-}
