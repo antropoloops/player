@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Audioset } from "../../../audioset";
 import { PlayerComponentState } from "../../hooks/usePlayer";
-import { Controller } from "../../components/Player/Controller";
-import AudiosetConfig from "../../components/AudiosetConfig";
-import Collapsable from "../../components/Collapsable";
-import { ArrowDown, ArrowUp } from "../../components/Icons";
+import { Controller } from "../Player/Controller";
+import AudiosetConfig from "../AudiosetConfig";
+import Collapsable from "../Collapsable";
+import { ArrowDown, ArrowUp } from "../Icons";
 import { Prompt } from "react-router-dom";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   player: PlayerComponentState;
 };
 
-const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
+const BundlePlayer: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
   const [isConfigOpen, setConfigOpen] = useState(false);
 
   useEffect(() => {
@@ -62,4 +62,4 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
   );
 };
 
-export default PlayerPage;
+export default BundlePlayer;

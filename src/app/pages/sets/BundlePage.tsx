@@ -1,10 +1,10 @@
 import React from "react";
+import { useQuery } from "react-query";
 import { isAudioset, isProject } from "../../../audioset";
 import useAnalytics from "../../hooks/useAnalytics";
 import LoadingPage from "../LoadingPage";
-import AudiosetPage from "./AudiosetPage";
-import BrowseProjectPage from "./BrowseProjectPage";
-import { useQuery } from "react-query";
+import ProjectBundle from "../../components/bundle/ProjectBundle";
+import AudiosetBundle from "../../components/bundle/AudiosetBundle";
 import API from "../../api";
 
 type Props = {
@@ -26,9 +26,9 @@ const SetConductorPage: React.FC<Props> = ({ idOrUrl }) => {
   return loading ? (
     <LoadingPage />
   ) : bundle && isProject(bundle) ? (
-    <BrowseProjectPage section={section} project={bundle} />
+    <ProjectBundle section={section} project={bundle} />
   ) : bundle && isAudioset(bundle) ? (
-    <AudiosetPage section={section} audioset={bundle} />
+    <AudiosetBundle section={section} audioset={bundle} />
   ) : null;
 };
 

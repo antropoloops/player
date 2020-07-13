@@ -1,22 +1,22 @@
 import React from "react";
 import { Project } from "../../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import { Readme } from "../../components/Player/Readme";
-import { Markdown } from "../../components/Markdown";
+import { Readme } from "../Player/Readme";
+import { Markdown } from "../Markdown";
 import routes from "../../routes";
-import Layout from "../../components/layout/Layout";
+import Layout from "../layout/Layout";
 import useLocale from "../../hooks/useLocale";
-import MediaObject from "../../components/MediaObject";
+import MediaObject from "../MediaObject";
 import usePage from "../../hooks/usePage";
-import Page from "../../components/pages/PageDesktop";
-import Breadcrums from "../../components/Breadcrumbs";
+import Page from "../pages/PageDesktop";
+import Breadcrums from "../Breadcrumbs";
 import { Section } from "../../api/sections";
 
 type Props = {
   section?: Section;
   project: Project;
 };
-const BrowsePage: React.FC<Props> = ({ section, project }) => {
+const BrowseProject: React.FC<Props> = ({ section, project }) => {
   const { formatMessage: FMT } = useLocale();
   const { isMobile } = useDeviceType();
   // index is the old name
@@ -86,4 +86,4 @@ const BrowsePage: React.FC<Props> = ({ section, project }) => {
   );
 };
 
-export default BrowsePage;
+export default BrowseProject;
