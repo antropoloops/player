@@ -53,7 +53,7 @@ const Layout: React.FC<Props> = ({
         </div>
         <div
           data-testid="Navigation"
-          className="col-span-2 lg:col-span-3 flex text-white items-center"
+          className="ml-12 col-span-2 lg:col-span-3 flex text-white items-center"
         >
           {sections?.slice(1).map((section) => (
             <NavLink

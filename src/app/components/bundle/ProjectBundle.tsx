@@ -2,15 +2,14 @@ import React from "react";
 import { Project } from "../../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Readme } from "../Player/Readme";
-import { Markdown } from "../Markdown";
 import routes from "../../routes";
 import Layout from "../layout/Layout";
 import useLocale from "../../hooks/useLocale";
 import MediaObject from "../MediaObject";
 import usePage from "../../hooks/usePage";
-import Page from "../pages/PageDesktop";
-import Breadcrums from "../Breadcrumbs";
 import { Section } from "../../api/sections";
+import { Page } from "../../api/pages";
+import PageDesktop from "../pages/PageDesktop";
 
 type Props = {
   section?: Section;
@@ -23,6 +22,10 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
   const isRoot = project.meta.path === "home" || project.meta.path === "index";
   const { data: page } = usePage("proyectos", { refetchOnMount: isRoot });
 
+  const currentPage: Page | undefined = isRoot
+    ? page
+    : { slug: "", title: project.meta.title, content: project.meta.readme };
+
   const references = project.audiosets || [];
 
   return (
@@ -32,27 +35,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
-      desktop={
-        isRoot ? (
-          <Page page={page} />
-        ) : (
-          <div className="h-full bg-gray-medium text-white px-4 py-2">
-            {section && (
-              <Breadcrums
-                items={[
-                  { label: FMT(section.id), to: section.to },
-                  {
-                    label: project.meta.parent_path,
-                    to: project.meta.parent_path,
-                  },
-                ]}
-              />
-            )}
-            <h1 className="text-4xl mb-4">{project.meta.title}</h1>
-            <Markdown className="" markdown={project.meta.readme} />
-          </div>
-        )
-      }
+      desktop={<PageDesktop page={currentPage} />}
     >
       <div className="h-full bg-gray-dark">
         <img
@@ -75,7 +58,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
               alt={reference.title}
             >
               <div className="p-2">
-                <h3 className="font-normal mb-2">{reference.title}</h3>
+                <h3 className="font-medium mb-2">{reference.title}</h3>
                 <p className="text-sm">{reference.description}</p>
               </div>
             </MediaObject>
