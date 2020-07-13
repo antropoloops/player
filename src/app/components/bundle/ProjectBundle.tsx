@@ -63,7 +63,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
         {isMobile && (
           <Readme
             className="bg-gray-medium p-4"
-            content={project.meta.readme}
+            content={isRoot ? page?.content || "" : project.meta.readme}
           />
         )}
         <ul className="Audiosets">
