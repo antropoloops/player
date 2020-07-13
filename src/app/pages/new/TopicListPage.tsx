@@ -4,9 +4,9 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import { Markdown } from "../../components/Markdown";
 import { Readme } from "../../components/Player/Readme";
 import usePage from "../../hooks/usePage";
+import PageDesktop from "../../components/pages/PageDesktop";
 
 type Props = {};
 
@@ -24,17 +24,7 @@ const TopicListPage: React.FC<Props> = () => {
   if (!topics) return null;
 
   return (
-    <Layout
-      title="Temas"
-      desktop={
-        page && (
-          <div className="p-4 text-white">
-            <h1 className="text-4xl mb-4">{page.title}</h1>
-            <Markdown markdown={page.content} />
-          </div>
-        )
-      }
-    >
+    <Layout title="Temas" desktop={<PageDesktop page={page} />}>
       {section && <img alt="" src={section.image_url} />}
       {isMobile && page && <Readme className="p-4" content={page.content} />}
       {topics && <TopicBrowser topics={topics} inline={isMobile} />}

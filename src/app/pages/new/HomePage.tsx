@@ -5,7 +5,7 @@ import API from "../../api";
 import MediaObject from "../../components/MediaObject";
 import useLocale from "../../hooks/useLocale";
 import { Readme } from "../../components/Player/Readme";
-import Page from "../../components/Page";
+import Page from "../../components/pages/PageDesktop";
 
 type Props = {};
 

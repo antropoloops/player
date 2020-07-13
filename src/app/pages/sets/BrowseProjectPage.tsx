@@ -8,7 +8,7 @@ import Layout from "../../components/layout/Layout";
 import useLocale from "../../hooks/useLocale";
 import MediaObject from "../../components/MediaObject";
 import usePage from "../../hooks/usePage";
-import Page from "../../components/Page";
+import Page from "../../components/pages/PageDesktop";
 import Breadcrums from "../../components/Breadcrumbs";
 import { Section } from "../../api/sections";
 
@@ -33,7 +33,7 @@ const BrowsePage: React.FC<Props> = ({ section, project }) => {
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
       desktop={
-        isRoot && page ? (
+        isRoot ? (
           <Page page={page} />
         ) : (
           <div className="h-full bg-gray-medium text-white px-4 py-2">

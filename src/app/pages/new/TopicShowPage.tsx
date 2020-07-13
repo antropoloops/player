@@ -6,6 +6,7 @@ import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
 import { Markdown } from "../../components/Markdown";
 import routes from "../../routes";
+import PageDesktop from "../../components/pages/PageDesktop";
 
 type Props = {};
 
@@ -13,7 +14,7 @@ type RouteParams = {
   id: string;
 };
 
-const TopicViewPage: React.FC<Props> = () => {
+const TopicShowPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
   const { data: topic } = useQuery(["topic", { path: params.id }], (_, p) =>
@@ -27,19 +28,7 @@ const TopicViewPage: React.FC<Props> = () => {
     <Layout
       title={`Temas: ${topic ? topic.metadata.group : "..."}`}
       backTo={routes.topics()}
-      desktop={
-        topic && (
-          <div className="min-h-full bg-gray-medium text-white px-4 py-2">
-            <div className="max-w-content mx-auto text-justify p-8 bg-white text-black">
-              {topic.metadata.subtitle && (
-                <h2 className="text-xl italic">{topic.metadata.subtitle}</h2>
-              )}
-              <h1 className="text-4xl mb-4">{topic.title}</h1>
-              <Markdown markdown={topic.content || ""} />
-            </div>
-          </div>
-        )
-      }
+      desktop={<PageDesktop page={topic} white={true} />}
       sidebar={
         <>
           {section && <img alt="" src={section.image_url} />}
@@ -57,4 +46,4 @@ const TopicViewPage: React.FC<Props> = () => {
   );
 };
 
-export default TopicViewPage;
+export default TopicShowPage;

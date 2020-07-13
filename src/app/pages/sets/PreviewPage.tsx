@@ -17,7 +17,7 @@ const PreviewPage: React.FC<Props> = ({ section, audioset, onStart }) => {
       title={audioset.meta.title}
       backTo={audioset.meta.parent_path || routes.sets()}
       desktop={
-        <div className="text-white p-4">
+        <div className="text-white p-4 max-w-content text-justify">
           <h1 className="text-4xl mb-4">{audioset.meta.title}</h1>
           <Markdown markdown={audioset.meta.readme} />
         </div>

@@ -5,7 +5,7 @@ import AboutPage from "./pages/AboutPage";
 import BundlePage from "./pages/sets/BundlePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TopicListPage from "./pages/new/TopicListPage";
-import TopicViewPage from "./pages/new/TopicViewPage";
+import TopicShowPage from "./pages/new/TopicShowPage";
 import ProjectPage from "./pages/new/ProjectPage";
 import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayerPage from "./pages/new/NewPlayerPage";
@@ -55,7 +55,7 @@ const Router = () => (
         <TopicListPage />
       </Route>
       <Route exact={true} path={routes.topic(":id")}>
-        <TopicViewPage />
+        <TopicShowPage />
       </Route>
       <Route exact={true} path={routes.guides()}>
         <GuideListPage />
