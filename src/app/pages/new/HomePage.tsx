@@ -48,9 +48,13 @@ const HomePage: React.FC<Props> = () => {
         </>
       }
     >
-      {home && <img alt={home.id} src={home.image_url} />}
-      {page && <Readme className="bg-gray-medium p-4" content={page.content} />}
-      {sectionList}
+      <div className="h-full overflow-y-scroll overflow-x-hidden">
+        {home && <img alt={home.id} src={home.image_url} />}
+        {page && (
+          <Readme className="bg-gray-medium p-4" content={page.content} />
+        )}
+        {sectionList}
+      </div>
     </Layout>
   );
 };

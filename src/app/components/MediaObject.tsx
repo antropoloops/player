@@ -9,8 +9,8 @@ type Props = {
 };
 
 const MediaObject: React.FC<Props> = ({ to, alt, image, children }) => (
-  <Link to={to} className="mb-2 flex w-full text-white bg-gray-light">
-    <div className="ratio w-1/3 flex-shrink-0">
+  <Link to={to} className="mb-2 flex w-full text-white bg-gray-light min-h-12">
+    <div className="ratio w-1/3 flex-shrink-0 overflow-hidden">
       <svg viewBox="0 0 16 9" />
       <img className="" src={image} alt={alt} />
     </div>
