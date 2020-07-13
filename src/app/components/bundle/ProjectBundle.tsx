@@ -10,6 +10,8 @@ import usePage from "../../hooks/usePage";
 import { Section } from "../../api/sections";
 import { Page } from "../../api/pages";
 import PageDesktop from "../pages/PageDesktop";
+import { useQuery } from "react-query";
+import API from "../../api";
 
 type Props = {
   section?: Section;
@@ -21,6 +23,11 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
   // index is the old name
   const isRoot = project.meta.path === "home" || project.meta.path === "index";
   const { data: page } = usePage("proyectos", { refetchOnMount: isRoot });
+  // const { data: parent } = useQuery(
+  //   ["bundle", { path: project.meta.parent_path }],
+  //   (_, params) => API.bundles.get(params),
+  //   { enabled: project.meta.parent_path }
+  // );
 
   const currentPage: Page | undefined = isRoot
     ? page
@@ -30,12 +37,16 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
 
   return (
     <Layout
-      className="BrowserPage"
       title={isRoot ? FMT(section?.id || "") : project.meta.title}
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
-      desktop={<PageDesktop page={currentPage} />}
+      desktop={
+        <PageDesktop
+          page={currentPage}
+          // breadcrumbs={[{ label: parent?.meta.title, to: parent?.meta.path }]}
+        />
+      }
     >
       <div className="h-full bg-gray-dark">
         <img
@@ -58,7 +69,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
               alt={reference.title}
             >
               <div className="p-2">
-                <h3 className="font-medium mb-2">{reference.title}</h3>
+                <h3 className="font-bold mb-2">{reference.title}</h3>
                 <p className="text-sm">{reference.description}</p>
               </div>
             </MediaObject>

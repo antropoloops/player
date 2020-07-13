@@ -45,7 +45,7 @@
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-gesture-responder": "^2.1.0",
-    "react-query": "^1.5.9",
+    "react-query": "^2.4.15",
     "react-responsive": "^8.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
