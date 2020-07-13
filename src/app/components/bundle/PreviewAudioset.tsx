@@ -1,6 +1,6 @@
 import React from "react";
 import { Audioset } from "../../../audioset";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import Layout from "../layout/Layout";
 import routes from "../../routes";
 import { Section } from "../../api/sections";
@@ -19,7 +19,7 @@ const PreviewAudioset: React.FC<Props> = ({ section, audioset, onStart }) => {
       desktop={
         <div className="text-white p-4 max-w-content text-justify">
           <h1 className="text-4xl mb-4">{audioset.meta.title}</h1>
-          <Markdown markdown={audioset.meta.readme} />
+          <HtmlContent markdown={audioset.meta.readme} />
         </div>
       }
       sidebar={
@@ -48,7 +48,7 @@ const PreviewAudioset: React.FC<Props> = ({ section, audioset, onStart }) => {
           src={audioset.meta.logo_url}
         />
         <div className="p-4">
-          <Markdown className="text-white" markdown={audioset.meta.readme} />
+          <HtmlContent className="text-white" markdown={audioset.meta.readme} />
         </div>
       </div>
       <div>

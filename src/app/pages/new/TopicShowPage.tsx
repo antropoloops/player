@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import TopicBrowser from "../../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
-import { Markdown } from "../../components/Markdown";
+import HtmlContent from "../../components/HtmlContent";
 import routes from "../../routes";
 import PageDesktop from "../../components/pages/PageDesktop";
 
@@ -40,7 +40,7 @@ const TopicShowPage: React.FC<Props> = () => {
         {topic && (
           <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
         )}
-        {topic && <Markdown markdown={topic.content || ""} />}
+        {topic && <HtmlContent markdown={topic.content || ""} />}
       </div>
     </Layout>
   );

@@ -9,6 +9,10 @@ const activeListeners: ResolveContext[] = [];
 const context = new AudioContext();
 context.onstatechange = handleStateChange;
 
+export function isAudioContextActive() {
+  return context.state === "running";
+}
+
 /**
  * Waits until the AudioContext is in "running" state
  *

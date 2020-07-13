@@ -6,7 +6,7 @@ type Props = {
   style?: React.CSSProperties;
 };
 
-export const Spinner: React.FC<Props> = ({
+const Spinner: React.FC<Props> = ({
   className = "spin",
   style,
   color = "rgb(249, 18, 107)",
@@ -319,3 +319,5 @@ export const Spinner: React.FC<Props> = ({
     </g>
   </svg>
 );
+
+export default Spinner;

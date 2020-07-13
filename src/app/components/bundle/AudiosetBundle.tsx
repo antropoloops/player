@@ -8,6 +8,7 @@ import { usePlayer } from "../../hooks/usePlayer";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import { Section } from "../../api/sections";
 import routes from "../../routes";
+import ExplorePanel from "../explore/ExplorePanel";
 
 type Props = {
   section?: Section;
@@ -37,7 +38,13 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
     startLoading();
   }, [startLoading]);
 
-  return isPlaying ? (
+  if (!isPlaying) {
+    return <Redirect to={routes.sets()} />;
+  }
+
+  const isMap = audioset.visuals.mode === "map";
+
+  return isMap ? (
     <BundlePlayer
       ready={loaded}
       audioset={audioset}
@@ -47,7 +54,7 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
       }}
     />
   ) : (
-    <Redirect to={audioset.meta.parent_path || routes.sets()} />
+    <ExplorePanel audioset={audioset} />
   );
 };
 

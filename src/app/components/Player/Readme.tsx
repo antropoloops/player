@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { ArrowDown, ArrowUp } from "../Icons";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import { motion } from "framer-motion";
 import "./Readme.css";
 
@@ -32,7 +32,7 @@ export const Readme = ({ className, content }: ReadmeProps) => {
         variants={variants}
         transition={{ duration: 0.3 }}
       >
-        <Markdown className="text-white" markdown={content} />
+        <HtmlContent className="text-white" markdown={content} />
       </motion.div>
       <div className="flex justify-center p-2">
         <button

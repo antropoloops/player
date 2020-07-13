@@ -4,7 +4,7 @@ import { Project as ProjectData } from "../../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { Header } from "../Header";
 import { Info } from "../Icons";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import { Scroll } from "../Scroll";
 import { Readme } from "../Player/Readme";
 import { Item } from "./Item";
@@ -58,7 +58,7 @@ export const Project = ({ project }: ProjectProps) => {
       </footer>
       {isDesktop && (
         <div className="visuals">
-          <Markdown markdown={project.meta.readme} />
+          <HtmlContent markdown={project.meta.readme} />
         </div>
       )}
     </div>

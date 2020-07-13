@@ -23,28 +23,26 @@
   padding-left: 0.5rem;
 }
 
-
 .Clip.open .meta {
   display: flex;
   flex-direction: row;
 }
-.Clip.open .meta > *{
+.Clip.open .meta > * {
   width: 50%;
 }
 
-.Clip.open .Markdown {
+.Clip.open .HtmlContent {
   overflow: hidden;
   background-color: transparent;
 
   font-size: 1px;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   line-height: 0;
   padding: 0;
   color: white;
 }
-.Clip.open .Markdown.visible {
+.Clip.open .HtmlContent.visible {
   font-size: 1rem;
   line-height: 1.5;
   padding: 0.5rem;
 }
-

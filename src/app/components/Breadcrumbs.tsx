@@ -1,8 +1,13 @@
 import React, { ReactNode } from "react";
 import NavLink from "./layout/NavLink";
 
+export type Breadcrum = {
+  label?: string;
+  to?: string;
+};
+
 type Props = {
-  items: { label?: string; to?: string }[];
+  items: Breadcrum[];
 };
 const Breadcrums: React.FC<Props> = ({ items }) => {
   const links = items

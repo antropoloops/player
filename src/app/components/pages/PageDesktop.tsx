@@ -1,15 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Page as PageData } from "../../api/pages";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import cx from "classcat";
 
 type Props = {
   page?: PageData;
   center?: boolean;
   white?: boolean;
+  header?: ReactNode;
 };
 
-const PageDesktop: React.FC<Props> = ({ page, center, white }) => {
+const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
   if (!page) return null;
 
   const subtitle = page?.metadata?.subtitle;
@@ -23,9 +24,10 @@ const PageDesktop: React.FC<Props> = ({ page, center, white }) => {
           "mx-auto": center,
         })}
       >
+        {header}
         {subtitle && <h2 className="text-xl italic">{subtitle}</h2>}
         <h1 className="text-4xl mb-4">{page.title}</h1>
-        <Markdown markdown={page.content || ""} />
+        <HtmlContent markdown={page.content || ""} />
       </div>
     </div>
   );

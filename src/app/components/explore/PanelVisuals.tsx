@@ -1,14 +1,14 @@
 import React from "react";
 import useDimensions from "react-cool-dimensions";
 import { Audioset, Clip } from "../../../audioset";
-import { Spinner } from "../Spinner";
+import Spinner from "../Spinner";
 
 type Props = {
   audioset: Audioset;
   activeClipId: string;
 };
 
-const ExploreVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
+const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
   const { ref, width } = useDimensions<HTMLImageElement>();
   if (audioset.visuals.mode !== "panel") return null;
 
@@ -16,15 +16,17 @@ const ExploreVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
 
   const clip = audioset.index.clipById[activeClipId];
 
+  const radius = Math.floor(150 * ratio);
+
   return (
     <div className="h-full w-full flex flex-col items-start relative">
-      <img ref={ref} src={audioset.visuals.image.url} alt="fondo" style={{}} />
-      {clip && <PlayingClip clip={clip} ratio={ratio} radius={50} />}
+      <img ref={ref} src={audioset.visuals.image.url} alt="fondo" />
+      {clip && <PlayingClip clip={clip} ratio={ratio} radius={radius} />}
     </div>
   );
 };
 
-export default ExploreVisuals;
+export default PanelVisuals;
 
 type PlayingClipProps = {
   clip: Clip;

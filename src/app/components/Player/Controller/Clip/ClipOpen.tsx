@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { ClipProps } from ".";
 import { ArrowDown, ArrowUp } from "../../../Icons";
-import { Markdown } from "../../../Markdown";
+import HtmlContent from "../../../HtmlContent";
 import "./ClipOpen.css";
 
 export const OpenClip = ({ clip, control }: ClipProps) => {
@@ -50,7 +50,7 @@ export const OpenClip = ({ clip, control }: ClipProps) => {
           {clipInfo}
         </div>
       )}
-      <Markdown
+      <HtmlContent
         className={`expand ${isReadmeVisible ? "visible" : "hidden"}`}
         markdown={isReadmeVisible ? clip.readme : ""}
       />

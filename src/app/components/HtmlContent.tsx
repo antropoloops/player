@@ -1,17 +1,18 @@
 import React from "react";
-import "./Markdown.css";
 
-interface MarkdownProps {
+type Props = {
   markdown: string;
   className?: string;
-}
+};
 
-export const Markdown = ({ markdown, className = "" }: MarkdownProps) =>
+export const HtmlContent: React.FC<Props> = ({ markdown, className = "" }) =>
   markdown && markdown.length ? (
     <div
-      className={`Markdown ${className}`}
+      className={`HtmlContent ${className}`}
       dangerouslySetInnerHTML={{ __html: markdown }}
     />
   ) : (
     <div />
   );
+
+export default HtmlContent;

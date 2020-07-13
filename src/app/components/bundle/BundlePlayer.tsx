@@ -7,6 +7,7 @@ import Collapsable from "../Collapsable";
 import { ArrowDown, ArrowUp } from "../Icons";
 import { Prompt } from "react-router-dom";
 import useLocale from "../../hooks/useLocale";
+import { isAudioContextActive } from "../../../lib/active-audio-context";
 
 type Props = {
   ready: boolean;
@@ -15,9 +16,13 @@ type Props = {
   player: PlayerComponentState;
 };
 
-const BundlePlayer: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
+const BundlePlayer: React.FC<Props> = ({ audioset, player, onStop }) => {
   const { formatMessage: f } = useLocale();
   const [isConfigOpen, setConfigOpen] = useState(false);
+
+  const isPlaying = !!Object.values(player.state.tracks).find(
+    (track) => track.status === "playing"
+  );
 
   useEffect(() => {
     window.onbeforeunload = () => true;
@@ -28,7 +33,7 @@ const BundlePlayer: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
 
   return (
     <div className="App Audioset">
-      <Prompt when={true} message={() => f("ask-leave-player")} />
+      <Prompt when={isPlaying} message={() => f("ask-leave-player")} />
       <div className="Header">
         <button
           className="p-2 flex w-full items-center rounded-lg text-white hover:text-white-light focus:outline-none duration-300 transition-medium"
@@ -58,7 +63,7 @@ const BundlePlayer: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
         />
       </div>
       <div className="visuals">
-        {ready ? (
+        {isAudioContextActive() ? (
           <div className="visuals-display" ref={player.visualsRef} />
         ) : (
           <div className="w-full h-full flex justify-center items-center py-20">

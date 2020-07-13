@@ -29,7 +29,32 @@ button {
   grid-area: 1/1/1/1;
 }
 
-.PageDesktop a {
+.HtmlContent h2 {
+  margin-top: 1rem;
+}
+
+.HtmlContent > *:first-child {
+  margin-top: 0;
+}
+
+.HtmlContent p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.HtmlContent ol {
+  margin-left: 1rem;
+}
+
+.HtmlContent a {
   color: orange;
   font-weight: bold;
+}
+
+.HtmlContent iframe {
+  margin-bottom: 1rem;
+}
+
+.HtmlContent.hidden {
+  display: none;
 }

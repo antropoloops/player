@@ -6,7 +6,7 @@ import { useDeviceType } from "../../hooks/useDeviceType";
 import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import routes from "../../routes";
-import { Markdown } from "../../components/Markdown";
+import HtmlContent from "../../components/HtmlContent";
 
 type Props = {};
 
@@ -32,7 +32,10 @@ const AudiosetPage: React.FC<Props> = () => {
           : routes.projects()
       }
       desktop={
-        <Markdown className="text-white p-4" markdown={audioset.meta.readme} />
+        <HtmlContent
+          className="text-white p-4"
+          markdown={audioset.meta.readme}
+        />
       }
     >
       <div className="flex-grow overflow-y-scroll">
@@ -43,7 +46,10 @@ const AudiosetPage: React.FC<Props> = () => {
         />
         {isMobile && (
           <div className="p-4">
-            <Markdown className="text-white" markdown={audioset.meta.readme} />
+            <HtmlContent
+              className="text-white"
+              markdown={audioset.meta.readme}
+            />
           </div>
         )}
       </div>

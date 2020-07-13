@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Audioset } from "../../../audioset";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import "./Session.css";
 import routes from "../../routes";
 
@@ -33,7 +33,7 @@ export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
             Cerrar
           </Link>
         </div>
-        <Markdown markdown={meta.readme} />
+        <HtmlContent markdown={meta.readme} />
       </div>
     </div>
   );
