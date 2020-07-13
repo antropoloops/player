@@ -7,7 +7,7 @@
     "build": "npm run css:prod && react-scripts build",
     "test": "react-scripts test",
     "test:types": "tsc --noUnusedLocals",
-    "lint": "CI=true tslint --fix 'src/**/*.{ts,tsx}'",
+    "lint": "eslint src --ext ts --ext tsx",
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "api:mock": "json-server -p 1234 --watch server/db.json",
@@ -35,7 +35,7 @@
     "debug": "^4.1.1",
     "framer-motion": "^1.11.1",
     "husky": "^3.1.0",
-    "ky": "^0.20.0",
+    "ky": "^0.21.0",
     "lint-staged": "^10.2.11",
     "lodash.debounce": "^4.0.8",
     "prettier": "^2.0.5",
@@ -60,21 +60,22 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "tslint --fix",
       "prettier --write",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint"
     }
   },
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
       "no-unused-vars": "error",
-      "no-console": "error"
+      "no-console": "error",
+      "react/jsx-key": "error"
     }
   },
   "browserslist": {
@@ -96,10 +97,6 @@
     "postcss-cli": "^7.1.1",
     "postcss-import": "^12.0.1",
     "source-map-explorer": "^2.4.2",
-    "tailwindcss": "^1.4.6",
-    "tslint": "^6.1.2",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0",
-    "tslint-react": "^5.0.0"
+    "tailwindcss": "^1.4.6"
   }
 }

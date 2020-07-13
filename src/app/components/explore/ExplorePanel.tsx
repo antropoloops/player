@@ -7,6 +7,9 @@ import cx from "classcat";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import PanelVisuals from "../../components/explore/PanelVisuals";
 import routes from "../../routes";
+import Spinner from "../Spinner";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "../Icons";
 
 type State = { clipId: string };
 
@@ -28,6 +31,11 @@ type Props = {
 const ExplorePanel: React.FC<Props> = ({ audioset }) => {
   const { isDesktop } = useDeviceType();
   const [playing, dispatch] = useReducer(reducer, { clipId: "" });
+  //   const { data: parent } = useQuery(
+  //     ["bundle", { path: audioset.meta.parent_path }],
+  //     (_, params) => API.bundles.get(params),
+  //     { enabled: audioset.meta.parent_path }
+  //   );
 
   // FIXME: remove when backend fixed
   const { parent_path, path } = audioset.meta;
@@ -43,6 +51,17 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
       }
     >
       <div className="flex-grow overflow-y-scroll">
+        {isDesktop && (
+          <h1 className="p-2 text-lg text-white hover:text-white-light">
+            <Link
+              className="flex items-center"
+              to={audioset.meta.parent_path || routes.sets()}
+            >
+              <ArrowLeft className="mr-1 w-5 h-5" />
+              {audioset.meta.title}
+            </Link>
+          </h1>
+        )}
         {false && isDesktop && (
           <img
             className="w-full"
@@ -116,7 +135,7 @@ const ClipView: React.FC<ClipViewProps> = ({
   return (
     <button
       className="w-full flex items-center focus:outline-none mb-1"
-      style={{ backgroundColor: track.color, opacity: isLoaded ? 1 : 0.1 }}
+      style={{ backgroundColor: track.color, opacity: isLoaded ? 1 : 0.3 }}
       onClick={() => {
         if (!isLoaded) return;
         if (isOpen) stop();
@@ -133,7 +152,12 @@ const ClipView: React.FC<ClipViewProps> = ({
           alt={clip.title}
         />
       </div>
-      <label className="p-2">{clip.title}</label>
+      <label className="p-2 flex-grow text-left">{clip.title}</label>
+      {!isLoaded && (
+        <div className="w-1/6">
+          <Spinner color="#333" style={{ width: "75%", height: "75%" }} />
+        </div>
+      )}
     </button>
   );
 };

@@ -2,7 +2,7 @@
 import { Bundle, createAudioset } from "../../audioset";
 
 const PRODUCTION = `https://antropoloops-production.s3.eu-west-3.amazonaws.com/files`;
-const STAGING = `https://play-admin.antropoloops.com/api/1.0/index`;
+// const STAGING = `https://play-admin.antropoloops.com/api/1.0/index`;
 
 const getProductionUrl = (idOrUrl: string) =>
   idOrUrl.endsWith(".json")
@@ -14,12 +14,12 @@ const getProductionUrl = (idOrUrl: string) =>
 //     ? `http://localhost:1234/index`
 //     : `http://localhost:1234/set/${idOrUrl}`;
 
-const getStaginUrl = (idOrUrl: string) =>
-  idOrUrl.endsWith(".json")
-    ? idOrUrl
-    : idOrUrl === "index"
-    ? STAGING
-    : `${STAGING}/${idOrUrl}`;
+// const getStaginUrl = (idOrUrl: string) =>
+//   idOrUrl.endsWith(".json")
+//     ? idOrUrl
+//     : idOrUrl === "index"
+//     ? STAGING
+//     : `${STAGING}/${idOrUrl}`;
 
 // const getUrl = getProductionUrl; // dbServerUrl;
 const getUrl = getProductionUrl;
