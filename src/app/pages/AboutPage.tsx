@@ -1,5 +1,5 @@
 import React from "react";
-import { Markdown } from "../components/Markdown";
+import HtmlContent from "../components/HtmlContent";
 import Layout from "../components/layout/Layout";
 import { Link } from "react-router-dom";
 import routes from "../routes";
@@ -17,7 +17,9 @@ const AboutPage = () => {
         />
       }
       sidebar={
-        page && <Markdown className="p-4 text-white" markdown={page.content} />
+        page && (
+          <HtmlContent className="p-4 text-white" markdown={page.content} />
+        )
       }
     >
       <img
@@ -28,7 +30,7 @@ const AboutPage = () => {
         src="/talleres.jpg"
       />
       <div className="p-4 text-white">
-        {page && <Markdown markdown={page.content} />}
+        {page && <HtmlContent markdown={page.content} />}
       </div>
       <div className="my-8 flex justify-center">
         <Link

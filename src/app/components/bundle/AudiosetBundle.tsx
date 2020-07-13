@@ -39,7 +39,7 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
   }, [startLoading]);
 
   if (!isPlaying) {
-    return <Redirect to={audioset.meta.parent_path || routes.sets()} />;
+    return <Redirect to={routes.sets()} />;
   }
 
   const isMap = audioset.visuals.mode === "map";

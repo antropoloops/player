@@ -10,6 +10,10 @@ import usePage from "../../hooks/usePage";
 import { Section } from "../../api/sections";
 import { Page } from "../../api/pages";
 import PageDesktop from "../pages/PageDesktop";
+import { useQuery } from "react-query";
+import API from "../../api";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "../Icons";
 
 type Props = {
   section?: Section;
@@ -21,11 +25,11 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
   // index is the old name
   const isRoot = project.meta.path === "home" || project.meta.path === "index";
   const { data: page } = usePage("proyectos", { refetchOnMount: isRoot });
-  // const { data: parent } = useQuery(
-  //   ["bundle", { path: project.meta.parent_path }],
-  //   (_, params) => API.bundles.get(params),
-  //   { enabled: project.meta.parent_path }
-  // );
+  const { data: parent } = useQuery(
+    ["bundle", { path: project.meta.parent_path }],
+    (_, params) => API.bundles.get(params),
+    { enabled: project.meta.parent_path }
+  );
 
   const currentPage: Page | undefined = isRoot
     ? page
@@ -33,22 +37,28 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
 
   const references = project.audiosets || [];
 
+  const backTo = (
+    <Link
+      className="p-2 flex items-center text-normal text-white"
+      to={project.meta.parent_path || routes.sets()}
+    >
+      <ArrowLeft className="mr-1 h-5 w-5" />
+      {parent?.meta.title || "Proyectos sonoros"}
+    </Link>
+  );
+
   return (
     <Layout
       title={isRoot ? FMT(section?.id || "") : project.meta.title}
       backTo={
         project.meta.parent_path || (isRoot ? routes.root() : routes.sets())
       }
-      desktop={
-        <PageDesktop
-          page={currentPage}
-          // breadcrumbs={[{ label: parent?.meta.title, to: parent?.meta.path }]}
-        />
-      }
+      desktop={<PageDesktop page={currentPage} />}
     >
       <div className="h-full bg-gray-dark">
+        {!isRoot && !isMobile && backTo}
         <img
-          className="w-full"
+          className="w-full mb-2"
           alt={project.meta.title}
           src={isRoot ? section?.image_url : project.meta.logo_url}
         />

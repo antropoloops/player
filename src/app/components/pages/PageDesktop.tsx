@@ -1,17 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Page as PageData } from "../../api/pages";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import cx from "classcat";
-import Breadcrums, { Breadcrum } from "../Breadcrumbs";
 
 type Props = {
   page?: PageData;
   center?: boolean;
   white?: boolean;
-  breadcrumbs?: Breadcrum[];
+  header?: ReactNode;
 };
 
-const PageDesktop: React.FC<Props> = ({ page, center, white, breadcrumbs }) => {
+const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
   if (!page) return null;
 
   const subtitle = page?.metadata?.subtitle;
@@ -25,10 +24,10 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, breadcrumbs }) => {
           "mx-auto": center,
         })}
       >
-        {breadcrumbs && <Breadcrums items={breadcrumbs} />}
+        {header}
         {subtitle && <h2 className="text-xl italic">{subtitle}</h2>}
         <h1 className="text-4xl mb-4">{page.title}</h1>
-        <Markdown markdown={page.content || ""} />
+        <HtmlContent markdown={page.content || ""} />
       </div>
     </div>
   );

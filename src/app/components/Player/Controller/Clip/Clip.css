@@ -9,11 +9,11 @@
 .Controller .Clip .meta {
   flex-grow: 1;
 }
-.Controller .Clip .title  {
+.Controller .Clip .title {
   font-size: 1rem;
   margin: 0;
 }
 
-.Controller .Clip.open .Markdown {
+.Controller .Clip.open .HtmlContent {
   color: #333;
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Topic, GroupedTopics } from "../../api/topics";
 import routes from "../../routes";
 import { ArrowRight, ArrowUp } from "../Icons";
-import { Markdown } from "../Markdown";
+import HtmlContent from "../HtmlContent";
 import useLocale from "../../hooks/useLocale";
 
 type Props = {
@@ -41,7 +41,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                   <h2 className="text-lg mb-2 font-bold">{topic.title}</h2>
                   <ArrowUp className="ml-2 flex-shrink-0" />
                 </Link>
-                <Markdown markdown={active.content || ""} />
+                <HtmlContent markdown={active.content || ""} />
               </div>
             ) : (
               <Link

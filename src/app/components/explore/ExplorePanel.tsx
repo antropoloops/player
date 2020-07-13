@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect } from "react";
 import useSound from "use-sound";
 import Layout from "../../components/layout/Layout";
-import { Markdown } from "../../components/Markdown";
+import HtmlContent from "../HtmlContent";
 import { Clip, Track, Audioset } from "../../../audioset";
 import cx from "classcat";
 import { useDeviceType } from "../../hooks/useDeviceType";
@@ -71,7 +71,10 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
         )}
         {false && isDesktop && (
           <div className="p-4">
-            <Markdown className="text-white" markdown={audioset.meta.readme} />
+            <HtmlContent
+              className="text-white"
+              markdown={audioset.meta.readme}
+            />
           </div>
         )}
         {audioset.tracks.map((track) => (

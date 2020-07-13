@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import useLocale from "../../hooks/useLocale";
 import usePage from "../../hooks/usePage";
-import { Markdown } from "../../components/Markdown";
+import HtmlContent from "../../components/HtmlContent";
 import PageView from "../../components/pages/PageDesktop";
 
 type Props = {};
@@ -26,7 +26,7 @@ const GuideListPage: React.FC<Props> = () => {
       desktop={<PageView page={page} />}
     >
       {section && <img alt="" src={section.image_url} />}
-      {page && <Markdown className="m-4" markdown={page?.content} />}
+      {page && <HtmlContent className="m-4" markdown={page?.content} />}
     </Layout>
   );
 };

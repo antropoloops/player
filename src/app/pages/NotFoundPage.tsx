@@ -15,7 +15,7 @@ const NotFoundPage = () => {
       }
     >
       {isMobile && <img src="/notfound.jpg" alt="Where to find" />}
-      <div className="p-4 text-white Markdown">
+      <div className="p-4 text-white HtmlContent">
         <p>Lo sentimos, no hemos encontrado lo que buscabas.</p>
         <p>
           Si crees que algo va mal, por favor escríbenos a:{" "}
