@@ -8,7 +8,7 @@ type Props = {
   activeClipId: string;
 };
 
-const ExploreVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
+const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
   const { ref, width } = useDimensions<HTMLImageElement>();
   if (audioset.visuals.mode !== "panel") return null;
 
@@ -24,7 +24,7 @@ const ExploreVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
   );
 };
 
-export default ExploreVisuals;
+export default PanelVisuals;
 
 type PlayingClipProps = {
   clip: Clip;
