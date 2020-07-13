@@ -1,5 +1,6 @@
 import { COSMIC_KEY } from "../config";
 import ky from "ky";
+import { Page } from "./pages";
 
 const PROPS = "slug,title,content,metadata,";
 const URL = "https://api.cosmicjs.com/v1/playantropoloops";
@@ -12,10 +13,7 @@ export const getTopicUrl = (slug: string) =>
 export const listTopicsUrl = () =>
   `${URL}/objects/?hide_metafields=true&read_key=${COSMIC_KEY}&type=temas&props=slug,title,metadata,`;
 
-export type Topic = {
-  slug: string;
-  title: string;
-  content?: string;
+export type Topic = Page & {
   metadata: {
     subtitle?: string;
     group: string;

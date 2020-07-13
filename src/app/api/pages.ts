@@ -12,6 +12,9 @@ export type Page = {
   slug: string;
   title: string;
   content: string;
+  metadata?: {
+    subtitle?: string;
+  };
 };
 
 type GetPage = {

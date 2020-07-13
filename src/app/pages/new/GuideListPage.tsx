@@ -5,7 +5,7 @@ import API from "../../api";
 import useLocale from "../../hooks/useLocale";
 import usePage from "../../hooks/usePage";
 import { Markdown } from "../../components/Markdown";
-import PageView from "../../components/Page";
+import PageView from "../../components/pages/PageDesktop";
 
 type Props = {};
 

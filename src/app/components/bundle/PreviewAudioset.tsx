@@ -1,7 +1,7 @@
 import React from "react";
 import { Audioset } from "../../../audioset";
-import { Markdown } from "../../components/Markdown";
-import Layout from "../../components/layout/Layout";
+import { Markdown } from "../Markdown";
+import Layout from "../layout/Layout";
 import routes from "../../routes";
 import { Section } from "../../api/sections";
 
@@ -11,13 +11,13 @@ type Props = {
   onStart: () => void;
 };
 
-const PreviewPage: React.FC<Props> = ({ section, audioset, onStart }) => {
+const PreviewAudioset: React.FC<Props> = ({ section, audioset, onStart }) => {
   return (
     <Layout
       title={audioset.meta.title}
       backTo={audioset.meta.parent_path || routes.sets()}
       desktop={
-        <div className="text-white p-4">
+        <div className="text-white p-4 max-w-content text-justify">
           <h1 className="text-4xl mb-4">{audioset.meta.title}</h1>
           <Markdown markdown={audioset.meta.readme} />
         </div>
@@ -68,4 +68,4 @@ const PreviewPage: React.FC<Props> = ({ section, audioset, onStart }) => {
   );
 };
 
-export default PreviewPage;
+export default PreviewAudioset;

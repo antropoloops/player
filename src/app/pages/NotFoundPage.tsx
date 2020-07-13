@@ -19,7 +19,9 @@ const NotFoundPage = () => {
         <p>Lo sentimos, no hemos encontrado lo que buscabas.</p>
         <p>
           Si crees que algo va mal, por favor escríbenos a:{" "}
-          <a href="mailto:hola@antropoloops.com">hola@antropoloops.com</a>
+          <a href="mailto:talleres@antropoloops.com">
+            talleres@antropoloops.com
+          </a>
         </p>
       </div>
       <div className="my-8 flex justify-center">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Audioset } from "../../../audioset";
 import { PlayerComponentState } from "../../hooks/usePlayer";
-import { Controller } from "../../components/Player/Controller";
-import AudiosetConfig from "../../components/AudiosetConfig";
-import Collapsable from "../../components/Collapsable";
-import { ArrowDown, ArrowUp } from "../../components/Icons";
+import { Controller } from "../Player/Controller";
+import AudiosetConfig from "../AudiosetConfig";
+import Collapsable from "../Collapsable";
+import { ArrowDown, ArrowUp } from "../Icons";
 import { Prompt } from "react-router-dom";
+import useLocale from "../../hooks/useLocale";
 
 type Props = {
   ready: boolean;
@@ -14,7 +15,8 @@ type Props = {
   player: PlayerComponentState;
 };
 
-const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
+const BundlePlayer: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
+  const { formatMessage: f } = useLocale();
   const [isConfigOpen, setConfigOpen] = useState(false);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
 
   return (
     <div className="App Audioset">
-      <Prompt when={true} message={(location) => "Leave?"} />
+      <Prompt when={true} message={() => f("ask-leave-player")} />
       <div className="Header">
         <button
           className="p-2 flex w-full items-center rounded-lg text-white hover:text-white-light focus:outline-none duration-300 transition-medium"
@@ -56,10 +58,27 @@ const PlayerPage: React.FC<Props> = ({ ready, audioset, player, onStop }) => {
         />
       </div>
       <div className="visuals">
-        <div className="visuals-display" ref={player.visualsRef} />
+        {ready ? (
+          <div className="visuals-display" ref={player.visualsRef} />
+        ) : (
+          <div className="w-full h-full flex justify-center items-center py-20">
+            <button
+              className="p-2 rounded-full bg-green focus:outline-none"
+              title="Start playing"
+            >
+              <img
+                width="105"
+                height="32"
+                className="h-8"
+                src="/play.png"
+                alt="Start"
+              />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default PlayerPage;
+export default BundlePlayer;

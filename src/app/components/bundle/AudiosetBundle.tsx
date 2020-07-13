@@ -1,20 +1,21 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Audioset } from "../../../audioset";
-import PlayerPage from "./PlayerPage";
-import PreviewPage from "./PreviewPage";
+import BundlePlayer from "./BundlePlayer";
 import { ResourceLoader } from "../../../player/Loader";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { usePlayer } from "../../hooks/usePlayer";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import { Section } from "../../api/sections";
+import routes from "../../routes";
 
 type Props = {
   section?: Section;
   audioset: Audioset;
 };
 
-const AudiosetPage: React.FC<Props> = ({ audioset, section }) => {
-  const [isPlaying, setPlaying] = useState(false);
+const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
+  const [isPlaying, setPlaying] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const resources = useMemo<ResourceLoader>(() => {
     return new ResourceLoader(audioset, (status) => {
@@ -37,7 +38,7 @@ const AudiosetPage: React.FC<Props> = ({ audioset, section }) => {
   }, [startLoading]);
 
   return isPlaying ? (
-    <PlayerPage
+    <BundlePlayer
       ready={loaded}
       audioset={audioset}
       player={player}
@@ -46,15 +47,8 @@ const AudiosetPage: React.FC<Props> = ({ audioset, section }) => {
       }}
     />
   ) : (
-    <PreviewPage
-      section={section}
-      audioset={audioset}
-      onStart={() => {
-        startLoading();
-        setPlaying(true);
-      }}
-    />
+    <Redirect to={audioset.meta.parent_path || routes.sets()} />
   );
 };
 
-export default AudiosetPage;
+export default AudiosetBundle;

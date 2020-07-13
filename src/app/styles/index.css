@@ -28,3 +28,8 @@ button {
 .ratio > * {
   grid-area: 1/1/1/1;
 }
+
+.PageDesktop a {
+  color: orange;
+  font-weight: bold;
+}
