@@ -19,7 +19,7 @@ const PreviewAudioset: React.FC<Props> = ({ section, audioset, onStart }) => {
       desktop={
         <div className="text-white p-4 max-w-content text-justify">
           <h1 className="text-4xl mb-4">{audioset.meta.title}</h1>
-          <HtmlContent markdown={audioset.meta.readme} />
+          <HtmlContent content={audioset.meta.readme} />
         </div>
       }
       sidebar={
@@ -48,7 +48,7 @@ const PreviewAudioset: React.FC<Props> = ({ section, audioset, onStart }) => {
           src={audioset.meta.logo_url}
         />
         <div className="p-4">
-          <HtmlContent className="text-white" markdown={audioset.meta.readme} />
+          <HtmlContent className="text-white" content={audioset.meta.readme} />
         </div>
       </div>
       <div>

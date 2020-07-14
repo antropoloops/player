@@ -33,7 +33,7 @@ export const Session = ({ audioset, isStarted, onStart }: SessionProps) => {
             Cerrar
           </Link>
         </div>
-        <HtmlContent markdown={meta.readme} />
+        <HtmlContent content={meta.readme} />
       </div>
     </div>
   );

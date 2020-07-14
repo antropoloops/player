@@ -3,7 +3,10 @@ import { Redirect } from "react-router-dom";
 import { Audioset } from "../../../audioset";
 import BundlePlayer from "./BundlePlayer";
 import { ResourceLoader } from "../../../player/Loader";
-import { getActiveAudioContext } from "../../../lib/active-audio-context";
+import {
+  getActiveAudioContext,
+  isAudioContextActive,
+} from "../../../lib/active-audio-context";
 import { usePlayer } from "../../hooks/usePlayer";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import { Section } from "../../api/sections";
@@ -16,6 +19,7 @@ type Props = {
 };
 
 const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
+  const [active, setActive] = useState(isAudioContextActive());
   const [isPlaying, setPlaying] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const resources = useMemo<ResourceLoader>(() => {
@@ -31,6 +35,7 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
 
   const startLoading = useCallback(async () => {
     const ctx = await getActiveAudioContext();
+    setActive(true);
     await resources.load(ctx);
   }, [resources]);
 
@@ -46,7 +51,8 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
 
   return isMap ? (
     <BundlePlayer
-      ready={loaded}
+      active={active}
+      loaded={loaded}
       audioset={audioset}
       player={player}
       onStop={() => {

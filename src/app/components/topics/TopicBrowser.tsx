@@ -41,7 +41,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                   <h2 className="text-lg mb-2 font-bold">{topic.title}</h2>
                   <ArrowUp className="ml-2 flex-shrink-0" />
                 </Link>
-                <HtmlContent markdown={active.content || ""} />
+                <HtmlContent content={active.content || ""} />
               </div>
             ) : (
               <Link

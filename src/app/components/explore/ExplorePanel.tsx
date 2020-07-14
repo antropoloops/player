@@ -73,7 +73,7 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
           <div className="p-4">
             <HtmlContent
               className="text-white"
-              markdown={audioset.meta.readme}
+              content={audioset.meta.readme}
             />
           </div>
         )}

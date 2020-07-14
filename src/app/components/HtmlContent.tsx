@@ -1,15 +1,15 @@
 import React from "react";
 
 type Props = {
-  markdown: string;
+  content: string;
   className?: string;
 };
 
-export const HtmlContent: React.FC<Props> = ({ markdown, className = "" }) =>
-  markdown && markdown.length ? (
+export const HtmlContent: React.FC<Props> = ({ content, className = "" }) =>
+  content && content.length ? (
     <div
       className={`HtmlContent ${className}`}
-      dangerouslySetInnerHTML={{ __html: markdown }}
+      dangerouslySetInnerHTML={{ __html: content }}
     />
   ) : (
     <div />

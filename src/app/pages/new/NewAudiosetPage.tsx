@@ -34,7 +34,7 @@ const AudiosetPage: React.FC<Props> = () => {
       desktop={
         <HtmlContent
           className="text-white p-4"
-          markdown={audioset.meta.readme}
+          content={audioset.meta.readme}
         />
       }
     >
@@ -48,7 +48,7 @@ const AudiosetPage: React.FC<Props> = () => {
           <div className="p-4">
             <HtmlContent
               className="text-white"
-              markdown={audioset.meta.readme}
+              content={audioset.meta.readme}
             />
           </div>
         )}

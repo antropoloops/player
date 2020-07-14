@@ -58,7 +58,7 @@ export const Project = ({ project }: ProjectProps) => {
       </footer>
       {isDesktop && (
         <div className="visuals">
-          <HtmlContent markdown={project.meta.readme} />
+          <HtmlContent content={project.meta.readme} />
         </div>
       )}
     </div>

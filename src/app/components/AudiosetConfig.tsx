@@ -16,25 +16,25 @@ const ConfigPage: React.FC<Props> = ({ onClose, onStop, onQuit }) => {
   const { toggleFullscreen, isFullscreen } = useFullscreen();
   const { formatMessage: FMT } = useLocale();
   return (
-    <div className="p-4 flex flex-col flex-wrap bg-gray-medium">
+    <div className="text-white p-4 flex flex-col flex-wrap bg-gray-medium">
       <button
-        className="flex items-center p-2 bg-gray-light rounded hover:bg-white"
+        className="text-white flex items-center p-2 bg-gray-light rounded hover:text-black hover:bg-white"
         onClick={() => {
           toggleFullscreen();
           onClose();
         }}
       >
         {isFullscreen ? (
-          <ExitFullscreen className="w-4 h-4 text-black" />
+          <ExitFullscreen className="w-4 h-4" />
         ) : (
-          <EnterFullscreen className="w-4 h-4 text-black" />
+          <EnterFullscreen className="w-4 h-4" />
         )}
         <label className="ml-4">
           {isFullscreen ? FMT("fullscreen-exit") : FMT("fullscreen-enter")}
         </label>
       </button>
       <button
-        className="flex items-center p-2 mt-4 bg-gray-light hover:bg-white rounded"
+        className="flex items-center p-2 mt-4 bg-gray-light hover:bg-white hover:text-black rounded"
         onClick={onStop}
       >
         <Stop className="w-6 h-6 mr-2" />

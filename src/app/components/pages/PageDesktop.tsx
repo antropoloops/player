@@ -27,7 +27,7 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
         {header}
         {subtitle && <h2 className="text-xl italic">{subtitle}</h2>}
         <h1 className="text-4xl mb-4">{page.title}</h1>
-        <HtmlContent markdown={page.content || ""} />
+        <HtmlContent content={page.content || ""} />
       </div>
     </div>
   );

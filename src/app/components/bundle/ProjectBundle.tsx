@@ -55,7 +55,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
       }
       desktop={<PageDesktop page={currentPage} />}
     >
-      <div className="h-full bg-gray-dark">
+      <div className="sidebar">
         {!isRoot && !isMobile && backTo}
         <img
           className="w-full mb-2"
@@ -64,13 +64,14 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
         />
         {isMobile && (
           <Readme
-            className="bg-gray-medium p-4"
+            className="bg-gray-medium p-4 mb-2"
             content={isRoot ? page?.content || "" : project.meta.readme}
           />
         )}
         <ul className="Audiosets">
           {references.map((reference) => (
             <MediaObject
+              className="bg-gray-medium mb-2"
               key={reference.id}
               to={`/set/${reference.publish_path}`}
               image={reference.logo_url}

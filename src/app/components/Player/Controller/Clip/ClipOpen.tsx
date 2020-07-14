@@ -52,7 +52,7 @@ export const OpenClip = ({ clip, control }: ClipProps) => {
       )}
       <HtmlContent
         className={`expand ${isReadmeVisible ? "visible" : "hidden"}`}
-        markdown={isReadmeVisible ? clip.readme : ""}
+        content={isReadmeVisible ? clip.readme : ""}
       />
     </div>
   );

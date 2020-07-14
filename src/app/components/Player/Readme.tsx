@@ -32,7 +32,7 @@ export const Readme = ({ className, content }: ReadmeProps) => {
         variants={variants}
         transition={{ duration: 0.3 }}
       >
-        <HtmlContent className="text-white" markdown={content} />
+        <HtmlContent className="text-white" content={content} />
       </motion.div>
       <div className="flex justify-center p-2">
         <button

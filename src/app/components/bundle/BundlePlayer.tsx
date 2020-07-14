@@ -7,16 +7,21 @@ import Collapsable from "../Collapsable";
 import { ArrowDown, ArrowUp } from "../Icons";
 import { Prompt } from "react-router-dom";
 import useLocale from "../../hooks/useLocale";
-import { isAudioContextActive } from "../../../lib/active-audio-context";
 
 type Props = {
-  ready: boolean;
+  active: boolean;
+  loaded: boolean;
   audioset: Audioset;
   onStop: () => void;
   player: PlayerComponentState;
 };
 
-const BundlePlayer: React.FC<Props> = ({ audioset, player, onStop }) => {
+const BundlePlayer: React.FC<Props> = ({
+  audioset,
+  player,
+  active,
+  onStop,
+}) => {
   const { formatMessage: f } = useLocale();
   const [isConfigOpen, setConfigOpen] = useState(false);
 
@@ -63,7 +68,7 @@ const BundlePlayer: React.FC<Props> = ({ audioset, player, onStop }) => {
         />
       </div>
       <div className="visuals">
-        {isAudioContextActive() ? (
+        {active ? (
           <div className="visuals-display" ref={player.visualsRef} />
         ) : (
           <div className="w-full h-full flex justify-center items-center py-20">

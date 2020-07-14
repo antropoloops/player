@@ -18,7 +18,7 @@ const AboutPage = () => {
       }
       sidebar={
         page && (
-          <HtmlContent className="p-4 text-white" markdown={page.content} />
+          <HtmlContent className="p-4 text-white" content={page.content} />
         )
       }
     >
@@ -30,7 +30,7 @@ const AboutPage = () => {
         src="/talleres.jpg"
       />
       <div className="p-4 text-white">
-        {page && <HtmlContent markdown={page.content} />}
+        {page && <HtmlContent content={page.content} />}
       </div>
       <div className="my-8 flex justify-center">
         <Link

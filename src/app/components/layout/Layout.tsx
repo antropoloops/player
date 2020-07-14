@@ -43,7 +43,10 @@ const Layout: React.FC<Props> = ({
         className="w-screen h-screen grid grid-cols-3 lg:grid-cols-4 grid-rows-layout-desktop"
       >
         <div data-testid="Header" className="col-span-1 p-2">
-          <Link className="w-full" to={sections ? sections[0].to : "/"}>
+          <Link
+            className="w-full h-full flex flex-col justify-center"
+            to={sections ? sections[0].to : "/"}
+          >
             <img
               className="max-h-7"
               src="/images/play-logo-gray.png"
@@ -61,7 +64,7 @@ const Layout: React.FC<Props> = ({
               to={section.to}
               isActive={pathname === section.to}
               isExternal={section.external}
-              className={`mr-4 ${
+              className={`mr-4 cursor-pointer ${
                 pathname.startsWith(section.to) ? "text-green" : ""
               }`}
             >

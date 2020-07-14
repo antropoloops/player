@@ -40,7 +40,7 @@ const TopicShowPage: React.FC<Props> = () => {
         {topic && (
           <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
         )}
-        {topic && <HtmlContent markdown={topic.content || ""} />}
+        {topic && <HtmlContent content={topic.content || ""} />}
       </div>
     </Layout>
   );

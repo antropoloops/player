@@ -26,7 +26,7 @@ const GuideListPage: React.FC<Props> = () => {
       desktop={<PageView page={page} />}
     >
       {section && <img alt="" src={section.image_url} />}
-      {page && <HtmlContent className="m-4" markdown={page?.content} />}
+      {page && <HtmlContent className="m-4" content={page?.content} />}
     </Layout>
   );
 };
