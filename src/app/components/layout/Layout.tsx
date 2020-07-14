@@ -44,7 +44,7 @@ const Layout: React.FC<Props> = ({
       >
         <div data-testid="Header" className="col-span-1 p-2">
           <Link
-            className="w-full h-full flex flex-col justify-center"
+            className="w-full h-full flex items-center"
             to={sections ? sections[0].to : "/"}
           >
             <img
