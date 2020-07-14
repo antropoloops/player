@@ -42,7 +42,7 @@ const HomePage: React.FC<Props> = () => {
 
   return (
     <Layout logo={true} desktop={<Page page={page} />}>
-      <div className="h-full overflow-y-scroll overflow-x-hidden bg-gray-dark">
+      <div className="sidebar sm:pr-3">
         {home && (
           <img
             className="w-full mb-2"

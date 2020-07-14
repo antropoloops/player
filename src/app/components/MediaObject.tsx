@@ -15,8 +15,13 @@ const MediaObject: React.FC<Props> = ({
   image,
   children,
 }) => (
-  <Link to={to} className={className + " mb-2 flex w-full text-white min-h-12"}>
-    <div className="ratio w-1/3 flex-shrink-0 overflow-hidden">
+  <Link
+    to={to}
+    className={
+      className + " mb-2 flex w-full text-white min-h-12 overflow-hidden"
+    }
+  >
+    <div className="ratio w-1/3 flex-shrink-0">
       <svg viewBox="0 0 16 9" />
       <img className="" src={image} alt={alt} />
     </div>

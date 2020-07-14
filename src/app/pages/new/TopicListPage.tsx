@@ -25,7 +25,7 @@ const TopicListPage: React.FC<Props> = () => {
 
   return (
     <Layout title="Temas" desktop={<PageDesktop page={page} />}>
-      <div className="sidebar">
+      <div className="sidebar sm:pr-3">
         {section && <img alt="" src={section.image_url} />}
         {isMobile && page && (
           <Readme className="p-4 mb-2 bg-gray-medium" content={page.content} />

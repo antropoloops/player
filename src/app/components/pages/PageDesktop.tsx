@@ -16,7 +16,7 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
   const subtitle = page?.metadata?.subtitle;
 
   return (
-    <div className="PageDesktop min-h-full bg-gray-medium text-white px-4 py-2">
+    <div className="PageDesktop min-h-full bg-gray-dark text-white px-4 py-2">
       <div
         className={cx({
           "max-w-content text-justify p-8": true,

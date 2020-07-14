@@ -25,8 +25,10 @@ const GuideListPage: React.FC<Props> = () => {
       sidebar={section && <img alt="" src={section.image_url} />}
       desktop={<PageView page={page} />}
     >
-      {section && <img alt="" src={section.image_url} />}
-      {page && <HtmlContent className="m-4" content={page?.content} />}
+      <div className="sidebar sm:pr-3">
+        {section && <img alt="" src={section.image_url} />}
+        {page && <HtmlContent className="m-4" content={page?.content} />}
+      </div>
     </Layout>
   );
 };

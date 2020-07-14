@@ -13,7 +13,7 @@ import PageDesktop from "../pages/PageDesktop";
 import { useQuery } from "react-query";
 import API from "../../api";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "../Icons";
+import { ArrowLeft, ArrowRight } from "../Icons";
 
 type Props = {
   section?: Section;
@@ -55,7 +55,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
       }
       desktop={<PageDesktop page={currentPage} />}
     >
-      <div className="sidebar">
+      <div className="sidebar sm:pr-3">
         {!isRoot && !isMobile && backTo}
         <img
           className="w-full mb-2"
@@ -77,9 +77,22 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
               image={reference.logo_url}
               alt={reference.title}
             >
-              <div className="p-2">
-                <h3 className="font-medium mb-2">{reference.title}</h3>
-                <p className="text-sm">{reference.description}</p>
+              <div className="w-full hover:text-white-light flex items-center">
+                <div className="h-full flex-grow flex flex-col px-2">
+                  <h3 className="font-medium mb-2">{reference.title}</h3>
+                  <p className="text-sm flex-grow">{reference.description}</p>
+                </div>
+                {isRoot ? (
+                  <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2" />
+                ) : (
+                  <img
+                    className="w-16 mr-2"
+                    width="105"
+                    height="32"
+                    src="/play.png"
+                    alt="Start"
+                  />
+                )}
               </div>
             </MediaObject>
           ))}
