@@ -44,6 +44,7 @@ module.exports = {
   },
   variants: {
     textColor: ["hover", "group-hover"],
+    opacity: ["hover", "group-hover"],
   },
   plugins: [],
 };

@@ -71,7 +71,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
         <ul className="Audiosets">
           {references.map((reference) => (
             <MediaObject
-              className="bg-gray-medium mb-2"
+              className="bg-gray-medium mb-2 group"
               key={reference.id}
               to={`/set/${reference.publish_path}`}
               image={reference.logo_url}
@@ -86,10 +86,10 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
                   <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2" />
                 ) : (
                   <img
-                    className="w-16 mr-2"
-                    width="105"
-                    height="32"
-                    src="/play.png"
+                    width="160"
+                    height="49"
+                    className="w-16 mr-2 opacity-50 group-hover:opacity-100 rounded-full shadow"
+                    src="/images/play-gray-sm.png"
                     alt="Start"
                   />
                 )}

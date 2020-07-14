@@ -12,7 +12,7 @@ type Props = {
   sections: Section[];
 };
 
-const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
+const HeaderMobile: React.FC<Props> = ({ logo, title, backTo, sections }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
@@ -51,8 +51,8 @@ const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
             className={`fill-current h-4 w-4
             transform duration-300 ${
               open
-                ? "-rotate-90 ease-out transition-medium"
-                : "rotate-0 ease-in transition-medium"
+                ? "-rotate-90 ease-out transition-medium text-green"
+                : "rotate-0 ease-in transition-medium text-white"
             }`}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,4 +66,4 @@ const Header: React.FC<Props> = ({ logo, title, backTo, sections }) => {
     </div>
   );
 };
-export default Header;
+export default HeaderMobile;

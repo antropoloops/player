@@ -27,7 +27,9 @@ const GuideListPage: React.FC<Props> = () => {
     >
       <div className="sidebar sm:pr-3">
         {section && <img alt="" src={section.image_url} />}
-        {page && <HtmlContent className="m-4" content={page?.content} />}
+        {page && (
+          <HtmlContent className="m-4 text-white" content={page?.content} />
+        )}
       </div>
     </Layout>
   );

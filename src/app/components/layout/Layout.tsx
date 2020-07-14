@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import useAnalytics from "../../hooks/useAnalytics";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import Header from "./Header";
+import HeaderMobile from "./HeaderMobile";
 import { useQuery } from "react-query";
 import { listSections } from "../../api/sections";
 import NavLink from "./NavLink";
@@ -95,7 +95,7 @@ const Layout: React.FC<Props> = ({
         {visuals && <div className="visuals">{visuals}</div>}
         <div className="Header">
           {header || (
-            <Header
+            <HeaderMobile
               logo={logo}
               title={title}
               backTo={backTo}
