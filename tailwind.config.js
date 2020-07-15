@@ -22,8 +22,10 @@ module.exports = {
         "1px": "1px",
       },
       gridTemplateRows: {
-        // Complex site-specific row configuration
         "layout-desktop": "auto 1fr",
+      },
+      gridTemplateColumns: {
+        "media-object": "33% auto 4rem",
       },
       minWidth: {
         sidebar: "300px",

@@ -14,6 +14,7 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "../Icons";
+import { ReactComponent as PlayIcon } from "../../assets/play-circle.svg";
 
 type Props = {
   section?: Section;
@@ -39,11 +40,13 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
 
   const backTo = (
     <Link
-      className="p-2 flex items-center text-normal text-white"
+      className="p-2 flex items-center bg-gray-medium group"
       to={project.meta.parent_path || routes.sets()}
     >
-      <ArrowLeft className="mr-1 h-5 w-5" />
-      {parent?.meta.title || "Proyectos sonoros"}
+      <ArrowLeft className="mr-1 h-5 w-5 text-gray-light group-hover:text-white-dark" />
+      <div className="text-white group-hover:text-white-light">
+        {parent?.meta.title || "Proyectos sonoros"}
+      </div>
     </Link>
   );
 
@@ -77,21 +80,19 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
               image={reference.logo_url}
               alt={reference.title}
             >
-              <div className="w-full hover:text-white-light flex items-center">
-                <div className="h-full flex-grow flex flex-col px-2">
-                  <h3 className="font-medium mb-2">{reference.title}</h3>
-                  <p className="text-sm flex-grow">{reference.description}</p>
+              <div className="w-full flex items-center group">
+                <div className="h-full flex-grow flex flex-col px-2 group-hover:text-white-light">
+                  <h3 className="font-medium my-2">{reference.title}</h3>
+                  <div className="h-full flex flex-col justify-center">
+                    <p className="text-sm lg:text-base font-light">
+                      {reference.description}
+                    </p>
+                  </div>
                 </div>
                 {isRoot ? (
-                  <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2" />
+                  <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2 group-hover:text-white-dark" />
                 ) : (
-                  <img
-                    width="160"
-                    height="49"
-                    className="w-16 mr-2 opacity-50 group-hover:opacity-100 rounded-full shadow"
-                    src="/images/play-gray-sm.png"
-                    alt="Start"
-                  />
+                  <PlayIcon className="text-white-dark w-8 h-8 mr-2 group-hover:text-green" />
                 )}
               </div>
             </MediaObject>

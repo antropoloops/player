@@ -7,7 +7,6 @@ type Props = {
   image: string;
   alt: string;
 };
-
 const MediaObject: React.FC<Props> = ({
   className = "",
   to,

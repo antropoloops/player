@@ -27,15 +27,15 @@ const HomePage: React.FC<Props> = () => {
       .filter((section) => section.home)
       .map((section) => (
         <MediaObject
-          className="bg-gray-medium hover:text-green hover:shadow"
+          className="bg-gray-medium group max-w-full"
           key={section.id}
           to={section.to}
           image={section.image_url}
           alt={f(section.id)}
         >
-          <div className="w-full flex items-center p-2">
-            <h3 className="flex-grow text-lg font-normal">{f(section.id)}</h3>
-            <ArrowRight className="text-gray-light flex-shrink-0 ml-2 my-2" />
+          <div className="w-2/3 flex items-center p-2 group-hover:text-white-light">
+            <span className="flex-grow text-lg truncate">{f(section.id)}</span>
+            <ArrowRight className="text-gray-light flex-shrink-0 ml-2 my-2 group-hover:text-white-dark" />
           </div>
         </MediaObject>
       ));

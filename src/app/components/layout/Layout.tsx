@@ -40,7 +40,7 @@ const Layout: React.FC<Props> = ({
     return (
       <div
         data-testid="App"
-        className="w-screen h-screen grid grid-cols-3 lg:grid-cols-4 grid-rows-layout-desktop"
+        className="w-screen h-screen grid grid-cols-3 xl:grid-cols-4 grid-rows-layout-desktop"
       >
         <div data-testid="Header" className="col-span-1 p-2">
           <Link
@@ -56,7 +56,7 @@ const Layout: React.FC<Props> = ({
         </div>
         <div
           data-testid="Navigation"
-          className="ml-12 col-span-2 lg:col-span-3 flex text-white items-center"
+          className="ml-12 col-span-2 xl:col-span-3 flex text-white items-center"
         >
           {sections?.slice(1).map((section) => (
             <NavLink
@@ -76,13 +76,13 @@ const Layout: React.FC<Props> = ({
           {sidebar || children}
         </div>
         {visuals ? (
-          <div className="overflow-hidden col-span-2 lg:col-span-3 bg-gray-dark">
+          <div className="overflow-hidden col-span-2 xl:col-span-3 bg-gray-dark">
             {visuals}
           </div>
         ) : (
           <div
             data-testid="Content"
-            className="overflow-y-auto col-span-2 lg:col-span-3 bg-gray-dark"
+            className="overflow-y-auto col-span-2 xl:col-span-3 bg-gray-dark"
           >
             {desktop}
           </div>
