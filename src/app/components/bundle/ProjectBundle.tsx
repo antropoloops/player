@@ -92,7 +92,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
                 {isRoot ? (
                   <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2 group-hover:text-white-dark" />
                 ) : (
-                  <PlayIcon className="text-white-dark w-8 h-8 mr-2 group-hover:text-green" />
+                  <PlayIcon className="flex-shrink-0 text-white-dark w-8 h-8 mt-2 mr-2 group-hover:text-green" />
                 )}
               </div>
             </MediaObject>

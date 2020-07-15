@@ -69,7 +69,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                     "flex-shrink-0 ml-2 my-2",
                     topic.slug === active?.slug
                       ? "text-green"
-                      : "text-gray-light group-hover:text-green",
+                      : "text-gray-light group-hover:text-white-dark",
                   ])}
                 />
               </Link>
