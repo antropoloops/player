@@ -18,7 +18,19 @@ type Props = {
   audioset: Audioset;
 };
 
-const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
+const AudiosetBundle: React.FC<Props> = ({ audioset }) => {
+  const isMap = audioset.visuals.mode === "map";
+
+  return isMap ? (
+    <MapAudiosetBundle audioset={audioset} />
+  ) : (
+    <ExplorePanel audioset={audioset} />
+  );
+};
+
+export default AudiosetBundle;
+
+const MapAudiosetBundle: React.FC<Props> = ({ audioset }) => {
   const [active, setActive] = useState(isAudioContextActive());
   const [isPlaying, setPlaying] = useState(true);
   const [loaded, setLoaded] = useState(false);
@@ -47,9 +59,7 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
     return <Redirect to={routes.sets()} />;
   }
 
-  const isMap = audioset.visuals.mode === "map";
-
-  return isMap ? (
+  return (
     <BundlePlayer
       active={active}
       loaded={loaded}
@@ -59,9 +69,5 @@ const AudiosetBundle: React.FC<Props> = ({ audioset, section }) => {
         setPlaying(false);
       }}
     />
-  ) : (
-    <ExplorePanel audioset={audioset} />
   );
 };
-
-export default AudiosetBundle;

@@ -16,7 +16,7 @@ const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
 
   const clip = audioset.index.clipById[activeClipId];
 
-  const radius = Math.floor(150 * ratio);
+  const radius = Math.floor(120 * ratio);
 
   return (
     <div className="h-full w-full flex flex-col items-start relative">

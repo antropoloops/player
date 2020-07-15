@@ -1,5 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
-import useSound from "use-sound";
+import React, { useState, useReducer } from "react";
 import Layout from "../../components/layout/Layout";
 import HtmlContent from "../HtmlContent";
 import { Clip, Track, Audioset } from "../../../audioset";
@@ -10,6 +9,7 @@ import routes from "../../routes";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "../Icons";
+import Audio from "../Audio";
 
 type State = { clipId: string };
 
@@ -50,9 +50,9 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
         <PanelVisuals audioset={audioset} activeClipId={playing.clipId} />
       }
     >
-      <div className="flex-grow overflow-y-scroll">
+      <div className="sidebar sm:pr-3">
         {isDesktop && (
-          <h1 className="p-2 text-lg text-white hover:text-white-light">
+          <h1 className="p-2 text-lg text-white hover:text-white-light bg-gray-medium">
             <Link
               className="flex items-center"
               to={audioset.meta.parent_path || routes.sets()}
@@ -121,20 +121,6 @@ const ClipView: React.FC<ClipViewProps> = ({
 }) => {
   const [isLoaded, setLoaded] = useState(false);
 
-  const [playAudio, { stop: stopAudio }] = useSound(clip.resources.audio.mp3, {
-    onload: () => {
-      setLoaded(true);
-    },
-  });
-
-  useEffect(() => {
-    if (isOpen) {
-      playAudio();
-    } else {
-      stopAudio();
-    }
-  }, [isOpen, playAudio, stopAudio]);
-
   return (
     <button
       className="w-full flex items-center focus:outline-none mb-1"
@@ -145,7 +131,13 @@ const ClipView: React.FC<ClipViewProps> = ({
         else start();
       }}
     >
-      <div className={cx(["ratio flex-shrink-0", isOpen ? "w-1/2" : "w-1/4"])}>
+      <Audio
+        play={isOpen}
+        src={clip.resources.audio.mp3}
+        onLoaadedMetadata={() => setLoaded(true)}
+        onEnded={stop}
+      />
+      <div className={cx(["ratio flex-shrink-0", isOpen ? "w-1/2" : "w-1/6"])}>
         <svg viewBox="0 0 1 1" />
         <img
           className="w-full"
