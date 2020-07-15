@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Audioset } from "../../../audioset";
 import { PlayerComponentState } from "../../hooks/usePlayer";
 import { Controller } from "../Player/Controller";
-import AudiosetConfig from "../AudiosetConfig";
-import Collapsable from "../Collapsable";
-import { ArrowDown, ArrowUp } from "../Icons";
 import { Prompt } from "react-router-dom";
 import useLocale from "../../hooks/useLocale";
 import Layout from "../layout/Layout";
