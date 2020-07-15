@@ -4,7 +4,7 @@ type Props = {
   src: string;
   play: boolean;
   loop?: boolean;
-  onLoaadedMetadata?: () => void;
+  onLoaadedMetadata?: (duration: number) => void;
   onEnded?: () => void;
 };
 
@@ -21,15 +21,16 @@ const Audio: React.FC<Props> = ({
     if (!ref.current) return;
 
     const el = ref.current;
+    const handleLoaded = onLoaadedMetadata
+      ? () => onLoaadedMetadata(el.duration)
+      : undefined;
 
-    if (onLoaadedMetadata)
-      el.addEventListener("loadedmetadata", onLoaadedMetadata);
-    if (onEnded) el.addEventListener("ended", onEnded);
+    handleLoaded && el.addEventListener("loadedmetadata", handleLoaded);
+    onEnded && el.addEventListener("ended", onEnded);
 
     return () => {
-      if (onLoaadedMetadata)
-        el.removeEventListener("loadedmetadata", onLoaadedMetadata);
-      if (onEnded) el.removeEventListener("ended", onEnded);
+      handleLoaded && el.removeEventListener("loadedmetadata", handleLoaded);
+      onEnded && el.removeEventListener("ended", onEnded);
     };
   }, [onLoaadedMetadata, onEnded]);
 

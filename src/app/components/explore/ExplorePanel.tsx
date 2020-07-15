@@ -31,21 +31,11 @@ type Props = {
 const ExplorePanel: React.FC<Props> = ({ audioset }) => {
   const { isDesktop } = useDeviceType();
   const [playing, dispatch] = useReducer(reducer, { clipId: "" });
-  //   const { data: parent } = useQuery(
-  //     ["bundle", { path: audioset.meta.parent_path }],
-  //     (_, params) => API.bundles.get(params),
-  //     { enabled: audioset.meta.parent_path }
-  //   );
-
-  // FIXME: remove when backend fixed
-  const { parent_path, path } = audioset.meta;
-  const backTo =
-    parent_path && parent_path !== path ? parent_path : routes.sets();
 
   return (
     <Layout
       title={audioset.meta.title}
-      backTo={backTo}
+      backTo={audioset.meta.parent_path}
       visuals={
         <PanelVisuals audioset={audioset} activeClipId={playing.clipId} />
       }
@@ -134,7 +124,9 @@ const ClipView: React.FC<ClipViewProps> = ({
       <Audio
         play={isOpen}
         src={clip.resources.audio.mp3}
-        onLoaadedMetadata={() => setLoaded(true)}
+        onLoaadedMetadata={() => {
+          setLoaded(true);
+        }}
         onEnded={stop}
       />
       <div className={cx(["ratio flex-shrink-0", isOpen ? "w-1/2" : "w-1/6"])}>

@@ -33,7 +33,7 @@ const HeaderMobile: React.FC<Props> = ({ logo, title, backTo, sections }) => {
         ) : (
           <>
             <Link
-              className="flex mr-2 hover:text-green duration-300 transition-medium"
+              className="flex mr-2 hover:text-white-light duration-300 transition-medium"
               to={backTo || routes.root()}
             >
               <ArrowLeft />
