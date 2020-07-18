@@ -19,6 +19,7 @@ export type PlayerState = {
   config: PlayerConfig;
   tracks: Record<TrackId, TrackState>;
   queued: Record<ClipId, TriggerAction>;
+  activeClipIds: string[];
 };
 
 type TriggerAction = {
@@ -42,6 +43,7 @@ export function initialState(): PlayerState {
     },
     tracks: {},
     queued: {},
+    activeClipIds: [],
   };
 }
 
@@ -73,7 +75,14 @@ function runCommands(
     tracks[cmd.trackId][cmd.clipId] = cmd;
   }
 
-  return { ...state, tracks, queued };
+  const activeClipIds = [];
+  for (const track of Object.values(tracks)) {
+    for (const clip of Object.values(track)) {
+      if (clip.state === "start") activeClipIds.push(clip.clipId);
+    }
+  }
+
+  return { ...state, tracks, queued, activeClipIds };
 }
 
 const NO_CMDS: readonly Commands[] = Object.freeze([]);

@@ -1,29 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Spinner from "../Spinner";
 import { ReactComponent as PlayIcon } from "../../assets/play-circle.svg";
+import { Clip } from "../../../audioset";
+import { AudioSampler } from "../../hooks/useAudioSampler";
+import { ClipState } from "./player";
 
-export type SelectClipProps = {
-  clipId: string;
+export type ClipProps = {
+  clip: Clip;
   color: string;
   keyboard: string;
-  isRunning: boolean;
-  coverUrl: string;
+  state?: ClipState;
+  sampler: AudioSampler;
+
   toggle: () => void;
 };
 
-const SelectClip: React.FC<SelectClipProps> = ({
-  clipId,
+const ClipView: React.FC<ClipProps> = ({
+  clip,
   color,
   keyboard,
-  isRunning,
+  state,
   toggle,
-  coverUrl,
+  sampler,
 }) => {
   const [hover, setHover] = useState(false);
 
+  const isRunning = state?.state === "start";
+
+  useEffect(() => {
+    if (state) {
+      const sample = sampler.clips[clip.id];
+      if (state.state === "start") sample.start(state.time);
+      else if (state.state === "stop") sample.stop(state.time);
+    }
+  }, [state, sampler, clip.id]);
+
   return (
     <button
-      key={clipId}
+      key={clip.id}
       className="ml-2 w-1/6 ratio rounded overflow-hidden relative"
       onClick={toggle}
       onMouseEnter={() => setHover(true)}
@@ -34,7 +48,7 @@ const SelectClip: React.FC<SelectClipProps> = ({
         alt="cover"
         width="300"
         height="300"
-        src={coverUrl}
+        src={clip.resources.cover.thumb}
       />
       <svg viewBox="0 0 1 1" />
       <div className="absolute inset-0 flex items-center justify-center">
@@ -55,4 +69,4 @@ const SelectClip: React.FC<SelectClipProps> = ({
     </button>
   );
 };
-export default SelectClip;
+export default ClipView;

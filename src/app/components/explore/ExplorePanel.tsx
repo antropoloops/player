@@ -37,7 +37,7 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
       title={audioset.meta.title}
       backTo={audioset.meta.parent_path}
       visuals={
-        <PanelVisuals audioset={audioset} activeClipId={playing.clipId} />
+        <PanelVisuals audioset={audioset} activeClipIds={[playing.clipId]} />
       }
     >
       <div className="sidebar sm:pr-3">

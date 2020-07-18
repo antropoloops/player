@@ -5,6 +5,8 @@ import Track from "./Track";
 import player, { initialState, tick } from "./player";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { IAudioContext } from "standardized-audio-context";
+import { useAudioSampler } from "../../hooks/useAudioSampler";
+import PanelVisuals from "../explore/PanelVisuals";
 
 type Props = {
   audioset: Audioset;
@@ -13,6 +15,7 @@ type Props = {
 const PlayerRibbon: React.FC<Props> = ({ audioset }) => {
   const [ctx, setContext] = useState<IAudioContext | null>(null);
   const [state, dispatch] = useReducer(player, initialState());
+  const sampler = useAudioSampler(audioset);
 
   const _tick = useCallback(() => {
     if (!ctx) return;
@@ -32,13 +35,25 @@ const PlayerRibbon: React.FC<Props> = ({ audioset }) => {
   }, [_tick]);
 
   return (
-    <Layout title={audioset ? audioset.meta.title : "Loading..."} backTo="/">
+    <Layout
+      title={audioset.meta.title}
+      backTo="/"
+      visuals={
+        audioset.visuals.mode === "panel" && (
+          <PanelVisuals
+            audioset={audioset}
+            activeClipIds={state.activeClipIds}
+          />
+        )
+      }
+    >
       <div className="h-full noselect">
         {!ctx && <div>Click to start</div>}
         {audioset?.tracks.map((track) => (
           <Track
             key={track.id}
             track={track}
+            sampler={sampler}
             audioset={audioset}
             state={state.tracks[track.id] || {}}
             toggle={(clipId: string) =>
