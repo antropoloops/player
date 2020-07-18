@@ -20,8 +20,11 @@ type Props = {
 
 const AudiosetBundle: React.FC<Props> = ({ audioset }) => {
   const isMap = audioset.visuals.mode === "map";
+  const isPoly =
+    audioset.id === "voyager-pajaritos-audioset" ||
+    audioset.id === "lacasaencendida2020";
 
-  return isMap ? (
+  return isMap || isPoly ? (
     <MapAudiosetBundle audioset={audioset} />
   ) : (
     <ExplorePanel audioset={audioset} />

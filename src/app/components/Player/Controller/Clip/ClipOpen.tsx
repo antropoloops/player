@@ -31,8 +31,11 @@ export const OpenClip = ({ clip, control }: ClipProps) => {
   return (
     <div className="Clip open" style={{ backgroundColor: clip.color }}>
       <div className="covers">
-        <div className="cover">
-          <img alt={clip.title} src={clip.coverUrl} onClick={stopClip} />
+        <div className="ratio cover bg-gray-dark bg-opacity-50">
+          <svg viewBox="0 0 1 1" />
+          {clip.coverUrl && (
+            <img alt={clip.title} src={clip.coverUrl} onClick={stopClip} />
+          )}
         </div>
         {cover2 ? (
           <div className="cover">

@@ -29,15 +29,18 @@ export const ClosedClip: React.FC<ClipProps> = ({ clip, control }) => {
       id={`clip-${clip.id}`}
       style={{ backgroundColor: clip.color }}
     >
-      <div className="cover">
-        <img
-          className="bg-light-gray"
-          alt={clip.title}
-          src={clip.coverUrl}
-          width="400"
-          height="400"
-          onClick={startClip}
-        />
+      <div className="ratio cover bg-gray-dark bg-opacity-50">
+        <svg viewBox="0 0 1 1" />
+        {clip.coverUrl && (
+          <img
+            className="bg-light-gray"
+            alt={clip.title}
+            src={clip.coverUrl}
+            width="400"
+            height="400"
+            onClick={startClip}
+          />
+        )}
       </div>
       <div className="meta noselect" onClick={startClip}>
         <h3 className="title">{clip.title}</h3>
