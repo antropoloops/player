@@ -9,8 +9,8 @@ const routes = {
   audioset: (id: string) => `/audioset/${id}`,
   player: (id: string) => `/play/${id}`,
   testSet: () => `/test`,
-  topics: () => `/temas`,
-  topic: (id: string) => `/temas/${id}`,
+  topics: () => `/documentacion`,
+  topic: (id: string) => `/documentacion/${id}`,
   guides: () => `/guias`,
 };
 
