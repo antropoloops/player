@@ -1,7 +1,9 @@
 import debug from "debug";
 import { IAudioContext } from "standardized-audio-context";
 import { Audioset, Clip } from "../../audioset";
-import getSupportedAudioCodecs from "../../lib/test-audio-codecs";
+import getSupportedAudioCodecs, {
+  SupportedCodecs,
+} from "../../lib/test-audio-codecs";
 import { decodeAudioBuffer } from "./decodeAudioBuffer";
 
 const log = debug("atpls:resources");
@@ -42,16 +44,15 @@ export class ResourceLoader implements Resources {
   private completed: number;
   private buffers: Record<string, any> = {};
   private preloaded: boolean;
-  private readonly format: "mp3" | "ogg" | "wav";
+  private readonly codecs: SupportedCodecs;
 
   constructor(
     private audioset: Audioset,
     private listener: (status: ResourceLoadStatus) => void
   ) {
     log("create ResourceLoader %s", audioset.id);
-    const codecs = getSupportedAudioCodecs();
-    this.format = codecs.ogg ? "ogg" : codecs.mp3 ? "mp3" : "wav";
-    log("Preferred audio format %s", this.format);
+    this.codecs = getSupportedAudioCodecs();
+    log("Audio codecs %o", this.codecs);
     this.status = { stage: "pending" };
     this.preloaded = false;
     this.total = this.audioset.clips.length;
@@ -128,13 +129,20 @@ export class ResourceLoader implements Resources {
 
   private async loadClipAudio(clip: Clip, context: IAudioContext) {
     const { audio } = clip.resources;
-    const url = audio[this.format] || "";
+    const url =
+      (this.codecs.ogg && audio.ogg) ||
+      (this.codecs.mp3 && audio.mp3) ||
+      (this.codecs.wav && audio.wav) ||
+      "";
+
+    let buffer;
     if (url === "") {
-      log("Valid audio format not found", clip, this.format);
+      log("Valid audio format not found for %o", audio);
+    } else {
+      const response = await fetch(url);
+      buffer = await decodeAudioBuffer(response, context);
+      this.buffers[clip.id] = buffer;
     }
-    const response = await fetch(url);
-    const buffer = await decodeAudioBuffer(response, context);
-    this.buffers[clip.id] = buffer;
 
     this.handleResourceCompleted(url);
 

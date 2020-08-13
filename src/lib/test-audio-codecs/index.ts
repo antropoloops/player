@@ -1,10 +1,10 @@
 // see howler.js
-interface SupportedCodecs {
+export type SupportedCodecs = {
   mp3: boolean;
   ogg: boolean;
   wav: boolean;
   weba: boolean;
-}
+};
 let codecs: SupportedCodecs | null = null;
 
 export default function getSupportedAudioCodecs(): SupportedCodecs {
