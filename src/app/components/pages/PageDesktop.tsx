@@ -24,7 +24,12 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
           "mx-auto": center,
         })}
       >
-        <div className={cx(["prose mx-auto", white && "prose-page"])}>
+        <div
+          className={cx([
+            "prose max-w-none mx-auto px-8 py-4",
+            white && "prose-page",
+          ])}
+        >
           {header}
           {subtitle && <h3 className="italic">{subtitle}</h3>}
           <h1 className="">{page.title}</h1>

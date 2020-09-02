@@ -7,10 +7,12 @@ import { useDeviceType } from "../../hooks/useDeviceType";
 import { Readme } from "../../components/Player/Readme";
 import usePage from "../../hooks/usePage";
 import PageDesktop from "../../components/pages/PageDesktop";
+import useLocale from "../../hooks/useLocale";
 
 type Props = {};
 
 const TopicListPage: React.FC<Props> = () => {
+  const { formatMessage: FMT } = useLocale();
   const { data: topics } = useQuery({
     queryKey: ["topics"],
     queryFn: () => API.topics.list(),
@@ -24,7 +26,7 @@ const TopicListPage: React.FC<Props> = () => {
   if (!topics) return null;
 
   return (
-    <Layout title="Temas" desktop={<PageDesktop page={page} />}>
+    <Layout title={FMT("topics")} desktop={<PageDesktop page={page} />}>
       <div className="sidebar sm:pr-3">
         {section && <img alt="" src={section.image_url} />}
         {isMobile && page && (
