@@ -63,7 +63,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
                 <div className="h-full flex-grow flex flex-col px-2 group-hover:text-white-light">
                   <h3 className="font-medium my-2">{reference.title}</h3>
                   <div className="h-full flex flex-col justify-center">
-                    <p className="text-sm lg:text-base font-light">
+                    <p className="text-sm font-light">
                       {reference.description}
                     </p>
                   </div>
