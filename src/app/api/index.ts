@@ -3,6 +3,7 @@ import { getAudioset } from "./audiosets";
 import { getBundle } from "./bundles";
 import { listSections, getSection } from "./sections";
 import { listTopics, getTopic } from "./topics";
+import { listGuides, getGuide } from "./guides";
 import { getPage } from "./pages";
 
 const API = {
@@ -18,6 +19,10 @@ const API = {
   topics: {
     list: listTopics,
     get: getTopic,
+  },
+  guides: {
+    list: listGuides,
+    get: getGuide,
   },
   pages: {
     get: getPage,

@@ -4,32 +4,35 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import useLocale from "../../hooks/useLocale";
 import usePage from "../../hooks/usePage";
-import HtmlContent from "../../components/HtmlContent";
-import PageView from "../../components/pages/PageDesktop";
+import GuideBrowser from "../../components/guides/GuideBrowser";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import PageDesktop from "../../components/pages/PageDesktop";
+import { Readme } from "../../components/Player/Readme";
 
 type Props = {};
 
 const GuideListPage: React.FC<Props> = () => {
   const { formatMessage: f } = useLocale();
+  const { data: guides } = useQuery({
+    queryKey: ["guides"],
+    queryFn: () => API.guides.list(),
+  });
   const { data: section } = useQuery(["section", "guides"], (_, id) =>
     API.sections.get(id)
   );
-
   const { data: page } = usePage("guias");
+  const { isMobile } = useDeviceType();
 
   if (!section) return null;
 
   return (
-    <Layout
-      title={f(section.id)}
-      sidebar={section && <img alt="" src={section.image_url} />}
-      desktop={<PageView page={page} />}
-    >
+    <Layout title={f(section.id)} desktop={<PageDesktop page={page} />}>
       <div className="sidebar sm:pr-3">
         {section && <img alt="" src={section.image_url} />}
-        {page && (
-          <HtmlContent className="m-4 text-white" content={page?.content} />
+        {isMobile && page && (
+          <Readme className="p-4 mb-2 bg-gray-medium" content={page.content} />
         )}
+        {guides && <GuideBrowser guides={guides} inline={isMobile} />}
       </div>
     </Layout>
   );
