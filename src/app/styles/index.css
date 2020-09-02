@@ -45,13 +45,17 @@ button {
   margin-bottom: 1rem;
 }
 
+.HtmlContent li {
+  list-style: disc inside;
+}
+
 .HtmlContent ol {
   margin-left: 1rem;
 }
 
 .HtmlContent a {
-  color: orange;
-  font-weight: bold;
+  /* color: #ef7c0c; */
+  color: #ed8936;
 }
 
 .HtmlContent iframe {

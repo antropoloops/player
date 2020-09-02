@@ -8,7 +8,7 @@ type Props = {
 export const HtmlContent: React.FC<Props> = ({ content, className = "" }) =>
   content && content.length ? (
     <div
-      className={`HtmlContent ${className}`}
+      className={`prose ${className}`}
       dangerouslySetInnerHTML={{ __html: content }}
     />
   ) : (

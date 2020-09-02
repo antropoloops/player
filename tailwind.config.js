@@ -1,6 +1,51 @@
 module.exports = {
   purge: false,
   theme: {
+    typography: {
+      default: {
+        css: {
+          color: "#efefef",
+          h1: {
+            color: "#efefef",
+            fontWeight: "medium",
+          },
+          h2: {
+            color: "#efefef",
+            fontWeight: "normal",
+          },
+          h3: {
+            color: "#efefef",
+            fontWeight: "normal",
+          },
+          strong: {
+            color: "white",
+          },
+          a: {
+            color: "#F6AD55",
+          },
+        },
+      },
+      page: {
+        css: {
+          color: "#111",
+          h1: {
+            color: "#111",
+          },
+          h2: {
+            color: "#111",
+          },
+          h3: {
+            color: "#111",
+          },
+          strong: {
+            color: "black",
+          },
+          a: {
+            color: "#DD6B20",
+          },
+        },
+      },
+    },
     extend: {
       colors: {
         transparent: "transparent",
@@ -48,5 +93,5 @@ module.exports = {
     textColor: ["hover", "group-hover"],
     opacity: ["hover", "group-hover"],
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

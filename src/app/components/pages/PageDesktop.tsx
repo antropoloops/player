@@ -24,10 +24,15 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
           "mx-auto": center,
         })}
       >
-        {header}
-        {subtitle && <h2 className="text-xl italic">{subtitle}</h2>}
-        <h1 className="text-4xl mb-4">{page.title}</h1>
-        <HtmlContent content={page.content || ""} />
+        <div className={cx(["prose mx-auto", white && "prose-page"])}>
+          {header}
+          {subtitle && <h3 className="italic">{subtitle}</h3>}
+          <h1 className="">{page.title}</h1>
+          <HtmlContent
+            className={white ? "prose-page" : ""}
+            content={page.content || ""}
+          />
+        </div>
       </div>
     </div>
   );

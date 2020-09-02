@@ -61,9 +61,11 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
             >
               <div className="w-full flex items-center group">
                 <div className="h-full flex-grow flex flex-col px-2 group-hover:text-white-light">
-                  <h3 className="font-medium my-2">{reference.title}</h3>
+                  <h3 className="leading-5 font-medium my-2">
+                    {reference.title}
+                  </h3>
                   <div className="h-full flex flex-col justify-center">
-                    <p className="text-sm font-light">
+                    <p className="sm:hidden lg:block text-sm leading-4 font-light">
                       {reference.description}
                     </p>
                   </div>
@@ -79,7 +81,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
         </ul>
         {isMobile && setContent && (
           <HtmlContent
-            className="text-white bg-gray-medium p-4 mb-2"
+            className="prose text-white bg-gray-medium p-4 mb-2"
             content={setContent}
           />
         )}
