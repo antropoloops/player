@@ -13,7 +13,7 @@ module.exports = {
     require("postcss-import"),
     require("tailwindcss"),
     require("autoprefixer"),
-    isProd && purgecss,
+    // isProd && purgecss,
     isProd && cssnano,
   ],
 };

@@ -1,9 +1,13 @@
 module.exports = {
-  purge: false,
+  purge: ["./src/**/*.tsx"],
   theme: {
     typography: {
       default: {
         css: {
+          p: {
+            lineHeight: "24px",
+            textAlign: "justify",
+          },
           color: "#efefef",
           h1: {
             color: "#efefef",

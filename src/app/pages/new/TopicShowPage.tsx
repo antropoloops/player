@@ -29,7 +29,7 @@ const TopicShowPage: React.FC<Props> = () => {
 
   return (
     <Layout
-      title={FMT("topics")}
+      title={`${FMT("topics")} - ${topic ? FMT(topic.metadata.group) : ""}`}
       backTo={routes.topics()}
       desktop={<PageDesktop page={topic} white={true} />}
       sidebar={
@@ -41,12 +41,12 @@ const TopicShowPage: React.FC<Props> = () => {
     >
       <div className="p-4 text-white">
         {topic && (
-          <h2 className="text-xl leading-tight mb-8 uppercase">
-            {FMT(topic.metadata.group)}
-          </h2>
-        )}
-        {topic && (
-          <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
+          <>
+            <h2 className="text-xl leading-tight mb-4 italic">
+              {topic.metadata.subtitle}
+            </h2>
+            <h1 className="text-4xl leading-tight mb-8">{topic.title}</h1>
+          </>
         )}
         {
           <HtmlContent

@@ -19,14 +19,14 @@ const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
     <div className="PageDesktop min-h-full bg-gray-dark text-white px-4 py-2">
       <div
         className={cx({
-          "max-w-content text-justify p-8": true,
+          "max-w-content p-8": true,
           "bg-white text-black": white,
           "mx-auto": center,
         })}
       >
         <div
           className={cx([
-            "prose max-w-none mx-auto px-8 py-4",
+            "prose max-w-none mx-auto px-0 lg:px-8 py-4",
             white && "prose-page",
           ])}
         >
