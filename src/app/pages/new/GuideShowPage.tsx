@@ -7,20 +7,9 @@ import GuideBrowser from "../../components/guides/GuideBrowser";
 import API from "../../api";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { ReactComponent as DownloadIcon } from "../../assets/download.svg";
+import downloadFile from "../../lib/downloadFile";
 
 const PdfViewer = React.lazy(() => import("../../components/guides/PdfViewer"));
-
-function downloadFile(title: string, url: string) {
-  return fetch(url, { mode: "no-cors" }).then((response) =>
-    response.blob().then((blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = title;
-      a.click();
-    })
-  );
-}
 
 type RouteParams = {
   id: string;
@@ -48,7 +37,7 @@ const GuideShowPage: React.FC<Props> = () => {
   return (
     <Layout
       desktop={
-        fileUrl ? (
+        false || fileUrl ? (
           <Suspense fallback={<div>Loading...</div>}>
             <PdfViewer file={fileUrl} />
           </Suspense>
