@@ -37,7 +37,7 @@ const GuideShowPage: React.FC<Props> = () => {
   return (
     <Layout
       desktop={
-        false || fileUrl ? (
+        false && fileUrl ? (
           <Suspense fallback={<div>Loading...</div>}>
             <PdfViewer file={fileUrl} />
           </Suspense>
