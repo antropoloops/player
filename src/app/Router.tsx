@@ -13,6 +13,7 @@ import HomePage from "./pages/new/HomePage";
 import GuideListPage from "./pages/new/GuideListPage";
 import Player2Page from "./pages/new/Player2RibbonPage";
 import ExplorePage from "./pages/new/ExplorePage";
+import GuideShowPage from "./pages/new/GuideShowPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -59,6 +60,9 @@ const Router = () => (
       </Route>
       <Route exact={true} path={routes.guides()}>
         <GuideListPage />
+      </Route>
+      <Route exact={true} path={routes.guide(":id")}>
+        <GuideShowPage />
       </Route>
       <Route exact={true} path={routes.audioset(":id")}>
         <AudiosetPage />
