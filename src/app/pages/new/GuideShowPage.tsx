@@ -7,7 +7,7 @@ import GuideBrowser from "../../components/guides/GuideBrowser";
 import API from "../../api";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { ReactComponent as DownloadIcon } from "../../assets/download.svg";
-import downloadFile from "../../lib/downloadFile";
+// import downloadFile from "../../lib/downloadFile";
 
 const PdfViewer = React.lazy(() => import("../../components/guides/PdfViewer"));
 
@@ -46,20 +46,21 @@ const GuideShowPage: React.FC<Props> = () => {
             href={fileUrl}
             className="w-full p-4 text-white flex flex-col items-center hover:text-white-light focus:outline-none"
             onClick={(e) => {
-              e.preventDefault();
-              if (fileUrl) downloadFile(title, fileUrl);
+              if (!fileUrl) e.preventDefault();
             }}
           >
             <h1 className="text-xl">{title}</h1>
             <div className="p-2 text-center">
               {error ? (
                 <p>
-                  Parece que el fichero no existe. Si crees que es un error,
-                  escríbenos a hola@antropoloops.com
+                  Parece que el fichero no existe. Algunos están todavía en
+                  proceso. <br />
+                  Si crees que es un error, por favor, escríbenos a
+                  hola@antropoloops.com
                 </p>
               ) : !guide ? (
                 <p>Cargando...</p>
-              ) : guide.metadata.pdf ? (
+              ) : fileUrl ? (
                 <DownloadIcon className="w-12 h-12 shadow" />
               ) : (
                 <p>Fichero aun no disponible</p>
