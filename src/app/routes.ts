@@ -7,6 +7,7 @@ const routes = {
   projects: () => `/proyectos`,
   project: (id: string) => `/proyecto/${id}`,
   audioset: (id: string) => `/audioset/${id}`,
+  ribbonPlayer: (id: string) => `/next/player/${id}`,
   player: (id: string) => `/play/${id}`,
   testSet: () => `/test`,
   topics: () => `/documentacion`,

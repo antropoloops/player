@@ -5,23 +5,31 @@ import Spinner from "../Spinner";
 
 type Props = {
   audioset: Audioset;
-  activeClipId: string;
+  activeClipIds: string[];
 };
 
-const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
+const PanelVisuals: React.FC<Props> = ({ audioset, activeClipIds }) => {
   const { ref, width } = useDimensions<HTMLImageElement>();
   if (audioset.visuals.mode !== "panel") return null;
 
   const ratio = width / audioset.visuals.image.size.width;
-
-  const clip = audioset.index.clipById[activeClipId];
 
   const radius = Math.floor(120 * ratio);
 
   return (
     <div className="h-full w-full flex flex-col items-start relative">
       <img ref={ref} src={audioset.visuals.image.url} alt="fondo" />
-      {clip && <PlayingClip clip={clip} ratio={ratio} radius={radius} />}
+      {activeClipIds.map((clipId) => {
+        const clip = audioset.index.clipById[clipId];
+        return clip ? (
+          <PlayingClip
+            key={clip.id}
+            clip={clip}
+            ratio={ratio}
+            radius={radius}
+          />
+        ) : null;
+      })}
     </div>
   );
 };

@@ -70,7 +70,7 @@ const Router = () => (
       <Route exact={true} path={routes.player(":id")}>
         <PlayerPage />
       </Route>
-      <Route exact={true} path={"/next/player"}>
+      <Route exact={true} path={routes.ribbonPlayer(":id")}>
         <Player2Page />
       </Route>
       <Route path={routes.about()} exact={true} component={AboutPage} />
