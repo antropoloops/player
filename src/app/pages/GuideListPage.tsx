@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../../api";
-import useLocale from "../../hooks/useLocale";
-import usePage from "../../hooks/usePage";
-import GuideBrowser from "../../components/guides/GuideBrowser";
-import { useDeviceType } from "../../hooks/useDeviceType";
-import PageDesktop from "../../components/pages/PageDesktop";
-import { Readme } from "../../components/Player/Readme";
+import API from "../api";
+import useLocale from "../hooks/useLocale";
+import usePage from "../hooks/usePage";
+import GuideBrowser from "../components/guides/GuideBrowser";
+import { useDeviceType } from "../hooks/useDeviceType";
+import PageDesktop from "../components/pages/PageDesktop";
+import { Readme } from "../components/Player/Readme";
 
 type Props = {};
 

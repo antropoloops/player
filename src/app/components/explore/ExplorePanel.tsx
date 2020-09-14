@@ -9,7 +9,7 @@ import routes from "../../routes";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "../Icons";
-import Audio from "../Audio";
+import Audio from "./Audio";
 
 type State = { clipId: string };
 

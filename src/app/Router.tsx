@@ -11,8 +11,8 @@ import PlayerPage from "./pages/new/NewPlayerPage";
 import Player2Page from "./pages/new/Player2RibbonPage";
 import ExplorePage from "./pages/new/ExplorePage";
 
-import GuideListPage from "./pages/new/GuideListPage";
-import GuideShowPage from "./pages/new/GuideShowPage";
+import GuideListPage from "./pages/GuideListPage";
+import GuideShowPage from "./pages/GuideShowPage";
 
 import TopicListPage from "./pages/new/TopicListPage";
 import TopicShowPage from "./pages/new/TopicShowPage";
