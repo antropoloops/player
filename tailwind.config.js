@@ -84,6 +84,9 @@ module.exports = {
         "12": "3rem",
       },
       maxWidth: {
+        "cover-xs": "5rem",
+        "cover-sm": "6rem",
+        cover: "12rem",
         content: "820px",
       },
       maxHeight: {

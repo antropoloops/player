@@ -8,11 +8,14 @@ type Props = {
 
 const PromptExit: React.FC<Props> = ({ when, message }) => {
   useEffect(() => {
-    window.onbeforeunload = () => true;
-    return () => {
-      window.onbeforeunload = null;
-    };
-  }, []);
+    if (when) {
+      window.onbeforeunload = () => true;
+      return () => {
+        window.onbeforeunload = null;
+      };
+    }
+  }, [when]);
+
   return <Prompt when={when} message={message} />;
 };
 export default PromptExit;

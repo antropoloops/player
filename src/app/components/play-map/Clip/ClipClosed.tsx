@@ -1,35 +1,19 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { hasKeyboard } from "../../../lib/hasKeyboard";
-import "./ClipClosed.css";
+import ClipKey from "./ClipKey";
 import { ClipProps } from "./index";
 
 export const ClosedClip: React.FC<ClipProps> = ({ clip, control }) => {
-  const [isMapKeyboard, toggleMapKeyboard] = useReducer((x) => !x, false);
-
-  const keyboard = control && control.keyboard;
-  const clipKey = keyboard && keyboard.getKey(clip.id);
   const startClip = () => control && control.startClip(clip.id, 0);
-
-  function handleKeyToggle() {
-    if (!keyboard) {
-      // no control
-    } else if (isMapKeyboard) {
-      keyboard.stopMapMode();
-    } else {
-      keyboard.startMapMode(clip.id, (newKey: string) => {
-        toggleMapKeyboard();
-      });
-    }
-    toggleMapKeyboard();
-  }
+  const keyboard = control && control.keyboard;
 
   return (
     <div
-      className="Clip closed"
+      className="flex text-gray-dark cursor-pointer noselect"
       id={`clip-${clip.id}`}
       style={{ backgroundColor: clip.color }}
     >
-      <div className="ratio cover bg-gray-dark bg-opacity-50">
+      <div className="ratio max-w-cover-xs mr-2 bg-gray-dark bg-opacity-50">
         <svg viewBox="0 0 1 1" />
         {clip.coverUrl && (
           <img
@@ -42,18 +26,14 @@ export const ClosedClip: React.FC<ClipProps> = ({ clip, control }) => {
           />
         )}
       </div>
-      <div className="meta noselect" onClick={startClip}>
-        <h3 className="title">{clip.title}</h3>
+      <div
+        className="flex-grow flex flex-col justify-center"
+        onClick={startClip}
+      >
+        <h3>{clip.title}</h3>
       </div>
-      {hasKeyboard() && (
-        <div className="keyboard noselect">
-          <span
-            className={isMapKeyboard ? "active" : "inactive"}
-            onClick={handleKeyToggle}
-          >
-            {clipKey}
-          </span>
-        </div>
+      {hasKeyboard() && keyboard && (
+        <ClipKey clipId={clip.id} keyboard={keyboard} />
       )}
     </div>
   );
