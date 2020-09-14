@@ -47,7 +47,7 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
             ) : (
               <a
                 key={guide.slug}
-                href={guide.metadata.pdf.url}
+                href={guide.metadata.pdf?.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 download

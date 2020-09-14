@@ -1,15 +1,12 @@
-import React, { Suspense } from "react";
-import { useRouteMatch } from "react-router-dom";
+import React from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 import { useQuery } from "react-query";
 import Layout from "../../components/layout/Layout";
 import GuideBrowser from "../../components/guides/GuideBrowser";
-// import useLocale from "../../hooks/useLocale";
 import API from "../../api";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { ReactComponent as DownloadIcon } from "../../assets/download.svg";
-// import downloadFile from "../../lib/downloadFile";
-
-const PdfViewer = React.lazy(() => import("../../components/guides/PdfViewer"));
+import routes from "../../routes";
 
 type RouteParams = {
   id: string;
@@ -18,7 +15,6 @@ type RouteParams = {
 type Props = {};
 
 const GuideShowPage: React.FC<Props> = () => {
-  // const { formatMessage: f } = useLocale();
   const { params } = useRouteMatch<RouteParams>();
   const { data: guides } = useQuery({
     queryKey: ["guides"],
@@ -31,46 +27,59 @@ const GuideShowPage: React.FC<Props> = () => {
   );
   const { isMobile } = useDeviceType();
 
-  const title = `${params.id}.pdf`;
-  const fileUrl = guide && guide.metadata.pdf ? guide.metadata.pdf.url : "";
+  const extension = guide?.metadata?.pdf
+    ? "pdf"
+    : guide?.metadata?.doc
+    ? "doc"
+    : "";
+  const title = `${params.id}.${extension}`;
+  const fileUrl = guide?.metadata.pdf?.url || guide?.metadata.doc?.url || "";
+
+  const Download = () => (
+    <a
+      href={fileUrl}
+      className="w-full p-4 text-white flex flex-col items-center hover:text-white-light focus:outline-none"
+      onClick={(e) => {
+        if (!fileUrl) e.preventDefault();
+      }}
+    >
+      <h1 className="text-xl">{title}</h1>
+      <div className="p-2 text-center">
+        {error ? (
+          <p>
+            Parece que el fichero no existe. Algunos están todavía en proceso.{" "}
+            <br />
+            Si crees que es un error, por favor, escríbenos a
+            hola@antropoloops.com
+          </p>
+        ) : !guide ? (
+          <p>Cargando...</p>
+        ) : fileUrl ? (
+          <DownloadIcon className="w-12 h-12 shadow" />
+        ) : (
+          <p>Fichero aun no disponible</p>
+        )}
+      </div>
+    </a>
+  );
 
   return (
     <Layout
-      desktop={
-        false && fileUrl ? (
-          <Suspense fallback={<div>Loading...</div>}>
-            <PdfViewer file={fileUrl} />
-          </Suspense>
+      desktop={<Download />}
+      sidebar={
+        guides ? (
+          <GuideBrowser guides={guides} inline={isMobile} />
         ) : (
-          <a
-            href={fileUrl}
-            className="w-full p-4 text-white flex flex-col items-center hover:text-white-light focus:outline-none"
-            onClick={(e) => {
-              if (!fileUrl) e.preventDefault();
-            }}
-          >
-            <h1 className="text-xl">{title}</h1>
-            <div className="p-2 text-center">
-              {error ? (
-                <p>
-                  Parece que el fichero no existe. Algunos están todavía en
-                  proceso. <br />
-                  Si crees que es un error, por favor, escríbenos a
-                  hola@antropoloops.com
-                </p>
-              ) : !guide ? (
-                <p>Cargando...</p>
-              ) : fileUrl ? (
-                <DownloadIcon className="w-12 h-12 shadow" />
-              ) : (
-                <p>Fichero aun no disponible</p>
-              )}
-            </div>
-          </a>
+          <div></div>
         )
       }
     >
-      {guides && <GuideBrowser guides={guides} inline={isMobile} />}
+      <div className="text-center">
+        <Download />
+        <Link className="text-green" to={routes.guides()}>
+          &larr; Volver a las guías
+        </Link>
+      </div>
     </Layout>
   );
 };
