@@ -1,14 +1,14 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../../api";
-import TopicBrowser from "../../components/topics/TopicBrowser";
+import API from "../api";
+import TopicBrowser from "../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
-import HtmlContent from "../../components/HtmlContent";
-import routes from "../../routes";
-import PageDesktop from "../../components/pages/PageDesktop";
+import HtmlContent from "../components/HtmlContent";
+import routes from "../routes";
+import PageDesktop from "../components/pages/PageDesktop";
 import cx from "classcat";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 type Props = {};
 

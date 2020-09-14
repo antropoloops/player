@@ -7,6 +7,13 @@ type Props = {
   file: string;
 };
 
+/**
+ * @example
+  <Suspense fallback={<div>Loading...</div>}>
+    <PdfViewer file={fileUrl} />
+  </Suspense>
+ * 
+ */
 const PdfViewer: React.FC<Props> = ({ file }) => {
   return <Document file={file} />;
 };

@@ -13,6 +13,7 @@ const routes = {
   topic: (id: string) => `/documentacion/${id}`,
   guides: () => `/guias`,
   guide: (id: string) => `/guias/${id}`,
+  file: (id: string) => `/ficheros/${id}`,
 };
 
 export default routes;
