@@ -16,10 +16,10 @@ export interface ControlListener {
 export interface PlayerControl {
   readonly keyboard: KeyboardController;
   getState(): ControlState;
-  toggleClip(clipId: string, time: number): void;
-  stopClip(clipId: string, time: number): void;
-  startClip(clipId: string, time: number): void;
-  stopAll(time: number): void;
+  toggleClip(clipId: string, time?: number): void;
+  stopClip(clipId: string, time?: number): void;
+  startClip(clipId: string, time?: number): void;
+  stopAll(time?: number): void;
 }
 
 /**
@@ -41,7 +41,7 @@ export class AudiosetControl implements PlayerControl {
     audioset.tracks.forEach((track) => this.manager.addTrack(track));
   }
 
-  public toggleClip(clipId: string, time: number) {
+  public toggleClip(clipId: string, time: number = 0) {
     const clipState = this.manager.getClipState(clipId);
     if (!clipState) {
       return;
@@ -56,7 +56,7 @@ export class AudiosetControl implements PlayerControl {
    * Start a clip
    * @param clipId
    */
-  public startClip(clipId: string, time: number) {
+  public startClip(clipId: string, time: number = 0) {
     const clipState = this.manager.getClipState(clipId);
     if (!clipState || clipState.status === "playing") {
       return;
@@ -78,7 +78,7 @@ export class AudiosetControl implements PlayerControl {
   /**
    * Stops a clip
    */
-  public stopClip(clipId: string, time: number) {
+  public stopClip(clipId: string, time: number = 0) {
     const clipState = this.manager.getClipState(clipId);
     if (!clipState || clipState.status === "stopped") {
       return;
@@ -97,7 +97,7 @@ export class AudiosetControl implements PlayerControl {
   /**
    * Stops all clips
    */
-  public stopAll(time: number) {
+  public stopAll(time: number = 0) {
     this.manager
       .getAllClipIds()
       .forEach((clipId) => this.stopClipCommand(clipId, time));

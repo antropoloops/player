@@ -77,6 +77,7 @@ const PlayMapScreen: React.FC<Props> = ({ audioset }) => {
         />
       )}
       <TrackList
+        className="border-t-2 border-gray-dark"
         audioset={audioset}
         state={player.state}
         control={player.control}

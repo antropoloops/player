@@ -15,7 +15,9 @@ const Track: React.FC<TrackProps> = ({ audioset, track, state, control }) => {
   return (
     <div key={track.id} className="Track">
       <div className="background" style={{ backgroundColor: track.color }} />
-      <TrackHeader track={track} />
+      <div className="relative">
+        <div className="color-white-light p-2">{track.name}</div>
+      </div>
       <div className="clips">
         {track.clipIds.map((clipId, index) => (
           <Clip
@@ -31,13 +33,3 @@ const Track: React.FC<TrackProps> = ({ audioset, track, state, control }) => {
 };
 
 export default Track;
-
-interface TrackHeaderProps {
-  track: TrackModel;
-}
-
-const TrackHeader = ({ track }: TrackHeaderProps) => (
-  <div className="TrackHeader">
-    <span className="title">{track.name}</span>
-  </div>
-);

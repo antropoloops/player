@@ -15,17 +15,6 @@
   position: relative;
 }
 
-.Track .TrackHeader {
-  position: relative;
-  background: transparent;
-  display: flex;
-  flex-direction: row;
-}
-.TrackHeader .title {
-  padding: 4px;
-  color: white;
-}
-
 .TrackList .Track .clips > * {
   background: transparent;
   margin-bottom: 0.25rem;

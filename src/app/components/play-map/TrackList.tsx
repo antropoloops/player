@@ -4,19 +4,26 @@ import { ControlState, PlayerControl } from "../../../player/Control";
 import Track from "./Track";
 
 type TrackListProps = {
+  className?: string;
   audioset: Audioset;
   state: ControlState;
   control?: PlayerControl;
   onResume: () => void;
 };
 
-const TrackList = ({ audioset, state, control, onResume }: TrackListProps) => {
+const TrackList = ({
+  className = "",
+  audioset,
+  state,
+  control,
+  onResume,
+}: TrackListProps) => {
   if (!audioset || !audioset.tracks) {
     return <div>Audioset not loaded</div>;
   }
   return (
     <div
-      className={`TrackList ${!control && "loading"}`}
+      className={`${className} TrackList ${!control && "loading"}`}
       onClick={control ? undefined : onResume}
     >
       {audioset.tracks.map((track) => (
