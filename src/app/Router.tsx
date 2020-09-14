@@ -1,21 +1,25 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import routes from "./routes";
+
+// Static
 import HomePage from "./pages/new/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
+// Audiosets
 import BundlePage from "./pages/sets/BundlePage";
+// Guides
+import GuideListPage from "./pages/GuideListPage";
+import GuideShowPage from "./pages/GuideShowPage";
+// Topics
+import TopicListPage from "./pages/TopicListPage";
+import TopicShowPage from "./pages/TopicShowPage";
+// Work in progress
 import ProjectPage from "./pages/new/ProjectPage";
 import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayerPage from "./pages/new/NewPlayerPage";
 import Player2Page from "./pages/new/Player2RibbonPage";
 import ExplorePage from "./pages/new/ExplorePage";
-
-import GuideListPage from "./pages/GuideListPage";
-import GuideShowPage from "./pages/GuideShowPage";
-
-import TopicListPage from "./pages/new/TopicListPage";
-import TopicShowPage from "./pages/new/TopicShowPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -48,13 +52,6 @@ const Router = () => (
         component={ExplorePage}
       />
 
-      <Route exact={true} path={routes.projects()}>
-        <ProjectPage />
-      </Route>
-      <Route exact={true} path={routes.project(":id")}>
-        <ProjectPage />
-      </Route>
-
       {/* TOPICS */}
       <Route exact={true} path={routes.topics()}>
         <TopicListPage />
@@ -85,6 +82,14 @@ const Router = () => (
         <Player2Page />
       </Route>
       <Route path={routes.about()} exact={true} component={AboutPage} />
+
+      <Route exact={true} path={routes.projects()}>
+        <ProjectPage />
+      </Route>
+      <Route exact={true} path={routes.project(":id")}>
+        <ProjectPage />
+      </Route>
+
       <Route component={NotFoundPage} />
     </Switch>
   </BrowserRouter>
