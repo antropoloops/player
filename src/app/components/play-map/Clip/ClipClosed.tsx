@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { hasKeyboard } from "../../../../lib/hasKeyboard";
+import { hasKeyboard } from "../../../lib/hasKeyboard";
 import "./ClipClosed.css";
 import { ClipProps } from "./index";
 

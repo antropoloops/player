@@ -6,9 +6,9 @@ import API from "../../api";
 import LoadingPage from "../LoadingPage";
 import { Audioset, Clip, Track } from "../../../audioset";
 import { GearIcon, ArrowLeft } from "../../components/Icons";
-import Overview from "../../components/player2/Overview";
-import Options from "../../components/player2/Options";
-import TrackView from "../../components/player2/TrackView";
+import Overview from "../../components/play-next/Overview";
+import Options from "../../components/play-next/Options";
+import TrackView from "../../components/play-next/TrackView";
 
 type Props = {};
 

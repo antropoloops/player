@@ -1,25 +1,22 @@
 import React from "react";
-import { Audioset } from "../../../../audioset";
-import { ControlState, PlayerControl } from "../../../../player/Control";
-import { Track } from "./Track";
-interface ControllerProps {
+import { Audioset } from "../../../audioset";
+import { ControlState, PlayerControl } from "../../../player/Control";
+import Track from "./Track";
+
+type TrackListProps = {
   audioset: Audioset;
   state: ControlState;
   control?: PlayerControl;
   onResume: () => void;
-}
-export const Controller = ({
-  audioset,
-  state,
-  control,
-  onResume,
-}: ControllerProps) => {
+};
+
+const TrackList = ({ audioset, state, control, onResume }: TrackListProps) => {
   if (!audioset || !audioset.tracks) {
     return <div>Audioset not loaded</div>;
   }
   return (
     <div
-      className={`Controller ${!control && "loading"}`}
+      className={`TrackList ${!control && "loading"}`}
       onClick={control ? undefined : onResume}
     >
       {audioset.tracks.map((track) => (
@@ -34,3 +31,5 @@ export const Controller = ({
     </div>
   );
 };
+
+export default TrackList;

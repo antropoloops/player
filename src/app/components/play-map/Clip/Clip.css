@@ -1,19 +1,19 @@
-.Controller .Clip {
+.TrackList .Clip {
   cursor: pointer;
   color: #333;
   opacity: 0.95;
 }
-.Controller .Clip:hover {
+.TrackList .Clip:hover {
   opacity: 1;
 }
-.Controller .Clip .meta {
+.TrackList .Clip .meta {
   flex-grow: 1;
 }
-.Controller .Clip .title {
+.TrackList .Clip .title {
   font-size: 1rem;
   margin: 0;
 }
 
-.Controller .Clip.open .HtmlContent {
+.TrackList .Clip.open .HtmlContent {
   color: #333;
 }

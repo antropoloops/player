@@ -1,13 +1,13 @@
 import React from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "../components/layout/Layout";
 import { useQuery } from "react-query";
-import API from "../../api";
-import MediaObject from "../../components/MediaObject";
-import useLocale from "../../hooks/useLocale";
-import Page from "../../components/pages/PageDesktop";
-import { useDeviceType } from "../../hooks/useDeviceType";
-import { ArrowRight } from "../../components/Icons";
-import HtmlContent from "../../components/HtmlContent";
+import API from "../api";
+import MediaObject from "../components/MediaObject";
+import useLocale from "../hooks/useLocale";
+import Page from "../components/pages/PageDesktop";
+import { useDeviceType } from "../hooks/useDeviceType";
+import { ArrowRight } from "../components/Icons";
+import HtmlContent from "../components/HtmlContent";
 
 type Props = {};
 

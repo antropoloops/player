@@ -16,6 +16,7 @@ export const EmptyAudioset: Audioset = {
     defaults: {
       loop: true,
     },
+    mode: "0",
     signature: [4, 4],
     trackMaxVoices: 1,
     quantize: 0,

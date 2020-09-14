@@ -1,10 +1,10 @@
 import React, { useState, useReducer } from "react";
-import Layout from "../../components/layout/Layout";
+import Layout from "../layout/Layout";
 import HtmlContent from "../HtmlContent";
 import { Clip, Track, Audioset } from "../../../audioset";
 import cx from "classcat";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import PanelVisuals from "../../components/explore/PanelVisuals";
+import PanelVisuals from "./PanelVisuals";
 import routes from "../../routes";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
@@ -28,7 +28,7 @@ type Props = {
   audioset: Audioset;
 };
 
-const ExplorePanel: React.FC<Props> = ({ audioset }) => {
+const PlayPanelScreen: React.FC<Props> = ({ audioset }) => {
   const { isDesktop } = useDeviceType();
   const [playing, dispatch] = useReducer(reducer, { clipId: "" });
 
@@ -92,7 +92,7 @@ const ExplorePanel: React.FC<Props> = ({ audioset }) => {
     </Layout>
   );
 };
-export default ExplorePanel;
+export default PlayPanelScreen;
 
 type ClipViewProps = {
   track: Track;

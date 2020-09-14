@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import routes from "./routes";
 
 // Static
-import HomePage from "./pages/new/HomePage";
+import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 // Audiosets
@@ -17,8 +17,8 @@ import TopicShowPage from "./pages/TopicShowPage";
 // Work in progress
 import ProjectPage from "./pages/new/ProjectPage";
 import AudiosetPage from "./pages/new/NewAudiosetPage";
-import PlayerPage from "./pages/new/NewPlayerPage";
-import Player2Page from "./pages/new/Player2RibbonPage";
+import PlayNextPage from "./pages/new/PlayNextPage";
+import PlayRibbonPage from "./pages/new/PlayRibbonPage";
 import ExplorePage from "./pages/new/ExplorePage";
 
 const Router = () => (
@@ -76,10 +76,10 @@ const Router = () => (
         <AudiosetPage />
       </Route>
       <Route exact={true} path={routes.player(":id")}>
-        <PlayerPage />
+        <PlayNextPage />
       </Route>
-      <Route exact={true} path={"/next/player"}>
-        <Player2Page />
+      <Route exact={true} path={"/play-ribbon/:id"}>
+        <PlayRibbonPage />
       </Route>
       <Route path={routes.about()} exact={true} component={AboutPage} />
 

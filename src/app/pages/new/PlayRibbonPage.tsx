@@ -10,7 +10,7 @@ const url =
   "https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/continentes.audioset.json";
 
 type Props = {};
-const Player2Page: React.FC<Props> = () => {
+const PlayRibbonPage: React.FC<Props> = () => {
   const { data } = useQuery(["player2"], () =>
     API.bundles.get({ url, path: "" })
   );
@@ -27,7 +27,7 @@ const Player2Page: React.FC<Props> = () => {
     </Layout>
   );
 };
-export default Player2Page;
+export default PlayRibbonPage;
 
 type TrackProps = {
   audioset: Audioset;

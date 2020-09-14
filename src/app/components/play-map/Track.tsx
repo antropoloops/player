@@ -1,6 +1,6 @@
 import React from "react";
-import { Audioset, Track as TrackModel } from "../../../../audioset";
-import { ControlState, PlayerControl } from "../../../../player/Control";
+import { Audioset, Track as TrackModel } from "../../../audioset";
+import { ControlState, PlayerControl } from "../../../player/Control";
 import { Clip } from "./Clip";
 import "./Track.css";
 
@@ -11,12 +11,7 @@ interface TrackProps {
   control?: PlayerControl;
 }
 
-export function Track({
-  audioset,
-  track,
-  state,
-  control,
-}: TrackProps): JSX.Element {
+const Track: React.FC<TrackProps> = ({ audioset, track, state, control }) => {
   return (
     <div key={track.id} className="Track">
       <div className="background" style={{ backgroundColor: track.color }} />
@@ -33,7 +28,9 @@ export function Track({
       </div>
     </div>
   );
-}
+};
+
+export default Track;
 
 interface TrackHeaderProps {
   track: TrackModel;

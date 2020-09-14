@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { ClipProps } from ".";
-import { ArrowDown, ArrowUp } from "../../../Icons";
-import HtmlContent from "../../../HtmlContent";
+import { ArrowDown, ArrowUp } from "../../Icons";
+import HtmlContent from "../../HtmlContent";
 import "./ClipOpen.css";
 
 export const OpenClip = ({ clip, control }: ClipProps) => {

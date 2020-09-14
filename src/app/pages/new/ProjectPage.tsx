@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import LoadingPage from "../LoadingPage";
-import { Readme } from "../../components/Player/Readme";
+import { Readme } from "../../components/play-map/Readme";
 import routes from "../../routes";
 import MediaObject from "../../components/MediaObject";
 
