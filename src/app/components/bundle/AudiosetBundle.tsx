@@ -11,7 +11,7 @@ export type Props = {
 
 const AudiosetBundle: React.FC<Props> = ({ audioset }) => {
   const isMap = audioset.visuals.mode === "map";
-  const isPoly = audioset.audio.mode === "1"; // FIXME
+  const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
   return isMap || isPoly ? (
     <PlayMapScreen audioset={audioset} />
   ) : (

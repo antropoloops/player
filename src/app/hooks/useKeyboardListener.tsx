@@ -14,8 +14,10 @@ export function useKeyboardListener(keyboard: KeyboardController | undefined) {
 function addKeyboardListeners(keyboard: KeyboardController) {
   log("Installing keyboard");
 
-  const onKeyDown = (event: KeyboardEvent) => keyboard.keyDown(event.key);
-  const onKeyUp = (event: KeyboardEvent) => keyboard.keyUp(event.key);
+  const onKeyDown = (event: KeyboardEvent) =>
+    !event.metaKey && !event.ctrlKey && keyboard.keyDown(event.key);
+  const onKeyUp = (event: KeyboardEvent) =>
+    !event.metaKey && !event.ctrlKey && keyboard.keyUp(event.key);
   window.addEventListener("keydown", onKeyDown);
   window.addEventListener("keyup", onKeyUp);
   return () => {
