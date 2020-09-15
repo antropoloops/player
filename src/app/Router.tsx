@@ -20,6 +20,7 @@ import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayNextPage from "./pages/new/PlayNextPage";
 import PlayRibbonPage from "./pages/new/PlayRibbonPage";
 import ExplorePage from "./pages/new/ExplorePage";
+import SimplePlayerPage from "./pages/new/SimplePlayerPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -72,6 +73,9 @@ const Router = () => (
       </Route>
 
       {/* EXPERIMENTAL */}
+      <Route exact={true} path={routes.set(":id") + "/next"}>
+        <SimplePlayerPage />
+      </Route>
       <Route exact={true} path={routes.audioset(":id")}>
         <AudiosetPage />
       </Route>
