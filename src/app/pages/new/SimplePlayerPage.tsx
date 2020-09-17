@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
@@ -17,18 +17,6 @@ const SimplePlayerPage: React.FC<Props> = () => {
     (_, p) => API.audiosets.get(p)
   );
   const [state, dispatch] = useSimplePlayer(audioset);
-  useEffect(() => {
-    dispatch({ type: "init", audioset });
-  }, [dispatch, audioset]);
-
-  const _tick = useCallback(() => {
-    dispatch({ type: "tick", time: Date.now() });
-  }, [dispatch]);
-
-  useEffect(() => {
-    const id = setInterval(_tick, 100);
-    return () => clearInterval(id);
-  }, [_tick]);
 
   const format = (status?: PlayStatus) =>
     status
@@ -39,14 +27,7 @@ const SimplePlayerPage: React.FC<Props> = () => {
 
   return (
     <Layout>
-      <div className="text-white">
-        <h1>{state.startAt}</h1>
-
-        <button onClick={() => dispatch({ type: "tick", time: Date.now() })}>
-          tick
-        </button>
-      </div>
-      {audioset?.tracks.map((track) => (
+      {audioset?.tracks?.map((track) => (
         <div
           key={track.id}
           className="my-2"
@@ -79,4 +60,9 @@ const SimplePlayerPage: React.FC<Props> = () => {
     </Layout>
   );
 };
+
 export default SimplePlayerPage;
+
+type ClipProps = {};
+
+const Clip = () => {};

@@ -1,8 +1,26 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { Audioset, EmptyAudioset } from "../../audioset";
 
 function useSimplePlayer(audioset?: Audioset) {
-  return useReducer(reducer, init(undefined, { type: "init", audioset }));
+  const stateAndDispatch = useReducer(
+    reducer,
+    init(undefined, { type: "init", audioset })
+  );
+  const dispatch = stateAndDispatch[1];
+
+  useEffect(() => {
+    dispatch({ type: "init", audioset });
+  }, [dispatch, audioset]);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => dispatch({ type: "tick", time: Date.now() }),
+      100
+    );
+    return () => clearInterval(id);
+  }, [dispatch]);
+
+  return stateAndDispatch;
 }
 
 export default useSimplePlayer;
