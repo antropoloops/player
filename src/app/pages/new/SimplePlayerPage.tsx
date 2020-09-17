@@ -62,7 +62,3 @@ const SimplePlayerPage: React.FC<Props> = () => {
 };
 
 export default SimplePlayerPage;
-
-type ClipProps = {};
-
-const Clip = () => {};

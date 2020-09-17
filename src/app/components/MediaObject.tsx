@@ -17,7 +17,7 @@ const MediaObject: React.FC<Props> = ({
   <Link
     to={to}
     className={
-      className + " mb-2 flex w-full text-white min-h-12 overflow-hidden"
+      className + " mt-1 flex w-full text-white min-h-12 overflow-hidden shadow"
     }
   >
     <div className="ratio w-1/3 flex-shrink-0">

@@ -30,8 +30,11 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
   return (
     <>
       {topics.groups.map((group) => (
-        <div key={group.id} className="bg-gray-dark">
-          <div className="py-1 px-2 mb-1 bg-green text-black font-normal text-base">
+        <div data-cy="TopicGroup" key={group.id}>
+          <div
+            data-cy="TopicHeader"
+            className="py-1 px-2 mb-1 bg-green text-black font-normal text-base"
+          >
             {f(group.id)}
           </div>
           {group.topics.map((topic) =>
@@ -48,10 +51,10 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                 to={routes.topic(topic.slug)}
                 key={topic.slug}
                 className={cc([
-                  "group flex items-center px-2 mb-1",
+                  "group flex items-center px-2 mb-1 shadow",
                   topic.slug === active?.slug
-                    ? "bg-gray-light"
-                    : "bg-gray-medium",
+                    ? "bg-gray-lighter"
+                    : "bg-gray-light",
                 ])}
               >
                 <span
@@ -69,7 +72,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                     "flex-shrink-0 ml-2 my-2",
                     topic.slug === active?.slug
                       ? "text-green"
-                      : "text-gray-light group-hover:text-white-dark",
+                      : "text-white-dark group-hover:text-white",
                   ])}
                 />
               </Link>

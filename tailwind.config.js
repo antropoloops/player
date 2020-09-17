@@ -1,55 +1,6 @@
 module.exports = {
   purge: ["./src/**/*.tsx"],
   theme: {
-    typography: {
-      default: {
-        css: {
-          p: {
-            lineHeight: "24px",
-            textAlign: "justify",
-          },
-          color: "#efefef",
-          h1: {
-            color: "#efefef",
-            fontWeight: "medium",
-          },
-          h2: {
-            color: "#efefef",
-            fontWeight: "normal",
-          },
-          h3: {
-            color: "#efefef",
-            fontWeight: "normal",
-          },
-          strong: {
-            color: "white",
-          },
-          a: {
-            color: "#F6AD55",
-          },
-        },
-      },
-      page: {
-        css: {
-          color: "#111",
-          h1: {
-            color: "#111",
-          },
-          h2: {
-            color: "#111",
-          },
-          h3: {
-            color: "#111",
-          },
-          strong: {
-            color: "black",
-          },
-          a: {
-            color: "#DD6B20",
-          },
-        },
-      },
-    },
     extend: {
       colors: {
         transparent: "transparent",
@@ -58,11 +9,15 @@ module.exports = {
         white: "#efefef",
         "white-light": "#fff",
         "white-dark": "#aaa",
+        primary: "#ffdf01",
 
         gray: {
+          darker: "#343434",
           dark: "#444444",
           medium: "#505050",
-          light: "#6a6a6a",
+          light: "#606060",
+          lightoriginal: "#656565",
+          lighter: "#757575",
         },
         green: "#7ffa0b",
         red: "#ff0000",
@@ -93,6 +48,66 @@ module.exports = {
         "6": "1.5rem",
         "7": "1.75rem",
         "8": "2rem",
+      },
+    },
+    typography: {
+      default: {
+        css: {
+          p: {
+            lineHeight: "24px",
+            textAlign: "justify",
+          },
+          color: "#efefef",
+          h1: {
+            color: "#efefef",
+            fontWeight: "medium",
+          },
+          h2: {
+            color: "#efefef",
+            fontWeight: "normal",
+          },
+          h3: {
+            color: "#efefef",
+            fontWeight: "normal",
+          },
+          strong: {
+            color: "white",
+          },
+          blockquote: {
+            color: "#efefef",
+            quotes: "none",
+          },
+          a: {
+            color: "#F6AD55",
+          },
+        },
+      },
+      page: {
+        css: {
+          color: "#111",
+          h1: {
+            color: "#111",
+          },
+          h2: {
+            color: "#111",
+          },
+          h3: {
+            color: "#111",
+          },
+          strong: {
+            color: "black",
+          },
+          a: {
+            color: "#DD6B20",
+          },
+          p: {
+            color: "#111",
+          },
+          blockquote: {
+            color: "#111",
+            quotes: "none",
+          },
+        },
       },
     },
   },

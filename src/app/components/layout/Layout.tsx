@@ -42,38 +42,43 @@ const Layout: React.FC<Props> = ({
         data-testid="App"
         className="w-screen h-screen grid grid-cols-3 xl:grid-cols-4 grid-rows-layout-desktop"
       >
-        <div data-testid="Header" className="col-span-1 p-2">
+        <div data-testid="Header" className="col-span-1 p-2 bg-gray-darker">
           <Link
             className="w-full h-full flex items-center"
             to={sections ? sections[0].to : "/"}
           >
             <img
               className="max-h-7"
-              src="/images/play-logo-gray.png"
+              src="/images/logo-play-white-small.png"
               alt="Play antropoloops"
             />
           </Link>
         </div>
         <div
           data-testid="Navigation"
-          className="ml-12 lg:ml-20 col-span-2 xl:col-span-3 flex text-white items-center"
+          className="col-span-2 xl:col-span-3 bg-gray-darker"
         >
-          {sections?.slice(1).map((section) => (
-            <NavLink
-              key={section.id}
-              to={section.to}
-              isActive={pathname === section.to}
-              isExternal={section.external}
-              className={`mr-4 cursor-pointer ${
-                pathname.startsWith(section.to) ? "text-green" : ""
-              }`}
-            >
-              {f(section.id)}
-            </NavLink>
-          ))}
+          <div className="ml-12 lg:ml-20 h-full flex text-white items-center ">
+            {sections?.slice(1).map((section) => (
+              <NavLink
+                key={section.id}
+                to={section.to}
+                isActive={pathname === section.to}
+                isExternal={section.external}
+                className={`mr-4 cursor-pointer ${
+                  pathname.startsWith(section.to) ? "text-green" : ""
+                }`}
+              >
+                {f(section.id)}
+              </NavLink>
+            ))}
+          </div>
         </div>
-        <div data-testid="Sidebar" className="overflow-y-auto bg-gray-medium">
-          {sidebar || children}
+        <div
+          data-testid="Sidebar"
+          className="h-full pr-3 overflow-y-scroll bg-gray-dark"
+        >
+          <div className="min-h-full bg-gray-medium">{sidebar || children}</div>
         </div>
         {visuals ? (
           <div className="overflow-hidden col-span-2 xl:col-span-3 bg-gray-dark">

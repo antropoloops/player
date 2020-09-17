@@ -40,55 +40,50 @@ const PlayPanelScreen: React.FC<Props> = ({ audioset }) => {
         <PanelVisuals audioset={audioset} activeClipId={playing.clipId} />
       }
     >
-      <div className="sidebar sm:pr-3">
-        {isDesktop && (
-          <h1 className="p-2 text-lg text-white hover:text-white-light bg-gray-medium">
-            <Link
-              className="flex items-center"
-              to={audioset.meta.parent_path || routes.sets()}
-            >
-              <ArrowLeft className="mr-1 w-5 h-5" />
-              {audioset.meta.title}
-            </Link>
-          </h1>
-        )}
-        {false && isDesktop && (
-          <img
-            className="w-full"
-            alt={audioset.meta.title}
-            src={audioset.meta.logo_url}
-          />
-        )}
-        {false && isDesktop && (
-          <div className="p-4">
-            <HtmlContent
-              className="text-white"
-              content={audioset.meta.readme}
-            />
-          </div>
-        )}
-        {audioset.tracks.map((track) => (
-          <div
-            className="w-full relative"
-            key={track.id}
-            style={{ backgroundColor: track.color }}
+      {isDesktop && (
+        <h1 className="p-2 text-lg text-white hover:text-white-light bg-gray-medium">
+          <Link
+            className="flex items-center"
+            to={audioset.meta.parent_path || routes.sets()}
           >
-            <div className="bg-black bg-opacity-25">
-              <h3 className="p-2 text-white">{track.name}</h3>
-              {track.clipIds.map((clipId) => (
-                <ClipView
-                  key={clipId}
-                  track={track}
-                  clip={audioset.index.clipById[clipId]}
-                  isOpen={playing.clipId === clipId}
-                  start={() => dispatch({ type: "start", clipId })}
-                  stop={() => dispatch({ type: "stop", clipId })}
-                />
-              ))}
-            </div>
+            <ArrowLeft className="mr-1 w-5 h-5" />
+            {audioset.meta.title}
+          </Link>
+        </h1>
+      )}
+      {false && isDesktop && (
+        <img
+          className="w-full"
+          alt={audioset.meta.title}
+          src={audioset.meta.logo_url}
+        />
+      )}
+      {false && isDesktop && (
+        <div className="p-4">
+          <HtmlContent className="text-white" content={audioset.meta.readme} />
+        </div>
+      )}
+      {audioset.tracks.map((track) => (
+        <div
+          className="w-full relative"
+          key={track.id}
+          style={{ backgroundColor: track.color }}
+        >
+          <div className="bg-black bg-opacity-25">
+            <h3 className="p-2 text-white">{track.name}</h3>
+            {track.clipIds.map((clipId) => (
+              <ClipView
+                key={clipId}
+                track={track}
+                clip={audioset.index.clipById[clipId]}
+                isOpen={playing.clipId === clipId}
+                start={() => dispatch({ type: "start", clipId })}
+                stop={() => dispatch({ type: "stop", clipId })}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </Layout>
   );
 };
