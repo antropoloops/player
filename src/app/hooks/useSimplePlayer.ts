@@ -1,7 +1,9 @@
 import { useEffect, useReducer } from "react";
 import { Audioset, EmptyAudioset } from "../../audioset";
+import useAudioContext from "./useAudioContext";
 
 function useSimplePlayer(audioset?: Audioset) {
+  const context = useAudioContext();
   const stateAndDispatch = useReducer(
     reducer,
     init(undefined, { type: "init", audioset })
@@ -14,11 +16,11 @@ function useSimplePlayer(audioset?: Audioset) {
 
   useEffect(() => {
     const id = setInterval(
-      () => dispatch({ type: "tick", time: Date.now() }),
+      () => dispatch({ type: "tick", time: context?.currentTime || 0 }),
       100
     );
     return () => clearInterval(id);
-  }, [dispatch]);
+  }, [dispatch, context]);
 
   return stateAndDispatch;
 }
@@ -29,6 +31,12 @@ export type PlayStatus = {
   playing: boolean;
   time: number;
   dirty?: boolean;
+};
+
+export const StoppedStatus: PlayStatus = {
+  playing: false,
+  time: 0,
+  dirty: false,
 };
 
 type TrackId = string;

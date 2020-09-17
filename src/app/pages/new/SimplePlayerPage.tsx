@@ -3,7 +3,11 @@ import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
 import Layout from "../../components/layout/Layout";
-import useSimplePlayer, { PlayStatus } from "../../hooks/useSimplePlayer";
+import Clip from "../../components/simple-player/Clip";
+import useSimplePlayer, {
+  PlayStatus,
+  StoppedStatus,
+} from "../../hooks/useSimplePlayer";
 
 type Props = {};
 
@@ -39,9 +43,10 @@ const SimplePlayerPage: React.FC<Props> = () => {
 
           <div>
             {track.clipIds.map((clipId) => (
-              <button
+              <Clip
                 key={clipId}
-                className="flex"
+                status={state.clips[clipId] || StoppedStatus}
+                clip={audioset.index.clipById[clipId]}
                 onClick={() =>
                   dispatch({
                     type: "trigger",
@@ -50,9 +55,7 @@ const SimplePlayerPage: React.FC<Props> = () => {
                     playing: !state.clips[clipId]?.playing,
                   })
                 }
-              >
-                {clipId} {format(state.clips[clipId])}
-              </button>
+              />
             ))}
           </div>
         </div>
