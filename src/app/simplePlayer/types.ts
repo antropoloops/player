@@ -29,4 +29,5 @@ export type PlayerState = {
   clips: Record<ClipId, PlayStatus>;
   tracks: Record<TrackId, PlayStatus>;
   commands: PlayerCommand[];
+  lastCommand: number;
 };

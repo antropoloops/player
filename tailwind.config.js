@@ -23,7 +23,10 @@ module.exports = {
         red: "#ff0000",
       },
       spacing: {
-        "1px": "1px",
+        micro: "0.125rem",
+      },
+      width: {
+        "cover-mini": "10%",
       },
       gridTemplateRows: {
         "layout-desktop": "auto 1fr",
@@ -122,6 +125,7 @@ module.exports = {
   variants: {
     textColor: ["hover", "group-hover"],
     opacity: ["hover", "group-hover"],
+    margin: ["responsive", "last", "hover", "focus"],
   },
   plugins: [require("@tailwindcss/typography")],
 };

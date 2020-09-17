@@ -17,11 +17,13 @@ const SimpleMapVisuals: React.FC<Props> = ({ audioset, state }) => {
   const visuals = useMemo(() => createVisuals(audioset, el), [audioset, el]);
   useEffect(() => {
     if (!visuals) return;
-    const { clips, lastTickAt } = state;
-    for (const [clipId, clip] of Object.entries(clips)) {
-      if (clip.time === lastTickAt && !clip.dirty) {
-        if (clip.playing) visuals.show(clipId);
-        else visuals.hide(clipId);
+    const { commands, lastCommand } = state;
+    for (let i = lastCommand; i < commands.length; i++) {
+      const command = commands[i];
+      if (command.type === "clip:start") {
+        visuals.show(command.clipId);
+      } else if (command.type === "clip:stop") {
+        visuals.hide(command.clipId);
       }
     }
   }, [state, visuals]);

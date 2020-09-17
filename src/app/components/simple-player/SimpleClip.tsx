@@ -7,12 +7,13 @@ import { IAudioContext } from "standardized-audio-context";
 import { PlayStatus } from "../../simplePlayer/types";
 
 type Props = {
+  className?: string;
   clip: ClipData;
   status: PlayStatus;
   onClick: () => void;
 };
 
-const Clip: React.FC<Props> = ({ clip, onClick, status }) => {
+const Clip: React.FC<Props> = ({ className, clip, onClick, status }) => {
   const { ready, play } = useSample(clip.resources.audio.mp3);
   useEffect(() => {
     if (status.playing) {
@@ -23,6 +24,7 @@ const Clip: React.FC<Props> = ({ clip, onClick, status }) => {
     <button
       disabled={!ready}
       className={cc([
+        className,
         "w-full flex text-gray-dark",
         "focus:outline-none",
         status.dirty && "animate-ping",
@@ -33,7 +35,7 @@ const Clip: React.FC<Props> = ({ clip, onClick, status }) => {
     >
       <img
         className={cc([
-          status.playing ? "w-1/2" : "w-2/12",
+          status.playing ? "w-1/2" : "w-cover-mini",
           ready ? "opacity-100" : "opacity-25",
         ])}
         alt={clip.title}

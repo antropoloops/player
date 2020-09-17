@@ -44,6 +44,7 @@ const init = (
     clips: {},
     tracks: {},
     commands: [],
+    lastCommand: 0,
   };
 };
 
@@ -52,14 +53,22 @@ const trigger = (state: PlayerState, action: TriggerAction): PlayerState => {
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
 
-  clips[clipId] = Object.assign({}, clips[clipId], {
-    dirty: true,
-  });
-  tracks[trackId] = Object.assign({}, tracks[trackId], {
-    dirty: true,
-  });
+  const clip = clips[clipId];
+  const track = tracks[trackId];
 
-  const newState = { ...state, clips, tracks };
+  clips[clipId] = {
+    playing: clip?.playing || false,
+    time: clip?.time || 0,
+    dirty: true,
+  };
+  tracks[trackId] = {
+    playing: track?.playing || false,
+    time: track?.time || 0,
+    dirty: true,
+  };
+
+  const lastCommand = state.commands.length;
+  const newState = { ...state, clips, tracks, lastCommand };
   newState.queued.push(action);
   return newState;
 };
