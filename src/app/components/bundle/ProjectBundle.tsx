@@ -38,54 +38,52 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
       backTo={isRoot ? routes.root() : routes.sets()}
       desktop={<PageDesktop page={currentPage} />}
     >
-      <div className="sidebar sm:pr-3">
-        {!isRoot && !isMobile && (
-          <BackToLink
-            to={project.meta.parent_path || routes.sets()}
-            label="Projectos sonoros"
-          />
-        )}
-        <img
-          className="w-full mb-2"
-          alt={project.meta.title}
-          src={isRoot ? section?.image_url : project.meta.logo_url}
+      {!isRoot && !isMobile && (
+        <BackToLink
+          to={project.meta.parent_path || routes.sets()}
+          label="Projectos sonoros"
         />
-        <ul className="Audiosets">
-          {references.map((reference) => (
-            <MediaObject
-              className="bg-gray-medium mb-2 group"
-              key={reference.id}
-              to={`/set/${reference.publish_path}`}
-              image={reference.logo_url}
-              alt={reference.title}
-            >
-              <div className="w-full flex items-center group">
-                <div className="h-full flex-grow flex flex-col px-2 group-hover:text-white-light">
-                  <h3 className="leading-5 font-medium my-2">
-                    {reference.title}
-                  </h3>
-                  <div className="h-full flex flex-col justify-center">
-                    <p className="sm:hidden lg:block text-sm leading-4 font-light">
-                      {reference.description}
-                    </p>
-                  </div>
+      )}
+      <img
+        className="w-full"
+        alt={project.meta.title}
+        src={isRoot ? section?.image_url : project.meta.logo_url}
+      />
+      <ul className="Audiosets">
+        {references.map((reference) => (
+          <MediaObject
+            className="bg-gray-light group hover:bg-gray-lighter"
+            key={reference.id}
+            to={`/set/${reference.publish_path}`}
+            image={reference.logo_url}
+            alt={reference.title}
+          >
+            <div className="w-full flex items-center group">
+              <div className="h-full flex-grow flex flex-col px-2 group-hover:text-white-light">
+                <h3 className="leading-5 font-medium my-2">
+                  {reference.title}
+                </h3>
+                <div className="h-full flex flex-col justify-center">
+                  <p className="sm:hidden lg:block text-sm leading-4 font-light">
+                    {reference.description}
+                  </p>
                 </div>
-                {isRoot ? (
-                  <ArrowRight className="text-gray-light flex-shrink-0 mr-2 my-2 group-hover:text-white-dark" />
-                ) : (
-                  <PlayIcon className="flex-shrink-0 text-white-dark w-8 h-8 mt-2 mr-2 group-hover:text-green" />
-                )}
               </div>
-            </MediaObject>
-          ))}
-        </ul>
-        {isMobile && setContent && (
-          <HtmlContent
-            className="prose text-white bg-gray-medium p-4 mb-2"
-            content={setContent}
-          />
-        )}
-      </div>
+              {isRoot ? (
+                <ArrowRight className="text-white-dark flex-shrink-0 mr-2 my-2 group-hover:text-white" />
+              ) : (
+                <PlayIcon className="flex-shrink-0 text-white-dark w-8 h-8 mt-2 mr-2 group-hover:text-green" />
+              )}
+            </div>
+          </MediaObject>
+        ))}
+      </ul>
+      {isMobile && setContent && (
+        <HtmlContent
+          className="prose text-white bg-gray-medium p-4 mb-2"
+          content={setContent}
+        />
+      )}
     </Layout>
   );
 };

@@ -33,10 +33,10 @@ const TopicShowPage: React.FC<Props> = () => {
       backTo={routes.topics()}
       desktop={<PageDesktop page={topic} white={true} />}
       sidebar={
-        <div className="sidebar sm:pr-3">
+        <>
           {section && <img alt="" src={section.image_url} />}
           {topics && <TopicBrowser topics={topics} active={topic} />}
-        </div>
+        </>
       }
     >
       <div className="p-4 text-white">

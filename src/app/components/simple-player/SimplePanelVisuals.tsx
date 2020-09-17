@@ -1,32 +1,41 @@
 import React from "react";
 import useDimensions from "react-cool-dimensions";
 import { Audioset, Clip } from "../../../audioset";
+import { PlayerState } from "../../simplePlayer/types";
 import Spinner from "../Spinner";
 
 type Props = {
   audioset: Audioset;
-  activeClipId?: string;
+  state: PlayerState;
 };
 
-const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
+const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
   const { ref, width } = useDimensions<HTMLImageElement>();
   if (audioset.visuals.mode !== "panel") return null;
 
   const ratio = width / audioset.visuals.image.size.width;
-
-  const clip = activeClipId && audioset.index.clipById[activeClipId];
+  const clipById = audioset.index.clipById;
 
   const radius = Math.floor(120 * ratio);
 
   return (
     <div className="h-full w-full flex flex-col items-start relative">
       <img ref={ref} src={audioset.visuals.image.url} alt="fondo" />
-      {clip && <PlayingClip clip={clip} ratio={ratio} radius={radius} />}
+      {Object.keys(state.clips).map((clipId) =>
+        state.clips[clipId]?.playing ? (
+          <PlayingClip
+            key={clipId}
+            clip={clipById[clipId]}
+            ratio={ratio}
+            radius={radius}
+          />
+        ) : null
+      )}
     </div>
   );
 };
 
-export default PanelVisuals;
+export default SimplePanelVisuals;
 
 type PlayingClipProps = {
   clip: Clip;

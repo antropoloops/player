@@ -31,7 +31,7 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
   return (
     <>
       {guides.groups.map((group) => (
-        <div key={group.id} className="bg-gray-dark">
+        <div key={group.id} className="">
           <div className="py-1 px-2 mb-1 bg-green text-black font-normal text-base">
             {f(group.id)}
           </div>
@@ -53,10 +53,10 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
                 download
                 className={cc([
                   "w-full text-left group flex items-center p-2 mb-1",
-                  "focus:outline-none",
+                  "shadow focus:outline-none",
                   guide.slug === active?.slug
-                    ? "bg-gray-light"
-                    : "bg-gray-medium",
+                    ? "bg-gray-lighter"
+                    : "bg-gray-light",
                 ])}
               >
                 <div
@@ -77,7 +77,7 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
                     "flex-shrink-0 ml-2 my-2 w-6 h-6",
                     guide.slug === active?.slug
                       ? "text-green"
-                      : "text-gray-light group-hover:text-white-dark",
+                      : "text-white-dark group-hover:text-white",
                   ])}
                 />
               </a>
