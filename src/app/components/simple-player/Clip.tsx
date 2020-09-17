@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Clip as ClipData } from "../../../audioset";
-import { PlayStatus } from "../../hooks/useSimplePlayer";
 import cc from "classcat";
 import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { IAudioContext } from "standardized-audio-context";
+import { PlayStatus } from "../../simplePlayer/types";
 
 type Props = {
   clip: ClipData;
@@ -25,7 +25,7 @@ const Clip: React.FC<Props> = ({ clip, onClick, status }) => {
       className={cc([
         "w-full flex text-gray-dark",
         "focus:outline-none",
-        status.dirty && "animate-ping-slow",
+        status.dirty && "animate-ping",
         status.playing ? "items-stretch" : "items-center",
       ])}
       onClick={onClick}

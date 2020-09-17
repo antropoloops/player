@@ -4,10 +4,8 @@ import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
 import Layout from "../../components/layout/Layout";
 import Clip from "../../components/simple-player/Clip";
-import useSimplePlayer, {
-  PlayStatus,
-  StoppedStatus,
-} from "../../hooks/useSimplePlayer";
+import useSimplePlayer from "../../hooks/useSimplePlayer";
+import { StoppedStatus } from "../../simplePlayer";
 
 type Props = {};
 
