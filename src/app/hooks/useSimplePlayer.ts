@@ -1,6 +1,10 @@
+import { off } from "process";
 import { useEffect, useReducer } from "react";
 import { Audioset, EmptyAudioset } from "../../audioset";
 import useAudioContext from "./useAudioContext";
+
+const INTERVAL_MS = 100;
+const INTERVAL_SECS = INTERVAL_MS / 1000;
 
 function useSimplePlayer(audioset?: Audioset) {
   const context = useAudioContext();
@@ -16,8 +20,13 @@ function useSimplePlayer(audioset?: Audioset) {
 
   useEffect(() => {
     const id = setInterval(
-      () => dispatch({ type: "tick", time: context?.currentTime || 0 }),
-      100
+      () =>
+        dispatch({
+          type: "tick",
+          time: context?.currentTime || 0,
+          length: INTERVAL_SECS,
+        }),
+      INTERVAL_MS
     );
     return () => clearInterval(id);
   }, [dispatch, context]);
@@ -87,13 +96,22 @@ const trigger = (state: PlayerState, action: TriggerAction): PlayerState => {
   return newState;
 };
 
-type TickAction = { type: "tick"; time: number };
+type TickAction = { type: "tick"; time: number; length: number };
 
 const tick = (state: PlayerState, action: TickAction): PlayerState => {
   if (state.queued.length === 0) return state;
 
+  const bpm = state.audioset.audio.bpm;
+  const quantize = state.audioset.audio.quantize;
   const startAt = state.startAt || action.time;
-  const time = action.time - startAt;
+  const offset =
+    startAt === action.time
+      ? 0
+      : quantizeTime(bpm, action.time, startAt, quantize);
+
+  if (offset > 2 * action.length) return state;
+
+  const time = action.time + offset;
 
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
@@ -107,8 +125,8 @@ const tick = (state: PlayerState, action: TickAction): PlayerState => {
         tracks[trackId] = { playing: true, time };
       }
       // stop other clips in the same track
-      const track = state.audioset.index.trackById[trackId];
-      track.clipIds.forEach((clipId) => {
+      const trackData = state.audioset.index.trackById[trackId];
+      trackData.clipIds.forEach((clipId) => {
         if (clipId !== action.clipId && clips[clipId]?.playing) {
           clips[clipId] = { playing: false, time };
         }
@@ -139,4 +157,25 @@ function reducer(state: PlayerState, action: Action): PlayerState {
     case "trigger":
       return trigger(state, action);
   }
+}
+/**
+ * Calculate the time remaining until the next beat
+ *
+ * @param {*} bpm
+ * @param {*} now
+ * @param {*} startedAt
+ * @param {*} beats
+ */
+function quantizeTime(
+  bpm: number,
+  now: number,
+  startedAt: number,
+  beats = 1
+): number {
+  const factor = bpm / (60 * beats);
+  const absolute = now - startedAt;
+  const inBeats = absolute * factor;
+  const mod = inBeats % 1;
+  const offsetTime = (1 - mod) / factor;
+  return offsetTime;
 }

@@ -52,7 +52,7 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
       <ul className="Audiosets">
         {references.map((reference) => (
           <MediaObject
-            className="bg-gray-light group"
+            className="bg-gray-light group hover:bg-gray-lighter"
             key={reference.id}
             to={`/set/${reference.publish_path}`}
             image={reference.logo_url}

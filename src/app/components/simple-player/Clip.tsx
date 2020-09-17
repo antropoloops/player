@@ -23,20 +23,31 @@ const Clip: React.FC<Props> = ({ clip, onClick, status }) => {
     <button
       disabled={!ready}
       className={cc([
-        "flex w-full mb-1 focus:outline-none",
-        status.dirty && "animate-pulse",
+        "w-full flex text-gray-dark",
+        "focus:outline-none",
+        status.dirty && "animate-ping-slow",
+        status.playing ? "items-stretch" : "items-center",
       ])}
       onClick={onClick}
+      style={{ backgroundColor: clip.color }}
     >
       <img
         className={cc([
-          status.playing ? "w-1/2" : "w-1/4",
+          status.playing ? "w-1/2" : "w-2/12",
           ready ? "opacity-100" : "opacity-25",
         ])}
         alt={clip.title}
         src={clip.resources.cover.small}
       />
-      <pre>{JSON.stringify(status)}</pre>
+      {status.playing ? (
+        <div className="ml-2 text-left w-full">
+          <div className="font-medium">{clip.title}</div>
+          <div className="italic">{clip.album}</div>
+          <div>{clip.artist}</div>
+        </div>
+      ) : (
+        <h3 className="ml-2">{clip.title}</h3>
+      )}
     </button>
   );
 };
@@ -71,6 +82,7 @@ function useSample(src: string) {
       const source = sample.context.createBufferSource();
       source.buffer = sample.buffer;
       source.connect(sample.context.destination);
+      source.loop = true;
       source.start(time);
 
       return () => source.stop();

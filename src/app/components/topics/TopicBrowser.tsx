@@ -54,7 +54,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
                   "group flex items-center px-2 mb-1 shadow",
                   topic.slug === active?.slug
                     ? "bg-gray-lighter"
-                    : "bg-gray-light",
+                    : "bg-gray-light hover:bg-gray-lighter",
                 ])}
               >
                 <span

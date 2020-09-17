@@ -37,7 +37,7 @@ const HomePage: React.FC<Props> = () => {
           .filter((section) => section.home)
           .map((section) => (
             <MediaObject
-              className="bg-gray-light group max-w-full"
+              className="bg-gray-light group max-w-full hover:bg-gray-lighter"
               key={section.id}
               to={section.to}
               image={section.image_url}

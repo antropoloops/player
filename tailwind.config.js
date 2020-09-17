@@ -16,7 +16,7 @@ module.exports = {
           dark: "#444444",
           medium: "#505050",
           light: "#606060",
-          lightoriginal: "#656565",
+          "light-original": "#656565",
           lighter: "#757575",
         },
         green: "#7ffa0b",
@@ -48,6 +48,14 @@ module.exports = {
         "6": "1.5rem",
         "7": "1.75rem",
         "8": "2rem",
+      },
+      animation: {
+        "ping-slow": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+      },
+      keyframes: {
+        ping: {
+          "75%, 100%": { transform: "scale(1.2)", opacity: "0" },
+        },
       },
     },
     typography: {

@@ -22,26 +22,20 @@ const SimplePlayerPage: React.FC<Props> = () => {
   );
   const [state, dispatch] = useSimplePlayer(audioset);
 
-  const format = (status?: PlayStatus) =>
-    status
-      ? `${status.playing ? "YES" : "no"} ${status.time || "n/a"} ${
-          status.dirty ? "*" : ""
-        }`
-      : "--";
-
   return (
     <Layout>
       {audioset?.tracks?.map((track) => (
         <div
           key={track.id}
-          className="my-2"
+          className="mb-1"
           style={{ backgroundColor: track.color }}
         >
-          <h3 className="border-b-2">
-            {track.name} {format(state.tracks[track.id])}
-          </h3>
+          <div className="relative">
+            <div className="absolute inset-0 bg-gray-dark opacity-25"></div>
+            <h3 className="p-2 z-10">{track.name}</h3>
+          </div>
 
-          <div>
+          <div className="">
             {track.clipIds.map((clipId) => (
               <Clip
                 key={clipId}
