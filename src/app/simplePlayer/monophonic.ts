@@ -6,6 +6,7 @@ export default function monophonic(
   action: TickAction
 ): PlayerState {
   const { time } = action;
+  const lastTickAt = time;
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
   const commands = state.commands;
@@ -53,6 +54,7 @@ export default function monophonic(
   });
   return {
     ...state,
+    lastTickAt,
     clips,
     tracks,
     queued: [],

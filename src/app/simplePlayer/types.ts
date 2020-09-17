@@ -23,6 +23,7 @@ type ClipId = string;
 
 export type PlayerState = {
   startAt: number;
+  lastTickAt: number;
   audioset: Audioset;
   queued: Array<TriggerAction>;
   clips: Record<ClipId, PlayStatus>;

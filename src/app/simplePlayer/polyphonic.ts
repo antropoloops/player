@@ -17,6 +17,7 @@ export default function polyphonic(
   if (quantizedOffset > 2 * action.length) return state;
 
   const time = action.time + quantizedOffset;
+  const lastTickAt = time;
 
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
@@ -58,6 +59,7 @@ export default function polyphonic(
   return {
     ...state,
     startAt,
+    lastTickAt,
     clips,
     tracks,
     queued: [],

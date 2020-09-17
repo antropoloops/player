@@ -4,6 +4,8 @@ import Layout from "../../components/layout/Layout";
 import Clip from "../../components/simple-player/SimpleClip";
 import useSimplePlayer from "../../hooks/useSimplePlayer";
 import { StoppedStatus } from "../../simplePlayer";
+import { PlayerState } from "../../simplePlayer/types";
+import SimpleMapVisuals from "./SimpleMapVisuals";
 import SimplePanelVisuals from "./SimplePanelVisuals";
 
 type Props = {
@@ -17,17 +19,12 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
     <Layout
       title={audioset?.meta.title}
       backTo={audioset?.meta.parent_path}
-      visuals={
-        audioset &&
-        audioset.visuals.mode === "panel" && (
-          <SimplePanelVisuals audioset={audioset} state={state} />
-        )
-      }
+      visuals={<Visuals audioset={audioset} state={state} />}
     >
       {audioset?.tracks?.map((track) => (
         <div
           key={track.id}
-          className=""
+          className="text-white-light font-medium"
           style={{ backgroundColor: track.color }}
         >
           <div className="relative">
@@ -59,3 +56,19 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
 };
 
 export default SimplePlayerScreen;
+
+type VisualsProps = {
+  audioset?: Audioset;
+  state: PlayerState;
+};
+const Visuals: React.FC<VisualsProps> = ({ audioset, state }) => {
+  if (!audioset) {
+    return <div></div>;
+  } else if (audioset.visuals.mode === "map") {
+    return <SimpleMapVisuals audioset={audioset} state={state} />;
+  } else if (audioset.visuals.mode === "panel") {
+    return <SimplePanelVisuals audioset={audioset} state={state} />;
+  } else {
+    return <div>error</div>;
+  }
+};

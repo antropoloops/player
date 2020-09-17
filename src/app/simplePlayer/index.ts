@@ -38,6 +38,7 @@ const init = (
 ): PlayerState => {
   return {
     startAt: 0,
+    lastTickAt: 0,
     audioset: action.audioset || EmptyAudioset,
     queued: [],
     clips: {},
