@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Clip as ClipData } from "../../../audioset";
 import cc from "classcat";
-import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
-import { getActiveAudioContext } from "../../../lib/active-audio-context";
-import { IAudioContext } from "standardized-audio-context";
+
 import { PlayStatus } from "../../simplePlayer/types";
 import { KeyboardController } from "../../../player/Control";
 import ClipKeyBinding from "./ClipKeyBinding";
+import AudioSample from "./AudioSample";
+import AudioStream from "./AudioStream";
 
 type Props = {
   className?: string;
@@ -14,6 +14,7 @@ type Props = {
   clip: ClipData;
   status: PlayStatus;
   onClick: () => void;
+  isStream: boolean;
 };
 
 const Clip: React.FC<Props> = ({
@@ -22,13 +23,10 @@ const Clip: React.FC<Props> = ({
   onClick,
   status,
   keyboard,
+  isStream,
 }) => {
-  const { ready, play } = useSample(clip.resources.audio.mp3);
-  useEffect(() => {
-    if (status.playing) {
-      return play(status.time);
-    }
-  }, [play, status]);
+  const [ready, setReady] = useState(false);
+  const Audio = isStream ? AudioStream : AudioSample;
   return (
     <button
       disabled={!ready}
@@ -41,6 +39,12 @@ const Clip: React.FC<Props> = ({
       ])}
       style={{ backgroundColor: clip.color }}
     >
+      <Audio
+        url={clip.resources.audio.mp3}
+        status={status}
+        onStateChange={setReady}
+        onEnded={onClick}
+      />
       <div
         className={cc([
           "ratio bg-gray-dark bg-opacity-50",
@@ -73,43 +77,3 @@ const Clip: React.FC<Props> = ({
   );
 };
 export default Clip;
-
-type Sample = {
-  context: IAudioContext;
-  buffer: AudioBuffer;
-};
-
-async function loadAudio(url: string) {
-  const context = await getActiveAudioContext();
-  const response = await fetch(url);
-  const buffer = await decodeAudioBuffer(response, context);
-
-  return { context, buffer };
-}
-
-function useSample(src: string) {
-  const [sample, setSample] = useState<Sample | null>(null);
-
-  useEffect(() => {
-    loadAudio(src).then(setSample);
-  }, [src]);
-
-  const ready = sample !== null;
-
-  const play = useCallback(
-    (time: number) => {
-      if (!sample) return;
-
-      const source = sample.context.createBufferSource();
-      source.buffer = sample.buffer;
-      source.connect(sample.context.destination);
-      source.loop = true;
-      source.start(time);
-
-      return () => source.stop();
-    },
-    [sample]
-  );
-
-  return { ready, play };
-}

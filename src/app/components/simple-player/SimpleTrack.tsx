@@ -19,6 +19,7 @@ const SimpleTrack: React.FC<Props> = ({
   onClipClick,
   keyboard,
 }) => {
+  const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
   return (
     <div
       data-cy={`Track-${track.id}`}
@@ -39,6 +40,7 @@ const SimpleTrack: React.FC<Props> = ({
             status={state.clips[clipId] || StoppedStatus}
             clip={audioset.index.clipById[clipId]}
             onClick={() => onClipClick(clipId)}
+            isStream={!isPoly}
           />
         ))}
       </div>
