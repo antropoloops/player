@@ -69,7 +69,11 @@ const Clip: React.FC<Props> = ({
           <h3 className="ml-2 flex-grow" onClick={onClick}>
             {clip.title}
           </h3>
-          <ClipKeyBinding clipId={clip.id} keyboard={keyboard} />
+          <ClipKeyBinding
+            className="flex-shrink-0 m-1"
+            clipId={clip.id}
+            keyboard={keyboard}
+          />
         </div>
       )}
     </button>
