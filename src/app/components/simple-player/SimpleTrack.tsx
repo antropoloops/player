@@ -1,11 +1,13 @@
 import React from "react";
 import { Audioset, Track } from "../../../audioset";
+import { KeyboardController } from "../../../player/Control";
 import { StoppedStatus } from "../../simplePlayer";
 import { PlayerState } from "../../simplePlayer/types";
 import Clip from "./SimpleClip";
 
 type Props = {
   audioset: Audioset;
+  keyboard: KeyboardController;
   track: Track;
   state: PlayerState;
   onClipClick: (clipId: string) => void;
@@ -15,6 +17,7 @@ const SimpleTrack: React.FC<Props> = ({
   track,
   state,
   onClipClick,
+  keyboard,
 }) => {
   return (
     <div
@@ -31,6 +34,7 @@ const SimpleTrack: React.FC<Props> = ({
         {track.clipIds.map((clipId) => (
           <Clip
             className="mb-micro last:mb-0"
+            keyboard={keyboard}
             key={clipId}
             status={state.clips[clipId] || StoppedStatus}
             clip={audioset.index.clipById[clipId]}

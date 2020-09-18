@@ -10,7 +10,7 @@ type Props = {
 const BackToLink: React.FC<Props> = ({ to, label }) => {
   return (
     <Link className="p-2 flex items-center bg-gray-medium group" to={to}>
-      <ArrowLeft className="mr-1 h-5 w-5 text-gray-light group-hover:text-white-dark" />
+      <ArrowLeft className="mr-1 h-5 w-5 text-white-dark group-hover:text-white" />
       <div className="text-white group-hover:text-white-light">{label}</div>
     </Link>
   );

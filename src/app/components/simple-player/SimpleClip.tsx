@@ -5,15 +5,24 @@ import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { IAudioContext } from "standardized-audio-context";
 import { PlayStatus } from "../../simplePlayer/types";
+import { KeyboardController } from "../../../player/Control";
+import ClipKeyBinding from "./ClipKeyBinding";
 
 type Props = {
   className?: string;
+  keyboard: KeyboardController;
   clip: ClipData;
   status: PlayStatus;
   onClick: () => void;
 };
 
-const Clip: React.FC<Props> = ({ className, clip, onClick, status }) => {
+const Clip: React.FC<Props> = ({
+  className,
+  clip,
+  onClick,
+  status,
+  keyboard,
+}) => {
   const { ready, play } = useSample(clip.resources.audio.mp3);
   useEffect(() => {
     if (status.playing) {
@@ -30,25 +39,35 @@ const Clip: React.FC<Props> = ({ className, clip, onClick, status }) => {
         status.dirty && "animate-ping",
         status.playing ? "items-stretch" : "items-center",
       ])}
-      onClick={onClick}
       style={{ backgroundColor: clip.color }}
     >
-      <img
+      <div
         className={cc([
+          "ratio bg-gray-dark bg-opacity-50",
           status.playing ? "w-1/2" : "w-cover-mini",
-          ready ? "opacity-100" : "opacity-25",
         ])}
-        alt={clip.title}
-        src={clip.resources.cover.small}
-      />
+        onClick={onClick}
+      >
+        <svg viewBox="0 0 1 1" />
+        <img
+          className={cc([ready ? "opacity-100" : "opacity-25"])}
+          alt={clip.title}
+          src={clip.resources.cover.small}
+        />
+      </div>
       {status.playing ? (
-        <div className="ml-2 text-left w-full">
+        <div className="ml-2 text-left w-full" onClick={onClick}>
           <div className="font-medium">{clip.title}</div>
           <div className="italic">{clip.album}</div>
           <div>{clip.artist}</div>
         </div>
       ) : (
-        <h3 className="ml-2">{clip.title}</h3>
+        <div className="w-full flex text-left">
+          <h3 className="ml-2 flex-grow" onClick={onClick}>
+            {clip.title}
+          </h3>
+          <ClipKeyBinding clipId={clip.id} keyboard={keyboard} />
+        </div>
       )}
     </button>
   );

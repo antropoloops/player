@@ -7,7 +7,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 // Audiosets
-import BundlePage from "./pages/sets/BundlePage";
+import BundlePage from "./pages/BundlePage";
 // Guides
 import GuideListPage from "./pages/GuideListPage";
 import GuideShowPage from "./pages/GuideShowPage";
