@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import cc from "classcat";
 import { Audioset, Clip } from "../../../audioset";
 import { KeyboardController } from "../../../player/Control";
 import ClipKeyBinding from "./ClipKeyBinding";
+import IconButton from "../shared/IconButton";
+import { ReactComponent as CloseIcon } from "../icons/close-24px.svg";
+import { ReactComponent as EditIcon } from "../icons/tune-24px.svg";
 
 type Props = {
   audioset: Audioset;
   keyboard: KeyboardController;
+  onClose: () => void;
 };
 
 type Row = {
@@ -17,7 +20,7 @@ type Row = {
 const MAX_LENGTH = 12;
 const SPACERS = Array.from({ length: MAX_LENGTH }).map(() => null);
 
-const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard }) => {
+const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard, onClose }) => {
   const [isRemapActive, setRemapActive] = useState(false);
   const { clips } = audioset;
   const rowCount = Math.floor(clips.length / MAX_LENGTH) + 1;
@@ -52,6 +55,7 @@ const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard }) => {
               />
             ) : (
               <VirtualKey
+                key={clip.id}
                 clipKey={keyboard.getKey(clip.id)}
                 color={clip.color}
                 keyboard={keyboard}
@@ -60,17 +64,17 @@ const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard }) => {
           )}
         </div>
       ))}
-      <div className="mb-1">
-        <button
-          className={cc([
-            "px-2 px-1 text-xs rounded-full bg-gray-medium text-white",
-            "focus:outline-none",
-            isRemapActive && "text-green",
-          ])}
+      <div className="flex mb-2">
+        <IconButton
+          className="mr-1"
+          icon={EditIcon}
           onClick={() => setRemapActive(!isRemapActive)}
         >
           remap
-        </button>
+        </IconButton>
+        <IconButton icon={CloseIcon} onClick={onClose}>
+          Cerrar
+        </IconButton>
       </div>
     </div>
   );

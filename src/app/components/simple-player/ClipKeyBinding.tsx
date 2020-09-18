@@ -30,7 +30,7 @@ const ClipKeyBinding: React.FC<Props> = ({ className, clipId, keyboard }) => {
       className={cc([
         className,
         "mr-1 w-6 h-6 rounded-full noselect hover:focus-none",
-        "leading-6 text-center",
+        "leading-6 text-center focus:outline-none",
         isRemapActive
           ? "bg-white text-black shadow"
           : "bg-gray-light opacity-75 text-white",
