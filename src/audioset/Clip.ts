@@ -36,12 +36,14 @@ export interface Clip {
   resources: ClipResources;
 }
 
+export type AudioResources = {
+  mp3: string;
+  ogg?: string;
+  wav?: string;
+};
+
 interface ClipResources {
-  audio: {
-    mp3: string;
-    ogg?: string;
-    wav?: string;
-  };
+  audio: AudioResources;
   cover: {
     small: string;
     thumb: string;

@@ -5,8 +5,7 @@ import cc from "classcat";
 import { PlayStatus } from "../../simplePlayer/types";
 import { KeyboardController } from "../../../player/Control";
 import ClipKeyBinding from "./ClipKeyBinding";
-import AudioSample from "./AudioSample";
-import AudioStream from "./AudioStream";
+import Audio from "./Audio";
 
 type Props = {
   className?: string;
@@ -26,7 +25,6 @@ const Clip: React.FC<Props> = ({
   isStream,
 }) => {
   const [ready, setReady] = useState(false);
-  const Audio = isStream ? AudioStream : AudioSample;
   return (
     <button
       disabled={!ready}
@@ -40,7 +38,8 @@ const Clip: React.FC<Props> = ({
       style={{ backgroundColor: clip.color }}
     >
       <Audio
-        url={clip.resources.audio.mp3}
+        isStream={isStream}
+        audio={clip.resources.audio}
         status={status}
         onStateChange={setReady}
         onEnded={onClick}
