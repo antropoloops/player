@@ -6,6 +6,10 @@
   border: 1px solid red !important;
 }
 
+.visuals .visuals-display {
+  height: calc(100vw * (9 / 16));
+}
+
 button {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

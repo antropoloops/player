@@ -7,6 +7,7 @@ import { listSections } from "../../api/sections";
 import NavLink from "./NavLink";
 import useLocale from "../../hooks/useLocale";
 import { useLocation, Link } from "react-router-dom";
+import cc from "classcat";
 
 type Props = {
   className?: string;
@@ -96,7 +97,7 @@ const Layout: React.FC<Props> = ({
     );
   } else {
     return (
-      <div className={`App ${className || ""}`}>
+      <div className={cc([className, "flex flex-col h-screen"])}>
         {visuals && <div className="visuals">{visuals}</div>}
         <div className="Header">
           {header || (
@@ -108,7 +109,7 @@ const Layout: React.FC<Props> = ({
             />
           )}
         </div>
-        <div className="Content">{children}</div>
+        <div className="h-full overflow-scroll">{children}</div>
       </div>
     );
   }

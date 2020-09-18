@@ -28,7 +28,7 @@ const SimpleMapVisuals: React.FC<Props> = ({ audioset, state }) => {
     }
   }, [state, visuals]);
 
-  return <div ref={visualsRef} className="w-full h-full"></div>;
+  return <div ref={visualsRef} className="visuals-display w-full h-full"></div>;
 };
 export default SimpleMapVisuals;
 
