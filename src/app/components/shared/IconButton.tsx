@@ -24,7 +24,9 @@ const IconButton: React.FC<Props> = ({
       ])}
       onClick={onClick}
     >
-      {Icon && <Icon className="w-6 h-6 rounded-full p-1 mr-1 shadow" />}
+      {Icon && (
+        <Icon className="w-6 h-6 rounded-full p-1 mr-1 shadow fill-current" />
+      )}
       {children}
     </button>
   );

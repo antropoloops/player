@@ -64,7 +64,7 @@ const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard, onClose }) => {
           )}
         </div>
       ))}
-      <div className="flex mb-2">
+      <div className="flex">
         <IconButton
           className="mr-1"
           icon={EditIcon}
