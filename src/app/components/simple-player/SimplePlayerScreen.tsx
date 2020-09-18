@@ -6,12 +6,10 @@ import { useDeviceType } from "../../hooks/useDeviceType";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import useLocale from "../../hooks/useLocale";
 import useSimplePlayer from "../../hooks/useSimplePlayer";
-import { PlayerState } from "../../simplePlayer";
 import BackToLink from "../BackToLink";
 import PromptExit from "../shared/PromptExit";
-import SimpleMapVisuals from "./SimpleMapVisuals";
-import SimplePanelVisuals from "./SimplePanelVisuals";
 import SimpleTrack from "./SimpleTrack";
+import Visuals from "./Visuals";
 
 type Props = {
   audioset: Audioset;
@@ -52,7 +50,11 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
     <Layout
       title={audioset.meta.title}
       backTo={audioset.meta.parent_path}
-      visuals={<Visuals audioset={audioset} state={state} />}
+      visuals={
+        audioset && (
+          <Visuals audioset={audioset} state={state} keyboard={keyboard} />
+        )
+      }
     >
       <PromptExit when={isPlaying} message={f("ask-leave-player")} />
       {isDesktop && (
@@ -85,19 +87,3 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
 };
 
 export default SimplePlayerScreen;
-
-type VisualsProps = {
-  audioset?: Audioset;
-  state: PlayerState;
-};
-const Visuals: React.FC<VisualsProps> = ({ audioset, state }) => {
-  if (!audioset) {
-    return <div></div>;
-  } else if (audioset.visuals.mode === "map") {
-    return <SimpleMapVisuals audioset={audioset} state={state} />;
-  } else if (audioset.visuals.mode === "panel") {
-    return <SimplePanelVisuals audioset={audioset} state={state} />;
-  } else {
-    return <div>error</div>;
-  }
-};

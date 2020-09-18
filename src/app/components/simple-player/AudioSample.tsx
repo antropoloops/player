@@ -1,17 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
-import { IAudioContext } from "standardized-audio-context";
+import {
+  IAudioContext,
+  IAudioDestinationNode,
+} from "standardized-audio-context";
 import { PlayStatus } from "../../simplePlayer";
 
 type Props = {
   url: string;
   status: PlayStatus;
+  output?: IAudioDestinationNode<any>;
   onStateChange: (ready: boolean) => void;
   onEnded?: () => void;
 };
 
-const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
+const AudioSample: React.FC<Props> = ({
+  url,
+  status,
+  onStateChange,
+  output,
+}) => {
   const [sample, setSample] = useState<Sample | null>(null);
 
   useEffect(() => {
@@ -26,13 +35,14 @@ const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
 
       const source = sample.context.createBufferSource();
       source.buffer = sample.buffer;
-      source.connect(sample.context.destination);
+      const destination = output || sample.context.destination;
+      source.connect(destination);
       source.loop = true;
       source.start(time);
 
       return () => source.stop();
     },
-    [sample]
+    [sample, output]
   );
 
   useEffect(() => {

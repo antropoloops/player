@@ -79,7 +79,9 @@ const Layout: React.FC<Props> = ({
           data-testid="Sidebar"
           className="h-full pr-3 overflow-y-scroll bg-gray-dark"
         >
-          <div className="min-h-full bg-gray-medium">{sidebar || children}</div>
+          <div className="relative min-h-full bg-gray-medium">
+            {sidebar || children}
+          </div>
         </div>
         {visuals ? (
           <div className="overflow-hidden col-span-2 xl:col-span-3 bg-gray-dark">
