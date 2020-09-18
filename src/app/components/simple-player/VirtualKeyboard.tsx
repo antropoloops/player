@@ -70,11 +70,13 @@ const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard, onClose }) => {
           icon={EditIcon}
           onClick={() => setRemapActive(!isRemapActive)}
         >
-          remap
+          {isRemapActive ? "Guardar cambios" : "Cambiar"}
         </IconButton>
-        <IconButton icon={CloseIcon} onClick={onClose}>
-          Cerrar
-        </IconButton>
+        {!isRemapActive && (
+          <IconButton icon={CloseIcon} onClick={onClose}>
+            Cerrar
+          </IconButton>
+        )}
       </div>
     </div>
   );

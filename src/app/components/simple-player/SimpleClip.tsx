@@ -30,7 +30,7 @@ const Clip: React.FC<Props> = ({
       disabled={!ready}
       className={cc([
         className,
-        "w-full flex text-gray-dark",
+        "w-full flex text-gray-dark overflow-hidden",
         "focus:outline-none",
         status.dirty && "animate-ping",
         status.playing ? "items-stretch" : "items-center",
@@ -46,7 +46,7 @@ const Clip: React.FC<Props> = ({
       />
       <div
         className={cc([
-          "ratio bg-gray-dark bg-opacity-50",
+          "ratio bg-gray-dark bg-opacity-50 flex-shrink-0",
           status.playing ? "w-1/2" : "w-cover-mini",
         ])}
         onClick={onClick}
@@ -59,14 +59,14 @@ const Clip: React.FC<Props> = ({
         />
       </div>
       {status.playing ? (
-        <div className="ml-2 text-left w-full" onClick={onClick}>
+        <div className="ml-2 text-left flex-grow" onClick={onClick}>
           <div className="font-medium">{clip.title}</div>
           <div className="italic">{clip.album}</div>
           <div>{clip.artist}</div>
         </div>
       ) : (
-        <div className="w-full flex text-left">
-          <h3 className="ml-2 flex-grow" onClick={onClick}>
+        <div className="flex-grow flex text-left items-center">
+          <h3 className="ml-2 flex-grow truncate" onClick={onClick}>
             {clip.title}
           </h3>
           <ClipKeyBinding
