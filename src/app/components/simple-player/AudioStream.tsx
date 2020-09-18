@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { PlayStatus } from "../../simplePlayer/types";
+import { PlayStatus } from "../../simplePlayer";
 
 type Props = {
   url: string;

@@ -1,8 +1,7 @@
 import React from "react";
 import { Audioset, Track } from "../../../audioset";
 import { KeyboardController } from "../../../player/Control";
-import { StoppedStatus } from "../../simplePlayer";
-import { PlayerState } from "../../simplePlayer/types";
+import { PlayerState, StoppedStatus } from "../../simplePlayer";
 import Clip from "./SimpleClip";
 
 type Props = {

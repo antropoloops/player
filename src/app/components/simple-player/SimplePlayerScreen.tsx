@@ -6,7 +6,7 @@ import { useDeviceType } from "../../hooks/useDeviceType";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import useLocale from "../../hooks/useLocale";
 import useSimplePlayer from "../../hooks/useSimplePlayer";
-import { PlayerState } from "../../simplePlayer/types";
+import { PlayerState } from "../../simplePlayer";
 import BackToLink from "../BackToLink";
 import PromptExit from "../shared/PromptExit";
 import SimpleMapVisuals from "./SimpleMapVisuals";

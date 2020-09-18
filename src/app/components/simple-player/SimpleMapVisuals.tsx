@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../../audioset";
 import { Visuals } from "../../../visuals";
-import { PlayerState } from "../../simplePlayer/types";
+import { PlayerState } from "../../simplePlayer";
 
 type Props = {
   audioset: Audioset;

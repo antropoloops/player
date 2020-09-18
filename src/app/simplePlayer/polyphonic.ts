@@ -1,5 +1,6 @@
-import { PlayerState, TickAction } from "./types";
+import { TickAction } from "./actions";
 import { StartClip, StopClip, StartTrack, StopTrack } from "./commands";
+import { PlayerState } from "./state";
 
 export default function polyphonic(
   state: PlayerState,

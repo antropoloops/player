@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { IAudioContext } from "standardized-audio-context";
-import { PlayStatus } from "../../simplePlayer/types";
+import { PlayStatus } from "../../simplePlayer";
 
 type Props = {
   url: string;

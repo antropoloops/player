@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Clip as ClipData } from "../../../audioset";
 import cc from "classcat";
 
-import { PlayStatus } from "../../simplePlayer/types";
+import { PlayStatus } from "../../simplePlayer";
 import { KeyboardController } from "../../../player/Control";
 import ClipKeyBinding from "./ClipKeyBinding";
 import Audio from "./Audio";
