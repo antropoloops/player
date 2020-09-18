@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../../audioset";
+import { addResizeObserver } from "../../../lib/add-resize-observer";
 import { Visuals } from "../../../visuals";
 import { PlayerState } from "../../simplePlayer";
 
@@ -28,6 +29,14 @@ const SimpleMapVisuals: React.FC<Props> = ({ audioset, state }) => {
     }
   }, [state, visuals]);
 
+  useEffect(() => {
+    if (!el) return;
+    return addResizeObserver(el, (width, height) => {
+      if (visuals) visuals.resize();
+    });
+  }, [visuals, el]);
+
+  // visuals-display required: see index.css
   return <div ref={visualsRef} className="visuals-display w-full h-full"></div>;
 };
 export default SimpleMapVisuals;
