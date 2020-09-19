@@ -15,41 +15,53 @@ import GuideShowPage from "./pages/GuideShowPage";
 import TopicListPage from "./pages/TopicListPage";
 import TopicShowPage from "./pages/TopicShowPage";
 // Work in progress
-import ProjectPage from "./pages/new/ProjectPage";
-import AudiosetPage from "./pages/new/NewAudiosetPage";
 import PlayNextPage from "./pages/new/PlayNextPage";
 import PlayRibbonPage from "./pages/new/PlayRibbonPage";
-import ExplorePage from "./pages/new/ExplorePage";
+import ProjectShowPage from "./pages/ProjectShowPage";
+import AudiosetShowPage from "./pages/AudiosetShowPage";
 
 const Router = () => (
   <BrowserRouter>
     <Switch>
       <Route exact={true} path={routes.root()} render={() => <HomePage />} />
+
+      {/** PROYECTOS Y PLAYER **/}
+      <Route exact={true} path={routes.projects()}>
+        <ProjectShowPage idOrUrl="index" />
+      </Route>
       <Route
         exact={true}
-        path={routes.sets()}
-        render={() => <BundlePage idOrUrl="index" />}
+        path={routes.project(":id")}
+        render={({ match }) => <ProjectShowPage idOrUrl={match.params.id} />}
       />
       <Route
         exact={true}
-        path={routes.set(":id")}
-        render={({ match }) => <BundlePage idOrUrl={match.params.id} />}
-      />
-      {/** LEGACY REDIRECT */}
-      <Route
-        exact={true}
-        path="/set/:id"
-        render={({ match }) => <Redirect to={routes.set(match.params.id)} />}
+        path={routes.audioset(":id")}
+        render={({ match }) => <AudiosetShowPage idOrUrl={match.params.id} />}
       />
       <Route
         exact={true}
         path={routes.testSet()}
         render={() => <BundlePage idOrUrl={getUrlFromParams()} />}
       />
+
+      {/** LEGACY /sets route - redirect to /proyectos */}
+      <Route exact={true} path={routes.sets()}>
+        <Redirect to={routes.projects()} />
+      </Route>
       <Route
         exact={true}
-        path={routes.explore(":id")}
-        component={ExplorePage}
+        path="/sets/:id"
+        render={({ match }) => (
+          <Redirect to={routes.project(match.params.id)} />
+        )}
+      />
+      <Route
+        exact={true}
+        path="/set/:id"
+        render={({ match }) => (
+          <Redirect to={routes.project(match.params.id)} />
+        )}
       />
 
       {/* TOPICS */}
@@ -71,23 +83,14 @@ const Router = () => (
         <GuideShowPage />
       </Route>
 
+      <Route path={routes.about()} exact={true} component={AboutPage} />
+
       {/* EXPERIMENTAL */}
-      <Route exact={true} path={routes.audioset(":id")}>
-        <AudiosetPage />
-      </Route>
       <Route exact={true} path={routes.player(":id")}>
         <PlayNextPage />
       </Route>
       <Route exact={true} path={"/play-ribbon/:id"}>
         <PlayRibbonPage />
-      </Route>
-      <Route path={routes.about()} exact={true} component={AboutPage} />
-
-      <Route exact={true} path={routes.projects()}>
-        <ProjectPage />
-      </Route>
-      <Route exact={true} path={routes.project(":id")}>
-        <ProjectPage />
       </Route>
 
       <Route component={NotFoundPage} />

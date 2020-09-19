@@ -17,7 +17,7 @@ const SECTIONS: Section[] = [
   {
     id: "projects",
     image_url: "/images/sections/projects.jpg",
-    to: routes.sets(),
+    to: routes.projects(),
     home: true,
   },
   {

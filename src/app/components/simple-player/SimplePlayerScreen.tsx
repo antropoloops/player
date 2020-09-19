@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Audioset } from "../../../audioset";
 import { KeyboardController } from "../../../player/Control";
 import Layout from "../../components/layout/Layout";
+import useAutoUnlockAudio from "../../hooks/useAutoUnlockAudio";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import useLocale from "../../hooks/useLocale";
@@ -16,6 +17,7 @@ type Props = {
 };
 
 const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
+  useAutoUnlockAudio();
   const { isDesktop } = useDeviceType();
   const { formatMessage: f } = useLocale();
   const [state, dispatch] = useSimplePlayer(audioset);
@@ -69,7 +71,7 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
           label={audioset.meta.title}
         />
       )}
-      <div className="pb-4">
+      <div className="">
         {audioset.tracks?.map((track) => (
           <SimpleTrack
             key={track.id}

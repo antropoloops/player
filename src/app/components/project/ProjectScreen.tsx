@@ -35,12 +35,12 @@ const ProjectScreen: React.FC<Props> = ({ section, project }) => {
   return (
     <Layout
       title={isRoot ? FMT(section?.id || "") : project.meta.title}
-      backTo={isRoot ? routes.root() : routes.sets()}
+      backTo={isRoot ? routes.root() : routes.projects()}
       desktop={<PageDesktop page={currentPage} />}
     >
       {!isRoot && !isMobile && (
         <BackToLink
-          to={project.meta.parent_path || routes.sets()}
+          to={project.meta.parent_path || routes.projects()}
           label="Projectos sonoros"
         />
       )}
@@ -54,7 +54,11 @@ const ProjectScreen: React.FC<Props> = ({ section, project }) => {
           <MediaObject
             className="bg-gray-light group hover:bg-gray-lighter"
             key={reference.id}
-            to={`/set/${reference.publish_path}`}
+            to={
+              isRoot
+                ? routes.project(reference.publish_path)
+                : routes.audioset(reference.publish_path)
+            }
             image={reference.logo_url}
             alt={reference.title}
           >
