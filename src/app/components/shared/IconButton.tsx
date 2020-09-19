@@ -5,6 +5,7 @@ type Props = {
   className?: string;
   onClick?: () => void;
   icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  color?: string;
 };
 
 const IconButton: React.FC<Props> = ({
@@ -12,13 +13,15 @@ const IconButton: React.FC<Props> = ({
   children,
   icon: Icon,
   onClick,
+  color = "white-dark",
 }) => {
   return (
     <button
       className={cc([
         className,
         "flex items-center pr-3 leading-6",
-        "text-sm text-white-dark bg-gray-medium rounded-full",
+        "text-" + color,
+        "text-sm bg-gray-medium rounded-full",
         "hover:text-white hover:bg-gray-light",
         "focus:outline-none",
       ])}

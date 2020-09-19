@@ -26,12 +26,11 @@ export function process(
     const { clipId, trackId, trigger } = event;
 
     if (trigger === "on") {
-      // start clip
       commands.push(StartClip(time, trackId, clipId));
 
       // stop other clips in the same track
-      const trackData = trackDataById[trackId];
-      trackData.clipIds.forEach((clipId) => {
+      const track = trackDataById[trackId];
+      track.clipIds.forEach((clipId) => {
         if (clipId !== event.clipId && clips[clipId]?.playing) {
           commands.push(StopClip(time, trackId, clipId));
         }

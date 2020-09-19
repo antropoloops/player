@@ -1,26 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
-import {
-  IAudioContext,
-  IAudioDestinationNode,
-} from "standardized-audio-context";
+import { IAudioContext } from "standardized-audio-context";
 import { PlayStatus } from "../../simplePlayer";
+import useAudioOutput from "../../hooks/useAudioOutput";
 
 type Props = {
   url: string;
   status: PlayStatus;
-  output?: IAudioDestinationNode<any>;
   onStateChange: (ready: boolean) => void;
   onEnded?: () => void;
 };
 
-const AudioSample: React.FC<Props> = ({
-  url,
-  status,
-  onStateChange,
-  output,
-}) => {
+const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
+  const { output } = useAudioOutput();
   const [sample, setSample] = useState<Sample | null>(null);
 
   useEffect(() => {
