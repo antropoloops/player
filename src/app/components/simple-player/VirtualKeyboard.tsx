@@ -37,6 +37,7 @@ const VirtualKeyboard: React.FC<Props> = ({ audioset, keyboard, onClose }) => {
             ) : isRemapActive ? (
               <ClipKeyBinding
                 className="m-2"
+                size={12}
                 key={clip.id}
                 clipId={clip.id}
                 keyboard={keyboard}

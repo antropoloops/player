@@ -6,9 +6,15 @@ type Props = {
   className?: string;
   clipId: string;
   keyboard: KeyboardController;
+  size?: number;
 };
 
-const ClipKeyBinding: React.FC<Props> = ({ className, clipId, keyboard }) => {
+const ClipKeyBinding: React.FC<Props> = ({
+  className,
+  clipId,
+  keyboard,
+  size = 6,
+}) => {
   const [isRemapActive, setRemapActive] = useState(false);
   const clipKey = keyboard.getKey(clipId);
 
@@ -29,7 +35,8 @@ const ClipKeyBinding: React.FC<Props> = ({ className, clipId, keyboard }) => {
     <button
       className={cc([
         className,
-        "mr-1 w-6 h-6 rounded-full noselect hover:focus-none",
+        `w-${size} h-${size}`,
+        "mr-1 rounded-full noselect hover:focus-none",
         "leading-6 text-center focus:outline-none",
         isRemapActive
           ? "bg-white text-black shadow"
