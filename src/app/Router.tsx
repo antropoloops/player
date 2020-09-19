@@ -6,19 +6,22 @@ import routes from "./routes";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
-// Audiosets
-import BundlePage from "./pages/BundlePage";
+
+// Projects and Audiosets (ProjectList is ProjectShow id=index)
+import ProjectShowPage from "./pages/ProjectShowPage";
+import AudiosetShowPage from "./pages/AudiosetShowPage";
+
 // Guides
 import GuideListPage from "./pages/GuideListPage";
 import GuideShowPage from "./pages/GuideShowPage";
+
 // Topics
 import TopicListPage from "./pages/TopicListPage";
 import TopicShowPage from "./pages/TopicShowPage";
+
 // Work in progress
 import PlayNextPage from "./pages/new/PlayNextPage";
 import PlayRibbonPage from "./pages/new/PlayRibbonPage";
-import ProjectShowPage from "./pages/ProjectShowPage";
-import AudiosetShowPage from "./pages/AudiosetShowPage";
 
 const Router = () => (
   <BrowserRouter>
@@ -42,7 +45,7 @@ const Router = () => (
       <Route
         exact={true}
         path={routes.testSet()}
-        render={() => <BundlePage idOrUrl={getUrlFromParams()} />}
+        render={() => <AudiosetShowPage idOrUrl={getUrlFromParams()} />}
       />
 
       {/** LEGACY /sets route - redirect to /proyectos */}

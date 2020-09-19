@@ -1,16 +1,19 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useQuery } from "react-query";
 import { isAudioset, isProject } from "../../audioset";
 import useAnalytics from "../hooks/useAnalytics";
 import LoadingScreen from "../components/LoadingScreen";
 import API from "../api";
-import SimplePlayerScreen from "../components/simple-player/SimplePlayerScreen";
 import { Redirect } from "react-router-dom";
 import routes from "../routes";
 
 type Props = {
   idOrUrl: string;
 };
+
+const SimplePlayerScreen = React.lazy(() =>
+  import("../components/simple-player/SimplePlayerScreen")
+);
 
 const AudiosetShowPage: React.FC<Props> = ({ idOrUrl }) => {
   useAnalytics();
@@ -22,7 +25,11 @@ const AudiosetShowPage: React.FC<Props> = ({ idOrUrl }) => {
   if (status === "loading" || !bundle) return <LoadingScreen />;
   if (isProject(bundle)) return <Redirect to={routes.project(idOrUrl)} />;
 
-  return isAudioset(bundle) ? <SimplePlayerScreen audioset={bundle} /> : null;
+  return isAudioset(bundle) ? (
+    <Suspense fallback={<LoadingScreen />}>
+      <SimplePlayerScreen audioset={bundle} />
+    </Suspense>
+  ) : null;
 };
 
 export default AudiosetShowPage;
