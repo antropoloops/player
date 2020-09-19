@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Clip as ClipData } from "../../../audioset";
 import cc from "classcat";
 
-import { PlayStatus } from "../../simplePlayer";
-import { KeyboardController } from "../../../player/Control";
+import { PlayStatus } from "../../../player";
+import { KeyboardController } from "../../../player/KeyboardController";
 import ClipKeyBinding from "./ClipKeyBinding";
 import Audio from "./Audio";
 

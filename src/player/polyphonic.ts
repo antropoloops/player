@@ -1,4 +1,4 @@
-import { Track } from "../../audioset";
+import { Track } from "../audioset";
 import { TickAction } from "./actions";
 import {
   StartClip,

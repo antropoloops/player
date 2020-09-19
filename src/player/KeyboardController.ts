@@ -1,4 +1,4 @@
-import { Audioset } from "../../audioset";
+import { Audioset } from "../audioset";
 
 import debug from "debug";
 

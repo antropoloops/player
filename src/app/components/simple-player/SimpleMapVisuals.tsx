@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../../audioset";
 import { addResizeObserver } from "../../../lib/add-resize-observer";
 import { Visuals } from "../../../visuals";
-import { PlayerState } from "../../simplePlayer";
+import { PlayerState } from "../../../player";
 
 type Props = {
   audioset: Audioset;

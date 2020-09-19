@@ -1,8 +1,8 @@
 import classcat from "classcat";
 import React from "react";
 import { Audioset, Track } from "../../../audioset";
-import { KeyboardController } from "../../../player/Control";
-import { PlayerState, StoppedStatus } from "../../simplePlayer";
+import { KeyboardController } from "../../../player/KeyboardController";
+import { PlayerState, StoppedStatus } from "../../../player";
 import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
 import Clip from "./SimpleClip";
 

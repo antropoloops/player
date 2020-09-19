@@ -1,7 +1,7 @@
 import React from "react";
 import useDimensions from "react-cool-dimensions";
 import { Audioset, Clip } from "../../../audioset";
-import { PlayerState } from "../../simplePlayer";
+import { PlayerState } from "../../../player";
 import Spinner from "../Spinner";
 
 type Props = {

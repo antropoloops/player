@@ -1,8 +1,8 @@
 import React from "react";
 import { Audioset } from "../../../audioset";
-import { KeyboardController } from "../../../player/Control";
+import { KeyboardController } from "../../../player/KeyboardController";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import { PlayerState } from "../../simplePlayer";
+import { PlayerState } from "../../../player";
 import Controls from "./Controls";
 import SimpleMapVisuals from "./SimpleMapVisuals";
 import SimplePanelVisuals from "./SimplePanelVisuals";

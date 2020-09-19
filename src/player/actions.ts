@@ -1,4 +1,4 @@
-import { Audioset } from "../../audioset";
+import { Audioset } from "../audioset";
 import { PlayerEvent } from "./events";
 
 export type InitAction = { type: "init"; audioset?: Audioset };

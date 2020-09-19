@@ -3,7 +3,7 @@ import { IAudioContext } from "standardized-audio-context";
 /**
  * Fetch an AudioBuffer from a fetch response
  */
-export async function decodeAudioBuffer(
+export default async function decodeAudioBuffer(
   response: Response,
   context: IAudioContext
 ) {

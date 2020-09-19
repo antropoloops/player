@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { AudioResources } from "../../../audioset";
 import getSupportedAudioCodecs from "../../../lib/test-audio-codecs";
-import { PlayStatus } from "../../simplePlayer";
+import { PlayStatus } from "../../../player";
 import AudioSample from "./AudioSample";
 import AudioStream from "./AudioStream";
 

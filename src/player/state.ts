@@ -1,4 +1,4 @@
-import { Audioset, EmptyAudioset } from "../../audioset";
+import { Audioset, EmptyAudioset } from "../audioset";
 import { PlayerAction, InitAction } from "./actions";
 import { PlayerCommand } from "./commands";
 import { StatusById } from "./status";

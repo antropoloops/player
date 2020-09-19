@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { decodeAudioBuffer } from "../../../player/Loader/decodeAudioBuffer";
+import decodeAudioBuffer from "../../../lib/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../../lib/active-audio-context";
 import { IAudioContext } from "standardized-audio-context";
-import { PlayStatus } from "../../simplePlayer";
+import { PlayStatus } from "../../../player";
 import useAudioOutput from "../../hooks/useAudioOutput";
 
 type Props = {

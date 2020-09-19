@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { Audioset } from "../../audioset";
-import { reducer, createInitialState } from "../simplePlayer";
+import { reducer, createInitialState } from "../../player";
 import useAudioContext from "./useAudioContext";
 
 const INTERVAL_MS = 100;
