@@ -1,6 +1,6 @@
 let cached: boolean;
 
-export function hasKeyboard() {
+export function testDeviceHasKeyboard() {
   if (cached === undefined) {
     cached = !isTouchDevice();
   }
