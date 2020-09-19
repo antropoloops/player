@@ -5,6 +5,7 @@ import {
   StartTrack,
   StopTrack,
   PlayerCommand,
+  runCommand,
 } from "./commands";
 import { PlayerEvent } from "./events";
 import { PlayerState } from "./state";
@@ -38,13 +39,24 @@ export function process(time: number, event: PlayerEvent, state: PlayerState) {
       if (!tracks[trackId]?.playing) {
         commands.push(StartTrack(time, trackId));
       }
-    } else {
+    } else if (trigger === "off") {
       // stop the clip
       commands.push(StopClip(time, trackId, clipId));
       // stop the track
       if (tracks[trackId]) {
         commands.push(StopTrack(time, trackId));
       }
+    }
+  } else if (event.type === "track") {
+    const { trigger, trackId } = event;
+    if (trigger === "off") {
+      commands.push(StopTrack(time, trackId));
+      // it's monophonic, so only one clip is playin
+      Object.keys(clips).forEach((clipId) => {
+        if (clips[clipId].playing) {
+          commands.push(StopClip(time, trackId, clipId));
+        }
+      });
     }
   }
 
@@ -56,52 +68,19 @@ export default function monophonic(
   action: TickAction
 ): PlayerState {
   const { time } = action;
+  const lastCommand = state.commands.length;
+
+  // TODO: repeated code in polyphonic. Idea: commands = createCommands(state.queued, process(time,))
+  const commands = state.queued.reduce((commands, event) => {
+    return [...commands, ...process(time, event, state)];
+  }, [] as PlayerCommand[]);
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
-  const commands = state.commands;
-  const lastCommand = commands.length;
-
-  state.queued.forEach((event) => {
-    const { clipId, trackId } = event;
-    const start = event.trigger === "on";
-
-    if (start) {
-      // stop all other
-      Object.keys(clips).forEach((clipId) => {
-        if (clips[clipId].playing) {
-          clips[clipId] = { playing: false, time };
-          commands.push(StopClip(time, trackId, clipId));
-        }
-      });
-
-      // stop all tracks
-      const currentTrack = trackId;
-      Object.keys(tracks).forEach((trackId) => {
-        if (trackId !== currentTrack && tracks[trackId].playing) {
-          tracks[trackId] = { playing: false, time };
-          commands.push(StopTrack(time, trackId));
-        }
-      });
-
-      // start clip
-      clips[clipId] = { playing: true, time };
-      commands.push(StartClip(time, trackId, clipId));
-      // start track
-      if (!tracks[trackId]?.playing) {
-        tracks[trackId] = { playing: true, time };
-        commands.push(StartTrack(time, trackId));
-      }
-    } else {
-      // stop the clip
-      clips[clipId] = { playing: false, time };
-      commands.push(StopClip(time, trackId, clipId));
-      // stop the track
-      if (tracks[trackId]) {
-        tracks[trackId] = { playing: false, time };
-        commands.push(StopTrack(time, trackId));
-      }
-    }
+  commands.forEach((command) => {
+    runCommand(command, clips, tracks);
+    state.commands.push(command);
   });
+
   const lastTickAt = time;
   return {
     ...state,

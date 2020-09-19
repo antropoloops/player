@@ -12,12 +12,14 @@ type Props = {
   track: Track;
   state: PlayerState;
   onClipClick: (clipId: string) => void;
+  onStopTrack: () => void;
 };
 const SimpleTrack: React.FC<Props> = ({
   audioset,
   track,
   state,
   onClipClick,
+  onStopTrack,
   keyboard,
 }) => {
   const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
@@ -36,8 +38,11 @@ const SimpleTrack: React.FC<Props> = ({
         ])}
       >
         <h3 className="text-white-light flex-grow">{track.name}</h3>
-        {false && (
-          <button className="flex-shrink-0 rounded-full bg-gray-light bg-opacity-0 hover:bg-opacity-25">
+        {isTrackPlaying && (
+          <button
+            className="flex-shrink-0 rounded-full bg-gray-light bg-opacity-0 hover:bg-opacity-25"
+            onClick={onStopTrack}
+          >
             <StopIcon className="fill-current text-gray-light" />
           </button>
         )}

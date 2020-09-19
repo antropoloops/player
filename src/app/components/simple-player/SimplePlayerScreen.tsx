@@ -88,6 +88,16 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
                 },
               })
             }
+            onStopTrack={() =>
+              dispatch({
+                type: "event",
+                event: {
+                  type: "track",
+                  trigger: "off",
+                  trackId: track.id,
+                },
+              })
+            }
           />
         ))}
       </div>

@@ -1,3 +1,5 @@
+import { StatusById } from "./status";
+
 export type ClipCommand = {
   type: "clip:start" | "clip:stop";
   time: number;
@@ -11,6 +13,28 @@ export type TrackCommand = {
 };
 
 export type PlayerCommand = ClipCommand | TrackCommand;
+
+export function runCommand(
+  command: PlayerCommand,
+  clips: StatusById,
+  tracks: StatusById
+) {
+  const { time } = command;
+  switch (command.type) {
+    case "clip:start":
+      clips[command.clipId] = { playing: true, time };
+      break;
+    case "clip:stop":
+      clips[command.clipId] = { playing: false, time };
+      break;
+    case "track:start":
+      tracks[command.trackId] = { playing: true, time };
+      break;
+    case "track:stop":
+      tracks[command.trackId] = { playing: false, time };
+      break;
+  }
+}
 
 export const StartClip = (
   time: number,

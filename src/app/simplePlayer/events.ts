@@ -14,4 +14,4 @@ export type TrackEvent = {
   clipId?: undefined;
 };
 
-export type PlayerEvent = ClipEvent; //| TrackEvent;
+export type PlayerEvent = ClipEvent | TrackEvent;

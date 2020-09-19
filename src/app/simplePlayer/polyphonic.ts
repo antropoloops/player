@@ -1,8 +1,67 @@
+import { Track } from "../../audioset";
 import { TickAction } from "./actions";
-import { StartClip, StopClip, StartTrack, StopTrack } from "./commands";
+import {
+  StartClip,
+  StopClip,
+  StartTrack,
+  StopTrack,
+  PlayerCommand,
+  runCommand,
+} from "./commands";
+import { PlayerEvent } from "./events";
 import { PlayerState } from "./state";
 
 const STOP_WHEN_ALL_STOPPED = true;
+
+export function process(
+  time: number,
+  event: PlayerEvent,
+  state: PlayerState,
+  trackDataById: Record<string, Track>
+) {
+  const commands: PlayerCommand[] = [];
+  const { clips, tracks } = state;
+
+  if (event.type === "clip") {
+    const { clipId, trackId, trigger } = event;
+
+    if (trigger === "on") {
+      // start clip
+      commands.push(StartClip(time, trackId, clipId));
+
+      // stop other clips in the same track
+      const trackData = trackDataById[trackId];
+      trackData.clipIds.forEach((clipId) => {
+        if (clipId !== event.clipId && clips[clipId]?.playing) {
+          commands.push(StopClip(time, trackId, clipId));
+        }
+      });
+      // start the track
+      if (!tracks[trackId]?.playing) {
+        commands.push(StartTrack(time, trackId));
+      }
+    } else if (trigger === "off") {
+      // stop the clip
+      commands.push(StopClip(time, trackId, clipId));
+      // stop the track
+      if (tracks[trackId]?.playing) {
+        commands.push(StopTrack(time, trackId));
+      }
+    }
+  } else if (event.type === "track") {
+    const { trackId, trigger } = event;
+    const track = trackDataById[trackId];
+    if (trigger === "off") {
+      commands.push(StopTrack(time, trackId));
+      track.clipIds.forEach((clipId) => {
+        if (clips[clipId]?.playing) {
+          commands.push(StopClip(time, trackId, clipId));
+        }
+      });
+    }
+  }
+  return commands;
+}
 
 export default function polyphonic(
   state: PlayerState,
@@ -21,44 +80,19 @@ export default function polyphonic(
 
   const time = action.time + quantizedOffset;
 
+  const trackDataById = state.audioset.index.trackById;
+  const lastCommand = state.commands.length;
+
+  // TODO: repeated code in polyphonic. Idea: commands = createCommands(state.queued, process(time, state))
+  const commands = state.queued.reduce((commands, event) => {
+    return [...commands, ...process(time, event, state, trackDataById)];
+  }, [] as PlayerCommand[]);
+  // TODO: abstract code
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
-  const trackDataById = state.audioset.index.trackById;
-  const commands = state.commands;
-  const lastCommand = commands.length;
-
-  state.queued.forEach((event) => {
-    const { clipId, trackId } = event;
-    const playing = event.trigger === "on";
-
-    if (playing) {
-      // start clip
-      clips[clipId] = { playing: true, time };
-      commands.push(StartClip(time, trackId, clipId));
-
-      // stop other clips in the same track
-      const trackData = trackDataById[trackId];
-      trackData.clipIds.forEach((clipId) => {
-        if (clipId !== event.clipId && clips[clipId]?.playing) {
-          clips[clipId] = { playing: false, time };
-          commands.push(StopClip(time, trackId, clipId));
-        }
-      });
-      // start the track
-      if (!tracks[trackId]?.playing) {
-        tracks[trackId] = { playing: true, time };
-        commands.push(StartTrack(time, trackId));
-      }
-    } else {
-      // stop the clip
-      clips[clipId] = { playing: false, time };
-      commands.push(StopClip(time, trackId, clipId));
-      // stop the track
-      if (tracks[trackId]?.playing) {
-        tracks[trackId] = { playing: false, time };
-        commands.push(StopTrack(time, trackId));
-      }
-    }
+  commands.forEach((command) => {
+    runCommand(command, clips, tracks);
+    state.commands.push(command);
   });
 
   const shouldStop =

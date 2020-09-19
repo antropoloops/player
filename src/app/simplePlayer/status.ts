@@ -9,3 +9,5 @@ export const StoppedStatus: PlayStatus = {
   time: 0,
   dirty: false,
 };
+
+export type StatusById = Record<string, PlayStatus>;
