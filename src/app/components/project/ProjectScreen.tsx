@@ -18,7 +18,7 @@ type Props = {
   section?: Section;
   project: Project;
 };
-const BrowseProject: React.FC<Props> = ({ section, project }) => {
+const ProjectScreen: React.FC<Props> = ({ section, project }) => {
   const { formatMessage: FMT } = useLocale();
   const { isMobile } = useDeviceType();
   // index is the old name
@@ -88,4 +88,4 @@ const BrowseProject: React.FC<Props> = ({ section, project }) => {
   );
 };
 
-export default BrowseProject;
+export default ProjectScreen;

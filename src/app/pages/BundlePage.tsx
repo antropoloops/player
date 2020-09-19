@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { isAudioset, isProject } from "../../audioset";
 import useAnalytics from "../hooks/useAnalytics";
 import LoadingPage from "./LoadingPage";
-import ProjectBundle from "../components/bundle/ProjectBundle";
+import ProjectScreen from "../components/project/ProjectScreen";
 import API from "../api";
 import SimplePlayerScreen from "../components/simple-player/SimplePlayerScreen";
 
@@ -26,7 +26,7 @@ const SetConductorPage: React.FC<Props> = ({ idOrUrl }) => {
   return loading ? (
     <LoadingPage />
   ) : bundle && isProject(bundle) ? (
-    <ProjectBundle section={section} project={bundle} />
+    <ProjectScreen section={section} project={bundle} />
   ) : bundle && isAudioset(bundle) ? (
     <SimplePlayerScreen audioset={bundle} />
   ) : null;

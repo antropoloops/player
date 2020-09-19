@@ -7,7 +7,7 @@ import usePage from "../hooks/usePage";
 import GuideBrowser from "../components/guides/GuideBrowser";
 import { useDeviceType } from "../hooks/useDeviceType";
 import PageDesktop from "../components/pages/PageDesktop";
-import { Readme } from "../components/play-map/Readme";
+import { Readme } from "../components/shared/Readme";
 
 type Props = {};
 

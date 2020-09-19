@@ -2,7 +2,6 @@ import React, { useReducer } from "react";
 import { ArrowDown, ArrowUp } from "../Icons";
 import HtmlContent from "../HtmlContent";
 import { motion } from "framer-motion";
-import "./Readme.css";
 
 interface ReadmeProps {
   className?: string;

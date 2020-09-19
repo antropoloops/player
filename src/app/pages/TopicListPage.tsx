@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import API from "../api";
 import TopicBrowser from "../components/topics/TopicBrowser";
 import { useDeviceType } from "../hooks/useDeviceType";
-import { Readme } from "../components/play-map/Readme";
+import { Readme } from "../components/shared/Readme";
 import usePage from "../hooks/usePage";
 import PageDesktop from "../components/pages/PageDesktop";
 import useLocale from "../hooks/useLocale";
