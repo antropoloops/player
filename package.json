@@ -11,8 +11,8 @@
     "build:analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "api:mock": "json-server -p 1234 --watch server/db.json",
-    "css:dev": "postcss src/app/styles/index.css -o src/app/styles/tailwind.css",
-    "css:prod": "postcss src/app/styles/index.css -o src/app/styles/tailwind.css --env production"
+    "css:dev": "postcss src/styles/index.css -o src/styles/tailwind.css",
+    "css:prod": "postcss src/styles/index.css -o src/styles/tailwind.css --env production"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
