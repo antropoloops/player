@@ -1,9 +1,10 @@
 import { Audioset, EmptyAudioset } from "../../audioset";
-import { PlayerAction, InitAction, TriggerAction } from "./actions";
+import { PlayerAction, InitAction, EventAction } from "./actions";
 import { PlayerCommand } from "./commands";
 import { PlayStatus } from "./status";
 import polyphonic from "./polyphonic";
 import monophonic from "./monophonic";
+import { PlayerEvent } from "./events";
 
 type TrackId = string;
 type ClipId = string;
@@ -12,7 +13,7 @@ export type PlayerState = {
   startAt: number;
   lastTickAt: number;
   audioset: Audioset;
-  queued: Array<TriggerAction>;
+  queued: Array<PlayerEvent>;
   clips: Record<ClipId, PlayStatus>;
   tracks: Record<TrackId, PlayStatus>;
   commands: PlayerCommand[];
@@ -31,7 +32,7 @@ export function reducer(state: PlayerState, action: PlayerAction): PlayerState {
       if (state.queued.length === 0) return state;
       const isPoly = state.audioset.audio.mode === "1"; // FIXME: change to a name
       return isPoly ? polyphonic(state, action) : monophonic(state, action);
-    case "trigger":
+    case "event":
       return enqueue(state, action);
   }
 }
@@ -52,8 +53,8 @@ const init = (
   };
 };
 
-const enqueue = (state: PlayerState, action: TriggerAction): PlayerState => {
-  const { clipId, trackId } = action;
+const enqueue = (state: PlayerState, action: EventAction): PlayerState => {
+  const { clipId, trackId } = action.event;
   const clips = { ...state.clips };
   const tracks = { ...state.tracks };
 
@@ -73,6 +74,6 @@ const enqueue = (state: PlayerState, action: TriggerAction): PlayerState => {
 
   const lastCommand = state.commands.length;
   const newState = { ...state, clips, tracks, lastCommand };
-  newState.queued.push(action);
+  newState.queued.push(action.event);
   return newState;
 };

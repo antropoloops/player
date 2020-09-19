@@ -26,24 +26,16 @@ const Clip: React.FC<Props> = ({
 }) => {
   const [ready, setReady] = useState(false);
   return (
-    <button
-      disabled={!ready}
+    <div
       className={cc([
         className,
         "w-full flex text-gray-dark overflow-hidden",
-        "focus:outline-none",
+        "focus:outline-none cursor-pointer",
         status.dirty && "animate-ping",
         status.playing ? "items-stretch" : "items-center",
       ])}
       style={{ backgroundColor: clip.color }}
     >
-      <Audio
-        isStream={isStream}
-        audio={clip.resources.audio}
-        status={status}
-        onStateChange={setReady}
-        onEnded={onClick}
-      />
       <div
         className={cc([
           "ratio bg-gray-dark bg-opacity-50 flex-shrink-0",
@@ -76,7 +68,14 @@ const Clip: React.FC<Props> = ({
           />
         </div>
       )}
-    </button>
+      <Audio
+        isStream={isStream}
+        audio={clip.resources.audio}
+        status={status}
+        onStateChange={setReady}
+        onEnded={onClick}
+      />
+    </div>
   );
 };
 export default Clip;

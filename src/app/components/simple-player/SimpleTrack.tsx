@@ -1,7 +1,9 @@
+import classcat from "classcat";
 import React from "react";
 import { Audioset, Track } from "../../../audioset";
 import { KeyboardController } from "../../../player/Control";
 import { PlayerState, StoppedStatus } from "../../simplePlayer";
+import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
 import Clip from "./SimpleClip";
 
 type Props = {
@@ -19,6 +21,7 @@ const SimpleTrack: React.FC<Props> = ({
   keyboard,
 }) => {
   const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
+  const isTrackPlaying = state.tracks[track.id]?.playing;
   return (
     <div
       data-cy={`Track-${track.id}`}
@@ -26,8 +29,18 @@ const SimpleTrack: React.FC<Props> = ({
       className="text-white-light font-medium"
       style={{ backgroundColor: track.color }}
     >
-      <div className="flex p-2 bg-gray-dark bg-opacity-50">
-        <h3 className="text-white-light">{track.name}</h3>
+      <div
+        className={classcat([
+          "flex py-2 px-1 bg-gray-dark bg-opacity-50",
+          isTrackPlaying ? "animate-pulse" : "",
+        ])}
+      >
+        <h3 className="text-white-light flex-grow">{track.name}</h3>
+        {false && (
+          <button className="flex-shrink-0 rounded-full bg-gray-light bg-opacity-0 hover:bg-opacity-25">
+            <StopIcon className="fill-current text-gray-light" />
+          </button>
+        )}
       </div>
 
       <div className="bg-gray-medium bg-opacity-50">

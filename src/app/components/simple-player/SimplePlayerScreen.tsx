@@ -25,17 +25,23 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
       new KeyboardController(audioset, {
         startClip: (clipId: string) =>
           dispatch({
-            type: "trigger",
-            playing: true,
-            clipId,
-            trackId: audioset.index.clipById[clipId].trackId,
+            type: "event",
+            event: {
+              type: "clip",
+              trigger: "on",
+              clipId,
+              trackId: audioset.index.clipById[clipId].trackId,
+            },
           }),
         stopClip: (clipId: string) =>
           dispatch({
-            type: "trigger",
-            playing: false,
-            clipId,
-            trackId: audioset.index.clipById[clipId].trackId,
+            type: "event",
+            event: {
+              type: "clip",
+              trigger: "off",
+              clipId,
+              trackId: audioset.index.clipById[clipId].trackId,
+            },
           }),
       }),
     [audioset, dispatch]
@@ -73,10 +79,13 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
             state={state}
             onClipClick={(clipId) =>
               dispatch({
-                type: "trigger",
-                clipId,
-                trackId: track.id,
-                playing: !state.clips[clipId]?.playing,
+                type: "event",
+                event: {
+                  type: "clip",
+                  trigger: !state.clips[clipId]?.playing ? "on" : "off",
+                  clipId,
+                  trackId: track.id,
+                },
               })
             }
           />

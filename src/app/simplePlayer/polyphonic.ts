@@ -2,6 +2,8 @@ import { TickAction } from "./actions";
 import { StartClip, StopClip, StartTrack, StopTrack } from "./commands";
 import { PlayerState } from "./state";
 
+const STOP_WHEN_ALL_STOPPED = true;
+
 export default function polyphonic(
   state: PlayerState,
   action: TickAction
@@ -25,8 +27,9 @@ export default function polyphonic(
   const commands = state.commands;
   const lastCommand = commands.length;
 
-  state.queued.forEach((action) => {
-    const { clipId, trackId, playing } = action;
+  state.queued.forEach((event) => {
+    const { clipId, trackId } = event;
+    const playing = event.trigger === "on";
 
     if (playing) {
       // start clip
@@ -36,7 +39,7 @@ export default function polyphonic(
       // stop other clips in the same track
       const trackData = trackDataById[trackId];
       trackData.clipIds.forEach((clipId) => {
-        if (clipId !== action.clipId && clips[clipId]?.playing) {
+        if (clipId !== event.clipId && clips[clipId]?.playing) {
           clips[clipId] = { playing: false, time };
           commands.push(StopClip(time, trackId, clipId));
         }
@@ -57,10 +60,15 @@ export default function polyphonic(
       }
     }
   });
+
+  const shouldStop =
+    STOP_WHEN_ALL_STOPPED &&
+    !Object.values(tracks).find((track) => track.playing);
+
   const lastTickAt = time;
   return {
     ...state,
-    startAt,
+    startAt: shouldStop ? 0 : startAt,
     lastTickAt,
     clips,
     tracks,

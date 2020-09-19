@@ -9,7 +9,7 @@ import SimplePanelVisuals from "./SimplePanelVisuals";
 import VirtualKeyboard from "./VirtualKeyboard";
 import AudioSettings from "./AudioSettings";
 import { ReactComponent as KeyboardIcon } from "../icons/keyboard-24px.svg";
-// import { ReactComponent as AudioIcon } from "../icons/audiotrack-24px.svg";
+import { ReactComponent as AudioIcon } from "../icons/audiotrack-24px.svg";
 import { ReactComponent as FullscreenIcon } from "../icons/fullscreen-24px.svg";
 import { ReactComponent as FullscreenExitIcon } from "../icons/fullscreen_exit-24px.svg";
 import { useFullscreen } from "../../hooks/useFullscreen";
@@ -62,13 +62,15 @@ const Visuals: React.FC<Props> = ({ audioset, state, keyboard }) => {
             >
               Teclado
             </IconButton>
-            {/* <IconButton
-              className="mr-2"
-              icon={AudioIcon}
-              onClick={() => setControl("audio")}
-            >
-              Sonido
-            </IconButton> */}
+            {false && (
+              <IconButton
+                className="mr-2"
+                icon={AudioIcon}
+                onClick={() => setControl("audio")}
+              >
+                Sonido
+              </IconButton>
+            )}
           </div>
         )}
       </div>
