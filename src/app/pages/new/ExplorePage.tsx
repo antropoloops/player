@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
-import LoadingPage from "../LoadingPage";
+import LoadingScreen from "../../components/LoadingScreen";
 import PlayPanelScreen from "../../components/play-panel/PlayPanelScreen";
 
 type RouteParams = {
@@ -16,7 +16,7 @@ const ExplorePage: React.FC = () => {
     (_, p) => API.audiosets.get(p)
   );
 
-  if (!audioset) return <LoadingPage />;
+  if (!audioset) return <LoadingScreen />;
 
   return <PlayPanelScreen audioset={audioset} />;
 };

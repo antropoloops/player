@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import Layout from "../../components/layout/Layout";
 import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
-import LoadingPage from "../LoadingPage";
+import LoadingScreen from "../../components/LoadingScreen";
 import { Audioset, Clip, Track } from "../../../audioset";
 import { GearIcon, ArrowLeft } from "../../components/Icons";
 import Overview from "../../components/play-next/Overview";
@@ -31,7 +31,7 @@ const PlayerPage: React.FC<Props> = () => {
     [audioset]
   );
 
-  if (!audioset) return <LoadingPage />;
+  if (!audioset) return <LoadingScreen />;
 
   const Header = () => {
     return (

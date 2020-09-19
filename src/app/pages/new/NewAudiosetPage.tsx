@@ -4,7 +4,7 @@ import Layout from "../../components/layout/Layout";
 import { useRouteMatch, Link } from "react-router-dom";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import API from "../../api";
-import LoadingPage from "../LoadingPage";
+import LoadingScreen from "../../components/LoadingScreen";
 import routes from "../../routes";
 import HtmlContent from "../../components/HtmlContent";
 
@@ -21,7 +21,7 @@ const AudiosetPage: React.FC<Props> = () => {
     ["project", { path: params.id }],
     (_, p) => API.audiosets.get(p)
   );
-  if (!audioset) return <LoadingPage />;
+  if (!audioset) return <LoadingScreen />;
 
   return (
     <Layout

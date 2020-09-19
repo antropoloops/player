@@ -4,7 +4,7 @@ import { useRouteMatch } from "react-router-dom";
 import { useQuery } from "react-query";
 import API from "../../api";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import LoadingPage from "../LoadingPage";
+import LoadingScreen from "../../components/LoadingScreen";
 import { Readme } from "../../components/shared/Readme";
 import routes from "../../routes";
 import MediaObject from "../../components/MediaObject";
@@ -22,7 +22,7 @@ const ProjectPage: React.FC<Props> = () => {
     API.projects.get(p)
   );
 
-  if (!project) return <LoadingPage />;
+  if (!project) return <LoadingScreen />;
 
   return (
     <Layout

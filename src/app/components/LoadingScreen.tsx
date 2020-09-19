@@ -1,8 +1,8 @@
 import React from "react";
-import Spinner from "../components/Spinner";
-import Layout from "../components/layout/Layout";
+import Spinner from "./Spinner";
+import Layout from "./layout/Layout";
 
-const LoadingPage = React.memo(() => {
+const LoadingScreen = React.memo(() => {
   return (
     <Layout logo={true}>
       <div className="absolute inset-0 w-full flex flex-grow items-center justify-center min-h-full">
@@ -12,4 +12,4 @@ const LoadingPage = React.memo(() => {
   );
 });
 
-export default LoadingPage;
+export default LoadingScreen;
