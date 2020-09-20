@@ -8,7 +8,7 @@ import useAudioOutput from "../../hooks/useAudioOutput";
 type Props = {
   url: string;
   status: PlayStatus;
-  onStateChange: (ready: boolean) => void;
+  onStateChange?: (ready: boolean) => void;
   onEnded?: () => void;
 };
 
@@ -19,7 +19,7 @@ const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
   useEffect(() => {
     loadAudio(url)
       .then(setSample)
-      .then(() => onStateChange(true));
+      .then(() => onStateChange?.(true));
   }, [url, onStateChange]);
 
   const play = useCallback(

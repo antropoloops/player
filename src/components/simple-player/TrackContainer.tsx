@@ -1,29 +1,21 @@
 import classcat from "classcat";
 import React from "react";
-import { Audioset, Track } from "../../audioset";
-import { KeyboardController } from "../../player/KeyboardController";
-import { PlayerState, StoppedStatus } from "../../player";
+import { Track } from "../../audioset";
+import { PlayStatus } from "../../player";
 import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
-import Clip from "./SimpleClip";
 
 type Props = {
-  audioset: Audioset;
-  keyboard: KeyboardController;
   track: Track;
-  state: PlayerState;
-  onClipClick: (clipId: string) => void;
+  status?: PlayStatus;
   onStopTrack: () => void;
 };
 const SimpleTrack: React.FC<Props> = ({
-  audioset,
   track,
-  state,
-  onClipClick,
+  status,
   onStopTrack,
-  keyboard,
+  children,
 }) => {
-  const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
-  const isTrackPlaying = state.tracks[track.id]?.playing;
+  const isTrackPlaying = status?.playing;
   return (
     <div
       data-cy={`Track-${track.id}`}
@@ -47,20 +39,7 @@ const SimpleTrack: React.FC<Props> = ({
           </button>
         )}
       </div>
-
-      <div className="bg-gray-medium bg-opacity-50">
-        {track.clipIds.map((clipId) => (
-          <Clip
-            className="mb-micro last:mb-0"
-            keyboard={keyboard}
-            key={clipId}
-            status={state.clips[clipId] || StoppedStatus}
-            clip={audioset.index.clipById[clipId]}
-            onClick={() => onClipClick(clipId)}
-            isStream={!isPoly}
-          />
-        ))}
-      </div>
+      {children}
     </div>
   );
 };

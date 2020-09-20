@@ -5,7 +5,7 @@ type Props = {
   url: string;
   status: PlayStatus;
   loop?: boolean;
-  onStateChange: (ready: boolean, duration: number) => void;
+  onStateChange?: (ready: boolean, duration: number) => void;
   onEnded?: () => void;
 };
 

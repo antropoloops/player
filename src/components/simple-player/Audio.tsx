@@ -9,7 +9,7 @@ type Props = {
   isStream: boolean;
   audio: AudioResources;
   status: PlayStatus;
-  onStateChange: (ready: boolean) => void;
+  onStateChange?: (ready: boolean) => void;
   onEnded?: () => void;
 };
 const Audio: React.FC<Props> = ({
