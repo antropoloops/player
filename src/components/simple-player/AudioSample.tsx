@@ -39,7 +39,7 @@ const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
   );
 
   useEffect(() => {
-    if (status?.playing) {
+    if (!status.dirty && status?.playing) {
       return play(status.time);
     }
   }, [play, status]);

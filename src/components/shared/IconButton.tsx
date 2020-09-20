@@ -13,14 +13,14 @@ const IconButton: React.FC<Props> = ({
   children,
   icon: Icon,
   onClick,
-  color = "white-dark",
+  color = "text-white-dark",
 }) => {
   return (
     <button
       className={cc([
         className,
         "flex items-center pr-3 leading-6",
-        "text-" + color,
+        color,
         "text-sm bg-gray-medium rounded-full",
         "hover:text-white hover:bg-gray-light",
         "focus:outline-none",

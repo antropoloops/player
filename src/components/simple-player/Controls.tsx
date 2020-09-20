@@ -58,7 +58,7 @@ const Controls: React.FC<Props> = ({ audioset, keyboard }) => {
 
           <IconButton
             className="mr-2 fill-current"
-            color={muted ? "blue-500" : undefined}
+            color={muted ? "text-blue-500" : undefined}
             icon={MuteIcon}
             onClick={() => setMuted(!muted)}
           >
