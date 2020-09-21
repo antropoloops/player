@@ -44,7 +44,7 @@ module.exports = {
         micro: "0.125rem",
       },
       width: {
-        "cover-mini": "10%",
+        "cover-mini": "15%",
       },
       gridTemplateRows: {
         "layout-desktop": "auto 1fr",

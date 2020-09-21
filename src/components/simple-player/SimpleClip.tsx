@@ -46,20 +46,26 @@ const Clip: React.FC<Props> = ({
         <svg viewBox="0 0 1 1" />
         <img
           className={cc([ready ? "opacity-100" : "opacity-25"])}
-          alt={clip.title}
+          alt={clip.name}
           src={clip.resources.cover.small}
         />
       </div>
       {status.playing ? (
-        <div className="ml-2 text-left flex-grow" onClick={onClick}>
-          <div className="font-medium">{clip.title}</div>
-          <div className="italic">{clip.album}</div>
-          <div>{clip.artist}</div>
+        <div
+          className="flex flex-col ml-2 text-left flex-grow"
+          onClick={onClick}
+        >
+          <div className="flex-grow">
+            <div className="font-medium">{clip.title}</div>
+            <div className="italic">{clip.album}</div>
+            <div>{clip.artist}</div>
+          </div>
+          <div>{clip.name}</div>
         </div>
       ) : (
         <div className="flex-grow flex text-left items-center">
           <h3 className="ml-2 flex-grow truncate" onClick={onClick}>
-            {clip.title}
+            {clip.name}
           </h3>
           <ClipKeyBinding
             className="flex-shrink-0 m-1"
