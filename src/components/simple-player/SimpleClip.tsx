@@ -31,7 +31,7 @@ const Clip: React.FC<Props> = ({
         className,
         "w-full flex text-gray-dark overflow-hidden",
         "focus:outline-none cursor-pointer",
-        status.dirty && "animate-ping",
+        status.dirty && "animate-ping-slow",
         status.playing ? "items-stretch" : "items-center",
       ])}
       style={{ backgroundColor: clip.color }}

@@ -1,13 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import decodeAudioBuffer from "../../lib/decodeAudioBuffer";
 import { getActiveAudioContext } from "../../lib/active-audio-context";
-import { IAudioContext } from "standardized-audio-context";
+import {
+  IAudioBufferSourceNode,
+  IAudioContext,
+} from "standardized-audio-context";
 import { PlayStatus } from "../../player";
 import useAudioOutput from "../../hooks/useAudioOutput";
 
 type Props = {
   url: string;
-  status: PlayStatus;
+  status?: PlayStatus;
   onStateChange?: (ready: boolean) => void;
   onEnded?: () => void;
 };
@@ -15,6 +18,9 @@ type Props = {
 const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
   const { output } = useAudioOutput();
   const [sample, setSample] = useState<Sample | null>(null);
+  const playingSample = useRef<IAudioBufferSourceNode<IAudioContext> | null>(
+    null
+  );
 
   useEffect(() => {
     loadAudio(url)
@@ -31,18 +37,27 @@ const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
       const destination = output || sample.context.destination;
       source.connect(destination);
       source.loop = true;
+      playingSample.current = source;
       source.start(time);
-
-      return () => source.stop();
     },
     [sample, output]
   );
 
+  const stop = useCallback(
+    (time: number) => {
+      playingSample.current?.stop(time);
+    },
+    [playingSample]
+  );
+
   useEffect(() => {
-    if (!status.dirty && status?.playing) {
-      return play(status.time);
+    if (!status || status.dirty) return;
+    if (status.playing) {
+      play(status.time);
+    } else {
+      stop(status.time);
     }
-  }, [play, status]);
+  }, [status, play, stop]);
 
   return null;
 };

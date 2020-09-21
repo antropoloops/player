@@ -1,23 +1,4 @@
 module.exports = {
-  purge: {
-    content: ["./src/**/*.tsx"],
-    options: {
-      whitelist: [
-        "grid-cols-1",
-        "grid-cols-2",
-        "grid-cols-3",
-        "grid-cols-4",
-        "grid-cols-5",
-        "grid-cols-6",
-        "grid-cols-7",
-        "grid-cols-1",
-        "grid-cols-9",
-        "grid-cols-10",
-        "grid-cols-11",
-        "grid-cols-12",
-      ],
-    },
-  },
   theme: {
     extend: {
       colors: {
@@ -71,7 +52,7 @@ module.exports = {
         "8": "2rem",
       },
       animation: {
-        "ping-slow": "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+        "ping-slow": "ping 3s cubic-bezier(0, 0, 0.2, 1) 1",
       },
       keyframes: {
         ping: {
@@ -138,6 +119,25 @@ module.exports = {
           },
         },
       },
+    },
+  },
+  purge: {
+    content: ["./src/**/*.tsx"],
+    options: {
+      whitelist: [
+        "grid-cols-1",
+        "grid-cols-2",
+        "grid-cols-3",
+        "grid-cols-4",
+        "grid-cols-5",
+        "grid-cols-6",
+        "grid-cols-7",
+        "grid-cols-1",
+        "grid-cols-9",
+        "grid-cols-10",
+        "grid-cols-11",
+        "grid-cols-12",
+      ],
     },
   },
   variants: {
