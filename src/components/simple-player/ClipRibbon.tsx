@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { PlayerState } from "../../player";
 import cc from "classcat";
 import { useGestureResponder } from "react-gesture-responder";
 import { Audioset, Track as TrackData } from "../../audioset";
-import Audio from "./Audio";
+import { State4 } from "../../player4";
 //import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
 
 type Mode = "clips" | "ribbon";
@@ -11,7 +10,7 @@ type Mode = "clips" | "ribbon";
 type Props = {
   audioset: Audioset;
   track: TrackData;
-  state: PlayerState;
+  state: State4;
   onClipClicked: (clipId: string) => void;
   isStream: boolean;
 };
@@ -25,7 +24,9 @@ const ClipRibbon: React.FC<Props> = ({
   const [mode, setMode] = useState<Mode>("clips");
   const [left, setLeft] = useState(30);
 
-  const clipId = track.clipIds.find((id) => state.clips[id]?.playing);
+  const { clips } = state.status;
+
+  const clipId = track.clipIds.find((id) => clips[id]?.playing);
 
   const label = clipId ? audioset.index.clipById[clipId].title : track.name;
 
@@ -74,15 +75,15 @@ const ClipRibbon: React.FC<Props> = ({
         )}
         <svg viewBox="0 0 1 1" />
       </button>
-      {track.clipIds.map((clipId) => (
+      {/* {track.clipIds.map((clipId) => (
         <Audio
           key={clipId}
           isStream={isStream}
           audio={audioset.index.clipById[clipId].resources.audio}
-          status={state.clips[clipId]}
+          status={clips[clipId]}
           onEnded={() => onClipClicked(clipId)}
         />
-      ))}
+      ))} */}
       {mode === "clips" ? (
         <TrackClips />
       ) : (

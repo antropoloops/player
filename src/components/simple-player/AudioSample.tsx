@@ -5,12 +5,12 @@ import {
   IAudioBufferSourceNode,
   IAudioContext,
 } from "standardized-audio-context";
-import { PlayStatus } from "../../player";
 import useAudioOutput from "../../hooks/useAudioOutput";
+import { ClipStatus4 } from "../../player4";
 
 type Props = {
   url: string;
-  status?: PlayStatus;
+  status?: ClipStatus4;
   onStateChange?: (ready: boolean) => void;
   onEnded?: () => void;
 };

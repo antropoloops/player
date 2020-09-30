@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import { PlayStatus } from "../../player";
+import { ClipStatus4 } from "../../player4";
 
 type Props = {
   url: string;
-  status: PlayStatus;
+  status: ClipStatus4;
   loop?: boolean;
   onStateChange?: (ready: boolean, duration: number) => void;
   onEnded?: () => void;

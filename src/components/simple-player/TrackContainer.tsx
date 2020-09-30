@@ -1,12 +1,12 @@
 import classcat from "classcat";
 import React from "react";
 import { Track } from "../../audioset";
-import { PlayStatus } from "../../player";
+import { TrackStatus4 } from "../../player4";
 import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
 
 type Props = {
   track: Track;
-  status?: PlayStatus;
+  status: TrackStatus4;
   onStopTrack: () => void;
 };
 const SimpleTrack: React.FC<Props> = ({

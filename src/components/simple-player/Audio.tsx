@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import { AudioResources } from "../../audioset";
 import getSupportedAudioCodecs from "../../lib/test-audio-codecs";
-import { PlayStatus } from "../../player";
+import { ClipStatus4 } from "../../player4";
 import AudioSample from "./AudioSample";
 import AudioStream from "./AudioStream";
 
 type Props = {
   isStream: boolean;
   audio: AudioResources;
-  status: PlayStatus;
+  status: ClipStatus4;
   onStateChange?: (ready: boolean) => void;
   onEnded?: () => void;
 };

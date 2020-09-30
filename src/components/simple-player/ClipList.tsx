@@ -1,13 +1,13 @@
 import React from "react";
 import { Audioset, Track } from "../../audioset";
-import { PlayerState, StoppedStatus } from "../../player";
 import { KeyboardController } from "../../player/KeyboardController";
+import { Status4 } from "../../player4";
 import Clip from "./SimpleClip";
 
 type Props = {
   audioset: Audioset;
   track: Track;
-  state: PlayerState;
+  status: Status4;
   keyboard: KeyboardController;
   onClipClicked: (clipId: string) => void;
   isStream: boolean;
@@ -15,7 +15,7 @@ type Props = {
 const ClipList: React.FC<Props> = ({
   audioset,
   track,
-  state,
+  status,
   keyboard,
   onClipClicked,
   isStream,
@@ -27,7 +27,7 @@ const ClipList: React.FC<Props> = ({
           className="mb-micro last:mb-0"
           keyboard={keyboard}
           key={clipId}
-          status={state.clips[clipId] || StoppedStatus}
+          status={status.clips[clipId] || { playing: false, time: 0 }}
           clip={audioset.index.clipById[clipId]}
           onClick={() => onClipClicked(clipId)}
           isStream={isStream}

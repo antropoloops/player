@@ -2,14 +2,14 @@ import React from "react";
 import { Audioset } from "../../audioset";
 import { KeyboardController } from "../../player/KeyboardController";
 import { useDeviceType } from "../../hooks/useDeviceType";
-import { PlayerState } from "../../player";
+import { State4 } from "../../player4";
 import Controls from "./Controls";
-import SimpleMapVisuals from "./SimpleMapVisuals";
-import SimplePanelVisuals from "./SimplePanelVisuals";
+import SimpleMapVisuals from "./VisualsGeography";
+import SimplePanelVisuals from "./VisualsPanel";
 
 type Props = {
   audioset: Audioset;
-  state: PlayerState;
+  state: State4;
   keyboard: KeyboardController;
 };
 

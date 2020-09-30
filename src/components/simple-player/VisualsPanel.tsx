@@ -1,12 +1,12 @@
 import React from "react";
 import useDimensions from "react-cool-dimensions";
 import { Audioset, Clip } from "../../audioset";
-import { PlayerState } from "../../player";
+import { State4 } from "../../player4";
 import Spinner from "../Spinner";
 
 type Props = {
   audioset: Audioset;
-  state: PlayerState;
+  state: State4;
 };
 
 const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
@@ -16,13 +16,15 @@ const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
   const ratio = width / audioset.visuals.image.size.width;
   const clipById = audioset.index.clipById;
 
+  const { clips } = state.status;
+
   const radius = Math.floor(120 * ratio);
 
   return (
     <div className="h-full w-full flex flex-col items-start relative">
       <img ref={ref} src={audioset.visuals.image.url} alt="fondo" />
-      {Object.keys(state.clips).map((clipId) =>
-        state.clips[clipId]?.playing ? (
+      {Object.keys(clips).map((clipId) =>
+        clips[clipId]?.playing ? (
           <PlayingClip
             key={clipId}
             clip={clipById[clipId]}

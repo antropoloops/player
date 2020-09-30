@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../audioset";
 import { addResizeObserver } from "../../lib/add-resize-observer";
 import { Visuals } from "../../visuals";
-import { PlayerState } from "../../player";
+import { State4 } from "../../player4";
 
 type Props = {
   audioset: Audioset;
-  state: PlayerState;
+  state: State4;
 };
 const SimpleMapVisuals: React.FC<Props> = ({ audioset, state }) => {
   // Make visuals render after reference is set: https://dev.to/thekashey/the-same-useref-but-it-will-callback-8bo
@@ -18,13 +18,10 @@ const SimpleMapVisuals: React.FC<Props> = ({ audioset, state }) => {
   const visuals = useMemo(() => createVisuals(audioset, el), [audioset, el]);
   useEffect(() => {
     if (!visuals) return;
-    const { commands, lastCommand } = state;
-    for (let i = lastCommand; i < commands.length; i++) {
-      const command = commands[i];
-      if (command.type === "clip:start") {
-        visuals.show(command.clipId);
-      } else if (command.type === "clip:stop") {
-        visuals.hide(command.clipId);
+    for (const effect of state.effects) {
+      if (effect.type === "clip:play") {
+        if (effect.play) visuals.show(effect.clipId);
+        else visuals.hide(effect.clipId);
       }
     }
   }, [state, visuals]);

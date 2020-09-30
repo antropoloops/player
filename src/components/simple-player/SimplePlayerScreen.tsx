@@ -6,13 +6,13 @@ import useAutoUnlockAudio from "../../hooks/useAutoUnlockAudio";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import useLocale from "../../hooks/useLocale";
-import useSimplePlayer from "../../hooks/useSimplePlayer";
 import BackToLink from "../BackToLink";
 import PromptExit from "../shared/PromptExit";
 import TrackContainer from "./TrackContainer";
 import Visuals from "./Visuals";
 import ClipList from "./ClipList";
 import ClipRibbon from "./ClipRibbon";
+import usePlayer4 from "../../hooks/usePlayer4";
 // import IconButton from "../shared/IconButton";
 // import { ReactComponent as ListIcon } from "../icons/view_column-24px.svg";
 // import { ReactComponent as RibbonIcon } from "../icons/view_module-24px.svg";
@@ -28,8 +28,13 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
   const [mode, setMode] = useState<Mode>("list");
   const { isDesktop } = useDeviceType();
   const { formatMessage: f } = useLocale();
-  const [state, dispatch] = useSimplePlayer(audioset);
+  const { state, controller } = usePlayer4(audioset);
   const isPoly = audioset.audio.mode === "1"; // FIXME: change to a name
+  const keyboard = useMemo(() => new KeyboardController(audioset, controller), [
+    audioset,
+    controller,
+  ]);
+  useKeyboardListener(keyboard);
 
   useEffect(() => {
     if (window.location.search === "?ribbon") {
@@ -37,46 +42,16 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
     }
   }, []);
 
-  const keyboard = useMemo(
-    () =>
-      new KeyboardController(audioset, {
-        startClip: (clipId: string) =>
-          dispatch({
-            type: "clip",
-            trigger: "on",
-            clipId,
-            trackId: audioset.index.clipById[clipId].trackId,
-          }),
-        stopClip: (clipId: string) =>
-          dispatch({
-            type: "clip",
-            trigger: "off",
-            clipId,
-            trackId: audioset.index.clipById[clipId].trackId,
-          }),
-      }),
-    [audioset, dispatch]
-  );
-  useKeyboardListener(keyboard);
+  const { status } = state;
 
-  const isPlaying = !!Object.values(state.tracks).find(
+  const isPlaying = !!Object.values(status.tracks).find(
     (track) => track.playing
   );
 
-  const toggleClip = (clipId: string, trackId: string) =>
-    dispatch({
-      type: "clip",
-      trigger: !state.clips[clipId]?.playing ? "on" : "off",
-      clipId,
-      trackId,
-    });
-
-  const stopTrack = (trackId: string) =>
-    dispatch({
-      type: "track",
-      trigger: "off",
-      trackId,
-    });
+  const toggleClip = (clipId: string) =>
+    status.clips[clipId].playing
+      ? controller.stopClip(clipId)
+      : controller.startClip(clipId);
 
   return (
     <Layout
@@ -100,8 +75,8 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
           <TrackContainer
             key={track.id}
             track={track}
-            status={state.tracks[track.id]}
-            onStopTrack={() => stopTrack(track.id)}
+            status={status.tracks[track.id]}
+            onStopTrack={() => controller.stopTrack(track.id)}
           >
             {mode === "ribbon" ? (
               <ClipRibbon
@@ -109,16 +84,16 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
                 track={track}
                 state={state}
                 isStream={!isPoly}
-                onClipClicked={(clipId) => toggleClip(clipId, track.id)}
+                onClipClicked={toggleClip}
               />
             ) : (
               <ClipList
                 audioset={audioset}
                 track={track}
-                state={state}
+                status={state.status}
                 keyboard={keyboard}
                 isStream={!isPoly}
-                onClipClicked={(clipId) => toggleClip(clipId, track.id)}
+                onClipClicked={toggleClip}
               />
             )}
           </TrackContainer>

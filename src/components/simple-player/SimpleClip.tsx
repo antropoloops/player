@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { Clip as ClipData } from "../../audioset";
 import cc from "classcat";
-
-import { PlayStatus } from "../../player";
+import { Clip as ClipData } from "../../audioset";
 import { KeyboardController } from "../../player/KeyboardController";
 import ClipKeyBinding from "./ClipKeyBinding";
+import { ClipStatus4 } from "../../player4";
 import Audio from "./Audio";
 
 type Props = {
   className?: string;
   keyboard: KeyboardController;
   clip: ClipData;
-  status: PlayStatus;
+  status: ClipStatus4;
   onClick: () => void;
   isStream: boolean;
 };
