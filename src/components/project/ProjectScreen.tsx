@@ -32,6 +32,8 @@ const ProjectScreen: React.FC<Props> = ({ section, project }) => {
   const references = project.audiosets || [];
   const setContent = isRoot ? page?.content || "" : project.meta.readme;
 
+  const imageSrc = isRoot ? section?.image_url : project.meta.logo_url;
+
   return (
     <Layout
       title={isRoot ? FMT(section?.id || "") : project.meta.title}
@@ -44,11 +46,9 @@ const ProjectScreen: React.FC<Props> = ({ section, project }) => {
           label="Projectos sonoros"
         />
       )}
-      <img
-        className="w-full"
-        alt={project.meta.title}
-        src={isRoot ? section?.image_url : project.meta.logo_url}
-      />
+      {imageSrc && (
+        <img className="w-full" alt={project.meta.title} src={imageSrc} />
+      )}
       <ul className="Audiosets">
         {references.map((reference) => (
           <MediaObject

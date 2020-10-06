@@ -2,7 +2,7 @@ import React from "react";
 import { Audioset, Track } from "../../audioset";
 import { KeyboardController } from "../../player/KeyboardController";
 import { Status4 } from "../../player4";
-import Clip from "./SimpleClip";
+import Clip from "./Clip";
 
 type Props = {
   audioset: Audioset;

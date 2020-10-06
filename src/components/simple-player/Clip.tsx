@@ -43,11 +43,13 @@ const Clip: React.FC<Props> = ({
         onClick={onClick}
       >
         <svg viewBox="0 0 1 1" />
-        <img
-          className={cc([ready ? "opacity-100" : "opacity-25"])}
-          alt={clip.name}
-          src={clip.resources.cover.small}
-        />
+        {clip.resources.cover.small && (
+          <img
+            className={cc([ready ? "opacity-100" : "opacity-25"])}
+            alt={clip.name}
+            src={clip.resources.cover.small}
+          />
+        )}
       </div>
       {status.playing ? (
         <div
