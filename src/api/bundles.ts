@@ -1,4 +1,5 @@
 // eslint-disable no-unused-vars
+import ky from "ky";
 import { Bundle, createAudioset } from "../audioset";
 import { AUDIOSET_API } from "../config";
 
@@ -33,7 +34,8 @@ type GetBundle = {
   url?: string;
 };
 export function getBundle({ url, path }: GetBundle): Promise<Bundle> {
-  return fetch(url || getUrl(path))
-    .then((r) => r.json())
+  return ky
+    .get(url || getUrl(path))
+    .json()
     .then(createAudioset);
 }

@@ -6,6 +6,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import API from "../api";
 import { Redirect } from "react-router-dom";
 import routes from "../routes";
+import ErrorScreen from "../components/ErrorScreen";
 
 type Props = {
   idOrUrl: string;
@@ -17,12 +18,18 @@ const SimplePlayerScreen = React.lazy(() =>
 
 const AudiosetShowPage: React.FC<Props> = ({ idOrUrl }) => {
   useAnalytics();
-  const { status, data: bundle } = useQuery(
+  const { isLoading, isError, data: bundle } = useQuery(
     ["bundle", { path: idOrUrl }],
-    (_, params) => API.bundles.get(params)
+    (_, params) => API.bundles.get(params),
+    { retry: false }
   );
 
-  if (status === "loading" || !bundle) return <LoadingScreen />;
+  if (isError)
+    return (
+      <ErrorScreen message="Lo sentimos, pero no encontramos el audioset que buscas" />
+    );
+  else if (isLoading || !bundle) return <LoadingScreen />;
+
   if (isProject(bundle)) return <Redirect to={routes.project(idOrUrl)} />;
 
   return isAudioset(bundle) ? (
