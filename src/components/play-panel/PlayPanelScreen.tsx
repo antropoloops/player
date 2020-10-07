@@ -118,7 +118,7 @@ const ClipView: React.FC<ClipViewProps> = ({
     >
       <Audio
         play={isOpen}
-        src={clip.resources.audio.mp3}
+        src={clip.resources.audio.wav}
         onLoaadedMetadata={() => {
           setLoaded(true);
         }}

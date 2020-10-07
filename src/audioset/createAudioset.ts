@@ -10,6 +10,7 @@ export function createAudioset(bundle: any): Bundle {
     log("Invalid format %o", bundle);
     throw Error("Invalida Audioset format");
   }
+
   if (isAudioset(bundle)) {
     migrateOrDerive(bundle);
     createIndices(bundle);

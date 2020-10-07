@@ -37,9 +37,9 @@ export interface Clip {
 }
 
 export type AudioResources = {
-  mp3: string;
+  mp3?: string;
   ogg?: string;
-  wav?: string;
+  wav: string;
 };
 
 interface ClipResources {

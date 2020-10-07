@@ -24,6 +24,7 @@ const Clip: React.FC<Props> = ({
   isStream,
 }) => {
   const [ready, setReady] = useState(false);
+
   return (
     <div
       className={cc([
@@ -31,7 +32,7 @@ const Clip: React.FC<Props> = ({
         "w-full flex text-gray-dark overflow-hidden",
         "focus:outline-none cursor-pointer",
         status.dirty && "animate-ping-slow",
-        status.playing ? "items-stretch" : "items-center",
+        "items-stretch",
       ])}
       style={{ backgroundColor: clip.color }}
     >
@@ -64,15 +65,20 @@ const Clip: React.FC<Props> = ({
           <div>{clip.name}</div>
         </div>
       ) : (
-        <div className="flex-grow flex text-left items-center">
-          <h3 className="ml-2 flex-grow truncate" onClick={onClick}>
+        <div className="flex-grow flex text-left items-stretch">
+          <h3
+            className="pl-2 flex items-center flex-grow truncate"
+            onClick={onClick}
+          >
             {clip.name}
           </h3>
-          <ClipKeyBinding
-            className="flex-shrink-0 m-1"
-            clipId={clip.id}
-            keyboard={keyboard}
-          />
+          <div className="flex items-center flex-shrink-0">
+            <ClipKeyBinding
+              className="flex-shrink-0 m-1"
+              clipId={clip.id}
+              keyboard={keyboard}
+            />
+          </div>
         </div>
       )}
       <Audio
