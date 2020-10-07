@@ -15,19 +15,49 @@ interface MapMode {
   callback: MapModeCallback;
 }
 
+type ClipIdToKey = Record<string, string>;
+
+function storeConfig(id: string, map: ClipIdToKey) {
+  const encoded = JSON.stringify(map);
+  localStorage.setItem(`AUDIOSET_KEYMAP_${id}`, encoded);
+}
+
+function loadConfig(id: string): ClipIdToKey | undefined {
+  const encoded = localStorage.getItem(`AUDIOSET_KEYMAP_${id}`);
+  if (!encoded) return;
+
+  try {
+    return JSON.parse(encoded);
+  } catch {
+    return undefined;
+  }
+}
+
 export class KeyboardController {
+  private audiosetId: string;
   private active: boolean = false;
   private pressed: Record<string, boolean> = {};
-  private clipIdToKey: Record<string, string> = {};
+  private clipIdToKey: ClipIdToKey = {};
   private keyToClipId: Record<string, string | undefined> = {};
   private mapMode?: MapMode = undefined;
 
   constructor(audioset: Audioset, private control: Control) {
-    audioset.clips.forEach((clip) => {
-      const key = clip.keyMap.toUpperCase();
-      this.clipIdToKey[clip.id] = key;
-      this.keyToClipId[key] = clip.id;
-    });
+    this.audiosetId = audioset.id;
+    const prevConfig = loadConfig(this.audiosetId);
+    if (prevConfig) {
+      this.clipIdToKey = prevConfig;
+      Object.keys(prevConfig).forEach((clipId) => {
+        const key = prevConfig[clipId];
+        this.keyToClipId[key] = clipId;
+      });
+    } else {
+      audioset.clips.forEach((clip) => {
+        const key = (clip.keyMap || "").toUpperCase();
+        this.clipIdToKey[clip.id] = key;
+        this.keyToClipId[key] = clip.id;
+      });
+      storeConfig(this.audiosetId, this.clipIdToKey);
+    }
     this.setActive(true);
   }
 
@@ -55,6 +85,7 @@ export class KeyboardController {
     key = key.toUpperCase();
     this.keyToClipId[key] = clipId;
     this.clipIdToKey[clipId] = key;
+    storeConfig(this.audiosetId, this.clipIdToKey);
   }
 
   public keyDown(key: string) {
