@@ -53,6 +53,7 @@ module.exports = {
       },
       animation: {
         "ping-slow": "ping 3s cubic-bezier(0, 0, 0.2, 1) 1",
+        "pulse-slow": "pulse 4s cubic-bezier(0.6, 0.4, 0.6, 1) infinite",
       },
       keyframes: {
         ping: {
@@ -144,6 +145,7 @@ module.exports = {
     textColor: ["hover", "group-hover"],
     opacity: ["hover", "group-hover"],
     margin: ["responsive", "last", "hover", "focus"],
+    animation: ["hover"],
   },
   plugins: [require("@tailwindcss/typography")],
 };

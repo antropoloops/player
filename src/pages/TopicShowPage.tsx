@@ -6,7 +6,7 @@ import TopicBrowser from "../components/topics/TopicBrowser";
 import { useRouteMatch } from "react-router-dom";
 import HtmlContent from "../components/HtmlContent";
 import routes from "../routes";
-import WhitePage from "../components/shared/WhitePage";
+import WhitePage from "../components/shared/PageDesktop";
 import cx from "classcat";
 import useLocale from "../hooks/useLocale";
 

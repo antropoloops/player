@@ -6,7 +6,7 @@ import useLocale from "../hooks/useLocale";
 import usePage from "../hooks/usePage";
 import GuideBrowser from "../components/guides/GuideBrowser";
 import { useDeviceType } from "../hooks/useDeviceType";
-import WhitePage from "../components/shared/WhitePage";
+import WhitePage from "../components/shared/PageDesktop";
 import { Readme } from "../components/shared/Readme";
 
 type Props = {};

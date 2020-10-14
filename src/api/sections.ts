@@ -21,6 +21,12 @@ const SECTIONS: Section[] = [
     home: true,
   },
   {
+    id: "community",
+    image_url: "/images/sections/projects.jpg",
+    to: routes.community(),
+    home: true,
+  },
+  {
     id: "topics",
     image_url: "/images/sections/topics.jpg",
     to: routes.topics(),

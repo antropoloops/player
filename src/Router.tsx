@@ -10,6 +10,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 // Projects and Audiosets (ProjectList is ProjectShow id=index)
 import ProjectShowPage from "./pages/ProjectShowPage";
 import AudiosetShowPage from "./pages/AudiosetShowPage";
+import AudiosetReadmePage from "./pages/CommunityReadmePage";
 
 // Guides
 import GuideListPage from "./pages/GuideListPage";
@@ -32,10 +33,18 @@ const Router = () => (
       <Route exact={true} path={routes.projects()}>
         <ProjectShowPage idOrUrl="index" />
       </Route>
+      <Route exact={true} path={routes.community()}>
+        <ProjectShowPage idOrUrl="comunidad" sectionName="community" readme />
+      </Route>
       <Route
         exact={true}
         path={routes.project(":id")}
         render={({ match }) => <ProjectShowPage idOrUrl={match.params.id} />}
+      />
+      <Route
+        exact={true}
+        path={routes.readme(":id")}
+        render={({ match }) => <AudiosetReadmePage idOrUrl={match.params.id} />}
       />
       <Route
         exact={true}

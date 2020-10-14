@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import API from "../api";
 import MediaObject from "../components/MediaObject";
 import useLocale from "../hooks/useLocale";
-import Page from "../components/shared/WhitePage";
+import Page from "../components/shared/PageDesktop";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { ArrowRight } from "../components/Icons";
 import HtmlContent from "../components/HtmlContent";

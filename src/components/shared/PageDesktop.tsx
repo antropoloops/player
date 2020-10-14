@@ -7,22 +7,37 @@ type Props = {
   page?: PageData;
   center?: boolean;
   white?: boolean;
+  padding?: string;
+  full?: boolean;
   header?: ReactNode;
 };
 
-const PageDesktop: React.FC<Props> = ({ page, center, white, header }) => {
+const PageDesktop: React.FC<Props> = ({
+  page,
+  center,
+  white,
+  header,
+  full = true,
+  padding = "p-8",
+}) => {
   if (!page) return null;
 
   const subtitle = page?.metadata?.subtitle;
 
   return (
-    <div className="PageDesktop min-h-full bg-gray-dark text-white px-4 py-2">
+    <div
+      className={cx([
+        "bg-gray-dark text-white px-4 py-2",
+        full && "min-h-full",
+      ])}
+    >
       <div
-        className={cx({
-          "max-w-content p-8": true,
-          "bg-white text-black": white,
-          "mx-auto": center,
-        })}
+        className={cx([
+          "max-w-content",
+          padding,
+          white && "bg-white text-black",
+          center && "mx-auto",
+        ])}
       >
         <div
           className={cx([

@@ -13,6 +13,7 @@ import Visuals from "./Visuals";
 import ClipList from "./ClipList";
 import ClipRibbon from "./ClipRibbon";
 import usePlayer4 from "../../hooks/usePlayer4";
+import routes from "../../routes";
 // import IconButton from "../shared/IconButton";
 // import { ReactComponent as ListIcon } from "../icons/view_column-24px.svg";
 // import { ReactComponent as RibbonIcon } from "../icons/view_module-24px.svg";
@@ -53,10 +54,15 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
       ? controller.stopClip(clipId)
       : controller.startClip(clipId);
 
+  const backTo =
+    audioset.meta.parent_path === "comunidad"
+      ? routes.readme(audioset.id)
+      : audioset.meta.parent_path;
+
   return (
     <Layout
       title={audioset.meta.title}
-      backTo={audioset.meta.parent_path}
+      backTo={backTo}
       visuals={
         audioset && (
           <Visuals audioset={audioset} state={state} keyboard={keyboard} />
@@ -64,12 +70,7 @@ const SimplePlayerScreen: React.FC<Props> = ({ audioset }) => {
       }
     >
       <PromptExit when={isPlaying} message={f("ask-leave-player")} />
-      {isDesktop && (
-        <BackToLink
-          to={audioset.meta.parent_path}
-          label={audioset.meta.title}
-        />
-      )}
+      {isDesktop && <BackToLink to={backTo} label={audioset.meta.title} />}
       <div className="">
         {audioset.tracks?.map((track) => (
           <TrackContainer
