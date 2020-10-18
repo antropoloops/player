@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import useAnalytics from "../hooks/useAnalytics";
 import LoadingScreen from "../components/LoadingScreen";
@@ -12,6 +12,8 @@ import usePage from "../hooks/usePage";
 import PageDesktop from "../components/shared/PageDesktop";
 import { communityProject } from "../audioset/helpers";
 import { useDeviceType } from "../hooks/useDeviceType";
+import { Scroll } from "../components/Scroll";
+import { scrollToTop } from "../hooks/useScrollTop";
 
 type Props = {
   idOrUrl: string;
@@ -33,6 +35,10 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
 
   const pageUrl = audioset?.meta.description.split("cosmic@")[1];
   const { data: page } = usePage(pageUrl || "", { enabled: pageUrl });
+
+  useEffect(() => {
+    isMobile && scrollToTop();
+  }, [idOrUrl, isMobile]);
 
   if (isError) {
     return (
@@ -63,25 +69,41 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
 
   const imageSrc = project?.meta.logo_url;
 
+  const current = project?.audiosets.find((a) => a.publish_path === idOrUrl);
+  const all = project?.audiosets || [];
+
   return (
-    <Layout desktop={mainView}>
-      {imageSrc && (
-        <img className="w-full" alt={project?.meta.title} src={imageSrc} />
-      )}
-      {project?.audiosets.map((reference) => {
-        const isCurrent = reference.publish_path === idOrUrl;
-        return (
-          <React.Fragment key={reference.id}>
-            <ProjectAudiosetItem
-              className={isCurrent ? "bg-gray-lighter" : ""}
-              reference={reference}
-              linkTo={routes.readme(reference.publish_path)}
-            />
-            {isMobile && isCurrent && mainView}
-          </React.Fragment>
-        );
-      })}
-      )
+    <Layout
+      title={current ? current.title : ""}
+      desktop={mainView}
+      backTo={routes.community()}
+    >
+      <Scroll>
+        {imageSrc && (
+          <img
+            className="w-full"
+            alt={project?.meta.title}
+            src={current?.logo_url}
+          />
+        )}
+        {isMobile && mainView}
+        <div className="py-1 px-2 my-1 bg-green text-black font-normal text-base">
+          Comunidad
+        </div>
+        {all.map((reference) => {
+          const isCurrent = reference.publish_path === idOrUrl;
+          return (
+            <React.Fragment key={reference.id}>
+              <ProjectAudiosetItem
+                className={isCurrent ? "bg-gray-lighter" : ""}
+                reference={reference}
+                linkTo={routes.readme(reference.publish_path)}
+              />
+            </React.Fragment>
+          );
+        })}
+        )
+      </Scroll>
     </Layout>
   );
 };
