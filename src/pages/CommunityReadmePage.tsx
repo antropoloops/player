@@ -50,8 +50,11 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
 
   const mainView = (
     <div className={isMobile ? "-mt-2" : ""}>
-      <div className="py-8 px-12 flex justify-center max-w-xs mx-auto">
-        <Link className="w-1/2" to={routes.audioset(idOrUrl)}>
+      <div className="flex justify-center max-w-content p-4">
+        <Link
+          className={"my-2 w-1/3 md:w-1/6 shadow"}
+          to={routes.audioset(idOrUrl)}
+        >
           <img
             className="animate-pulse-slow  hover:animate-none"
             src="/play.png"
