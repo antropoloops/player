@@ -28,6 +28,12 @@ const AudioSample: React.FC<Props> = ({ url, status, onStateChange }) => {
       .then(() => onStateChange?.(true));
   }, [url, onStateChange]);
 
+  useEffect(() => {
+    return () => {
+      playingSample.current?.stop();
+    };
+  }, []);
+
   const play = useCallback(
     (time: number) => {
       if (!sample) return;
