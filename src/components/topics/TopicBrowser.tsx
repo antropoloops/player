@@ -6,6 +6,7 @@ import routes from "../../routes";
 import { ArrowRight, ArrowUp } from "../Icons";
 import HtmlContent from "../HtmlContent";
 import useLocale from "../../hooks/useLocale";
+import ListHeader from "../shared/ListHeader";
 
 type Props = {
   topics: GroupedTopics;
@@ -31,12 +32,7 @@ const TopicBrowser: React.FC<Props> = ({ topics, active, inline }) => {
     <>
       {topics.groups.map((group) => (
         <div data-cy="TopicGroup" key={group.id}>
-          <div
-            data-cy="TopicHeader"
-            className="py-1 px-2 mb-1 bg-green text-black font-normal text-base"
-          >
-            {f(group.id)}
-          </div>
+          <ListHeader label={f(group.id)} />
           {group.topics.map((topic) =>
             active && inline && topic.slug === active.slug ? (
               <div ref={inlineRef} key={topic.slug} className="p-2 text-white">

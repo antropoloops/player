@@ -7,6 +7,7 @@ import { ArrowUp } from "../Icons";
 import { ReactComponent as DownloadIcon } from "../../assets/download.svg";
 import HtmlContent from "../HtmlContent";
 import useLocale from "../../hooks/useLocale";
+import ListHeader from "../shared/ListHeader";
 
 type Props = {
   guides: GroupedGuides;
@@ -32,9 +33,7 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
     <>
       {guides.groups.map((group) => (
         <div key={group.id} className="">
-          <div className="py-1 px-2 mb-1 bg-green text-black font-normal text-base">
-            {f(group.id)}
-          </div>
+          <ListHeader label={f(group.id)} />
           {group.guides.map((guide) =>
             active && inline && guide.slug === active.slug ? (
               <div ref={inlineRef} key={guide.slug} className="p-2 text-white">

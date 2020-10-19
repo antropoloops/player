@@ -6,7 +6,7 @@ type Props = {
 
 const ListHeader: React.FC<Props> = ({ label }) => {
   return (
-    <div className="py-1 px-2 my-1 bg-green text-black font-normal text-base">
+    <div className="py-1 px-2 mb-1 bg-green text-black font-normal text-base">
       {label}
     </div>
   );
