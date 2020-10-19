@@ -11,6 +11,7 @@ import WhitePage from "../shared/PageDesktop";
 import BackToLink from "../BackToLink";
 import HtmlContent from "../HtmlContent";
 import ProjectAudiosetItem from "./ProjectAudiosetItem";
+import ListHeader from "../shared/ListHeader";
 
 type Props = {
   section?: Section;
@@ -48,6 +49,7 @@ const ProjectScreen: React.FC<Props> = ({ section, project, readme }) => {
       {imageSrc && (
         <img className="w-full" alt={project.meta.title} src={imageSrc} />
       )}
+      <ListHeader label={isRoot ? "Proyectos sonoros" : project.meta.title} />
       <ul>
         {references.map((reference) => (
           <ProjectAudiosetItem

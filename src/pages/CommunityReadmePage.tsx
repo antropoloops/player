@@ -14,6 +14,7 @@ import { communityProject } from "../audioset/helpers";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { Scroll } from "../components/Scroll";
 import { scrollToTop } from "../hooks/useScrollTop";
+import ListHeader from "../components/shared/ListHeader";
 
 type Props = {
   idOrUrl: string;
@@ -90,9 +91,7 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
           />
         )}
         {isMobile && mainView}
-        <div className="py-1 px-2 my-1 bg-green text-black font-normal text-base">
-          Comunidad
-        </div>
+        <ListHeader label="Comunidad" />
         {all.map((reference) => {
           const isCurrent = reference.publish_path === idOrUrl;
           return (
