@@ -33,6 +33,8 @@ function loadConfig(id: string): ClipIdToKey | undefined {
   }
 }
 
+const SAVE_KEYS_ENABLED = false;
+
 export class KeyboardController {
   private audiosetId: string;
   private active: boolean = false;
@@ -44,7 +46,7 @@ export class KeyboardController {
   constructor(audioset: Audioset, private control: Control) {
     this.audiosetId = audioset.id;
     const prevConfig = loadConfig(this.audiosetId);
-    if (prevConfig) {
+    if (SAVE_KEYS_ENABLED && prevConfig) {
       this.clipIdToKey = prevConfig;
       Object.keys(prevConfig).forEach((clipId) => {
         const key = prevConfig[clipId];
