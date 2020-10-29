@@ -36,11 +36,14 @@ type Props = {
 };
 
 const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
-  const { ref, width } = useDimensions<HTMLImageElement>();
+  const { ref, width, height } = useDimensions<HTMLImageElement>();
   const { isDesktop } = useDeviceType();
   if (audioset.visuals.mode !== "panel") return null;
 
-  const ratio = width / audioset.visuals.image.size.width;
+  const wratio = width / audioset.visuals.image.size.width;
+  const hratio = height / audioset.visuals.image.size.height;
+  const ratio = Math.min(wratio, hratio);
+
   const clipById = audioset.index.clipById;
 
   const { clips } = state.status;
@@ -66,8 +69,16 @@ const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
         ))}
       </div>
 
-      <div className="relative">
-        <img ref={ref} src={audioset.visuals.image.url} alt="fondo" />
+      <div
+        className="flex-auto relative"
+        style={{ minHeight: 0, maxHeight: "100%" }}
+      >
+        <img
+          className="max-h-full"
+          ref={ref}
+          src={audioset.visuals.image.url}
+          alt="fondo"
+        />
         {playingClips.map((clip) => (
           <PlayingClip
             key={clip.id}
