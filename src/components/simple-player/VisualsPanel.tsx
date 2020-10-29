@@ -51,9 +51,11 @@ const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
 
   const radius = Math.floor(120 * ratio);
 
+  const gridCols = audioset.tracks.length <= 8 ? "grid-cols-8" : "grid-cols-12";
+
   return (
     <div className="h-full w-full flex flex-col items-start">
-      <div className="w-full grid grid-cols-8">
+      <div className={"w-full grid " + gridCols}>
         {audioset.tracks.map((track) => (
           <TrackHeader
             key={track.id}

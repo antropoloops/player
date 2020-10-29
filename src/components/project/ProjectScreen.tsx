@@ -7,7 +7,7 @@ import useLocale from "../../hooks/useLocale";
 import usePage from "../../hooks/usePage";
 import { Section } from "../../api/sections";
 import { Page } from "../../api/pages";
-import WhitePage from "../shared/PageDesktop";
+import PageDesktop from "../shared/PageDesktop";
 import BackToLink from "../BackToLink";
 import HtmlContent from "../HtmlContent";
 import ProjectAudiosetItem from "./ProjectAudiosetItem";
@@ -38,7 +38,7 @@ const ProjectScreen: React.FC<Props> = ({ section, project, readme }) => {
     <Layout
       title={isRoot ? FMT(section?.id || "") : project.meta.title}
       backTo={isRoot ? routes.root() : routes.projects()}
-      desktop={<WhitePage page={currentPage} />}
+      desktop={<PageDesktop page={currentPage} />}
     >
       {!isRoot && !isMobile && section?.id !== "community" && (
         <BackToLink
