@@ -8,7 +8,7 @@ import { ReactComponent as FullscreenIcon } from "../icons/fullscreen-24px.svg";
 import { ReactComponent as FullscreenExitIcon } from "../icons/fullscreen_exit-24px.svg";
 import { useFullscreen } from "../../hooks/useFullscreen";
 import { Audioset } from "../../audioset";
-import { KeyboardController } from "../../player/KeyboardController";
+import { KeyboardController } from "../../player4";
 import useAudioOutput from "../../hooks/useAudioOutput";
 
 type Props = {

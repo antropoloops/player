@@ -1,6 +1,6 @@
 import React from "react";
 import { Audioset } from "../../audioset";
-import { KeyboardController } from "../../player/KeyboardController";
+import { KeyboardController } from "../../player4";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { State4 } from "../../player4";
 import Controls from "./Controls";

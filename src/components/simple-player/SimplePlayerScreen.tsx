@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Audioset } from "../../audioset";
-import { KeyboardController } from "../../player/KeyboardController";
+import { KeyboardController } from "../../player4";
 import Layout from "../../components/layout/Layout";
 import useAutoUnlockAudio from "../../hooks/useAutoUnlockAudio";
 import { useDeviceType } from "../../hooks/useDeviceType";

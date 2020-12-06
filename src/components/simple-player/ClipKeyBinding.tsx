@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import cc from "classcat";
-import { KeyboardController } from "../../player/KeyboardController";
+import { KeyboardController } from "../../player4";
 
 type Props = {
   className?: string;

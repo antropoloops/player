@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import cc from "classcat";
 import { Clip as ClipData } from "../../audioset";
-import { KeyboardController } from "../../player/KeyboardController";
 import ClipKeyBinding from "./ClipKeyBinding";
-import { ClipStatus4 } from "../../player4";
+import { ClipStatus4, KeyboardController } from "../../player4";
 import Audio from "./Audio";
 
 type Props = {
