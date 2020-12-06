@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import routes from "./routes";
 
@@ -24,89 +24,99 @@ import TopicShowPage from "./pages/TopicShowPage";
 import PlayNextPage from "./pages/new/PlayNextPage";
 import PlayRibbonPage from "./pages/new/PlayRibbonPage";
 
+import LoadingScreen from "./components/LoadingScreen";
+
+const Archive = lazy(() => import("./@archive"));
+
 const Router = () => (
   <BrowserRouter>
-    <Switch>
-      <Route exact={true} path={routes.root()} render={() => <HomePage />} />
+    <Suspense fallback={<LoadingScreen />}>
+      <Switch>
+        <Route exact path={routes.root()} render={() => <HomePage />} />
 
-      {/** PROYECTOS Y PLAYER **/}
-      <Route exact={true} path={routes.projects()}>
-        <ProjectShowPage idOrUrl="index" />
-      </Route>
-      <Route exact={true} path={routes.community()}>
-        <ProjectShowPage idOrUrl="comunidad" sectionName="community" readme />
-      </Route>
-      <Route
-        exact={true}
-        path={routes.project(":id")}
-        render={({ match }) => <ProjectShowPage idOrUrl={match.params.id} />}
-      />
-      <Route
-        exact={true}
-        path={routes.readme(":id")}
-        render={({ match }) => <AudiosetReadmePage idOrUrl={match.params.id} />}
-      />
-      <Route
-        exact={true}
-        path={routes.audioset(":id")}
-        render={({ match }) => <AudiosetShowPage idOrUrl={match.params.id} />}
-      />
-      <Route
-        exact={true}
-        path={routes.testSet()}
-        render={() => <AudiosetShowPage idOrUrl={getUrlFromParams()} />}
-      />
+        {/** PROYECTOS Y PLAYER **/}
+        <Route exact path={routes.projects()}>
+          <ProjectShowPage idOrUrl="index" />
+        </Route>
+        <Route exact path={routes.community()}>
+          <ProjectShowPage idOrUrl="comunidad" sectionName="community" readme />
+        </Route>
+        <Route
+          exact
+          path={routes.project(":id")}
+          render={({ match }) => <ProjectShowPage idOrUrl={match.params.id} />}
+        />
+        <Route
+          exact
+          path={routes.readme(":id")}
+          render={({ match }) => (
+            <AudiosetReadmePage idOrUrl={match.params.id} />
+          )}
+        />
+        <Route
+          exact
+          path={routes.audioset(":id")}
+          render={({ match }) => <AudiosetShowPage idOrUrl={match.params.id} />}
+        />
+        <Route
+          exact
+          path={routes.testSet()}
+          render={() => <AudiosetShowPage idOrUrl={getUrlFromParams()} />}
+        />
 
-      {/** LEGACY /sets route - redirect to /proyectos */}
-      <Route exact={true} path={routes.sets()}>
-        <Redirect to={routes.projects()} />
-      </Route>
-      <Route
-        exact={true}
-        path="/sets/:id"
-        render={({ match }) => (
-          <Redirect to={routes.project(match.params.id)} />
-        )}
-      />
-      <Route
-        exact={true}
-        path="/set/:id"
-        render={({ match }) => (
-          <Redirect to={routes.project(match.params.id)} />
-        )}
-      />
+        {/** LEGACY /sets route - redirect to /proyectos */}
+        <Route exact path={routes.sets()}>
+          <Redirect to={routes.projects()} />
+        </Route>
+        <Route
+          exact
+          path="/sets/:id"
+          render={({ match }) => (
+            <Redirect to={routes.project(match.params.id)} />
+          )}
+        />
+        <Route
+          exact
+          path="/set/:id"
+          render={({ match }) => (
+            <Redirect to={routes.project(match.params.id)} />
+          )}
+        />
 
-      {/* TOPICS */}
-      <Route exact={true} path={routes.topics()}>
-        <TopicListPage />
-      </Route>
-      <Route exact={true} path={routes.topic(":id")}>
-        <TopicShowPage />
-      </Route>
+        {/* TOPICS */}
+        <Route exact path={routes.topics()}>
+          <TopicListPage />
+        </Route>
+        <Route exact path={routes.topic(":id")}>
+          <TopicShowPage />
+        </Route>
 
-      {/* GUIDES */}
-      <Route exact={true} path={routes.guides()}>
-        <GuideListPage />
-      </Route>
-      <Route exact={true} path={routes.guide(":id")}>
-        <GuideShowPage />
-      </Route>
-      <Route exact={true} path={routes.file(":id")}>
-        <GuideShowPage />
-      </Route>
+        {/* GUIDES */}
+        <Route exact path={routes.guides()}>
+          <GuideListPage />
+        </Route>
+        <Route exact path={routes.guide(":id")}>
+          <GuideShowPage />
+        </Route>
+        <Route exact path={routes.file(":id")}>
+          <GuideShowPage />
+        </Route>
 
-      <Route path={routes.about()} exact={true} component={AboutPage} />
+        <Route path={routes.archives() + "*"} exact component={Archive} />
 
-      {/* EXPERIMENTAL */}
-      <Route exact={true} path={routes.player(":id")}>
-        <PlayNextPage />
-      </Route>
-      <Route exact={true} path={"/play-ribbon/:id"}>
-        <PlayRibbonPage />
-      </Route>
+        <Route path={routes.about()} exact component={AboutPage} />
 
-      <Route component={NotFoundPage} />
-    </Switch>
+        {/* EXPERIMENTAL */}
+        <Route exact path={routes.player(":id")}>
+          <PlayNextPage />
+        </Route>
+        <Route exact path={"/play-ribbon/:id"}>
+          <PlayRibbonPage />
+        </Route>
+
+        <Route component={NotFoundPage} />
+      </Switch>
+    </Suspense>
   </BrowserRouter>
 );
 

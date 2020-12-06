@@ -16,6 +16,10 @@ const routes = {
   guides: () => `/guias`,
   guide: (id: string) => `/guias/${id}`,
   file: (id: string) => `/ficheros/${id}`,
+
+  archives: () => `/archivo`,
+  archive: (id: string) => `/archivo/${id}`,
+  archiveOffline: () => `/archivo/offline`,
 };
 
 export default routes;

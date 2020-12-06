@@ -8,10 +8,12 @@ import GuideBrowser from "../components/guides/GuideBrowser";
 import { useDeviceType } from "../hooks/useDeviceType";
 import WhitePage from "../components/shared/PageDesktop";
 import { Readme } from "../components/shared/Readme";
+import useAnalytics from "../hooks/useAnalytics";
 
 type Props = {};
 
 const GuideListPage: React.FC<Props> = () => {
+  useAnalytics();
   const { formatMessage: f } = useLocale();
   const { data: guides } = useQuery({
     queryKey: ["guides"],
