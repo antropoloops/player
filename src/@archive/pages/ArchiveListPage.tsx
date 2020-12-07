@@ -7,7 +7,7 @@ import routes from "../../routes";
 
 type Props = {};
 
-const ArchiveIndexPage: React.FC<Props> = () => {
+const ArchiveListPage: React.FC<Props> = () => {
   const { formatMessage: f } = useLocale();
   const section = {
     id: "yours",
@@ -31,4 +31,4 @@ const ArchiveIndexPage: React.FC<Props> = () => {
   );
 };
 
-export default ArchiveIndexPage;
+export default ArchiveListPage;

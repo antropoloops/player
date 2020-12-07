@@ -1,33 +1,54 @@
 import React from "react";
-import { ArrowRight } from "../../components/Icons";
+import { FolderOpenIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
-import MediaObject from "../../components/MediaObject";
 import useLocale from "../../hooks/useLocale";
-import routes from "../../routes";
+import { useDropzone } from "react-dropzone";
+import {
+  createAudioThumbnail,
+  listAudioFiles,
+  saveOfflineMediaFiles,
+} from "../offline";
+import { useQuery } from "react-query";
+import useSimpleAudioContext from "../hooks/useSimpleAudioContext";
+import MediaFileItem from "../components/AudioItem";
 
 type Props = {};
 
 const OfflineArchivePage: React.FC<Props> = () => {
-  const { formatMessage: f } = useLocale();
-  const section = {
-    id: "yours",
-    to: routes.archive("local"),
-    image_url: "",
-  };
+  const ctx = useSimpleAudioContext();
+
+  const { data: files, refetch } = useQuery(["offline-files"], listAudioFiles, {
+    staleTime: Infinity,
+  });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: async (files: File[]) => {
+      const saved = await saveOfflineMediaFiles(files);
+      for (const item of saved) {
+        await createAudioThumbnail(item, ctx);
+      }
+      await refetch();
+    },
+    accept: ["audio/*"],
+  });
   return (
-    <Layout>
-      <MediaObject
-        className="bg-gray-light group max-w-full hover:bg-gray-lighter"
-        key={section.id}
-        to={section.to}
-        image={section.image_url}
-        alt={f(section.id)}
-      >
-        <div className="w-2/3 flex items-center p-2 group-hover:text-white-light">
-          <span className="flex-grow text-lg truncate">{f(section.id)}</span>
-          <ArrowRight className="text-white-dark flex-shrink-0 ml-2 my-2 group-hover:text-white" />
+    <Layout
+      desktop={
+        <div className="flex max-w-content p-4">
+          <button
+            className="flex items-center p-1 bg-yellow-300 bg-opacity-70 text-ag-dark rounded-full focus:outline-none"
+            {...getRootProps()}
+          >
+            <input {...getInputProps()} />
+            <FolderOpenIcon className="icon ml-1 mr-2 w-4 h-4" />
+            <label className="mr-2">Añadir audio</label>
+          </button>
         </div>
-      </MediaObject>
+      }
+    >
+      {files &&
+        files.map((file) => (
+          <MediaFileItem key={file.id} file={file} to={"/dasdsa"} />
+        ))}
     </Layout>
   );
 };
