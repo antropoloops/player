@@ -1,5 +1,23 @@
 # TimeTracking
 
+## 2020/12/6 6h
+
+@archive module
+
+## 2020/11/27 6h
+
+Range audio editor POC
+
+## 2020/11/28 6h
+
+Offline audio editor
+
+## 2020/12/2 6h
+
+Display audio waves
+
+# ========= NEW DEVELOPMENT
+
 ## 2020/10/13 [Dani: 4h]
 
 ## 2020/09/19 [Dani: 4h]

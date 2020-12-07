@@ -33,6 +33,8 @@ const OfflineAudioPage: React.FC<Props> = () => {
 
   return (
     <Layout
+      backTo={routes.archiveOffline()}
+      title="Joder"
       desktop={
         file && (
           <div className="p-4 text-yellow-400">
