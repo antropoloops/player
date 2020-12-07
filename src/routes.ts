@@ -20,6 +20,7 @@ const routes = {
   archives: () => `/archivo`,
   archive: (id: string) => `/archivo/${id}`,
   archiveOffline: () => `/archivo/offline`,
+  archiveOfflineMedia: (id: string) => `/archivo/offline/${id}`,
 };
 
 export default routes;
