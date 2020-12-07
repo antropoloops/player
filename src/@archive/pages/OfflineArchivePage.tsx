@@ -9,7 +9,6 @@ import {
 } from "../offline";
 import { useQuery } from "react-query";
 import useSimpleAudioContext from "../hooks/useSimpleAudioContext";
-import MediaFileItem from "../components/AudioItem";
 import classcat from "classcat";
 import routes from "../../routes";
 import AudioFileList from "../components/AudioFileList";
@@ -57,6 +56,8 @@ const OfflineArchivePage: React.FC<Props> = () => {
         </div>
       }
     >
+      <img src="/images/sections/community.jpg" alt="das" />
+      <h2 className="p-1 mb-1 bg-yellow-400 text-bg-dark">Archivo offline</h2>
       {files && (
         <AudioFileList files={files} toPath={routes.archiveOfflineMedia} />
       )}

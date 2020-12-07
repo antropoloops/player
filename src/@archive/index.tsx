@@ -4,6 +4,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import routes from "../routes";
 import ArchiveListPage from "./pages/ArchiveListPage";
 import OfflineArchivePage from "./pages/OfflineArchivePage";
+import OfflineAudioPage from "./pages/OfflineAudioPage";
 
 const Archive = () => (
   <Suspense fallback={<LoadingScreen />}>
@@ -13,6 +14,11 @@ const Archive = () => (
         exact
         path={routes.archiveOffline()}
         component={OfflineArchivePage}
+      />
+      <Route
+        exact
+        path={routes.archiveOfflineMedia(":id")}
+        component={OfflineAudioPage}
       />
     </Switch>
   </Suspense>

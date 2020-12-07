@@ -27,10 +27,15 @@ export function usePlayBuffer(
     }
   }, [playing, start, stop]);
 
+  useEffect(() => {
+    stop();
+    setPlay(false);
+  }, [buffer, stop]);
+
   return [setPlay, { playing, start, stop }];
 }
 
-export function useBufferPlayer(buffer?: AudioBuffer, region?: Region) {
+function useBufferPlayer(buffer?: AudioBuffer, region?: Region) {
   const ctx = useSimpleAudioContext();
   const playingSample = useRef<AudioBufferSourceNode | null>(null);
   const output = ctx.destination;
