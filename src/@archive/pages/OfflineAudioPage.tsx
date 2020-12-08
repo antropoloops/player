@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/layout/Layout";
-import { getOfflineMediaFile, listAudioFiles } from "../offline";
+import { listAudioFiles } from "../offline";
 import { useQuery } from "react-query";
 import routes from "../../routes";
 import AudioFileList from "../components/AudioFileList";
@@ -10,6 +10,7 @@ import useAudioBuffer from "../hooks/useAudioBuffer";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
 import { formatTime } from "../helpers/timeHelpers";
 import { PlayCircleIcon, StopCircleIcon } from "../../components/icons/Icons";
+import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 
 type Props = {};
 
@@ -18,11 +19,7 @@ const OfflineAudioPage: React.FC<Props> = () => {
   const { data: files } = useQuery(["offline-audio-files"], listAudioFiles, {
     staleTime: Infinity,
   });
-  const { data: file } = useQuery(
-    ["offline-fileData-file", { id: params.id }],
-    (_, { id }) => getOfflineMediaFile(id),
-    { staleTime: Infinity }
-  );
+  const { data: file } = useOfflineMediaFileQuery(params.id);
   const { buffer } = useAudioBuffer(file?.data.blob);
   const [play, { playing }] = usePlayBuffer(buffer, {
     offset: 0,

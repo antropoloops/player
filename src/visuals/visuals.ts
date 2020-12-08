@@ -2,7 +2,7 @@ import * as topojson from "topojson";
 
 import { getAlbumHeight } from "./dimensions";
 
-import { Audioset, VisualsMetadata } from "../audioset";
+import { Audioset, safeFindClipById, VisualsMetadata } from "../audioset";
 import { Dimension, Display } from "./display";
 import drawAlbum from "./drawAlbum";
 import drawCircle from "./drawCircle";
@@ -74,7 +74,7 @@ export class Visuals {
   }
 
   public show(name: string) {
-    const clip = this.set.index.clipById[name];
+    const clip = safeFindClipById(this.set, name);
     if (!clip) {
       return;
     }

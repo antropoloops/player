@@ -1,5 +1,5 @@
 import debug from "debug";
-import { Audioset, AudiosetIndexes, isAudioset } from "./Audioset";
+import { Audioset, isAudioset } from "./Audioset";
 import { Bundle, isBundle } from "./Bundle";
 
 const log = debug("atpls:audioset");
@@ -13,7 +13,6 @@ export function createAudioset(bundle: any): Bundle {
 
   if (isAudioset(bundle)) {
     migrateOrDerive(bundle);
-    createIndices(bundle);
   }
   return bundle;
 }
@@ -29,22 +28,4 @@ function migrateOrDerive(audioset: Audioset) {
     clip.audio.volume = clip.audio.volume || 0.7;
     clip.audio.durationSeconds = (60 * clip.audio.beats) / bpm;
   });
-}
-
-function createIndices(audioset: Audioset) {
-  const index: AudiosetIndexes = {
-    clipById: {},
-    trackById: {},
-    clipIdsOfTrack: {},
-    trackIdOfClip: {},
-  };
-  audioset.clips.forEach((clip) => {
-    index.clipById[clip.id] = clip;
-    index.trackIdOfClip[clip.id] = clip.trackId;
-  });
-  audioset.tracks.forEach((track) => {
-    index.trackById[track.id] = track;
-    index.clipIdsOfTrack[track.id] = track.clipIds;
-  });
-  audioset.index = index;
 }

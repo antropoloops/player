@@ -1,4 +1,4 @@
-import { Audioset } from "../audioset";
+import { Audioset, safeFindClipById, safeFindTrackById } from "../audioset";
 
 type ClipPlayEffect = {
   type: "clip:play";
@@ -34,8 +34,8 @@ export type Command = (audioset: Audioset, status: Status4) => Effect[];
 
 export function startClipPoly(clipId: string, time: number): Command {
   return (audioset, status) => {
-    const { trackId } = audioset.index.clipById[clipId];
-    const { clipIds } = audioset.index.trackById[trackId];
+    const { trackId } = safeFindClipById(audioset, clipId);
+    const { clipIds } = safeFindTrackById(audioset, trackId);
 
     const actions: Effect[] = [];
 
@@ -60,7 +60,7 @@ export function startClipPoly(clipId: string, time: number): Command {
 
 export function startClipMono(clipId: string, time: number): Command {
   return (audioset, status) => {
-    const { trackId } = audioset.index.clipById[clipId];
+    const { trackId } = safeFindClipById(audioset, clipId);
 
     const actions: Effect[] = [];
 
@@ -91,7 +91,7 @@ export function startClipMono(clipId: string, time: number): Command {
 
 export function stopClip(clipId: string, time: number): Command {
   return (audioset, status) => {
-    const { trackId } = audioset.index.clipById[clipId];
+    const { trackId } = safeFindClipById(audioset, clipId);
 
     const actions: Effect[] = [];
     // stop clip if playing
@@ -109,7 +109,7 @@ export function stopClip(clipId: string, time: number): Command {
 export function stopTrack(trackId: string, time: number): Command {
   return (audioset, status) => {
     const actions: Effect[] = [];
-    const { clipIds } = audioset.index.trackById[trackId];
+    const { clipIds } = safeFindTrackById(audioset, trackId);
 
     // stop track if playing
     if (status.tracks[trackId].playing) {

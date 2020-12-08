@@ -1,7 +1,7 @@
 import classcat from "classcat";
 import React from "react";
 import useDimensions from "react-cool-dimensions";
-import { Audioset, Clip, Track } from "../../audioset";
+import { Audioset, Clip, safeFindClipById, Track } from "../../audioset";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { State4 } from "../../player4";
 import Spinner from "../Spinner";
@@ -44,13 +44,11 @@ const SimplePanelVisuals: React.FC<Props> = ({ audioset, state }) => {
   const hratio = height / audioset.visuals.image.size.height;
   const ratio = Math.min(wratio, hratio);
 
-  const clipById = audioset.index.clipById;
-
   const { clips } = state.status;
 
   const playingClips = Object.keys(clips)
     .filter((clipId) => clips[clipId]?.playing)
-    .map((clipId) => clipById[clipId]);
+    .map((clipId) => safeFindClipById(audioset, clipId));
 
   const radius = Math.floor(120 * ratio);
 

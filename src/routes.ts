@@ -21,6 +21,14 @@ const routes = {
   archive: (id: string) => `/archivo/${id}`,
   archiveOffline: () => `/archivo/offline`,
   archiveOfflineMedia: (id: string) => `/archivo/offline/${id}`,
+
+  remix: () => `/remezcla`,
+  remixNew: () => `/remezcla/nuevo`,
+  remixPlay: (id: string) => `/remezcla/${id}`,
+  remixEdit: (id: string) => `/remezcla/editar/${id}`,
+  remixEditItem: (id: string, item: string) => `/remezcla/editar/${id}/${item}`,
+  remixEditItemChild: (id: string, item: string, childId: string) =>
+    `/remezcla/editar/${id}/${item}/${childId}`,
 };
 
 export default routes;

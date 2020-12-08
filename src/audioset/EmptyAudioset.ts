@@ -2,7 +2,7 @@ import { Audioset } from "./Audioset";
 
 export const EmptyAudioset: Audioset = {
   type: "audioset",
-  id: "none",
+  id: "",
   meta: {
     title: "",
     description: "",
@@ -34,10 +34,4 @@ export const EmptyAudioset: Audioset = {
   },
   tracks: [],
   clips: [],
-  index: {
-    clipById: {},
-    trackById: {},
-    clipIdsOfTrack: {},
-    trackIdOfClip: {},
-  },
 };

@@ -1,6 +1,21 @@
+// Using material icons https://material.io/resources/icons/?style=baseline
 export { ReactComponent as AddIcon } from "./add_circle_outline-24px.svg";
 export { ReactComponent as CloseIcon } from "./close-24px.svg";
+export { ReactComponent as CheckIcon } from "./check-24px.svg";
+export { ReactComponent as CloudIcon } from "./cloud-24px.svg";
+export { ReactComponent as CloudDoneIcon } from "./cloud_done-24px.svg";
+export { ReactComponent as CloudDownloadIcon } from "./cloud_download-24px.svg";
+export { ReactComponent as CloudOffIcon } from "./cloud_off-24px.svg";
+export { ReactComponent as CloudQueueIcon } from "./cloud_queue-24px.svg";
+export { ReactComponent as CloudUploadIcon } from "./cloud_upload-24px.svg";
 export { ReactComponent as TuneIcon } from "./tune-24px.svg";
 export { ReactComponent as FolderOpenIcon } from "./folder_open-24px.svg";
+export { ReactComponent as PauseIcon } from "./pause-24px.svg";
+export { ReactComponent as PlayIcon } from "./play_arrow-24px.svg";
 export { ReactComponent as PlayCircleIcon } from "./play_circle_outline-24px.svg";
 export { ReactComponent as StopCircleIcon } from "./stop_circle-24px.svg";
+export { ReactComponent as EditIcon } from "./create-24px.svg";
+export { ReactComponent as DoneIcon } from "./done-24px.svg";
+export { ReactComponent as ArrowBackIcon } from "./arrow_back-24px.svg";
+export { ReactComponent as ArrowForwardIcon } from "./arrow_forward-24px.svg";
+export { ReactComponent as RemoveCircleIcon } from "./remove_circle_outline-24px.svg";

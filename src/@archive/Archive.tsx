@@ -6,7 +6,11 @@ import ArchiveListPage from "./pages/ArchiveListPage";
 import OfflineArchivePage from "./pages/OfflineArchivePage";
 import OfflineAudioPage from "./pages/OfflineAudioPage";
 
-const Archive = () => (
+type Props = {
+  fallback: React.ComponentType<any>;
+};
+
+const Archive = ({ fallback: Fallback }: Props) => (
   <Suspense fallback={<LoadingScreen />}>
     <Switch>
       <Route exact path={routes.archives()} component={ArchiveListPage} />
@@ -20,6 +24,7 @@ const Archive = () => (
         path={routes.archiveOfflineMedia(":id")}
         component={OfflineAudioPage}
       />
+      <Route component={Fallback} />
     </Switch>
   </Suspense>
 );

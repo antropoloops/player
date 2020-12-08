@@ -4,7 +4,7 @@ import { useGestureResponder } from "react-gesture-responder";
 import { useQuery } from "react-query";
 import Layout from "../../components/layout/Layout";
 import API from "../../api";
-import { Audioset, Track as TrackData } from "../../audioset";
+import { Audioset, safeFindClipById, Track as TrackData } from "../../audioset";
 
 const url =
   "https://antropoloops-production.s3.eu-west-3.amazonaws.com/files/continentes.audioset.json";
@@ -39,7 +39,7 @@ const Track: React.FC<TrackProps> = ({ track, audioset }) => {
   const [clipId, setClipId] = useState("");
   const [left, setLeft] = useState(30);
 
-  const label = clipId ? audioset.index.clipById[clipId].title : track.name;
+  const label = clipId ? safeFindClipById(audioset, clipId).title : track.name;
 
   const Selector = () => (
     <>
@@ -57,7 +57,7 @@ const Track: React.FC<TrackProps> = ({ track, audioset }) => {
             alt="cover"
             width="300"
             height="300"
-            src={audioset.index.clipById[id].resources.cover.thumb}
+            src={safeFindClipById(audioset, id).resources.cover.thumb}
           />
           <svg viewBox="0 0 1 1" />
         </button>
@@ -90,7 +90,7 @@ const Track: React.FC<TrackProps> = ({ track, audioset }) => {
             alt="cover"
             width="300"
             height="300"
-            src={audioset.index.clipById[clipId].resources.cover.thumb}
+            src={safeFindClipById(audioset, clipId).resources.cover.thumb}
           />
         )}
         <svg viewBox="0 0 1 1" />

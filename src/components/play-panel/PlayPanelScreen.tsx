@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import Layout from "../layout/Layout";
 import HtmlContent from "../HtmlContent";
-import { Clip, Track, Audioset } from "../../audioset";
+import { Clip, Track, Audioset, safeFindClipById } from "../../audioset";
 import cx from "classcat";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import PanelVisuals from "./PanelVisuals";
@@ -75,7 +75,7 @@ const PlayPanelScreen: React.FC<Props> = ({ audioset }) => {
               <ClipView
                 key={clipId}
                 track={track}
-                clip={audioset.index.clipById[clipId]}
+                clip={safeFindClipById(audioset, clipId)}
                 isOpen={playing.clipId === clipId}
                 start={() => dispatch({ type: "start", clipId })}
                 stop={() => dispatch({ type: "stop", clipId })}

@@ -19,7 +19,6 @@ module.exports = {
           lighter: "#757575",
         },
         green: "#7ffa0b",
-        red: "#dd0000",
       },
       spacing: {
         micro: "0.125rem",

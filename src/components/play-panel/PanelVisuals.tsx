@@ -1,6 +1,6 @@
 import React from "react";
 import useDimensions from "react-cool-dimensions";
-import { Audioset, Clip } from "../../audioset";
+import { Audioset, Clip, safeFindClipById } from "../../audioset";
 import Spinner from "../Spinner";
 
 type Props = {
@@ -14,7 +14,7 @@ const PanelVisuals: React.FC<Props> = ({ audioset, activeClipId }) => {
 
   const ratio = width / audioset.visuals.image.size.width;
 
-  const clip = activeClipId && audioset.index.clipById[activeClipId];
+  const clip = activeClipId && safeFindClipById(audioset, activeClipId);
 
   const radius = Math.floor(120 * ratio);
 

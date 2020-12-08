@@ -8,12 +8,14 @@ type Props = {
   track: Track;
   status: TrackStatus4;
   onStopTrack: () => void;
+  onClick?: () => void;
 };
 const SimpleTrack: React.FC<Props> = ({
   track,
   status,
   onStopTrack,
   children,
+  onClick,
 }) => {
   const isTrackPlaying = status?.playing;
   return (
@@ -29,7 +31,13 @@ const SimpleTrack: React.FC<Props> = ({
           isTrackPlaying ? "animate-pulse" : "",
         ])}
       >
-        <h3 className="text-white-light flex-grow">{track.name}</h3>
+        <button
+          disabled={!onClick}
+          onClick={onClick}
+          className="text-left text-white-light flex-grow"
+        >
+          {track.name}
+        </button>
         {isTrackPlaying && (
           <button
             className="flex-shrink-0 rounded-full bg-gray-light bg-opacity-0 hover:bg-opacity-25"

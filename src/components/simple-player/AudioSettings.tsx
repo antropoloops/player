@@ -42,7 +42,7 @@ const AudioSettings: React.FC<Props> = ({ onClose }) => {
           onClick={() => dispatch("press")}
         >
           {state === "empty" ? (
-            <RecordIcon className="fill-current text-red" />
+            <RecordIcon className="fill-current text-red-700" />
           ) : state === "recorded" ? (
             <PlayIcon className="fill-current text-green" />
           ) : state === "playing" ? (

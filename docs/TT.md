@@ -1,5 +1,11 @@
 # TimeTracking
 
+## 2020/12/8 8h
+
+## 2020/12/7 8h
+
+@remix
+
 ## 2020/12/6 6h
 
 @archive module
@@ -16,7 +22,7 @@ Offline audio editor
 
 Display audio waves
 
-# ========= NEW DEVELOPMENT
+# ========= NEW DEVELOPMENT ==============
 
 ## 2020/10/13 [Dani: 4h]
 

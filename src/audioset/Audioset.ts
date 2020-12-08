@@ -11,7 +11,6 @@ export interface Audioset extends Bundle {
   clips: Clip[];
   audio: AudioMetadata;
   visuals: VisualsMetadata;
-  index: AudiosetIndexes;
 }
 
 export function isAudioset(audioset: Bundle): audioset is Audioset {
@@ -21,9 +20,14 @@ export function isProject(audioset: Bundle): audioset is Project {
   return audioset.type === "project";
 }
 
-export interface AudiosetIndexes {
-  clipById: Record<string, Clip>;
-  trackById: Record<string, Track>;
-  clipIdsOfTrack: Record<string, string[]>;
-  trackIdOfClip: Record<string, string>;
+export function safeFindClipById(audioset: Audioset, clipId: string) {
+  return audioset.clips.find((c) => c.id === clipId) as Clip;
+}
+
+export function safeFindTrackById(audioset: Audioset, trackId: string) {
+  return audioset.tracks.find((t) => t.id === trackId) as Track;
+}
+
+export function findClipsOfTrack(audioset: Audioset, track: Track) {
+  return track.clipIds.map((clipId) => safeFindClipById(audioset, clipId));
 }

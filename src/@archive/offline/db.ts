@@ -1,5 +1,8 @@
 import { openDB, DBSchema, IDBPDatabase } from "idb";
 
+const DB_NAME = "atpls-archive";
+let db: OfflineDB | undefined;
+
 export type OfflineMediaFile = {
   id: string;
   name: string;
@@ -28,10 +31,6 @@ interface OfflineDatabaseSchema extends DBSchema {
 }
 
 export type OfflineDB = IDBPDatabase<OfflineDatabaseSchema>;
-
-const DB_NAME = "atpls-offline-db";
-
-let db: OfflineDB | undefined;
 
 export async function getDatabase() {
   db = db || (await openOfflineDatabase());

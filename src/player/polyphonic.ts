@@ -1,4 +1,4 @@
-import { Track } from "../audioset";
+import { safeFindTrackById, Track } from "../audioset";
 import { TickAction } from "./actions";
 import {
   StartClip,
@@ -17,7 +17,7 @@ export function process(
   time: number,
   event: PlayerEvent,
   state: PlayerState,
-  trackDataById: Record<string, Track>
+  trackDataById: (trackId: string) => Track
 ) {
   const commands: PlayerCommand[] = [];
   const { clips, tracks } = state;
@@ -29,7 +29,7 @@ export function process(
       commands.push(StartClip(time, trackId, clipId));
 
       // stop other clips in the same track
-      const track = trackDataById[trackId];
+      const track = trackDataById(trackId);
       track.clipIds.forEach((clipId) => {
         if (clipId !== event.clipId && clips[clipId]?.playing) {
           commands.push(StopClip(time, trackId, clipId));
@@ -49,7 +49,7 @@ export function process(
     }
   } else if (event.type === "track") {
     const { trackId, trigger } = event;
-    const track = trackDataById[trackId];
+    const track = trackDataById(trackId);
     if (trigger === "off") {
       commands.push(StopTrack(time, trackId));
       track.clipIds.forEach((clipId) => {
@@ -79,12 +79,16 @@ export default function polyphonic(
 
   const time = action.time + quantizedOffset;
 
-  const trackDataById = state.audioset.index.trackById;
   const lastCommand = state.commands.length;
 
   // TODO: repeated code in polyphonic. Idea: commands = createCommands(state.queued, process(time, state))
   const commands = state.queued.reduce((commands, event) => {
-    return [...commands, ...process(time, event, state, trackDataById)];
+    return [
+      ...commands,
+      ...process(time, event, state, (trackId: string) =>
+        safeFindTrackById(state.audioset, trackId)
+      ),
+    ];
   }, [] as PlayerCommand[]);
   // TODO: abstract code
   const clips = { ...state.clips };

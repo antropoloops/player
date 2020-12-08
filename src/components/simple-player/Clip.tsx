@@ -4,14 +4,16 @@ import { Clip as ClipData } from "../../audioset";
 import ClipKeyBinding from "./ClipKeyBinding";
 import { ClipStatus4, KeyboardController } from "../../player4";
 import Audio from "./Audio";
+import { useStorageImage } from "../../@remix/hooks/useStorage";
 
 type Props = {
   className?: string;
-  keyboard: KeyboardController;
+  keyboard?: KeyboardController;
   clip: ClipData;
   status: ClipStatus4;
   onClick: () => void;
   isStream: boolean;
+  skipAudio?: boolean;
 };
 
 const Clip: React.FC<Props> = ({
@@ -21,7 +23,9 @@ const Clip: React.FC<Props> = ({
   status,
   keyboard,
   isStream,
+  skipAudio,
 }) => {
+  const { image } = useStorageImage(clip.resources.cover.small);
   const [ready, setReady] = useState(false);
 
   return (
@@ -43,11 +47,12 @@ const Clip: React.FC<Props> = ({
         onClick={onClick}
       >
         <svg viewBox="0 0 1 1" />
-        {clip.resources.cover.small && (
+
+        {image && (
           <img
             className={cc([ready ? "opacity-100" : "opacity-25"])}
             alt={clip.name}
-            src={clip.resources.cover.small}
+            src={image.src}
           />
         )}
       </div>
@@ -71,22 +76,26 @@ const Clip: React.FC<Props> = ({
           >
             {clip.name}
           </h3>
-          <div className="flex items-center flex-shrink-0">
-            <ClipKeyBinding
-              className="flex-shrink-0 m-1"
-              clipId={clip.id}
-              keyboard={keyboard}
-            />
-          </div>
+          {keyboard && (
+            <div className="flex items-center flex-shrink-0">
+              <ClipKeyBinding
+                className="flex-shrink-0 m-1"
+                clipId={clip.id}
+                keyboard={keyboard}
+              />
+            </div>
+          )}
         </div>
       )}
-      <Audio
-        isStream={isStream}
-        audio={clip.resources.audio}
-        status={status}
-        onStateChange={setReady}
-        onEnded={onClick}
-      />
+      {!skipAudio && (
+        <Audio
+          isStream={isStream}
+          audio={clip.resources.audio}
+          status={status}
+          onStateChange={setReady}
+          onEnded={onClick}
+        />
+      )}
     </div>
   );
 };

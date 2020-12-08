@@ -1,5 +1,5 @@
 import React from "react";
-import { Audioset, Track } from "../../audioset";
+import { Audioset, safeFindClipById, Track } from "../../audioset";
 import { Status4, KeyboardController } from "../../player4";
 import Clip from "./Clip";
 
@@ -27,7 +27,7 @@ const ClipList: React.FC<Props> = ({
           keyboard={keyboard}
           key={clipId}
           status={status.clips[clipId] || { playing: false, time: 0 }}
-          clip={audioset.index.clipById[clipId]}
+          clip={safeFindClipById(audioset, clipId)}
           onClick={() => onClipClicked(clipId)}
           isStream={isStream}
         />
