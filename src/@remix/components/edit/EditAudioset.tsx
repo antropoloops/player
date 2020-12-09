@@ -1,4 +1,6 @@
 import React from "react";
+import { DeleteIcon } from "../../../components/icons/Icons";
+import { IconButton } from "../../../components/shared/IconButton";
 import routes from "../../../routes";
 import { mutateAudioset } from "../../helpers/immutableHelpers";
 import { useStorageImage } from "../../hooks/useStorage";
@@ -37,6 +39,16 @@ const EditAudioset: React.FC<EditorProps> = ({ audioset, onChange }) => {
         {image && <img className="max-w-sm" src={image.src} alt="" />}
       </div>
       <pre className="hidden text-sm">{JSON.stringify(audioset, null, 2)}</pre>
+      <div className="flex py-4 text-white">
+        <IconButton
+          size="medium"
+          iconColor="text-alert"
+          bg="none"
+          icon={DeleteIcon}
+        >
+          Borrar remezcla
+        </IconButton>
+      </div>
     </div>
   );
 };

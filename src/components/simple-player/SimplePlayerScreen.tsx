@@ -14,7 +14,7 @@ import ClipList from "./ClipList";
 import ClipRibbon from "./ClipRibbon";
 import usePlayer4 from "../../hooks/usePlayer4";
 import routes from "../../routes";
-// import IconButton from "../shared/IconButton";
+// import { IconButton } from "../shared/IconButton";
 // import { ReactComponent as ListIcon } from "../icons/view_column-24px.svg";
 // import { ReactComponent as RibbonIcon } from "../icons/view_module-24px.svg";
 

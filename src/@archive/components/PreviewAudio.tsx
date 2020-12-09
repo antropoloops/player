@@ -1,6 +1,6 @@
 import React from "react";
 import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
-import IconButton from "../../components/shared/IconButton";
+import { IconButton } from "../../components/shared/IconButton";
 import useAudioBuffer from "../hooks/useAudioBuffer";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
@@ -45,10 +45,10 @@ const PreviewAudio: React.FC<Props> = ({
         {formatTime(duration)} {storage.fileName || ""}
       </label>
       <div
-        className="w-full bg-gray-darker rounded-sm"
+        className="w-full bg-gray-darker rounded-sm p-1"
         style={color ? { color } : {}}
       >
-        <Waveform width={1000} height={100} points={storage.waveform || ""} />
+        <Waveform width={100} height={10} points={storage.waveform || ""} />
       </div>
       <div className="flex py-2">
         <IconButton

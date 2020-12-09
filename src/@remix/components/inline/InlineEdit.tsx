@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { validate } from "uuid";
 import { DoneIcon, EditIcon } from "../../../components/icons/Icons";
-import IconButton from "../../../components/shared/IconButton";
+import { IconButton } from "../../../components/shared/IconButton";
 import { TextInput } from "./TextInput";
 
 export { TextInput } from "./TextInput";

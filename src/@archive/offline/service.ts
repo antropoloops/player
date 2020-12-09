@@ -84,7 +84,8 @@ export async function createAudioThumbnail(
 ) {
   const { data, mediaFile } = input;
   const buffer = await blobToBuffer(ctx, data.blob);
-  const points = getPolygonPoints(buffer, 1000, 100);
+  const points = getPolygonPoints(buffer, 100, 10);
+  mediaFile.duration = buffer.duration;
   mediaFile.thumbnail = points;
   const db = await getDatabase();
   db.put("mediaFiles", mediaFile);

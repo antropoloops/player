@@ -6,7 +6,7 @@ import { safeFindClipById } from "../../../audioset";
 import { Link } from "react-router-dom";
 import UploadMediaInput from "../../../@archive/components/UploadMediaInput";
 import { useOfflineMediaFileQuery } from "../../../@archive/hooks/useOfflineMediaQueries";
-import IconButton from "../../../components/shared/IconButton";
+import { IconButton } from "../../../components/shared/IconButton";
 import { RemoveCircleIcon } from "../../../components/icons/Icons";
 import useAudioBuffer from "../../../@archive/hooks/useAudioBuffer";
 import PreviewAudio from "../../../@archive/components/PreviewAudio";
@@ -39,6 +39,7 @@ export const EditClipAudio: React.FC<EditorProps> = ({
                   clip.resources.audio.wav = "";
                   clip.resources.audio.storage = {
                     offlineId: file.mediaFile.id,
+                    offlineKey: file.data.key,
                     fileName: file.mediaFile.name,
                     mimeType: file.mediaFile.mimeType,
                     waveform: file.mediaFile.thumbnail || "",

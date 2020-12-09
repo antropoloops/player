@@ -1,10 +1,15 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Link, useHistory } from "react-router-dom";
+import { AddIcon, CloudDownloadIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
-import AddItemButton from "../components/shared/Buttons";
-import { createOfflineRemix, loadOfflineRemixes } from "../offline";
+import { IconButtonBig } from "../components/shared/Buttons";
+import {
+  createOfflineRemix,
+  importOfflineRemix,
+  loadOfflineRemixes,
+} from "../offline";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
@@ -16,15 +21,30 @@ const RemixListPage: React.FC<Props> = () => {
     <Layout>
       <img src="/images/sections/community.jpg" alt="Remix" />
       <h2 className="p-1 mb-1 bg-pink-600 text-bg-dark">Remixes</h2>
-      <AddItemButton
-        onClick={() => {
-          createOfflineRemix().then((id) => {
-            history.push(routes.remixEdit(id));
-          });
-        }}
-      >
-        Crear proyecto
-      </AddItemButton>
+      <div className="flex">
+        <IconButtonBig
+          icon={AddIcon}
+          onClick={() => {
+            createOfflineRemix().then((id) => {
+              history.push(routes.remixEdit(id));
+            });
+          }}
+        >
+          Crear proyecto
+        </IconButtonBig>
+        <IconButtonBig
+          icon={CloudDownloadIcon}
+          onClick={() => {
+            const url =
+              "https://play-admin.antropoloops.com/api/1.0/index/cartuja";
+            importOfflineRemix(url).then((id) => {
+              if (id) history.push(routes.remixEdit(id));
+            });
+          }}
+        >
+          Importar proyecto
+        </IconButtonBig>
+      </div>
       <div>
         {remixes &&
           remixes.map((remix) => (

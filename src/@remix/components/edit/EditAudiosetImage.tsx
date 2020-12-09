@@ -6,7 +6,7 @@ import { mutateAudioset } from "../../helpers/immutableHelpers";
 import IconLink from "../../../components/shared/IconLink";
 import { CheckIcon, CloseIcon } from "../../../components/icons/Icons";
 import routes from "../../../routes";
-import IconButton from "../../../components/shared/IconButton";
+import { IconButton } from "../../../components/shared/IconButton";
 import ImagePlaceholder from "../shared/ImagePlaceholder";
 
 type Props = {};

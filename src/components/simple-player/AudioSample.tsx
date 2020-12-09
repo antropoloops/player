@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import decodeAudioBuffer from "../../lib/decodeAudioBuffer";
-import { getActiveAudioContext } from "../../lib/active-audio-context";
+import { loadAudio } from "../../lib/active-audio-context";
 import {
   IAudioBufferSourceNode,
   IAudioContext,
@@ -73,11 +72,3 @@ type Sample = {
   context: IAudioContext;
   buffer: AudioBuffer;
 };
-
-async function loadAudio(url: string) {
-  const context = await getActiveAudioContext();
-  const response = await fetch(url);
-  const buffer = await decodeAudioBuffer(response, context);
-
-  return { context, buffer };
-}

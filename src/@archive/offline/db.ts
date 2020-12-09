@@ -8,6 +8,7 @@ export type OfflineMediaFile = {
   name: string;
   mimeType: string;
   size: number;
+  duration?: number;
   parentId?: string;
   storageKey: string;
   thumbnail?: string;

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
-import AddItemButton from "../components/shared/Buttons";
+import { IconButtonBig } from "../components/shared/Buttons";
 import { useEditRemix } from "../hooks/useEditRemix";
 import { getOfflineRemix, saveRemix } from "../offline";
 import TrackContainer from "../../components/simple-player/TrackContainer";
 import Clip from "../../components/simple-player/Clip";
-import IconButton from "../../components/shared/IconButton";
+import { IconButton } from "../../components/shared/IconButton";
 import { PlayCircleIcon, AddIcon } from "../../components/icons/Icons";
 import BackToLink from "../../components/BackToLink";
 import routes from "../../routes";
@@ -78,7 +78,8 @@ const RemixEditPage: React.FC<Props> = () => {
         </IconLink>
       </h2>
       <div>
-        <AddItemButton
+        <IconButtonBig
+          icon={AddIcon}
           onClick={() => {
             dispatch({
               type: "audioset:update",
@@ -87,7 +88,7 @@ const RemixEditPage: React.FC<Props> = () => {
           }}
         >
           Añadir pista
-        </AddItemButton>
+        </IconButtonBig>
         {audioset.tracks.map((track) => (
           <TrackContainer
             key={track.id}

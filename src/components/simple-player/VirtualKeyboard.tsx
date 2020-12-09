@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Audioset } from "../../audioset";
 import { KeyboardController } from "../../player4";
 import ClipKeyBinding from "./ClipKeyBinding";
-import IconButton from "../shared/IconButton";
+import { IconButton } from "../shared/IconButton";
 import { ReactComponent as CloseIcon } from "../icons/close-24px.svg";
 import { ReactComponent as EditIcon } from "../icons/tune-24px.svg";
 

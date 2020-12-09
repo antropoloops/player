@@ -1,5 +1,6 @@
 import debug from "debug";
 import { AudioContext } from "standardized-audio-context";
+import decodeAudioBuffer from "./decodeAudioBuffer";
 import unmute from "./unmute";
 
 const log = debug("atpls:context");
@@ -11,6 +12,14 @@ context.onstatechange = handleStateChange;
 
 export function isAudioContextActive() {
   return context.state === "running";
+}
+
+export async function loadAudio(url: string) {
+  const context = await getActiveAudioContext();
+  const response = await fetch(url);
+  const buffer = await decodeAudioBuffer(response, context);
+
+  return { context, buffer };
 }
 
 /**

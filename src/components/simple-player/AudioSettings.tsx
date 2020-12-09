@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import IconButton from "../shared/IconButton";
+import { IconButton } from "../shared/IconButton";
 import { ReactComponent as CloseIcon } from "../icons/close-24px.svg";
 import { ReactComponent as RecordIcon } from "../icons/fiber_manual_record-24px.svg";
 import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";

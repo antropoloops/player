@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import IconButton from "../shared/IconButton";
+import { IconButton } from "../shared/IconButton";
 import VirtualKeyboard from "./VirtualKeyboard";
 import AudioSettings from "./AudioSettings";
 import { ReactComponent as KeyboardIcon } from "../icons/keyboard-24px.svg";

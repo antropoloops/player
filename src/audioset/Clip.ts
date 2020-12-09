@@ -63,7 +63,8 @@ export type AudioResources = {
   wav: string;
   storage?: {
     fileName: string;
-    offlineId: string;
+    offlineId: string; // file.mediaFile.id
+    offlineKey: string; // file.data.key (blobs)
     mimeType: string;
     duration: number;
     waveform: string;
