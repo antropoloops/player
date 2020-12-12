@@ -1,5 +1,3 @@
-import NotFoundPage from "../../pages/NotFoundPage";
-
 export type StepProcess = {
   init: (total: number, message?: string) => void;
   success: (message?: string) => void;

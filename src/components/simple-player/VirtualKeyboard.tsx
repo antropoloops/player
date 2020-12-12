@@ -1,4 +1,3 @@
-import { chunk } from "lodash";
 import React, { useState } from "react";
 import { Audioset } from "../../audioset";
 import { KeyboardController } from "../../player4";
@@ -6,6 +5,13 @@ import ClipKeyBinding from "./ClipKeyBinding";
 import { IconButton } from "../shared/IconButton";
 import { ReactComponent as CloseIcon } from "../icons/close-24px.svg";
 import { ReactComponent as EditIcon } from "../icons/tune-24px.svg";
+
+function chunk<T>(array: T[], chunkSize: number): T[][] {
+  const R = [];
+  for (let i = 0, len = array.length; i < len; i += chunkSize)
+    R.push(array.slice(i, i + chunkSize));
+  return R;
+}
 
 type Props = {
   audioset: Audioset;
