@@ -1,5 +1,9 @@
 # TimeTracking
 
+## 2020/12/16 4h Groups
+
+## 2020/12/16 4h AWS modeling
+
 ## 2020/12/15 4h AWS Services @offline datastore
 
 ## 2020/12/12 4h - AWS Services + @sounds

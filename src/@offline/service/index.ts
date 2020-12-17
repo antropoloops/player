@@ -1,6 +1,5 @@
 import { DataStore } from "../datastore/datastore";
 import {
-  Group,
   Archive,
   Recording,
   Remix,
@@ -9,6 +8,8 @@ import {
   Track,
   TrackMetadata,
 } from "../datastore/models";
+
+export * from "./group-service";
 
 // REMIXES
 export async function listRemixes(groupId?: string) {
@@ -19,10 +20,6 @@ export async function listRemixes(groupId?: string) {
 export async function getRemix(id: string, groupId?: string) {
   const remix = await DataStore.query(Remix, id);
   return groupId ? (remix?.groupID === groupId ? remix : undefined) : remix;
-}
-
-export async function listGroups() {
-  return DataStore.query(Group);
 }
 
 export async function listArchives() {

@@ -7,11 +7,7 @@ type ListProps<T> = {
 };
 
 export function List<T>({ className, items, render }: ListProps<T>) {
-  return (
-    <ul className={className}>
-      <li>{items.map((value) => render(value))}</li>
-    </ul>
-  );
+  return <ul className={className}>{items.map((value) => render(value))}</ul>;
 }
 
 type PropertyListProps = {

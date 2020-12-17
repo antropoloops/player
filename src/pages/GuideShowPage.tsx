@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import { useQuery } from "react-query";
 import Layout from "../components/layout/Layout";
 import GuideBrowser from "../components/guides/GuideBrowser";
-import API from "../api";
 import { useDeviceType } from "../hooks/useDeviceType";
 import routes from "../routes";
 import DownloadFile from "../components/guides/DownloadFile";

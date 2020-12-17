@@ -35,6 +35,8 @@ const routes = {
   soundEdit: (id: string) => `/sonidos/editar/${id}`,
 
   offline: () => `/offline`,
+
+  groups: () => `/offline/groups`,
 };
 
 export default routes;

@@ -68,3 +68,5 @@ export function TestPage({ className }: TestPageProps) {
     </div>
   );
 }
+
+export default TestPage;
