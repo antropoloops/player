@@ -15,7 +15,7 @@ const ArchiveShowPage: React.FC<Props> = () => {
   const group = useCurrentGroup();
   const groupArchive = {
     groupId: group?.id || "",
-    archiveId: params.id,
+    projectId: params.id,
   };
   const { data: archive } = useGetGroupArchive(groupArchive);
   const { data: recordings } = useListArchiveRecordings(groupArchive);

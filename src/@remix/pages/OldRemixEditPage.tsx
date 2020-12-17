@@ -15,7 +15,7 @@ import { safeFindClipById } from "../../audioset";
 import { useQuery } from "react-query";
 import IconLink from "../../components/shared/IconLink";
 import { useStorageImage } from "../hooks/useStorage";
-import EditorConductor from "../components/edit/EditorConductor";
+import EditorConductor from "../components/old-edit/EditorConductor";
 
 type EditParams = {
   id: string;

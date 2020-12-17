@@ -1,19 +1,21 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useListRemixesQuery } from "../../@offline/hooks/useOfflineQueries";
+import { useListRemixesQuery } from "../hooks/useRemixQueries";
+import { createRemix } from "../service";
 import { AddIcon, CloudDownloadIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
 import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
-import { createRemix } from "../../@offline/service";
 import { Separator } from "../../@core/components/Separator";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
   const history = useHistory();
   const group = useCurrentGroup();
-  const { data: remixes, refetch } = useListRemixesQuery();
+  const { data: remixes, refetch } = useListRemixesQuery({
+    groupId: group?.id || "",
+  });
 
   console.log("REMIX LIST ", group, remixes);
 
@@ -27,7 +29,7 @@ const RemixListPage: React.FC<Props> = () => {
           color="text-remixes"
           onClick={() => {
             if (group) {
-              createRemix(group.id, { title: "Remezcla!" }).then((remix) => {
+              createRemix(group.id, "Remezcla!").then((remix) => {
                 history.push(routes.remix(remix.id));
               });
             }

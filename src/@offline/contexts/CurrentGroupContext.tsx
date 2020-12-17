@@ -9,8 +9,6 @@ export const CurrentGroupContextProvider: React.FC = ({ children }) => {
   const [group, setGroup] = useState<Group | undefined>(undefined);
   const { data: groups, isLoading } = useListGroupsQuery();
 
-  console.log("JODER", groups, isLoading);
-
   useEffect(() => {
     if (groups && groups.length > 0) {
       setGroup(groups[0]);

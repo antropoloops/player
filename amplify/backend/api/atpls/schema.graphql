@@ -1,12 +1,112 @@
-type StoredImage {
+type Metadata {
+  title: String
+  description: String
+  authors: String
+  credits: String
+  licenses: String
+  readme: String
+}
+type Group @model {
+  id: ID!
+  name: String!
+  meta: Metadata!
+}
+
+enum ProjectType {
+  archive
+  remix
+}
+enum ProjetAccess {
+  group
+}
+
+type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
+  id: ID!
+  groupID: ID!
+
+  name: String!
+  type: ProjectType!
+  access: ProjetAccess!
+  meta: Metadata!
+
+  remix: RemixMetadata!
+
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+
+  group: Group @connection(fields: ["groupID"])
+  recordings: [Media] @connection(keyName: "byProject", fields: ["id"])
+  tracks: [Track] @connection(keyName: "byProject", fields: ["id"])
+  samples: [Sample] @connection(keyName: "byProject", fields: ["id"])
+}
+
+enum MediaType {
+  recording
+  image
+}
+
+type StoredFile {
   key: String!
-  type: String!
-  role: String
-  name: String
+  mimeType: String!
+  fileName: String
+  fileSize: Int
   thumbnail: String
-  size: Int
+  duration: Int
   width: Int
   height: Int
+}
+
+type Media
+  @model
+  @key(name: "byGroup", fields: ["groupID"])
+  @key(name: "byProject", fields: ["projectID"]) {
+  id: ID!
+  projectID: ID!
+  groupID: ID!
+
+  meta: Metadata!
+  file: StoredFile
+
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+
+  project: Project @connection(fields: ["projectID"])
+  samples: [Sample] @connection(keyName: "byMedia", fields: ["id"])
+}
+
+type RemixMetadata {
+  bmp: Float
+}
+
+type TrackMetadata {
+  name: String
+  color: String
+  position: Int
+  volume: Float
+}
+
+type ClipMetadata {
+  sampleID: ID!
+}
+
+type Track
+  @model
+  @key(name: "byProject", fields: ["projectID"])
+  @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
+  id: ID!
+  groupID: ID!
+  projectID: ID!
+
+  meta: TrackMetadata!
+  clips: [ClipMetadata!]
+
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type AudioRegion {
+  offset: Int!
+  duration: Int!
 }
 
 enum ImageUnits {
@@ -23,134 +123,24 @@ type ImageCrop {
   unit: ImageUnits
 }
 
-type StoredAudio {
-  key: String!
-  type: String!
-  name: String
-  thumbnail: String
-  size: Int
-  duration: Int
-}
-
-type Group @model {
-  id: ID!
-  name: String!
-  description: String
-  image: [StoredImage!]
-}
-
-enum ArchiveAccess {
-  private
-  public
-}
-
-type Archive @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
-  id: ID!
-  groupID: ID!
-
-  name: String!
-  access: ArchiveAccess!
-
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-
-  group: Group @connection(fields: ["groupID"])
-  recordings: [Recording] @connection(keyName: "byArchive", fields: ["id"])
-}
-
-type RecordingMeta {
-  title: String
-  description: String
-}
-
-type Recording
-  @model
-  @key(name: "byGroup", fields: ["groupID"])
-  @key(name: "byArchive", fields: ["archiveID"]) {
-  id: ID!
-  archiveID: ID!
-  groupID: ID!
-
-  meta: RecordingMeta!
-  audio: StoredAudio
-  images: [StoredImage!]
-
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-
-  archive: Archive @connection(fields: ["archiveID"])
-  samples: [Sample] @connection(keyName: "byRecording", fields: ["id"])
-}
-
-type RemixMetadata {
-  title: String
-  description: String
-  authors: String
-  bmp: Float
-}
-
-type Remix @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
-  id: ID!
-  groupID: ID!
-
-  name: String
-  meta: RemixMetadata!
-  images: [StoredImage!]
-
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-
-  tracks: [Track] @connection(keyName: "byRemix", fields: ["id"])
-  samples: [Sample] @connection(keyName: "byRemix", fields: ["id"])
-}
-
-type TrackMetadata {
-  name: String
-  color: String
-  position: Int
-  volume: Float
-}
-
-type ClipMetadata {
-  sampleID: ID!
-}
-
-type Track
-  @model
-  @key(name: "byRemix", fields: ["remixID"])
-  @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
-  id: ID!
-  groupID: ID!
-  remixID: ID!
-
-  meta: TrackMetadata!
-  clips: [ClipMetadata!]
-
-  createdAt: AWSDateTime
-  updatedAt: AWSDateTime
-}
-
-type SampleRegion {
-  offset: Int!
-  duration: Int!
-}
-
 type Sample
   @model
   @key(name: "byGroup", fields: ["groupID", "updatedAt"])
-  @key(name: "byRecording", fields: ["recordingID", "updatedAt"])
-  @key(name: "byRemix", fields: ["remixID", "updatedAt"]) {
+  @key(name: "byMedia", fields: ["mediaID", "updatedAt"])
+  @key(name: "byProject", fields: ["projectID", "updatedAt"]) {
   id: ID!
   groupID: ID!
-  remixID: ID!
-  recordingID: ID!
+  projectID: ID!
+  mediaID: ID!
+  role: String
 
-  region: SampleRegion!
-  audio: StoredAudio
+  audio: AudioRegion!
+  image: ImageCrop!
+  file: StoredFile
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
-  recording: Recording @connection(fields: ["recordingID"])
-  remix: Remix @connection(fields: ["remixID"])
+  media: Media @connection(fields: ["mediaID"])
+  project: Project @connection(fields: ["projectID"])
 }

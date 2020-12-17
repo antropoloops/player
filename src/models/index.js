@@ -1,49 +1,43 @@
 // @ts-check
-import { initSchema } from "@aws-amplify/datastore";
-import { schema } from "./schema";
+import { initSchema } from '@aws-amplify/datastore';
+import { schema } from './schema';
+
+const ProjectType = {
+  "ARCHIVE": "archive",
+  "REMIX": "remix"
+};
+
+const ProjetAccess = {
+  "GROUP": "group"
+};
 
 const ImageUnits = {
-  PX: "px",
-  PERCENT: "percent",
+  "PX": "px",
+  "PERCENT": "percent"
 };
 
-const ArchiveAccess = {
-  PRIVATE: "private",
-  PUBLIC: "public",
+const MediaType = {
+  "RECORDING": "recording",
+  "IMAGE": "image"
 };
 
-const {
-  Group,
-  Archive,
-  Recording,
-  Sample,
-  Remix,
-  Track,
-  StoredImage,
-  ImageCrop,
-  StoredAudio,
-  RecordingMeta,
-  SampleRegion,
-  RemixMetadata,
-  TrackMetadata,
-  ClipMetadata,
-} = initSchema(schema);
+const { Group, Project, Media, Sample, Track, Metadata, RemixMetadata, StoredFile, AudioRegion, ImageCrop, TrackMetadata, ClipMetadata } = initSchema(schema);
 
 export {
   Group,
-  Archive,
-  Recording,
+  Project,
+  Media,
   Sample,
-  Remix,
   Track,
+  ProjectType,
+  ProjetAccess,
   ImageUnits,
-  ArchiveAccess,
-  StoredImage,
-  ImageCrop,
-  StoredAudio,
-  RecordingMeta,
-  SampleRegion,
+  MediaType,
+  Metadata,
   RemixMetadata,
+  StoredFile,
+  AudioRegion,
+  ImageCrop,
   TrackMetadata,
-  ClipMetadata,
+  ClipMetadata
 };

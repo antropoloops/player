@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
 import {
   useGetRemixQuery,
   useListRemixTracksQuery,
-} from "../../@offline/hooks/useOfflineQueries";
+} from "../hooks/useRemixQueries";
 import { createTrack } from "../../@offline/service";
 import BackToLink from "../../components/BackToLink";
 import { AddIcon, PlayCircleIcon } from "../../components/icons/Icons";
@@ -13,33 +13,50 @@ import LoadingScreen from "../../components/LoadingScreen";
 import IconLink from "../../components/shared/IconLink";
 import routes from "../../routes";
 import IconButtonBig from "../components/shared/Buttons";
-import { ShowRemix } from "../components/ShowRemix";
 import TrackContainer from "../../components/simple-player/TrackContainer";
 import { IconButton } from "../../components/shared/IconButton";
-import { TrackEditor } from "../components/RemixEditor";
+import { ShowRemix } from "../components/ShowRemix";
+import { TrackEditor } from "../components/TrackEditor";
 import { Track } from "../../models";
+
+type Params = {
+  id: string;
+  type?: string;
+  childId?: string;
+};
 
 type Props = {
   className?: string;
 };
 
 export function RemixShowPage({ className }: Props) {
-  const params = useParams<{ id: string }>();
+  const params = useParams<Params>();
   const group = useCurrentGroup();
+  const history = useHistory();
 
-  const { data: remix } = useGetRemixQuery(params.id, group?.id);
+  const gotoTrack = (track: Track) =>
+    history.push(routes.remixRelation(params.id, "t", track.id));
+
+  const project = {
+    groupId: group?.id || "",
+    projectId: params.id,
+  };
+
+  const { data: remix } = useGetRemixQuery(project);
   const { data: tracks, refetch: refetchTracks } = useListRemixTracksQuery(
-    params.id
+    project
   );
-  const [track, setTrack] = useState<Track | undefined>();
 
   if (!group || !remix || !tracks) return <LoadingScreen />;
 
-  const editor = track ? (
-    <TrackEditor group={group} remix={remix} track={track} />
-  ) : (
-    <ShowRemix group={group} remix={remix} />
-  );
+  const track = tracks.find((track) => track.id === params.childId);
+
+  const editor =
+    params.type === "t" ? (
+      <TrackEditor group={group} remix={remix} track={track} />
+    ) : (
+      <ShowRemix group={group} remix={remix} />
+    );
 
   return (
     <Layout desktop={editor}>
@@ -60,8 +77,8 @@ export function RemixShowPage({ className }: Props) {
           icon={AddIcon}
           onClick={() => {
             createTrack(remix, { name: "Nueva Pista" }).then((track) => {
-              setTrack(track);
               refetchTracks();
+              gotoTrack(track);
             });
           }}
         >
@@ -81,7 +98,7 @@ export function RemixShowPage({ className }: Props) {
             }}
             onStopTrack={() => undefined}
             onClick={() => {
-              setTrack(track);
+              gotoTrack(track);
             }}
           >
             <div className="w-full bg-gray-dark">

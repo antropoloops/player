@@ -1,18 +1,14 @@
 import React from "react";
-import { useListRemixSamplesQuery } from "../../@offline/hooks/useOfflineQueries";
 import { IconButton } from "../../components/shared/IconButton";
-import { Group, Remix } from "../../models";
+import { Group, Project } from "../../models";
 
 type Props = {
   className?: string;
   group: Group;
-  remix: Remix;
+  project: Project;
 };
 
-export function SampleGallery({ className, group, remix }: Props) {
-  const { data: samples } = useListRemixSamplesQuery(group.id, remix.id);
-
-  console.log("SAMPLES", samples);
+export function SampleGallery({ className, group, project }: Props) {
   return (
     <div className={className}>
       <div>

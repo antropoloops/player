@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
+import { GetGroup, GetGroupProject } from "../../@offline/service";
 import {
-  GetGroup,
-  GetGroupArchive,
   getGroupArchive,
   listArchiveRecordings,
   listGroupArchives,
@@ -13,18 +12,18 @@ export function useListGroupArchives(query: GetGroup) {
   });
 }
 
-export function useGetGroupArchive(query: GetGroupArchive) {
+export function useGetGroupArchive(query: GetGroupProject) {
   return useQuery(["Archive", query], () => getGroupArchive(query), {
-    enabled: !!query.groupId && !!query.archiveId,
+    enabled: !!query.groupId && !!query.projectId,
   });
 }
 
-export function useListArchiveRecordings(query: GetGroupArchive) {
+export function useListArchiveRecordings(query: GetGroupProject) {
   return useQuery(
     ["Archive", "recordings", query],
     () => listArchiveRecordings(query),
     {
-      enabled: !!query.groupId && !!query.archiveId,
+      enabled: !!query.groupId && !!query.projectId,
     }
   );
 }

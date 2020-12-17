@@ -10,19 +10,18 @@ import {
 } from "../offline";
 
 type Props = {
-  onChange: (mediaFiles: OfflineMediaFileAndData[]) => void;
-  textColor?: string;
-  bgColor?: string;
+  onChange: (ids: string[]) => void;
+  colors?: string;
   style?: CSSProperties;
+  uploadFile: (file: File) => Promise<string>;
 };
 
-// DEPRECATED
-const UploadMediaInput: React.FC<Props> = ({
+export const FilesInput: React.FC<Props> = ({
   onChange,
   children,
-  textColor,
-  bgColor,
+  colors,
   style,
+  uploadFile,
 }) => {
   const ctx = useSimpleAudioContext();
   const [isUploading, setIsUploading] = useState(false);
@@ -30,9 +29,10 @@ const UploadMediaInput: React.FC<Props> = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: async (files: File[]) => {
       setIsUploading(true);
-      const saved = await saveOfflineMediaFiles(files);
-      for (const item of saved) {
-        await createAudioThumbnail(item, ctx);
+      const saved: string[] = [];
+      for (const file of files) {
+        const id = await uploadFile(file);
+        saved.push(id);
       }
       setIsUploading(false);
       onChange(saved);
@@ -45,19 +45,18 @@ const UploadMediaInput: React.FC<Props> = ({
       style={style}
       disabled={isUploading}
       className={classcat([
-        "flex items-center p-1 bg-opacity-70 text-ag-dark rounded-full",
-        textColor || "text-gray-dark",
-        bgColor === undefined ? "bg-yellow-400" : bgColor,
-        "bg-opacity-70 hover:bg-opacity-100 focus:outline-none",
+        "flex items-center p-1 pr-4 text-ag-dark rounded-full",
+        "opacity-75 hover:opacity-100 focus:outline-none",
+        colors || "text-black bg-gray-lighter",
         isUploading && "opacity-20",
       ])}
       {...getRootProps()}
     >
       <input {...getInputProps()} />
       <AddIcon className="icon mr-2 w-6 h-6" />
-      <label className="mr-2">{children}</label>
+      {children}
     </button>
   );
 };
 
-export default UploadMediaInput;
+export default FilesInput;

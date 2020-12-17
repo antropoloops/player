@@ -4,26 +4,56 @@ import {
   PersistentModelConstructor,
 } from "@aws-amplify/datastore";
 
+export enum ProjectType {
+  ARCHIVE = "archive",
+  REMIX = "remix",
+}
+
+export enum ProjetAccess {
+  GROUP = "group",
+}
+
 export enum ImageUnits {
   PX = "px",
   PERCENT = "percent",
 }
 
-export enum ArchiveAccess {
-  PRIVATE = "private",
-  PUBLIC = "public",
+export enum MediaType {
+  RECORDING = "recording",
+  IMAGE = "image",
 }
 
-export declare class StoredImage {
+export declare class Metadata {
+  readonly title?: string;
+  readonly description?: string;
+  readonly authors?: string;
+  readonly credits?: string;
+  readonly licenses?: string;
+  readonly readme?: string;
+  constructor(init: ModelInit<Metadata>);
+}
+
+export declare class RemixMetadata {
+  readonly bmp?: number;
+  constructor(init: ModelInit<RemixMetadata>);
+}
+
+export declare class StoredFile {
   readonly key: string;
-  readonly type: string;
-  readonly role?: string;
-  readonly name?: string;
+  readonly mimeType: string;
+  readonly fileName?: string;
+  readonly fileSize?: number;
   readonly thumbnail?: string;
-  readonly size?: number;
+  readonly duration?: number;
   readonly width?: number;
   readonly height?: number;
-  constructor(init: ModelInit<StoredImage>);
+  constructor(init: ModelInit<StoredFile>);
+}
+
+export declare class AudioRegion {
+  readonly offset: number;
+  readonly duration: number;
+  constructor(init: ModelInit<AudioRegion>);
 }
 
 export declare class ImageCrop {
@@ -34,36 +64,6 @@ export declare class ImageCrop {
   readonly height?: number;
   readonly unit?: ImageUnits | keyof typeof ImageUnits;
   constructor(init: ModelInit<ImageCrop>);
-}
-
-export declare class StoredAudio {
-  readonly key: string;
-  readonly type: string;
-  readonly name?: string;
-  readonly thumbnail?: string;
-  readonly size?: number;
-  readonly duration?: number;
-  constructor(init: ModelInit<StoredAudio>);
-}
-
-export declare class RecordingMeta {
-  readonly title?: string;
-  readonly description?: string;
-  constructor(init: ModelInit<RecordingMeta>);
-}
-
-export declare class SampleRegion {
-  readonly offset: number;
-  readonly duration: number;
-  constructor(init: ModelInit<SampleRegion>);
-}
-
-export declare class RemixMetadata {
-  readonly title?: string;
-  readonly description?: string;
-  readonly authors?: string;
-  readonly bmp?: number;
-  constructor(init: ModelInit<RemixMetadata>);
 }
 
 export declare class TrackMetadata {
@@ -82,8 +82,7 @@ export declare class ClipMetadata {
 export declare class Group {
   readonly id: string;
   readonly name: string;
-  readonly description?: string;
-  readonly image?: StoredImage[];
+  readonly meta: Metadata;
   constructor(init: ModelInit<Group>);
   static copyOf(
     source: Group,
@@ -91,48 +90,53 @@ export declare class Group {
   ): Group;
 }
 
-export declare class Archive {
+export declare class Project {
   readonly id: string;
   readonly groupID: string;
   readonly name: string;
-  readonly access: ArchiveAccess | keyof typeof ArchiveAccess;
+  readonly type: ProjectType | keyof typeof ProjectType;
+  readonly access: ProjetAccess | keyof typeof ProjetAccess;
+  readonly meta: Metadata;
+  readonly remix: RemixMetadata;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   readonly group?: Group;
-  readonly recordings?: (Recording | null)[];
-  constructor(init: ModelInit<Archive>);
+  readonly recordings?: (Media | null)[];
+  readonly tracks?: (Track | null)[];
+  readonly samples?: (Sample | null)[];
+  constructor(init: ModelInit<Project>);
   static copyOf(
-    source: Archive,
-    mutator: (draft: MutableModel<Archive>) => MutableModel<Archive> | void
-  ): Archive;
+    source: Project,
+    mutator: (draft: MutableModel<Project>) => MutableModel<Project> | void
+  ): Project;
 }
 
-export declare class Recording {
+export declare class Media {
   readonly id: string;
   readonly groupID: string;
-  readonly meta: RecordingMeta;
-  readonly audio?: StoredAudio;
-  readonly images?: StoredImage[];
+  readonly meta: Metadata;
+  readonly file?: StoredFile;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly archive?: Archive;
+  readonly project?: Project;
   readonly samples?: (Sample | null)[];
-  constructor(init: ModelInit<Recording>);
+  constructor(init: ModelInit<Media>);
   static copyOf(
-    source: Recording,
-    mutator: (draft: MutableModel<Recording>) => MutableModel<Recording> | void
-  ): Recording;
+    source: Media,
+    mutator: (draft: MutableModel<Media>) => MutableModel<Media> | void
+  ): Media;
 }
 
 export declare class Sample {
   readonly id: string;
   readonly groupID: string;
-  readonly region: SampleRegion;
-  readonly audio?: StoredAudio;
+  readonly audio: AudioRegion;
+  readonly image: ImageCrop;
+  readonly file?: StoredFile;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly recording?: Recording;
-  readonly remix?: Remix;
+  readonly media?: Media;
+  readonly project?: Project;
   constructor(init: ModelInit<Sample>);
   static copyOf(
     source: Sample,
@@ -140,27 +144,10 @@ export declare class Sample {
   ): Sample;
 }
 
-export declare class Remix {
-  readonly id: string;
-  readonly groupID: string;
-  readonly name?: string;
-  readonly meta: RemixMetadata;
-  readonly images?: StoredImage[];
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  readonly tracks?: (Track | null)[];
-  readonly samples?: (Sample | null)[];
-  constructor(init: ModelInit<Remix>);
-  static copyOf(
-    source: Remix,
-    mutator: (draft: MutableModel<Remix>) => MutableModel<Remix> | void
-  ): Remix;
-}
-
 export declare class Track {
   readonly id: string;
   readonly groupID: string;
-  readonly remixID: string;
+  readonly projectID: string;
   readonly meta: TrackMetadata;
   readonly clips?: ClipMetadata[];
   readonly createdAt?: string;

@@ -1,11 +1,11 @@
 import {
   DataStore,
-  Archive,
+  Project,
   Group,
   changeGroup,
-  ArchiveAccess,
-  Recording,
-  Remix,
+  Media,
+  ProjetAccess,
+  ProjectType,
 } from "../datastore";
 import { useEffect, useState } from "react";
 
@@ -14,26 +14,31 @@ async function createScenenario() {
   const group = await DataStore.save(
     new Group({
       name: "Grupo",
+      meta: {},
     })
   );
   console.log("NEW GROUP", group);
-  const archive = await DataStore.save(
-    new Archive({
-      name: "remixes",
+  await DataStore.save(
+    new Project({
+      name: "Archivo",
       groupID: group.id,
-      access: ArchiveAccess.PRIVATE,
+      type: ProjectType.ARCHIVE,
+      access: ProjetAccess.GROUP,
+      meta: {
+        title: "Archivo compartido",
+      },
+      remix: {},
     })
   );
 }
 
 async function fetchAll() {
-  const [groups, remixes, archives, recording] = await Promise.all([
+  const [groups, archives, media] = await Promise.all([
     DataStore.query(Group),
-    DataStore.query(Remix),
-    DataStore.query(Archive),
-    DataStore.query(Recording),
+    DataStore.query(Project),
+    DataStore.query(Media),
   ]);
-  return { groups, remixes, archives, recording };
+  return { groups, archives, media };
 }
 
 export function TestPage({ className }: TestPageProps) {
