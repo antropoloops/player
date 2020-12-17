@@ -24,8 +24,8 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
   useAnalytics();
   const { isDesktop, isMobile } = useDeviceType();
   const { isError, data: audioset } = useQuery(
-    ["bundle", { path: idOrUrl }],
-    (_, params) => API.bundles.get(params),
+    ["bundle", idOrUrl],
+    () => API.bundles.get({ path: idOrUrl }),
     { retry: false }
   );
   const { data: project, status: projectStatus } = useQuery(
@@ -35,7 +35,7 @@ const CommunityReadmePage: React.FC<Props> = ({ idOrUrl }) => {
   );
 
   const pageUrl = audioset?.meta.description.split("cosmic@")[1];
-  const { data: page } = usePage(pageUrl || "", { enabled: pageUrl });
+  const { data: page } = usePage(pageUrl || "", { enabled: !!pageUrl });
 
   useEffect(() => {
     isMobile && scrollToTop();

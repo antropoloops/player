@@ -29,8 +29,8 @@ const RemixEditPage: React.FC<Props> = () => {
   const history = useHistory();
   const params = useParams<EditParams>();
   const [state, dispatch] = useEditRemix();
-  const { data: remix } = useQuery(["offline-remix", params.id], (_, id) =>
-    getOfflineRemix(id)
+  const { data: remix } = useQuery(["offline-remix", params.id], () =>
+    getOfflineRemix(params.id)
   );
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const RemixEditPage: React.FC<Props> = () => {
         </div>
       }
     >
-      <BackToLink to={routes.remix()} label="Remezclas" />
+      <BackToLink to={routes.remixes()} label="Remezclas" />
       <Link to={routes.remixEdit(params.id)}>
         <img src={image?.src || "/images/gray-light.png"} alt="Remix" />
       </Link>

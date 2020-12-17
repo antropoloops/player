@@ -18,5 +18,6 @@ export { ReactComponent as PauseIcon } from "./pause-24px.svg";
 export { ReactComponent as PlayIcon } from "./play_arrow-24px.svg";
 export { ReactComponent as PlayCircleIcon } from "./play_circle_outline-24px.svg";
 export { ReactComponent as StopCircleIcon } from "./stop_circle-24px.svg";
+export { ReactComponent as StopIcon } from "./stop-24px.svg";
 export { ReactComponent as TuneIcon } from "./tune-24px.svg";
 export { ReactComponent as RemoveCircleIcon } from "./remove_circle_outline-24px.svg";

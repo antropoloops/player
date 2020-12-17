@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { Waveform } from "../components/Waveform";
 import useAudioBuffer from "../hooks/useAudioBuffer";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
-import { formatTime } from "../helpers/timeHelpers";
+import { formatTime } from "../../@sounds/helpers/timeHelpers";
 import { PlayCircleIcon, StopCircleIcon } from "../../components/icons/Icons";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 

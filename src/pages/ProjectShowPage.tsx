@@ -21,9 +21,8 @@ const ProjectShowPage: React.FC<Props> = ({
   sectionName = "projects",
 }) => {
   useAnalytics();
-  const { status, data: bundle } = useQuery(
-    ["bundle", { path: idOrUrl }],
-    (_, params) => API.bundles.get(params)
+  const { status, data: bundle } = useQuery(["bundle", idOrUrl], () =>
+    API.bundles.get({ path: idOrUrl })
   );
   const { data: section } = useQuery(["section", sectionName], () =>
     API.sections.get(sectionName)

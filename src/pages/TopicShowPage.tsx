@@ -9,6 +9,7 @@ import routes from "../routes";
 import WhitePage from "../components/shared/PageDesktop";
 import cx from "classcat";
 import useLocale from "../hooks/useLocale";
+import { useGetTopicQuery } from "../@documentation/hooks/useTopicQueries";
 
 type Props = {};
 
@@ -20,9 +21,7 @@ const TopicShowPage: React.FC<Props> = () => {
   const { formatMessage: FMT } = useLocale();
   const { params } = useRouteMatch<RouteParams>();
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
-  const { data: topic } = useQuery(["topic", { path: params.id }], (_, p) =>
-    API.topics.get(p)
-  );
+  const { data: topic } = useGetTopicQuery(params.id);
   const { data: section } = useQuery(["section", "topics"], () =>
     API.sections.get("topics")
   );

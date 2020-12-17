@@ -8,8 +8,8 @@ import { getOfflineRemix } from "../offline";
 type Props = {};
 const RemixPlayPage: React.FC<Props> = () => {
   const params = useParams<{ id: string }>();
-  const { data: remix } = useQuery(["offline-remix", params.id], (_, id) =>
-    getOfflineRemix(id)
+  const { data: remix } = useQuery(["offline-remix", params.id], () =>
+    getOfflineRemix(params.id)
   );
 
   if (!remix) return <LoadingScreen />;

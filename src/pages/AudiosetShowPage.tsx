@@ -12,15 +12,15 @@ type Props = {
   idOrUrl: string;
 };
 
-const SimplePlayerScreen = React.lazy(() =>
-  import("../components/simple-player/SimplePlayerScreen")
+const SimplePlayerScreen = React.lazy(
+  () => import("../components/simple-player/SimplePlayerScreen")
 );
 
 const AudiosetShowPage: React.FC<Props> = ({ idOrUrl }) => {
   useAnalytics();
   const { isLoading, isError, data: bundle } = useQuery(
-    ["bundle", { path: idOrUrl }],
-    (_, params) => API.bundles.get(params),
+    ["bundle", idOrUrl],
+    () => API.bundles.get({ path: idOrUrl }),
     { retry: false }
   );
 

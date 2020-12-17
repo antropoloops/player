@@ -1,12 +1,10 @@
 import classcat from "classcat";
-import { v4 as uuid } from "uuid";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   CloudUploadIcon,
   CloudQueueIcon,
 } from "../../../components/icons/Icons";
-import { deleteStorage, saveStorage } from "../../offline";
 
 type Props = {
   value: string;
@@ -14,15 +12,15 @@ type Props = {
   onSave?: (value: string) => void;
   parentKey: string;
   accept?: string[];
+  uploadFile: (file: File) => Promise<string>;
 };
 
 export const FileInput: React.FC<Props> = ({
-  value,
   onChange,
   onSave,
   accept,
-  parentKey,
   children,
+  uploadFile,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
 
@@ -31,15 +29,7 @@ export const FileInput: React.FC<Props> = ({
       const file = files[0];
       if (file) {
         setIsUploading(true);
-        if (value) {
-          await deleteStorage(value);
-        }
-        const id = "storage:" + uuid();
-        await saveStorage({
-          id,
-          blob: file,
-          parentKey,
-        });
+        const id = await uploadFile(file);
         setIsUploading(false);
         onChange?.(id);
         onSave?.(id);

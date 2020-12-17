@@ -1,11 +1,14 @@
 import classcat from "classcat";
 import React from "react";
-import { Track } from "../../audioset";
 import { TrackStatus4 } from "../../player4";
 import { ReactComponent as StopIcon } from "../icons/stop-24px.svg";
 
 type Props = {
-  track: Track;
+  track: {
+    id: string;
+    color: string;
+    name: string;
+  };
   status: TrackStatus4;
   onStopTrack: () => void;
   onClick?: () => void;

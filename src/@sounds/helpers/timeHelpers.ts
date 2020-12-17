@@ -1,4 +1,8 @@
-export function formatTime(seconds: number) {
+export function formatTime(seconds?: number, placeholder = "--:--:--") {
+  if (seconds === undefined) {
+    return placeholder;
+  }
+
   const h = Math.floor(seconds / 60 / 60);
   const m = Math.floor((seconds / 60) % 60);
   const s = Math.floor(seconds % 60);

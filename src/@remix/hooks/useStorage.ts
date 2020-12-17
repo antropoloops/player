@@ -15,7 +15,7 @@ export function useStorageImage(urlOrStorageKey?: string) {
 
   const { data: image, isLoading } = useQuery(
     ["image", url],
-    (_, url) => preloadImage(url || ""),
+    () => preloadImage(url || ""),
     {
       enabled: !!url,
       staleTime: Infinity,
@@ -29,9 +29,9 @@ export function useStorage(storageKey?: string) {
   const [url, setUrl] = useState("");
   const { data: storage } = useQuery(
     ["remix-storage", storageKey],
-    (_, storageKey) => loadStorage(storageKey || ""),
+    () => loadStorage(storageKey || ""),
     {
-      enabled: storageKey && storageKey.startsWith("storage:"),
+      enabled: !!(storageKey && storageKey.startsWith("storage:")),
       staleTime: Infinity,
     }
   );

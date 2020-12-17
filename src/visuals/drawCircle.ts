@@ -77,7 +77,8 @@ export default function drawCircle(
   function turn(elapsed: number) {
     const elapsedSeconds = (elapsed / 1000) % duration;
     const turnScale = d3.scaleLinear().range([1, 0]).domain([0, duration]);
-    circle.style("transform", `rotate(${-turnScale(elapsedSeconds)}turn)`);
+    const rotation = turnScale(elapsedSeconds) || 0;
+    circle.style("transform", `rotate(${-rotation}turn)`);
     if (d3.select(".circle").empty()) {
       turnTimer.stop();
     }
@@ -89,11 +90,11 @@ export default function drawCircle(
 function createInnerArcs(width: number, trackVolume: number) {
   return d3.range(NUMSLICES).map((d, i) => {
     return {
-      startAngle: deg2rad(degreesFromSlice(d)),
+      startAngle: deg2rad(degreesFromSlice(d) || 0),
       endAngle:
         i === NUMSLICES - 1
-          ? deg2rad(degreesFromSlice(d + 1))
-          : deg2rad(degreesFromSlice(d + 2)),
+          ? deg2rad(degreesFromSlice(d + 1) || 0)
+          : deg2rad(degreesFromSlice(d + 2) || 0),
       innerRadius: 0,
       outerRadius: (width / 30) * trackVolume,
     };
@@ -103,11 +104,11 @@ function createInnerArcs(width: number, trackVolume: number) {
 function createOuterArcs(width: number, trackVolume: number) {
   return d3.range(NUMSLICES).map((d, i) => {
     return {
-      startAngle: deg2rad(degreesFromSlice(d)),
+      startAngle: deg2rad(degreesFromSlice(d) || 0),
       endAngle:
         i === NUMSLICES - 1
-          ? deg2rad(degreesFromSlice(d + 1))
-          : deg2rad(degreesFromSlice(d + 2)),
+          ? deg2rad(degreesFromSlice(d + 1) || 0)
+          : deg2rad(degreesFromSlice(d + 2) || 0),
       innerRadius: 0,
       outerRadius: (width / 30) * trackVolume * 2,
     };

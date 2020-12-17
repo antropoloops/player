@@ -7,6 +7,7 @@ export default function useAudioBuffer(blob?: Blob) {
   const ctx = useSimpleAudioContext();
 
   useEffect(() => {
+    setBuffer(undefined);
     if (!blob) return;
 
     blobToBuffer(ctx, blob).then((buffer) => {

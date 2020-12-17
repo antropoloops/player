@@ -22,13 +22,19 @@ const routes = {
   archiveOffline: () => `/archivo/offline`,
   archiveOfflineMedia: (id: string) => `/archivo/offline/${id}`,
 
-  remix: () => `/remezcla`,
+  remixes: () => `/remezcla`,
   remixNew: () => `/remezcla/nuevo`,
-  remixPlay: (id: string) => `/remezcla/${id}`,
-  remixEdit: (id: string) => `/remezcla/editar/${id}`,
+  remix: (id: string) => `/remezcla/${id}`,
+  remixPlay: (id: string) => `/remezcla/play/${id}`,
+  remixEdit: (id: string) => `/remezcla/old/${id}`,
   remixEditItem: (id: string, item: string) => `/remezcla/editar/${id}/${item}`,
   remixEditItemChild: (id: string, item: string, childId: string) =>
     `/remezcla/editar/${id}/${item}/${childId}`,
+
+  sounds: () => `/sonidos`,
+  soundEdit: (id: string) => `/sonidos/editar/${id}`,
+
+  offline: () => `/offline`,
 };
 
 export default routes;

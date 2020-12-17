@@ -28,6 +28,8 @@ import LoadingScreen from "./components/LoadingScreen";
 
 const Archive = lazy(() => import("./@archive/Archive"));
 const Remix = lazy(() => import("./@remix/Remix"));
+const Sounds = lazy(() => import("./@sounds/Sounds"));
+const Offline = lazy(() => import("./@offline/Offline"));
 
 const Router = () => (
   <BrowserRouter>
@@ -106,8 +108,15 @@ const Router = () => (
         <Route exact path={routes.archives() + "*"}>
           <Archive fallback={NotFoundPage} />
         </Route>
-        <Route exact path={routes.remix() + "*"}>
+        <Route exact path={routes.remixes() + "*"}>
           <Remix fallback={NotFoundPage} />
+        </Route>
+
+        <Route exact path={routes.sounds() + "*"}>
+          <Sounds fallback={NotFoundPage} />
+        </Route>
+        <Route exact path={routes.offline() + "*"}>
+          <Offline fallback={NotFoundPage} />
         </Route>
 
         <Route path={routes.about()} exact component={AboutPage} />

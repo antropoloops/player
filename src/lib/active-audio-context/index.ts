@@ -38,6 +38,8 @@ export function getActiveAudioContext(): Promise<AudioContext> {
 }
 
 export function autoUnlockAudio() {
+  if (context.state !== "suspended") return;
+
   return new Promise((resolve) => {
     function unlock() {
       unmute(context);

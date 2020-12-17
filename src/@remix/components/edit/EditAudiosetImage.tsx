@@ -9,8 +9,6 @@ import routes from "../../../routes";
 import { IconButton } from "../../../components/shared/IconButton";
 import ImagePlaceholder from "../shared/ImagePlaceholder";
 
-type Props = {};
-
 const EditAudiosetImage: React.FC<EditorProps> = ({ audioset, onChange }) => {
   const url = audioset.meta.logo_url;
   return (
@@ -38,6 +36,18 @@ const EditAudiosetImage: React.FC<EditorProps> = ({ audioset, onChange }) => {
           }}
           parentKey={`audioset-${audioset.id}`}
           accept={["image/*"]}
+          uploadFile={async (file) => {
+            // if (isUpdate) {
+            //   await deleteStorage(value);
+            // }
+            // const id = "storage:" + uuid();
+            // await saveStorage({
+            //   id,
+            //   blob: file,
+            //   parentKey,
+            // });
+            return "";
+          }}
         >
           {url ? "Cambiar imágen" : "Subir imágen"}
         </FileInput>

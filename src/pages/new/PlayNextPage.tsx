@@ -20,9 +20,8 @@ type PlayerView = { name?: string; track?: Track; clip?: Clip };
 
 const PlayerPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { data: audioset } = useQuery(
-    ["project", { path: params.id }],
-    (_, p) => API.audiosets.get(p)
+  const { data: audioset } = useQuery(["project", params.id], () =>
+    API.audiosets.get({ path: params.id })
   );
   const [view, setView] = useState<PlayerView>({});
 

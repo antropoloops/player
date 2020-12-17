@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactQueryConfigProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Router from "./Router";
 import "./styles/tailwind.css";
 
@@ -7,11 +7,13 @@ const queryConfig = {
   // staleTime: 5 * 60 * 1000,
 };
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <ReactQueryConfigProvider config={queryConfig}>
+    <QueryClientProvider client={queryClient}>
       <Router />
-    </ReactQueryConfigProvider>
+    </QueryClientProvider>
   );
 };
 export default App;

@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import API from "../../api";
@@ -11,9 +10,8 @@ type RouteParams = {
 
 const ExplorePage: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { data: audioset } = useQuery(
-    ["project", { path: params.id }],
-    (_, p) => API.audiosets.get(p)
+  const { data: audioset } = useQuery(["project", params.id], () =>
+    API.audiosets.get({ path: params.id })
   );
 
   if (!audioset) return <LoadingScreen />;

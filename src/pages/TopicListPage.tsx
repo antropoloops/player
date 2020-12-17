@@ -8,15 +8,13 @@ import { Readme } from "../components/shared/Readme";
 import usePage from "../hooks/usePage";
 import WhitePage from "../components/shared/PageDesktop";
 import useLocale from "../hooks/useLocale";
+import { useListTopicQuery } from "../@documentation/hooks/useTopicQueries";
 
 type Props = {};
 
 const TopicListPage: React.FC<Props> = () => {
   const { formatMessage: FMT } = useLocale();
-  const { data: topics } = useQuery({
-    queryKey: ["topics"],
-    queryFn: () => API.topics.list(),
-  });
+  const { data: topics } = useListTopicQuery();
   const { data: page } = usePage("temas");
   const { data: section } = useQuery(["section", "topics"], () =>
     API.sections.get("topics")

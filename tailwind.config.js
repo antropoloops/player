@@ -11,7 +11,11 @@ module.exports = {
         primary: "#ffdf01",
         alert: "#770000",
 
+        remixes: "#F43F5E",
+        sounds: "#34D399",
+
         gray: {
+          black: "#111",
           darker: "#343434",
           dark: "#444444",
           medium: "#505050",
@@ -32,13 +36,14 @@ module.exports = {
       },
       gridTemplateColumns: {
         "media-object": "33% auto 4rem",
+        "property-list": "auto 1fr",
       },
       minWidth: {
         sidebar: "300px",
       },
       minHeight: {
-        "8": "2rem",
-        "12": "3rem",
+        8: "2rem",
+        12: "3rem",
       },
       maxWidth: {
         "cover-xs": "5rem",
@@ -47,9 +52,9 @@ module.exports = {
         content: "820px",
       },
       maxHeight: {
-        "6": "1.5rem",
-        "7": "1.75rem",
-        "8": "2rem",
+        6: "1.5rem",
+        7: "1.75rem",
+        8: "2rem",
       },
       animation: {
         "ping-slow": "ping 3s cubic-bezier(0, 0, 0.2, 1) 1",

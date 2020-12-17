@@ -16,7 +16,7 @@ const HomePage: React.FC<Props> = () => {
   const { data: sections } = useQuery("sections", () => API.sections.list());
   const { data: page } = useQuery(
     ["page", { slug: "inicio", locale: "es" }],
-    (_, params) => API.pages.get(params)
+    () => API.pages.get({ slug: "inicio", locale: "es" })
   );
   const { formatMessage: f } = useLocale();
   const home = sections && sections.find((section) => section.id === "home");

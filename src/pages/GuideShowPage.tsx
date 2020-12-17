@@ -7,6 +7,10 @@ import API from "../api";
 import { useDeviceType } from "../hooks/useDeviceType";
 import routes from "../routes";
 import DownloadFile from "../components/guides/DownloadFile";
+import {
+  useGuideQuery,
+  useListGuidesQuery,
+} from "../@documentation/hooks/useGuideQueries";
 
 type RouteParams = {
   id: string;
@@ -16,15 +20,8 @@ type Props = {};
 
 const GuideShowPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
-  const { data: guides } = useQuery({
-    queryKey: ["guides"],
-    queryFn: () => API.guides.list(),
-  });
-  const { data: guide, error } = useQuery(
-    ["guide", { path: params.id }],
-    (_, p) => API.guides.get(p),
-    { retry: false }
-  );
+  const { data: guides } = useListGuidesQuery();
+  const { data: guide, error } = useGuideQuery(params.id);
   const { isMobile } = useDeviceType();
 
   const extension = guide?.metadata?.pdf

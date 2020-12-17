@@ -55,6 +55,7 @@ const EditClipImage: React.FC<EditorProps> = ({ audioset, id, onChange }) => {
           }}
           parentKey={`audioset-${audioset.id}`}
           accept={["image/*"]}
+          uploadFile={async () => ""}
         >
           {url ? "Cambiar imágen" : "Subir imágen"}
         </FileInput>

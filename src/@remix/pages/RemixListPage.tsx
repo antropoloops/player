@@ -1,38 +1,41 @@
 import React from "react";
-import { useQuery } from "react-query";
 import { Link, useHistory } from "react-router-dom";
+import { useListRemixesQuery } from "../../@offline/hooks/useOfflineQueries";
 import { AddIcon, CloudDownloadIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
-import {
-  createOfflineRemix,
-  importOfflineRemix,
-  loadOfflineRemixes,
-} from "../offline";
+import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
+import { createRemix } from "../../@offline/service";
+import { Separator } from "../../@core/components/Separator";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
   const history = useHistory();
-  const { data: remixes } = useQuery(["offline-remixes"], () =>
-    loadOfflineRemixes()
-  );
+  const group = useCurrentGroup();
+  const { data: remixes, refetch } = useListRemixesQuery();
+
+  console.log("REMIX LIST ", group, remixes);
+
   return (
     <Layout>
       <img src="/images/sections/community.jpg" alt="Remix" />
-      <h2 className="p-1 mb-1 bg-pink-600 text-bg-dark">Remixes</h2>
+      <Separator className="bg-remixes">{group?.name}:remezclas</Separator>
       <div className="flex">
         <IconButtonBig
           icon={AddIcon}
+          color="text-remixes"
           onClick={() => {
-            createOfflineRemix().then((id) => {
-              history.push(routes.remixEdit(id));
-            });
+            if (group) {
+              createRemix(group.id, { title: "Remezcla!" }).then((remix) => {
+                history.push(routes.remix(remix.id));
+              });
+            }
           }}
         >
           Crear proyecto
         </IconButtonBig>
-        <IconButtonBig
+        {/* <IconButtonBig
           icon={CloudDownloadIcon}
           onClick={() => {
             const url =
@@ -43,7 +46,7 @@ const RemixListPage: React.FC<Props> = () => {
           }}
         >
           Importar proyecto
-        </IconButtonBig>
+        </IconButtonBig> */}
       </div>
       <div>
         {remixes &&
@@ -51,9 +54,9 @@ const RemixListPage: React.FC<Props> = () => {
             <Link
               key={remix.id}
               className="w-full mb-1 p-2 flex bg-gray-light text-white"
-              to={routes.remixEdit(remix.id)}
+              to={routes.remix(remix.id)}
             >
-              {remix.audioset.meta.title}
+              {remix.meta.title || "Sin título"}
             </Link>
           ))}
       </div>

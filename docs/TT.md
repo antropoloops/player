@@ -1,5 +1,11 @@
 # TimeTracking
 
+## 2020/12/15 4h AWS Services @offline datastore
+
+## 2020/12/12 4h - AWS Services + @sounds
+
+## 2020/12/11 1h - Cleanup code
+
 ## 2020/12/9 2h - Import audioset
 
 ## 2020/12/8 8h

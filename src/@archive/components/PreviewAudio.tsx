@@ -5,7 +5,7 @@ import useAudioBuffer from "../hooks/useAudioBuffer";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
 import { Waveform } from "./Waveform";
-import { formatTime } from "../../@archive/helpers/timeHelpers";
+import { formatTime } from "../../@sounds/helpers/timeHelpers";
 
 type Props = {
   storage?: {
