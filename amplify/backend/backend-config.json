@@ -24,11 +24,5 @@
         }
       }
     }
-  },
-  "storage": {
-    "atpls": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
   }
 }
