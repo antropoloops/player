@@ -4,7 +4,7 @@ import LoadingScreen from "../components/LoadingScreen";
 import routes from "../routes";
 import { AuthContextProvider } from "./contexts/AuthContext";
 
-import OfflineDebugPage from "./pages/OfflineDebugPage";
+import OfflineDebugPage from "./pages/DebugPage";
 import GroupsPage from "./pages/GroupsPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";

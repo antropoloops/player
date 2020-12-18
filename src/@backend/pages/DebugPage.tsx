@@ -1,3 +1,5 @@
+import preval from "preval.macro";
+import { useEffect, useState } from "react";
 import {
   DataStore,
   Project,
@@ -7,7 +9,6 @@ import {
   ProjetAccess,
   ProjectType,
 } from "../datastore";
-import { useEffect, useState } from "react";
 
 type TestPageProps = { className?: string };
 async function createScenenario() {
@@ -17,7 +18,6 @@ async function createScenenario() {
       meta: {},
     })
   );
-  console.log("NEW GROUP", group);
   await DataStore.save(
     new Project({
       name: "Archivo",
@@ -53,6 +53,9 @@ export function TestPage({ className }: TestPageProps) {
 
   return (
     <div className="text-white m-16">
+      <div className="my-4">
+        Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+      </div>
       <button
         className="bg-blue-600 rounded p-2 my-4 mr-4"
         onClick={() => {
