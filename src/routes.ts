@@ -41,6 +41,7 @@ const routes = {
   admin: () => `/admin`,
   adminDebug: () => `/admin/debug`,
   adminLogin: () => `/admin/entrar`,
+  adminLogout: () => `/admin/salir`,
   // private?
   adminGroups: () => `/admin/_groups`,
 };

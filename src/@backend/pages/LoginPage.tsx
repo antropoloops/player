@@ -1,9 +1,11 @@
 import React from "react";
 import { AmplifyAuthenticator, AmplifySignIn } from "@aws-amplify/ui-react";
 import Layout from "../../components/layout/Layout";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 type Props = {};
 const LoginPage: React.FC<Props> = () => {
+  const user = useCurrentUser();
   return (
     <Layout
       title="Entrar"
@@ -31,7 +33,12 @@ const LoginPage: React.FC<Props> = () => {
         </AmplifyAuthenticator>
       }
     >
-      <div className="p-8 text-white">El editor no funciona aún en móvil.</div>
+      <div className="p-4">
+        <div>{user?.email}</div>
+        <div className="p-4 text-white">
+          El editor no funciona aún en móvil.
+        </div>
+      </div>
     </Layout>
   );
 };
