@@ -23,7 +23,7 @@ const ArchiveShowPage: React.FC<Props> = () => {
   if (!archive || !recordings) return <Layout />;
 
   return (
-    <Layout sidebar={<div>Hola</div>}>
+    <Layout nav="projects" sidebar={<div>Hola</div>}>
       {recordings.map((recording) => (
         <div key={recording.id}>Recording</div>
       ))}

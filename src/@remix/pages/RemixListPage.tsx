@@ -17,10 +17,8 @@ const RemixListPage: React.FC<Props> = () => {
     groupId: group?.id || "",
   });
 
-  console.log("REMIX LIST ", group, remixes);
-
   return (
-    <Layout>
+    <Layout nav="projects">
       <img src="/images/sections/community.jpg" alt="Remix" />
       <Separator className="bg-remixes">{group?.name}:remezclas</Separator>
       <div className="flex">
@@ -35,7 +33,7 @@ const RemixListPage: React.FC<Props> = () => {
             }
           }}
         >
-          Crear proyecto
+          Crear remezcla
         </IconButtonBig>
         {/* <IconButtonBig
           icon={CloudDownloadIcon}

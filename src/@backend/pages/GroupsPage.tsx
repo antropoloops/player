@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DesktopView, Heading, List } from "../../@core/components";
+import { listProjectSections } from "../../@core/helpers/sectionHelpers";
 import Layout from "../../components/layout/Layout";
 import { Group } from "../../models";
 import { GroupForm } from "../components/GroupForm";
@@ -15,6 +16,7 @@ export function GroupsPage({ className }: Props) {
   const { data: groups, refetch } = useListGroupsQuery();
   return (
     <Layout
+      nav="projects"
       desktop={
         <DesktopView>
           <Heading level={1}>Grupos</Heading>
