@@ -1,6 +1,9 @@
+import { DataStore } from "aws-amplify";
 import React, { useState } from "react";
 import { DesktopView, Heading, List } from "../../@core/components";
 import { listProjectSections } from "../../@core/helpers/sectionHelpers";
+import IconButtonBig from "../../@remix/components/shared/Buttons";
+import { AddIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import { Group } from "../../models";
 import { GroupForm } from "../components/GroupForm";
@@ -31,11 +34,29 @@ export function GroupsPage({ className }: Props) {
               }}
             />
           )}
+          <div className="flex my-4">
+            <IconButtonBig
+              icon={AddIcon}
+              onClick={() => {
+                DataStore.save(
+                  new Group({
+                    name: "nuevo-grupo-" + ((groups?.length || 0) + 1),
+                    meta: {},
+                  })
+                ).then(() => refetch());
+              }}
+            >
+              Añadir grupo
+            </IconButtonBig>
+          </div>
           <List
-            className="max-w-lg border-t border-white"
+            className="mt-4 max-w-lg  border-t border-gray-light"
             items={groups || []}
             render={(group) => (
-              <li className="py-1 border-b border-white" key={group.id}>
+              <li
+                className="py-1 border-b border-gray-light opacity-75 hover:opacity-100"
+                key={group.id}
+              >
                 <button
                   onClick={() => {
                     setGroup(group);

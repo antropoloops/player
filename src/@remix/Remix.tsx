@@ -22,6 +22,10 @@ const Remix = ({ fallback }: Props) => {
 
 export default Remix;
 
+type Props = {
+  fallback: React.ComponentType<any>;
+};
+
 function Router({ fallback: Fallback }: Props) {
   const group = useCurrentGroup();
 
@@ -43,6 +47,3 @@ function Router({ fallback: Fallback }: Props) {
     </Switch>
   );
 }
-type Props = {
-  fallback: React.ComponentType<any>;
-};

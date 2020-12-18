@@ -1,5 +1,6 @@
 import preval from "preval.macro";
 import { useEffect, useState } from "react";
+import Layout from "../../components/layout/Layout";
 import {
   DataStore,
   Project,
@@ -9,11 +10,16 @@ import {
   ProjetAccess,
   ProjectType,
 } from "../datastore";
+import { useCurrentGroup } from "../hooks/useCurrentGroup";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 type TestPageProps = { className?: string };
 export function TestPage({ className }: TestPageProps) {
   const [all, setAll] = useState<object>({});
   const [count, inc] = useState(0);
+
+  const group = useCurrentGroup();
+  const user = useCurrentUser();
 
   const refetch = () => inc(count + 1);
 
@@ -22,30 +28,33 @@ export function TestPage({ className }: TestPageProps) {
   }, [count]);
 
   return (
-    <div className="text-white m-16">
-      <div className="my-4">
-        Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+    <Layout
+      nav="projects"
+      desktop={
+        <div className="text-white m-4">
+          <div className="my-4">
+            Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+          </div>
+          <pre className="text-xs">{JSON.stringify(all, null, 2)}</pre>
+        </div>
+      }
+    >
+      <div className="flex flex-col p-4 text-white">
+        <label>Group: {group?.name}</label>
+        <label>User: {user?.email}</label>
+
+        <div className="py-4">
+          <button
+            className="bg-red-600 rounded p-2 my-4 mr-4"
+            onClick={() => {
+              changeGroup("").then(() => refetch());
+            }}
+          >
+            Borrar datos locales!
+          </button>
+        </div>
       </div>
-      <pre className="text-xs">{JSON.stringify(all, null, 2)}</pre>
-      <div className="py-4">
-        <button
-          className="bg-blue-600 rounded p-2 my-4 mr-4"
-          onClick={() => {
-            createScenenario().then(() => refetch());
-          }}
-        >
-          Create
-        </button>
-        <button
-          className="bg-red-600 rounded p-2 my-4 mr-4"
-          onClick={() => {
-            changeGroup("").then(() => refetch());
-          }}
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+    </Layout>
   );
 }
 

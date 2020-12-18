@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import routes from "../routes";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { CurrentGroupContextProvider } from "./contexts/CurrentGroupContext";
 
 import OfflineDebugPage from "./pages/DebugPage";
 import GroupsPage from "./pages/GroupsPage";
@@ -13,7 +14,17 @@ type Props = {
   fallback: React.ComponentType<any>;
 };
 
-const Backend = ({ fallback: Fallback }: Props) => (
+const Backend = ({ fallback }: Props) => {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <CurrentGroupContextProvider>
+        <Router fallback={fallback} />
+      </CurrentGroupContextProvider>
+    </Suspense>
+  );
+};
+
+const Router = ({ fallback: Fallback }: Props) => (
   <Suspense fallback={<LoadingScreen />}>
     <AuthContextProvider>
       <Switch>
