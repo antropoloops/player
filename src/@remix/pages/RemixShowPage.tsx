@@ -53,7 +53,12 @@ export function RemixShowPage({ className }: Props) {
 
   const editor =
     params.type === "t" ? (
-      <TrackEditor group={group} remix={remix} track={track} />
+      <TrackEditor
+        group={group}
+        remix={remix}
+        track={track}
+        onChange={refetchTracks}
+      />
     ) : (
       <ShowRemix group={group} remix={remix} />
     );

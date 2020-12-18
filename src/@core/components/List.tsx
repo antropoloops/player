@@ -17,9 +17,14 @@ type PropertyListProps = {
   values: any;
 };
 
-export function PropertyList({ keys, labels, values }: PropertyListProps) {
+export function PropertyList({
+  className,
+  keys,
+  labels,
+  values,
+}: PropertyListProps) {
   return (
-    <div className="grid grid-cols-property-list gap-x-4">
+    <div className={"grid grid-cols-property-list gap-x-4 " + className}>
       {keys.map((key) => (
         <React.Fragment key={key}>
           <label className="text-right text-white-dark">

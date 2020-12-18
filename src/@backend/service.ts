@@ -40,6 +40,7 @@ export async function createTrack(
       groupID: project.groupID,
       projectID: project.id,
       meta: meta || {},
+      clips: [],
     })
   );
 }
@@ -47,7 +48,7 @@ export async function createTrack(
 export async function listProjectSamples(groupId: string, projectId: string) {
   const selections = await DataStore.query(Selection);
   return selections.filter(
-    (s) => s.project?.id === projectId && s.groupID === groupId
+    (s) => s.projectID === projectId && s.groupID === groupId
   );
 }
 

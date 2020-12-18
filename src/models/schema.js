@@ -134,7 +134,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "project"
+                        "associatedWith": "projectID"
                     }
                 },
                 "selections": {
@@ -148,7 +148,7 @@ export const schema = {
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "project"
+                        "associatedWith": "projectID"
                     }
                 }
             },
@@ -181,10 +181,26 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "projectID": {
+                    "name": "projectID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "groupID": {
                     "name": "groupID",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "MediaType"
+                    },
                     "isRequired": true,
                     "attributes": []
                 },
@@ -203,7 +219,7 @@ export const schema = {
                     "type": {
                         "nonModel": "StoredFile"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -219,19 +235,6 @@ export const schema = {
                     "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
-                },
-                "project": {
-                    "name": "project",
-                    "isArray": false,
-                    "type": {
-                        "model": "Project"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "projectID"
-                    }
                 },
                 "selections": {
                     "name": "selections",
@@ -292,6 +295,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "projectID": {
+                    "name": "projectID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "role": {
                     "name": "role",
                     "isArray": false,
@@ -314,7 +324,7 @@ export const schema = {
                     "type": {
                         "nonModel": "AudioRegion"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "image": {
@@ -323,7 +333,7 @@ export const schema = {
                     "type": {
                         "nonModel": "ImageCrop"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "file": {
@@ -360,19 +370,6 @@ export const schema = {
                     "association": {
                         "connectionType": "BELONGS_TO",
                         "targetName": "mediaID"
-                    }
-                },
-                "project": {
-                    "name": "project",
-                    "isArray": false,
-                    "type": {
-                        "model": "Project"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "projectID"
                     }
                 }
             },
@@ -456,7 +453,7 @@ export const schema = {
                     },
                     "isRequired": true,
                     "attributes": [],
-                    "isArrayNullable": true
+                    "isArrayNullable": false
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -479,6 +476,25 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProject",
+                        "fields": [
+                            "projectID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byGroup",
+                        "fields": [
+                            "groupID",
+                            "createdAt"
+                        ]
+                    }
                 }
             ]
         }
@@ -747,5 +763,5 @@ export const schema = {
             }
         }
     },
-    "version": "48bdf6b957481873f177c27582837aeb"
+    "version": "653cefe378ae821262512fc3c543fbf9"
 };

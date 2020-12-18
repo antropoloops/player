@@ -1,6 +1,6 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { GetGroup, GetGroupProject, listProjects } from "../@backend/service";
-import { Media, Project } from "../models";
+import { Media } from "../models";
 
 export function listGroupArchives({ groupId }: GetGroup) {
   return listProjects((a) => a.groupID === groupId);
@@ -12,7 +12,7 @@ export function getGroupArchive({ groupId, projectId }: GetGroupProject) {
 
 export function listArchiveRecordings({ groupId, projectId }: GetGroupProject) {
   return listRecordings(
-    (r) => r.project?.id === projectId && r.groupID === groupId
+    (r) => r.projectID === projectId && r.groupID === groupId
   );
 }
 

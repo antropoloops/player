@@ -64,13 +64,14 @@ type Media
   projectID: ID!
   groupID: ID!
 
+  type: MediaType!
   meta: Metadata!
-  file: StoredFile
+  file: StoredFile!
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
-  project: Project @connection(fields: ["projectID"])
+  #project: Project @connection(fields: ["projectID"])
   selections: [Selection] @connection(keyName: "byMedia", fields: ["id"])
 }
 
@@ -89,15 +90,16 @@ type ClipMetadata {
   selectionID: ID!
 }
 
-type Track @model {
-  # @key(name: "byProject", fields: ["projectID"])
-  # @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
+type Track
+  @model
+  @key(name: "byProject", fields: ["projectID"])
+  @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   id: ID!
   groupID: ID!
   projectID: ID!
 
   meta: TrackMetadata!
-  clips: [ClipMetadata!]
+  clips: [ClipMetadata!]!
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -134,13 +136,13 @@ type Selection
   role: String
   type: MediaType
 
-  audio: AudioRegion!
-  image: ImageCrop!
+  audio: AudioRegion
+  image: ImageCrop
   file: StoredFile
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
   media: Media @connection(fields: ["mediaID"])
-  project: Project @connection(fields: ["projectID"])
+  # project: Project @connection(fields: ["projectID"])
 }

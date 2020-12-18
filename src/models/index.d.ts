@@ -112,12 +112,13 @@ export declare class Project {
 
 export declare class Media {
   readonly id: string;
+  readonly projectID: string;
   readonly groupID: string;
+  readonly type: MediaType | keyof typeof MediaType;
   readonly meta: Metadata;
-  readonly file?: StoredFile;
+  readonly file: StoredFile;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly project?: Project;
   readonly selections?: (Selection | null)[];
   constructor(init: ModelInit<Media>);
   static copyOf(
@@ -129,15 +130,15 @@ export declare class Media {
 export declare class Selection {
   readonly id: string;
   readonly groupID: string;
+  readonly projectID: string;
   readonly role?: string;
   readonly type?: MediaType | keyof typeof MediaType;
-  readonly audio: AudioRegion;
-  readonly image: ImageCrop;
+  readonly audio?: AudioRegion;
+  readonly image?: ImageCrop;
   readonly file?: StoredFile;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   readonly media?: Media;
-  readonly project?: Project;
   constructor(init: ModelInit<Selection>);
   static copyOf(
     source: Selection,
@@ -150,7 +151,7 @@ export declare class Track {
   readonly groupID: string;
   readonly projectID: string;
   readonly meta: TrackMetadata;
-  readonly clips?: ClipMetadata[];
+  readonly clips: ClipMetadata[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Track>);

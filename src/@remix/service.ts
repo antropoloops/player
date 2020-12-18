@@ -1,6 +1,6 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { GetGroup, listProjects } from "../@backend/service";
-import { Project, ProjectType, ProjetAccess } from "../models";
+import { Project, ProjectType, ProjetAccess, Track } from "../models";
 
 export function listGroupRemixes({ groupId }: GetGroup) {
   return listProjects(
@@ -17,6 +17,14 @@ export async function createRemix(groupId: string, name: string) {
       access: ProjetAccess.GROUP,
       meta: { title: name },
       remix: {},
+    })
+  );
+}
+
+export async function updateTrack(track: Track, data: Partial<Track>) {
+  return DataStore.save(
+    Track.copyOf(track, (draft) => {
+      Object.assign(draft, data);
     })
   );
 }
