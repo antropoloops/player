@@ -10,16 +10,13 @@ export const createGroup = /* GraphQL */ `
     createGroup(input: $input, condition: $condition) {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -37,16 +34,13 @@ export const updateGroup = /* GraphQL */ `
     updateGroup(input: $input, condition: $condition) {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -64,16 +58,13 @@ export const deleteGroup = /* GraphQL */ `
     deleteGroup(input: $input, condition: $condition) {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -83,31 +74,40 @@ export const deleteGroup = /* GraphQL */ `
     }
   }
 `;
-export const createArchive = /* GraphQL */ `
-  mutation CreateArchive(
-    $input: CreateArchiveInput!
-    $condition: ModelArchiveConditionInput
+export const createProject = /* GraphQL */ `
+  mutation CreateProject(
+    $input: CreateProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    createArchive(input: $input, condition: $condition) {
+    createProject(input: $input, condition: $condition) {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -118,8 +118,26 @@ export const createArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -135,31 +153,40 @@ export const createArchive = /* GraphQL */ `
     }
   }
 `;
-export const updateArchive = /* GraphQL */ `
-  mutation UpdateArchive(
-    $input: UpdateArchiveInput!
-    $condition: ModelArchiveConditionInput
+export const updateProject = /* GraphQL */ `
+  mutation UpdateProject(
+    $input: UpdateProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    updateArchive(input: $input, condition: $condition) {
+    updateProject(input: $input, condition: $condition) {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -170,8 +197,26 @@ export const updateArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -187,31 +232,40 @@ export const updateArchive = /* GraphQL */ `
     }
   }
 `;
-export const deleteArchive = /* GraphQL */ `
-  mutation DeleteArchive(
-    $input: DeleteArchiveInput!
-    $condition: ModelArchiveConditionInput
+export const deleteProject = /* GraphQL */ `
+  mutation DeleteProject(
+    $input: DeleteProjectInput!
+    $condition: ModelProjectConditionInput
   ) {
-    deleteArchive(input: $input, condition: $condition) {
+    deleteProject(input: $input, condition: $condition) {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -222,8 +276,9 @@ export const deleteArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
           createdAt
           updatedAt
           _version
@@ -233,76 +288,14 @@ export const deleteArchive = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createRecording = /* GraphQL */ `
-  mutation CreateRecording(
-    $input: CreateRecordingInput!
-    $condition: ModelRecordingConditionInput
-  ) {
-    createRecording(input: $input, condition: $condition) {
-      id
-      archiveID
-      groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
+      selections {
         items {
           id
           groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -318,211 +311,44 @@ export const createRecording = /* GraphQL */ `
     }
   }
 `;
-export const updateRecording = /* GraphQL */ `
-  mutation UpdateRecording(
-    $input: UpdateRecordingInput!
-    $condition: ModelRecordingConditionInput
+export const createMedia = /* GraphQL */ `
+  mutation CreateMedia(
+    $input: CreateMediaInput!
+    $condition: ModelMediaConditionInput
   ) {
-    updateRecording(input: $input, condition: $condition) {
+    createMedia(input: $input, condition: $condition) {
       id
-      archiveID
+      projectID
       groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteRecording = /* GraphQL */ `
-  mutation DeleteRecording(
-    $input: DeleteRecordingInput!
-    $condition: ModelRecordingConditionInput
-  ) {
-    deleteRecording(input: $input, condition: $condition) {
-      id
-      archiveID
-      groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createRemix = /* GraphQL */ `
-  mutation CreateRemix(
-    $input: CreateRemixInput!
-    $condition: ModelRemixConditionInput
-  ) {
-    createRemix(input: $input, condition: $condition) {
-      id
-      groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -538,53 +364,44 @@ export const createRemix = /* GraphQL */ `
     }
   }
 `;
-export const updateRemix = /* GraphQL */ `
-  mutation UpdateRemix(
-    $input: UpdateRemixInput!
-    $condition: ModelRemixConditionInput
+export const updateMedia = /* GraphQL */ `
+  mutation UpdateMedia(
+    $input: UpdateMediaInput!
+    $condition: ModelMediaConditionInput
   ) {
-    updateRemix(input: $input, condition: $condition) {
+    updateMedia(input: $input, condition: $condition) {
       id
+      projectID
       groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -600,53 +417,44 @@ export const updateRemix = /* GraphQL */ `
     }
   }
 `;
-export const deleteRemix = /* GraphQL */ `
-  mutation DeleteRemix(
-    $input: DeleteRemixInput!
-    $condition: ModelRemixConditionInput
+export const deleteMedia = /* GraphQL */ `
+  mutation DeleteMedia(
+    $input: DeleteMediaInput!
+    $condition: ModelMediaConditionInput
   ) {
-    deleteRemix(input: $input, condition: $condition) {
+    deleteMedia(input: $input, condition: $condition) {
       id
+      projectID
       groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -670,7 +478,7 @@ export const createTrack = /* GraphQL */ `
     createTrack(input: $input, condition: $condition) {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -678,7 +486,7 @@ export const createTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -696,7 +504,7 @@ export const updateTrack = /* GraphQL */ `
     updateTrack(input: $input, condition: $condition) {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -704,7 +512,7 @@ export const updateTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -722,7 +530,7 @@ export const deleteTrack = /* GraphQL */ `
     deleteTrack(input: $input, condition: $condition) {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -730,7 +538,7 @@ export const deleteTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -740,104 +548,68 @@ export const deleteTrack = /* GraphQL */ `
     }
   }
 `;
-export const createSample = /* GraphQL */ `
-  mutation CreateSample(
-    $input: CreateSampleInput!
-    $condition: ModelSampleConditionInput
+export const createSelection = /* GraphQL */ `
+  mutation CreateSelection(
+    $input: CreateSelectionInput!
+    $condition: ModelSelectionConditionInput
   ) {
-    createSample(input: $input, condition: $condition) {
+    createSelection(input: $input, condition: $condition) {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -851,104 +623,68 @@ export const createSample = /* GraphQL */ `
     }
   }
 `;
-export const updateSample = /* GraphQL */ `
-  mutation UpdateSample(
-    $input: UpdateSampleInput!
-    $condition: ModelSampleConditionInput
+export const updateSelection = /* GraphQL */ `
+  mutation UpdateSelection(
+    $input: UpdateSelectionInput!
+    $condition: ModelSelectionConditionInput
   ) {
-    updateSample(input: $input, condition: $condition) {
+    updateSelection(input: $input, condition: $condition) {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -962,104 +698,68 @@ export const updateSample = /* GraphQL */ `
     }
   }
 `;
-export const deleteSample = /* GraphQL */ `
-  mutation DeleteSample(
-    $input: DeleteSampleInput!
-    $condition: ModelSampleConditionInput
+export const deleteSelection = /* GraphQL */ `
+  mutation DeleteSelection(
+    $input: DeleteSelectionInput!
+    $condition: ModelSelectionConditionInput
   ) {
-    deleteSample(input: $input, condition: $condition) {
+    deleteSelection(input: $input, condition: $condition) {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }

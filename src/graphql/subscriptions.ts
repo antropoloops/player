@@ -7,16 +7,13 @@ export const onCreateGroup = /* GraphQL */ `
     onCreateGroup {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -31,16 +28,13 @@ export const onUpdateGroup = /* GraphQL */ `
     onUpdateGroup {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -55,16 +49,13 @@ export const onDeleteGroup = /* GraphQL */ `
     onDeleteGroup {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -74,28 +65,37 @@ export const onDeleteGroup = /* GraphQL */ `
     }
   }
 `;
-export const onCreateArchive = /* GraphQL */ `
-  subscription OnCreateArchive {
-    onCreateArchive {
+export const onCreateProject = /* GraphQL */ `
+  subscription OnCreateProject {
+    onCreateProject {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -106,8 +106,26 @@ export const onCreateArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -123,28 +141,37 @@ export const onCreateArchive = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateArchive = /* GraphQL */ `
-  subscription OnUpdateArchive {
-    onUpdateArchive {
+export const onUpdateProject = /* GraphQL */ `
+  subscription OnUpdateProject {
+    onUpdateProject {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -155,8 +182,26 @@ export const onUpdateArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -172,28 +217,37 @@ export const onUpdateArchive = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteArchive = /* GraphQL */ `
-  subscription OnDeleteArchive {
-    onDeleteArchive {
+export const onDeleteProject = /* GraphQL */ `
+  subscription OnDeleteProject {
+    onDeleteProject {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -204,8 +258,9 @@ export const onDeleteArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
           createdAt
           updatedAt
           _version
@@ -215,73 +270,14 @@ export const onDeleteArchive = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateRecording = /* GraphQL */ `
-  subscription OnCreateRecording {
-    onCreateRecording {
-      id
-      archiveID
-      groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
+      selections {
         items {
           id
           groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -297,202 +293,41 @@ export const onCreateRecording = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateRecording = /* GraphQL */ `
-  subscription OnUpdateRecording {
-    onUpdateRecording {
+export const onCreateMedia = /* GraphQL */ `
+  subscription OnCreateMedia {
+    onCreateMedia {
       id
-      archiveID
+      projectID
       groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteRecording = /* GraphQL */ `
-  subscription OnDeleteRecording {
-    onDeleteRecording {
-      id
-      archiveID
-      groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateRemix = /* GraphQL */ `
-  subscription OnCreateRemix {
-    onCreateRemix {
-      id
-      groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -508,50 +343,41 @@ export const onCreateRemix = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateRemix = /* GraphQL */ `
-  subscription OnUpdateRemix {
-    onUpdateRemix {
+export const onUpdateMedia = /* GraphQL */ `
+  subscription OnUpdateMedia {
+    onUpdateMedia {
       id
+      projectID
       groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -567,50 +393,41 @@ export const onUpdateRemix = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteRemix = /* GraphQL */ `
-  subscription OnDeleteRemix {
-    onDeleteRemix {
+export const onDeleteMedia = /* GraphQL */ `
+  subscription OnDeleteMedia {
+    onDeleteMedia {
       id
+      projectID
       groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -631,7 +448,7 @@ export const onCreateTrack = /* GraphQL */ `
     onCreateTrack {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -639,7 +456,7 @@ export const onCreateTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -654,7 +471,7 @@ export const onUpdateTrack = /* GraphQL */ `
     onUpdateTrack {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -662,7 +479,7 @@ export const onUpdateTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -677,7 +494,7 @@ export const onDeleteTrack = /* GraphQL */ `
     onDeleteTrack {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -685,7 +502,7 @@ export const onDeleteTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -695,101 +512,65 @@ export const onDeleteTrack = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSample = /* GraphQL */ `
-  subscription OnCreateSample {
-    onCreateSample {
+export const onCreateSelection = /* GraphQL */ `
+  subscription OnCreateSelection {
+    onCreateSelection {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -803,101 +584,65 @@ export const onCreateSample = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSample = /* GraphQL */ `
-  subscription OnUpdateSample {
-    onUpdateSample {
+export const onUpdateSelection = /* GraphQL */ `
+  subscription OnUpdateSelection {
+    onUpdateSelection {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -911,101 +656,65 @@ export const onUpdateSample = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSample = /* GraphQL */ `
-  subscription OnDeleteSample {
-    onDeleteSample {
+export const onDeleteSelection = /* GraphQL */ `
+  subscription OnDeleteSelection {
+    onDeleteSelection {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }

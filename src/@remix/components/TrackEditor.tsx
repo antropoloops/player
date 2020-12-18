@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Group, Project, Track } from "../../@backend/datastore";
+import { Group, Project, Track, Selection } from "../../@backend/datastore";
 import { DesktopView, Heading } from "../../@core/components";
 import { FilesInput } from "../../@archive/components/FilesInput";
 import { updateTrack } from "../service";
@@ -15,20 +15,21 @@ type Props = {
   group: Group;
   remix: Project;
   track?: Track;
+  selections?: Selection[];
   onChange: () => void;
 };
 
-export function TrackEditor({ remix, group, track, onChange }: Props) {
+export function TrackEditor({
+  remix,
+  group,
+  track,
+  onChange,
+  selections,
+}: Props) {
   const project = {
     groupId: remix.groupID,
     projectId: remix.id,
   };
-  const { data: selections, refetch } = useListTrackSamplesQuery(
-    project,
-    track
-  );
-
-  useEffect(() => {}, []);
 
   if (!track) return null;
 
@@ -39,6 +40,8 @@ export function TrackEditor({ remix, group, track, onChange }: Props) {
     });
     return selection.id;
   };
+
+  const trackSelections = selections || [];
 
   return (
     <DesktopView>
@@ -53,7 +56,9 @@ export function TrackEditor({ remix, group, track, onChange }: Props) {
       </FilesInput>
 
       <div className="mt-16">
-        {selections?.map((selection) => {
+        {track.clips.map((clip) => {
+          const selection = selections?.find((s) => s.id === clip.selectionID);
+          if (!selection) return null;
           const name = selection.media?.meta.title;
           const thumbnail = selection.media?.file.thumbnail;
           return (

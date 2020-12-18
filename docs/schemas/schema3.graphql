@@ -133,9 +133,9 @@ type Selection
   groupID: ID!
   projectID: ID!
   mediaID: ID!
-
   role: String
   type: MediaType
+
   audio: AudioRegion
   image: ImageCrop
   file: StoredFile

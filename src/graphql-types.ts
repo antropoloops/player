@@ -5,25 +5,21 @@
 export type CreateGroupInput = {
   id?: string | null;
   name: string;
-  description?: string | null;
-  image?: Array<StoredImageInput> | null;
+  meta: MetadataInput;
   _version?: number | null;
 };
 
-export type StoredImageInput = {
-  key: string;
-  type: string;
-  role?: string | null;
-  name?: string | null;
-  thumbnail?: string | null;
-  size?: number | null;
-  width?: number | null;
-  height?: number | null;
+export type MetadataInput = {
+  title?: string | null;
+  description?: string | null;
+  authors?: string | null;
+  credits?: string | null;
+  licenses?: string | null;
+  readme?: string | null;
 };
 
 export type ModelGroupConditionInput = {
   name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
   and?: Array<ModelGroupConditionInput | null> | null;
   or?: Array<ModelGroupConditionInput | null> | null;
   not?: ModelGroupConditionInput | null;
@@ -71,8 +67,7 @@ export type ModelSizeInput = {
 export type UpdateGroupInput = {
   id: string;
   name?: string | null;
-  description?: string | null;
-  image?: Array<StoredImageInput> | null;
+  meta?: MetadataInput | null;
   _version?: number | null;
 };
 
@@ -81,30 +76,42 @@ export type DeleteGroupInput = {
   _version?: number | null;
 };
 
-export type CreateArchiveInput = {
+export type CreateProjectInput = {
   id?: string | null;
   groupID: string;
   name: string;
-  access: ArchiveAccess;
+  type: ProjectType;
+  access: ProjetAccess;
+  meta: MetadataInput;
+  remix: RemixMetadataInput;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export enum ArchiveAccess {
-  private = "private",
-  public = "public",
+export enum ProjectType {
+  archive = "archive",
+  remix = "remix",
 }
 
-export type ModelArchiveConditionInput = {
+export enum ProjetAccess {
+  group = "group",
+}
+
+export type RemixMetadataInput = {
+  bmp?: number | null;
+};
+
+export type ModelProjectConditionInput = {
   groupID?: ModelIDInput | null;
   name?: ModelStringInput | null;
-  access?: ModelArchiveAccessInput | null;
+  type?: ModelProjectTypeInput | null;
+  access?: ModelProjetAccessInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelArchiveConditionInput | null> | null;
-  or?: Array<ModelArchiveConditionInput | null> | null;
-  not?: ModelArchiveConditionInput | null;
+  and?: Array<ModelProjectConditionInput | null> | null;
+  or?: Array<ModelProjectConditionInput | null> | null;
+  not?: ModelProjectConditionInput | null;
 };
 
 export type ModelIDInput = {
@@ -123,119 +130,91 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type ModelArchiveAccessInput = {
-  eq?: ArchiveAccess | null;
-  ne?: ArchiveAccess | null;
+export type ModelProjectTypeInput = {
+  eq?: ProjectType | null;
+  ne?: ProjectType | null;
 };
 
-export type UpdateArchiveInput = {
+export type ModelProjetAccessInput = {
+  eq?: ProjetAccess | null;
+  ne?: ProjetAccess | null;
+};
+
+export enum MediaType {
+  recording = "recording",
+  image = "image",
+}
+
+export type UpdateProjectInput = {
   id: string;
   groupID?: string | null;
   name?: string | null;
-  access?: ArchiveAccess | null;
+  type?: ProjectType | null;
+  access?: ProjetAccess | null;
+  meta?: MetadataInput | null;
+  remix?: RemixMetadataInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export type DeleteArchiveInput = {
+export type DeleteProjectInput = {
   id?: string | null;
   _version?: number | null;
 };
 
-export type CreateRecordingInput = {
+export type CreateMediaInput = {
   id?: string | null;
-  archiveID: string;
+  projectID: string;
   groupID: string;
-  meta: RecordingMetaInput;
-  audio?: StoredAudioInput | null;
-  images?: Array<StoredImageInput> | null;
+  type: MediaType;
+  meta: MetadataInput;
+  file: StoredFileInput;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export type RecordingMetaInput = {
-  title?: string | null;
-  description?: string | null;
-};
-
-export type StoredAudioInput = {
+export type StoredFileInput = {
   key: string;
-  type: string;
-  name?: string | null;
+  mimeType: string;
+  fileName?: string | null;
+  fileSize?: number | null;
   thumbnail?: string | null;
-  size?: number | null;
   duration?: number | null;
+  width?: number | null;
+  height?: number | null;
 };
 
-export type ModelRecordingConditionInput = {
-  archiveID?: ModelIDInput | null;
+export type ModelMediaConditionInput = {
+  projectID?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
+  type?: ModelMediaTypeInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelRecordingConditionInput | null> | null;
-  or?: Array<ModelRecordingConditionInput | null> | null;
-  not?: ModelRecordingConditionInput | null;
+  and?: Array<ModelMediaConditionInput | null> | null;
+  or?: Array<ModelMediaConditionInput | null> | null;
+  not?: ModelMediaConditionInput | null;
 };
 
-export type UpdateRecordingInput = {
+export type ModelMediaTypeInput = {
+  eq?: MediaType | null;
+  ne?: MediaType | null;
+};
+
+export type UpdateMediaInput = {
   id: string;
-  archiveID?: string | null;
+  projectID?: string | null;
   groupID?: string | null;
-  meta?: RecordingMetaInput | null;
-  audio?: StoredAudioInput | null;
-  images?: Array<StoredImageInput> | null;
+  type?: MediaType | null;
+  meta?: MetadataInput | null;
+  file?: StoredFileInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export type DeleteRecordingInput = {
-  id?: string | null;
-  _version?: number | null;
-};
-
-export type CreateRemixInput = {
-  id?: string | null;
-  groupID: string;
-  name?: string | null;
-  meta: RemixMetadataInput;
-  images?: Array<StoredImageInput> | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  _version?: number | null;
-};
-
-export type RemixMetadataInput = {
-  title?: string | null;
-  description?: string | null;
-  authors?: string | null;
-  bmp?: number | null;
-};
-
-export type ModelRemixConditionInput = {
-  groupID?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  createdAt?: ModelStringInput | null;
-  updatedAt?: ModelStringInput | null;
-  and?: Array<ModelRemixConditionInput | null> | null;
-  or?: Array<ModelRemixConditionInput | null> | null;
-  not?: ModelRemixConditionInput | null;
-};
-
-export type UpdateRemixInput = {
-  id: string;
-  groupID?: string | null;
-  name?: string | null;
-  meta?: RemixMetadataInput | null;
-  images?: Array<StoredImageInput> | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  _version?: number | null;
-};
-
-export type DeleteRemixInput = {
+export type DeleteMediaInput = {
   id?: string | null;
   _version?: number | null;
 };
@@ -243,9 +222,9 @@ export type DeleteRemixInput = {
 export type CreateTrackInput = {
   id?: string | null;
   groupID: string;
-  remixID: string;
+  projectID: string;
   meta: TrackMetadataInput;
-  clips?: Array<ClipMetadataInput> | null;
+  clips: Array<ClipMetadataInput>;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -259,12 +238,12 @@ export type TrackMetadataInput = {
 };
 
 export type ClipMetadataInput = {
-  sampleID: string;
+  selectionID: string;
 };
 
 export type ModelTrackConditionInput = {
   groupID?: ModelIDInput | null;
-  remixID?: ModelIDInput | null;
+  projectID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelTrackConditionInput | null> | null;
@@ -275,7 +254,7 @@ export type ModelTrackConditionInput = {
 export type UpdateTrackInput = {
   id: string;
   groupID?: string | null;
-  remixID?: string | null;
+  projectID?: string | null;
   meta?: TrackMetadataInput | null;
   clips?: Array<ClipMetadataInput> | null;
   createdAt?: string | null;
@@ -288,47 +267,69 @@ export type DeleteTrackInput = {
   _version?: number | null;
 };
 
-export type CreateSampleInput = {
+export type CreateSelectionInput = {
   id?: string | null;
   groupID: string;
-  remixID: string;
-  recordingID: string;
-  region: SampleRegionInput;
-  audio?: StoredAudioInput | null;
+  projectID: string;
+  mediaID: string;
+  role?: string | null;
+  type?: MediaType | null;
+  audio?: AudioRegionInput | null;
+  image?: ImageCropInput | null;
+  file?: StoredFileInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export type SampleRegionInput = {
+export type AudioRegionInput = {
   offset: number;
   duration: number;
 };
 
-export type ModelSampleConditionInput = {
-  groupID?: ModelIDInput | null;
-  remixID?: ModelIDInput | null;
-  recordingID?: ModelIDInput | null;
-  createdAt?: ModelStringInput | null;
-  updatedAt?: ModelStringInput | null;
-  and?: Array<ModelSampleConditionInput | null> | null;
-  or?: Array<ModelSampleConditionInput | null> | null;
-  not?: ModelSampleConditionInput | null;
+export type ImageCropInput = {
+  aspect?: number | null;
+  x?: number | null;
+  y?: number | null;
+  width?: number | null;
+  height?: number | null;
+  unit?: ImageUnits | null;
 };
 
-export type UpdateSampleInput = {
+export enum ImageUnits {
+  px = "px",
+  percent = "percent",
+}
+
+export type ModelSelectionConditionInput = {
+  groupID?: ModelIDInput | null;
+  projectID?: ModelIDInput | null;
+  mediaID?: ModelIDInput | null;
+  role?: ModelStringInput | null;
+  type?: ModelMediaTypeInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  and?: Array<ModelSelectionConditionInput | null> | null;
+  or?: Array<ModelSelectionConditionInput | null> | null;
+  not?: ModelSelectionConditionInput | null;
+};
+
+export type UpdateSelectionInput = {
   id: string;
   groupID?: string | null;
-  remixID?: string | null;
-  recordingID?: string | null;
-  region?: SampleRegionInput | null;
-  audio?: StoredAudioInput | null;
+  projectID?: string | null;
+  mediaID?: string | null;
+  role?: string | null;
+  type?: MediaType | null;
+  audio?: AudioRegionInput | null;
+  image?: ImageCropInput | null;
+  file?: StoredFileInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
 };
 
-export type DeleteSampleInput = {
+export type DeleteSelectionInput = {
   id?: string | null;
   _version?: number | null;
 };
@@ -336,50 +337,40 @@ export type DeleteSampleInput = {
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
   and?: Array<ModelGroupFilterInput | null> | null;
   or?: Array<ModelGroupFilterInput | null> | null;
   not?: ModelGroupFilterInput | null;
 };
 
-export type ModelArchiveFilterInput = {
+export type ModelProjectFilterInput = {
   id?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
   name?: ModelStringInput | null;
-  access?: ModelArchiveAccessInput | null;
+  type?: ModelProjectTypeInput | null;
+  access?: ModelProjetAccessInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelArchiveFilterInput | null> | null;
-  or?: Array<ModelArchiveFilterInput | null> | null;
-  not?: ModelArchiveFilterInput | null;
+  and?: Array<ModelProjectFilterInput | null> | null;
+  or?: Array<ModelProjectFilterInput | null> | null;
+  not?: ModelProjectFilterInput | null;
 };
 
-export type ModelRecordingFilterInput = {
+export type ModelMediaFilterInput = {
   id?: ModelIDInput | null;
-  archiveID?: ModelIDInput | null;
+  projectID?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
+  type?: ModelMediaTypeInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelRecordingFilterInput | null> | null;
-  or?: Array<ModelRecordingFilterInput | null> | null;
-  not?: ModelRecordingFilterInput | null;
-};
-
-export type ModelRemixFilterInput = {
-  id?: ModelIDInput | null;
-  groupID?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  createdAt?: ModelStringInput | null;
-  updatedAt?: ModelStringInput | null;
-  and?: Array<ModelRemixFilterInput | null> | null;
-  or?: Array<ModelRemixFilterInput | null> | null;
-  not?: ModelRemixFilterInput | null;
+  and?: Array<ModelMediaFilterInput | null> | null;
+  or?: Array<ModelMediaFilterInput | null> | null;
+  not?: ModelMediaFilterInput | null;
 };
 
 export type ModelTrackFilterInput = {
   id?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
-  remixID?: ModelIDInput | null;
+  projectID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelTrackFilterInput | null> | null;
@@ -387,16 +378,18 @@ export type ModelTrackFilterInput = {
   not?: ModelTrackFilterInput | null;
 };
 
-export type ModelSampleFilterInput = {
+export type ModelSelectionFilterInput = {
   id?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
-  remixID?: ModelIDInput | null;
-  recordingID?: ModelIDInput | null;
+  projectID?: ModelIDInput | null;
+  mediaID?: ModelIDInput | null;
+  role?: ModelStringInput | null;
+  type?: ModelMediaTypeInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelSampleFilterInput | null> | null;
-  or?: Array<ModelSampleFilterInput | null> | null;
-  not?: ModelSampleFilterInput | null;
+  and?: Array<ModelSelectionFilterInput | null> | null;
+  or?: Array<ModelSelectionFilterInput | null> | null;
+  not?: ModelSelectionFilterInput | null;
 };
 
 export type CreateGroupMutationVariables = {
@@ -409,18 +402,15 @@ export type CreateGroupMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -439,18 +429,15 @@ export type UpdateGroupMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -469,18 +456,15 @@ export type DeleteGroupMutation = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -489,36 +473,47 @@ export type DeleteGroupMutation = {
   } | null;
 };
 
-export type CreateArchiveMutationVariables = {
-  input: CreateArchiveInput;
-  condition?: ModelArchiveConditionInput | null;
+export type CreateProjectMutationVariables = {
+  input: CreateProjectInput;
+  condition?: ModelProjectConditionInput | null;
 };
 
-export type CreateArchiveMutation = {
-  createArchive: {
-    __typename: "Archive";
+export type CreateProjectMutation = {
+  createProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -526,12 +521,32 @@ export type CreateArchiveMutation = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -547,36 +562,47 @@ export type CreateArchiveMutation = {
   } | null;
 };
 
-export type UpdateArchiveMutationVariables = {
-  input: UpdateArchiveInput;
-  condition?: ModelArchiveConditionInput | null;
+export type UpdateProjectMutationVariables = {
+  input: UpdateProjectInput;
+  condition?: ModelProjectConditionInput | null;
 };
 
-export type UpdateArchiveMutation = {
-  updateArchive: {
-    __typename: "Archive";
+export type UpdateProjectMutation = {
+  updateProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -584,12 +610,32 @@ export type UpdateArchiveMutation = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -605,36 +651,47 @@ export type UpdateArchiveMutation = {
   } | null;
 };
 
-export type DeleteArchiveMutationVariables = {
-  input: DeleteArchiveInput;
-  condition?: ModelArchiveConditionInput | null;
+export type DeleteProjectMutationVariables = {
+  input: DeleteProjectInput;
+  condition?: ModelProjectConditionInput | null;
 };
 
-export type DeleteArchiveMutation = {
-  deleteArchive: {
-    __typename: "Archive";
+export type DeleteProjectMutation = {
+  deleteProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -642,12 +699,32 @@ export type DeleteArchiveMutation = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -663,328 +740,50 @@ export type DeleteArchiveMutation = {
   } | null;
 };
 
-export type CreateRecordingMutationVariables = {
-  input: CreateRecordingInput;
-  condition?: ModelRecordingConditionInput | null;
+export type CreateMediaMutationVariables = {
+  input: CreateMediaInput;
+  condition?: ModelMediaConditionInput | null;
 };
 
-export type CreateRecordingMutation = {
-  createRecording: {
-    __typename: "Recording";
+export type CreateMediaMutation = {
+  createMedia: {
+    __typename: "Media";
     id: string;
-    archiveID: string;
+    projectID: string;
     groupID: string;
+    type: MediaType;
     meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type UpdateRecordingMutationVariables = {
-  input: UpdateRecordingInput;
-  condition?: ModelRecordingConditionInput | null;
-};
-
-export type UpdateRecordingMutation = {
-  updateRecording: {
-    __typename: "Recording";
-    id: string;
-    archiveID: string;
-    groupID: string;
-    meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type DeleteRecordingMutationVariables = {
-  input: DeleteRecordingInput;
-  condition?: ModelRecordingConditionInput | null;
-};
-
-export type DeleteRecordingMutation = {
-  deleteRecording: {
-    __typename: "Recording";
-    id: string;
-    archiveID: string;
-    groupID: string;
-    meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type CreateRemixMutationVariables = {
-  input: CreateRemixInput;
-  condition?: ModelRemixConditionInput | null;
-};
-
-export type CreateRemixMutation = {
-  createRemix: {
-    __typename: "Remix";
-    id: string;
-    groupID: string;
-    name: string | null;
-    meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -1000,61 +799,50 @@ export type CreateRemixMutation = {
   } | null;
 };
 
-export type UpdateRemixMutationVariables = {
-  input: UpdateRemixInput;
-  condition?: ModelRemixConditionInput | null;
+export type UpdateMediaMutationVariables = {
+  input: UpdateMediaInput;
+  condition?: ModelMediaConditionInput | null;
 };
 
-export type UpdateRemixMutation = {
-  updateRemix: {
-    __typename: "Remix";
+export type UpdateMediaMutation = {
+  updateMedia: {
+    __typename: "Media";
     id: string;
+    projectID: string;
     groupID: string;
-    name: string | null;
+    type: MediaType;
     meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -1070,61 +858,50 @@ export type UpdateRemixMutation = {
   } | null;
 };
 
-export type DeleteRemixMutationVariables = {
-  input: DeleteRemixInput;
-  condition?: ModelRemixConditionInput | null;
+export type DeleteMediaMutationVariables = {
+  input: DeleteMediaInput;
+  condition?: ModelMediaConditionInput | null;
 };
 
-export type DeleteRemixMutation = {
-  deleteRemix: {
-    __typename: "Remix";
+export type DeleteMediaMutation = {
+  deleteMedia: {
+    __typename: "Media";
     id: string;
+    projectID: string;
     groupID: string;
-    name: string | null;
+    type: MediaType;
     meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -1150,7 +927,7 @@ export type CreateTrackMutation = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -1160,8 +937,8 @@ export type CreateTrackMutation = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1180,7 +957,7 @@ export type UpdateTrackMutation = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -1190,8 +967,8 @@ export type UpdateTrackMutation = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1210,7 +987,7 @@ export type DeleteTrackMutation = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -1220,8 +997,8 @@ export type DeleteTrackMutation = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1230,119 +1007,77 @@ export type DeleteTrackMutation = {
   } | null;
 };
 
-export type CreateSampleMutationVariables = {
-  input: CreateSampleInput;
-  condition?: ModelSampleConditionInput | null;
+export type CreateSelectionMutationVariables = {
+  input: CreateSelectionInput;
+  condition?: ModelSelectionConditionInput | null;
 };
 
-export type CreateSampleMutation = {
-  createSample: {
-    __typename: "Sample";
+export type CreateSelectionMutation = {
+  createSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -1356,119 +1091,77 @@ export type CreateSampleMutation = {
   } | null;
 };
 
-export type UpdateSampleMutationVariables = {
-  input: UpdateSampleInput;
-  condition?: ModelSampleConditionInput | null;
+export type UpdateSelectionMutationVariables = {
+  input: UpdateSelectionInput;
+  condition?: ModelSelectionConditionInput | null;
 };
 
-export type UpdateSampleMutation = {
-  updateSample: {
-    __typename: "Sample";
+export type UpdateSelectionMutation = {
+  updateSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -1482,119 +1175,77 @@ export type UpdateSampleMutation = {
   } | null;
 };
 
-export type DeleteSampleMutationVariables = {
-  input: DeleteSampleInput;
-  condition?: ModelSampleConditionInput | null;
+export type DeleteSelectionMutationVariables = {
+  input: DeleteSelectionInput;
+  condition?: ModelSelectionConditionInput | null;
 };
 
-export type DeleteSampleMutation = {
-  deleteSample: {
-    __typename: "Sample";
+export type DeleteSelectionMutation = {
+  deleteSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -1622,18 +1273,15 @@ export type SyncGroupsQuery = {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1654,18 +1302,15 @@ export type GetGroupQuery = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1687,18 +1332,15 @@ export type ListGroupsQuery = {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1710,29 +1352,42 @@ export type ListGroupsQuery = {
   } | null;
 };
 
-export type SyncArchivesQueryVariables = {
-  filter?: ModelArchiveFilterInput | null;
+export type SyncProjectsQueryVariables = {
+  filter?: ModelProjectFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
   lastSync?: number | null;
 };
 
-export type SyncArchivesQuery = {
-  syncArchives: {
-    __typename: "ModelArchiveConnection";
+export type SyncProjectsQuery = {
+  syncProjects: {
+    __typename: "ModelProjectConnection";
     items: Array<{
-      __typename: "Archive";
+      __typename: "Project";
       id: string;
       groupID: string;
       name: string;
-      access: ArchiveAccess;
+      type: ProjectType;
+      access: ProjetAccess;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
+      remix: {
+        __typename: "RemixMetadata";
+        bmp: number | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
       group: {
         __typename: "Group";
         id: string;
         name: string;
-        description: string | null;
         _version: number;
         _deleted: boolean | null;
         _lastChangedAt: number;
@@ -1740,7 +1395,12 @@ export type SyncArchivesQuery = {
         updatedAt: string;
       } | null;
       recordings: {
-        __typename: "ModelRecordingConnection";
+        __typename: "ModelMediaConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -1753,35 +1413,46 @@ export type SyncArchivesQuery = {
   } | null;
 };
 
-export type GetArchiveQueryVariables = {
+export type GetProjectQueryVariables = {
   id: string;
 };
 
-export type GetArchiveQuery = {
-  getArchive: {
-    __typename: "Archive";
+export type GetProjectQuery = {
+  getProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1789,12 +1460,32 @@ export type GetArchiveQuery = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -1810,313 +1501,54 @@ export type GetArchiveQuery = {
   } | null;
 };
 
-export type ListArchivesQueryVariables = {
-  filter?: ModelArchiveFilterInput | null;
+export type ListProjectsQueryVariables = {
+  filter?: ModelProjectFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListArchivesQuery = {
-  listArchives: {
-    __typename: "ModelArchiveConnection";
+export type ListProjectsQuery = {
+  listProjects: {
+    __typename: "ModelProjectConnection";
     items: Array<{
-      __typename: "Archive";
+      __typename: "Project";
       id: string;
       groupID: string;
       name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null> | null;
-    nextToken: string | null;
-    startedAt: number | null;
-  } | null;
-};
-
-export type SyncRecordingsQueryVariables = {
-  filter?: ModelRecordingFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
-  lastSync?: number | null;
-};
-
-export type SyncRecordingsQuery = {
-  syncRecordings: {
-    __typename: "ModelRecordingConnection";
-    items: Array<{
-      __typename: "Recording";
-      id: string;
-      archiveID: string;
-      groupID: string;
+      type: ProjectType;
+      access: ProjetAccess;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null> | null;
-    nextToken: string | null;
-    startedAt: number | null;
-  } | null;
-};
-
-export type GetRecordingQueryVariables = {
-  id: string;
-};
-
-export type GetRecordingQuery = {
-  getRecording: {
-    __typename: "Recording";
-    id: string;
-    archiveID: string;
-    groupID: string;
-    meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type ListRecordingsQueryVariables = {
-  filter?: ModelRecordingFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
-};
-
-export type ListRecordingsQuery = {
-  listRecordings: {
-    __typename: "ModelRecordingConnection";
-    items: Array<{
-      __typename: "Recording";
-      id: string;
-      archiveID: string;
-      groupID: string;
-      meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null> | null;
-    nextToken: string | null;
-    startedAt: number | null;
-  } | null;
-};
-
-export type SyncRemixesQueryVariables = {
-  filter?: ModelRemixFilterInput | null;
-  limit?: number | null;
-  nextToken?: string | null;
-  lastSync?: number | null;
-};
-
-export type SyncRemixesQuery = {
-  syncRemixes: {
-    __typename: "ModelRemixConnection";
-    items: Array<{
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
+      remix: {
+        __typename: "RemixMetadata";
         bmp: number | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
+      group: {
+        __typename: "Group";
+        id: string;
+        name: string;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      recordings: {
+        __typename: "ModelMediaConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -2129,60 +1561,101 @@ export type SyncRemixesQuery = {
   } | null;
 };
 
-export type GetRemixQueryVariables = {
+export type SyncMediaQueryVariables = {
+  filter?: ModelMediaFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+  lastSync?: number | null;
+};
+
+export type SyncMediaQuery = {
+  syncMedia: {
+    __typename: "ModelMediaConnection";
+    items: Array<{
+      __typename: "Media";
+      id: string;
+      projectID: string;
+      groupID: string;
+      type: MediaType;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      };
+      createdAt: string | null;
+      updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    nextToken: string | null;
+    startedAt: number | null;
+  } | null;
+};
+
+export type GetMediaQueryVariables = {
   id: string;
 };
 
-export type GetRemixQuery = {
-  getRemix: {
-    __typename: "Remix";
+export type GetMediaQuery = {
+  getMedia: {
+    __typename: "Media";
     id: string;
+    projectID: string;
     groupID: string;
-    name: string | null;
+    type: MediaType;
     meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2198,47 +1671,45 @@ export type GetRemixQuery = {
   } | null;
 };
 
-export type ListRemixsQueryVariables = {
-  filter?: ModelRemixFilterInput | null;
+export type ListMediasQueryVariables = {
+  filter?: ModelMediaFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListRemixsQuery = {
-  listRemixs: {
-    __typename: "ModelRemixConnection";
+export type ListMediasQuery = {
+  listMedias: {
+    __typename: "ModelMediaConnection";
     items: Array<{
-      __typename: "Remix";
+      __typename: "Media";
       id: string;
+      projectID: string;
       groupID: string;
-      name: string | null;
+      type: MediaType;
       meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -2265,7 +1736,7 @@ export type SyncTracksQuery = {
       __typename: "Track";
       id: string;
       groupID: string;
-      remixID: string;
+      projectID: string;
       meta: {
         __typename: "TrackMetadata";
         name: string | null;
@@ -2275,8 +1746,8 @@ export type SyncTracksQuery = {
       };
       clips: Array<{
         __typename: "ClipMetadata";
-        sampleID: string;
-      }> | null;
+        selectionID: string;
+      }>;
       createdAt: string | null;
       updatedAt: string | null;
       _version: number;
@@ -2297,7 +1768,7 @@ export type GetTrackQuery = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -2307,8 +1778,8 @@ export type GetTrackQuery = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -2330,7 +1801,7 @@ export type ListTracksQuery = {
       __typename: "Track";
       id: string;
       groupID: string;
-      remixID: string;
+      projectID: string;
       meta: {
         __typename: "TrackMetadata";
         name: string | null;
@@ -2340,8 +1811,8 @@ export type ListTracksQuery = {
       };
       clips: Array<{
         __typename: "ClipMetadata";
-        sampleID: string;
-      }> | null;
+        selectionID: string;
+      }>;
       createdAt: string | null;
       updatedAt: string | null;
       _version: number;
@@ -2353,54 +1824,57 @@ export type ListTracksQuery = {
   } | null;
 };
 
-export type SyncSamplesQueryVariables = {
-  filter?: ModelSampleFilterInput | null;
+export type SyncSelectionsQueryVariables = {
+  filter?: ModelSelectionFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
   lastSync?: number | null;
 };
 
-export type SyncSamplesQuery = {
-  syncSamples: {
-    __typename: "ModelSampleConnection";
+export type SyncSelectionsQuery = {
+  syncSelections: {
+    __typename: "ModelSelectionConnection";
     items: Array<{
-      __typename: "Sample";
+      __typename: "Selection";
       id: string;
       groupID: string;
-      remixID: string;
-      recordingID: string;
-      region: {
-        __typename: "SampleRegion";
+      projectID: string;
+      mediaID: string;
+      role: string | null;
+      type: MediaType | null;
+      audio: {
+        __typename: "AudioRegion";
         offset: number;
         duration: number;
-      };
-      audio: {
-        __typename: "StoredAudio";
+      } | null;
+      image: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+        unit: ImageUnits | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
         duration: number | null;
+        width: number | null;
+        height: number | null;
       } | null;
       createdAt: string | null;
       updatedAt: string | null;
-      recording: {
-        __typename: "Recording";
+      media: {
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      remix: {
-        __typename: "Remix";
-        id: string;
-        groupID: string;
-        name: string | null;
+        type: MediaType;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2416,118 +1890,76 @@ export type SyncSamplesQuery = {
   } | null;
 };
 
-export type GetSampleQueryVariables = {
+export type GetSelectionQueryVariables = {
   id: string;
 };
 
-export type GetSampleQuery = {
-  getSample: {
-    __typename: "Sample";
+export type GetSelectionQuery = {
+  getSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -2541,53 +1973,56 @@ export type GetSampleQuery = {
   } | null;
 };
 
-export type ListSamplesQueryVariables = {
-  filter?: ModelSampleFilterInput | null;
+export type ListSelectionsQueryVariables = {
+  filter?: ModelSelectionFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListSamplesQuery = {
-  listSamples: {
-    __typename: "ModelSampleConnection";
+export type ListSelectionsQuery = {
+  listSelections: {
+    __typename: "ModelSelectionConnection";
     items: Array<{
-      __typename: "Sample";
+      __typename: "Selection";
       id: string;
       groupID: string;
-      remixID: string;
-      recordingID: string;
-      region: {
-        __typename: "SampleRegion";
+      projectID: string;
+      mediaID: string;
+      role: string | null;
+      type: MediaType | null;
+      audio: {
+        __typename: "AudioRegion";
         offset: number;
         duration: number;
-      };
-      audio: {
-        __typename: "StoredAudio";
+      } | null;
+      image: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+        unit: ImageUnits | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
         duration: number | null;
+        width: number | null;
+        height: number | null;
       } | null;
       createdAt: string | null;
       updatedAt: string | null;
-      recording: {
-        __typename: "Recording";
+      media: {
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      remix: {
-        __typename: "Remix";
-        id: string;
-        groupID: string;
-        name: string | null;
+        type: MediaType;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2608,18 +2043,15 @@ export type OnCreateGroupSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2633,18 +2065,15 @@ export type OnUpdateGroupSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2658,18 +2087,15 @@ export type OnDeleteGroupSubscription = {
     __typename: "Group";
     id: string;
     name: string;
-    description: string | null;
-    image: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2678,31 +2104,42 @@ export type OnDeleteGroupSubscription = {
   } | null;
 };
 
-export type OnCreateArchiveSubscription = {
-  onCreateArchive: {
-    __typename: "Archive";
+export type OnCreateProjectSubscription = {
+  onCreateProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2710,12 +2147,32 @@ export type OnCreateArchiveSubscription = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2731,31 +2188,42 @@ export type OnCreateArchiveSubscription = {
   } | null;
 };
 
-export type OnUpdateArchiveSubscription = {
-  onUpdateArchive: {
-    __typename: "Archive";
+export type OnUpdateProjectSubscription = {
+  onUpdateProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2763,12 +2231,32 @@ export type OnUpdateArchiveSubscription = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2784,31 +2272,42 @@ export type OnUpdateArchiveSubscription = {
   } | null;
 };
 
-export type OnDeleteArchiveSubscription = {
-  onDeleteArchive: {
-    __typename: "Archive";
+export type OnDeleteProjectSubscription = {
+  onDeleteProject: {
+    __typename: "Project";
     id: string;
     groupID: string;
     name: string;
-    access: ArchiveAccess;
+    type: ProjectType;
+    access: ProjetAccess;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    };
+    remix: {
+      __typename: "RemixMetadata";
+      bmp: number | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
     group: {
       __typename: "Group";
       id: string;
       name: string;
-      description: string | null;
-      image: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      };
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2816,12 +2315,32 @@ export type OnDeleteArchiveSubscription = {
       updatedAt: string;
     } | null;
     recordings: {
-      __typename: "ModelRecordingConnection";
+      __typename: "ModelMediaConnection";
       items: Array<{
-        __typename: "Recording";
+        __typename: "Media";
         id: string;
-        archiveID: string;
+        projectID: string;
         groupID: string;
+        type: MediaType;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2837,308 +2356,45 @@ export type OnDeleteArchiveSubscription = {
   } | null;
 };
 
-export type OnCreateRecordingSubscription = {
-  onCreateRecording: {
-    __typename: "Recording";
+export type OnCreateMediaSubscription = {
+  onCreateMedia: {
+    __typename: "Media";
     id: string;
-    archiveID: string;
+    projectID: string;
     groupID: string;
+    type: MediaType;
     meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type OnUpdateRecordingSubscription = {
-  onUpdateRecording: {
-    __typename: "Recording";
-    id: string;
-    archiveID: string;
-    groupID: string;
-    meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type OnDeleteRecordingSubscription = {
-  onDeleteRecording: {
-    __typename: "Recording";
-    id: string;
-    archiveID: string;
-    groupID: string;
-    meta: {
-      __typename: "RecordingMeta";
-      title: string | null;
-      description: string | null;
-    };
-    audio: {
-      __typename: "StoredAudio";
-      key: string;
-      type: string;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      duration: number | null;
-    } | null;
-    images: Array<{
-      __typename: "StoredImage";
-      key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
-      thumbnail: string | null;
-      size: number | null;
-      width: number | null;
-      height: number | null;
-    }> | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    archive: {
-      __typename: "Archive";
-      id: string;
-      groupID: string;
-      name: string;
-      access: ArchiveAccess;
-      createdAt: string | null;
-      updatedAt: string | null;
-      group: {
-        __typename: "Group";
-        id: string;
-        name: string;
-        description: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-        createdAt: string;
-        updatedAt: string;
-      } | null;
-      recordings: {
-        __typename: "ModelRecordingConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    _version: number;
-    _deleted: boolean | null;
-    _lastChangedAt: number;
-  } | null;
-};
-
-export type OnCreateRemixSubscription = {
-  onCreateRemix: {
-    __typename: "Remix";
-    id: string;
-    groupID: string;
-    name: string | null;
-    meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -3154,56 +2410,45 @@ export type OnCreateRemixSubscription = {
   } | null;
 };
 
-export type OnUpdateRemixSubscription = {
-  onUpdateRemix: {
-    __typename: "Remix";
+export type OnUpdateMediaSubscription = {
+  onUpdateMedia: {
+    __typename: "Media";
     id: string;
+    projectID: string;
     groupID: string;
-    name: string | null;
+    type: MediaType;
     meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -3219,56 +2464,45 @@ export type OnUpdateRemixSubscription = {
   } | null;
 };
 
-export type OnDeleteRemixSubscription = {
-  onDeleteRemix: {
-    __typename: "Remix";
+export type OnDeleteMediaSubscription = {
+  onDeleteMedia: {
+    __typename: "Media";
     id: string;
+    projectID: string;
     groupID: string;
-    name: string | null;
+    type: MediaType;
     meta: {
-      __typename: "RemixMetadata";
+      __typename: "Metadata";
       title: string | null;
       description: string | null;
       authors: string | null;
-      bmp: number | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
     };
-    images: Array<{
-      __typename: "StoredImage";
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      role: string | null;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
+      duration: number | null;
       width: number | null;
       height: number | null;
-    }> | null;
+    };
     createdAt: string | null;
     updatedAt: string | null;
-    tracks: {
-      __typename: "ModelTrackConnection";
+    selections: {
+      __typename: "ModelSelectionConnection";
       items: Array<{
-        __typename: "Track";
+        __typename: "Selection";
         id: string;
         groupID: string;
-        remixID: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
-    samples: {
-      __typename: "ModelSampleConnection";
-      items: Array<{
-        __typename: "Sample";
-        id: string;
-        groupID: string;
-        remixID: string;
-        recordingID: string;
+        projectID: string;
+        mediaID: string;
+        role: string | null;
+        type: MediaType | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -3289,7 +2523,7 @@ export type OnCreateTrackSubscription = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -3299,8 +2533,8 @@ export type OnCreateTrackSubscription = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -3314,7 +2548,7 @@ export type OnUpdateTrackSubscription = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -3324,8 +2558,8 @@ export type OnUpdateTrackSubscription = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -3339,7 +2573,7 @@ export type OnDeleteTrackSubscription = {
     __typename: "Track";
     id: string;
     groupID: string;
-    remixID: string;
+    projectID: string;
     meta: {
       __typename: "TrackMetadata";
       name: string | null;
@@ -3349,8 +2583,8 @@ export type OnDeleteTrackSubscription = {
     };
     clips: Array<{
       __typename: "ClipMetadata";
-      sampleID: string;
-    }> | null;
+      selectionID: string;
+    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -3359,114 +2593,72 @@ export type OnDeleteTrackSubscription = {
   } | null;
 };
 
-export type OnCreateSampleSubscription = {
-  onCreateSample: {
-    __typename: "Sample";
+export type OnCreateSelectionSubscription = {
+  onCreateSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -3480,114 +2672,72 @@ export type OnCreateSampleSubscription = {
   } | null;
 };
 
-export type OnUpdateSampleSubscription = {
-  onUpdateSample: {
-    __typename: "Sample";
+export type OnUpdateSelectionSubscription = {
+  onUpdateSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;
@@ -3601,114 +2751,72 @@ export type OnUpdateSampleSubscription = {
   } | null;
 };
 
-export type OnDeleteSampleSubscription = {
-  onDeleteSample: {
-    __typename: "Sample";
+export type OnDeleteSelectionSubscription = {
+  onDeleteSelection: {
+    __typename: "Selection";
     id: string;
     groupID: string;
-    remixID: string;
-    recordingID: string;
-    region: {
-      __typename: "SampleRegion";
+    projectID: string;
+    mediaID: string;
+    role: string | null;
+    type: MediaType | null;
+    audio: {
+      __typename: "AudioRegion";
       offset: number;
       duration: number;
-    };
-    audio: {
-      __typename: "StoredAudio";
+    } | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    file: {
+      __typename: "StoredFile";
       key: string;
-      type: string;
-      name: string | null;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
       thumbnail: string | null;
-      size: number | null;
       duration: number | null;
+      width: number | null;
+      height: number | null;
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
-    recording: {
-      __typename: "Recording";
+    media: {
+      __typename: "Media";
       id: string;
-      archiveID: string;
+      projectID: string;
       groupID: string;
+      type: MediaType;
       meta: {
-        __typename: "RecordingMeta";
-        title: string | null;
-        description: string | null;
-      };
-      audio: {
-        __typename: "StoredAudio";
-        key: string;
-        type: string;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        duration: number | null;
-      } | null;
-      images: Array<{
-        __typename: "StoredImage";
-        key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
-        thumbnail: string | null;
-        size: number | null;
-        width: number | null;
-        height: number | null;
-      }> | null;
-      createdAt: string | null;
-      updatedAt: string | null;
-      archive: {
-        __typename: "Archive";
-        id: string;
-        groupID: string;
-        name: string;
-        access: ArchiveAccess;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
-    remix: {
-      __typename: "Remix";
-      id: string;
-      groupID: string;
-      name: string | null;
-      meta: {
-        __typename: "RemixMetadata";
+        __typename: "Metadata";
         title: string | null;
         description: string | null;
         authors: string | null;
-        bmp: number | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
       };
-      images: Array<{
-        __typename: "StoredImage";
+      file: {
+        __typename: "StoredFile";
         key: string;
-        type: string;
-        role: string | null;
-        name: string | null;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
         thumbnail: string | null;
-        size: number | null;
+        duration: number | null;
         width: number | null;
         height: number | null;
-      }> | null;
+      };
       createdAt: string | null;
       updatedAt: string | null;
-      tracks: {
-        __typename: "ModelTrackConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      samples: {
-        __typename: "ModelSampleConnection";
+      selections: {
+        __typename: "ModelSelectionConnection";
         nextToken: string | null;
         startedAt: number | null;
       } | null;

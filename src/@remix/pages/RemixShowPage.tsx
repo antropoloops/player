@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import {
   useGetRemixQuery,
+  useListRemixSelectionsQuery,
   useListRemixTracksQuery,
 } from "../hooks/useRemixQueries";
 import { createTrack } from "../../@backend/service";
@@ -18,6 +19,7 @@ import { IconButton } from "../../components/shared/IconButton";
 import { ShowRemix } from "../components/ShowRemix";
 import { TrackEditor } from "../components/TrackEditor";
 import { Track } from "../../models";
+import { Waveform } from "../../@sounds/components/Waveform";
 
 type Params = {
   id: string;
@@ -46,10 +48,19 @@ export function RemixShowPage({ className }: Props) {
   const { data: tracks, refetch: refetchTracks } = useListRemixTracksQuery(
     project
   );
+  const {
+    data: selections,
+    refetch: refetchSelections,
+  } = useListRemixSelectionsQuery(project);
 
-  if (!group || !remix || !tracks) return <LoadingScreen />;
+  if (!group || !remix || !tracks || !selections) return <LoadingScreen />;
 
   const track = tracks.find((track) => track.id === params.childId);
+
+  const refetchAll = () => {
+    refetchTracks();
+    refetchSelections();
+  };
 
   const editor =
     params.type === "t" ? (
@@ -57,7 +68,8 @@ export function RemixShowPage({ className }: Props) {
         group={group}
         remix={remix}
         track={track}
-        onChange={refetchTracks}
+        selections={selections}
+        onChange={refetchAll}
       />
     ) : (
       <ShowRemix group={group} remix={remix} />
@@ -108,6 +120,36 @@ export function RemixShowPage({ className }: Props) {
           >
             <div className="w-full bg-gray-dark">
               <div className="bg-gray-medium bg-opacity-50">
+                {track.clips.map((clip) => {
+                  const selection = selections.find(
+                    (s) => s.id === clip.selectionID
+                  );
+                  if (!selection) return null;
+                  const thumbnail = selection.media?.file.thumbnail;
+
+                  return (
+                    <div
+                      key={clip.selectionID}
+                      className="w-full flex items-stretch"
+                    >
+                      <div className="ratio w-1/4">
+                        <svg viewBox="0 0 1 1" />
+                        <img src="/images/gray-light.png" alt="placeholder" />
+                      </div>
+                      <div className="mx-1 flex-grow">
+                        <div className="text-xs my-1">
+                          {selection.media?.meta.title}
+                        </div>
+                        <Waveform
+                          width={100}
+                          height={10}
+                          points={thumbnail || ""}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+
                 {/* {[].map((clipId) => (
                   <Clip
                     className="mb-micro last:mb-0"
@@ -126,14 +168,7 @@ export function RemixShowPage({ className }: Props) {
                 ))} */}
               </div>
               <div className="flex p-1">
-                <IconButton
-                  icon={AddIcon}
-                  onClick={() => {
-                    track.clips?.push({
-                      selectionID: "",
-                    });
-                  }}
-                >
+                <IconButton icon={AddIcon} onClick={() => {}}>
                   Añadir clip
                 </IconButton>
               </div>

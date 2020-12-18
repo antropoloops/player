@@ -18,16 +18,13 @@ export const syncGroups = /* GraphQL */ `
       items {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -45,16 +42,13 @@ export const getGroup = /* GraphQL */ `
     getGroup(id: $id) {
       id
       name
-      description
-      image {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
       }
       _version
       _deleted
@@ -74,16 +68,13 @@ export const listGroups = /* GraphQL */ `
       items {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -96,14 +87,14 @@ export const listGroups = /* GraphQL */ `
     }
   }
 `;
-export const syncArchives = /* GraphQL */ `
-  query SyncArchives(
-    $filter: ModelArchiveFilterInput
+export const syncProjects = /* GraphQL */ `
+  query SyncProjects(
+    $filter: ModelProjectFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncArchives(
+    syncProjects(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -113,13 +104,24 @@ export const syncArchives = /* GraphQL */ `
         id
         groupID
         name
+        type
         access
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
+        }
+        remix {
+          bmp
+        }
         createdAt
         updatedAt
         group {
           id
           name
-          description
           _version
           _deleted
           _lastChangedAt
@@ -127,6 +129,10 @@ export const syncArchives = /* GraphQL */ `
           updatedAt
         }
         recordings {
+          nextToken
+          startedAt
+        }
+        selections {
           nextToken
           startedAt
         }
@@ -139,28 +145,37 @@ export const syncArchives = /* GraphQL */ `
     }
   }
 `;
-export const getArchive = /* GraphQL */ `
-  query GetArchive($id: ID!) {
-    getArchive(id: $id) {
+export const getProject = /* GraphQL */ `
+  query GetProject($id: ID!) {
+    getProject(id: $id) {
       id
       groupID
       name
+      type
       access
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
+      remix {
+        bmp
+      }
       createdAt
       updatedAt
       group {
         id
         name
-        description
-        image {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
         }
         _version
         _deleted
@@ -171,8 +186,9 @@ export const getArchive = /* GraphQL */ `
       recordings {
         items {
           id
-          archiveID
+          projectID
           groupID
+          type
           createdAt
           updatedAt
           _version
@@ -182,175 +198,14 @@ export const getArchive = /* GraphQL */ `
         nextToken
         startedAt
       }
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const listArchives = /* GraphQL */ `
-  query ListArchives(
-    $filter: ModelArchiveFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listArchives(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncRecordings = /* GraphQL */ `
-  query SyncRecordings(
-    $filter: ModelRecordingFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncRecordings(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        archiveID
-        groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getRecording = /* GraphQL */ `
-  query GetRecording($id: ID!) {
-    getRecording(id: $id) {
-      id
-      archiveID
-      groupID
-      meta {
-        title
-        description
-      }
-      audio {
-        key
-        type
-        name
-        thumbnail
-        size
-        duration
-      }
-      images {
-        key
-        type
-        role
-        name
-        thumbnail
-        size
-        width
-        height
-      }
-      createdAt
-      updatedAt
-      archive {
-        id
-        groupID
-        name
-        access
-        createdAt
-        updatedAt
-        group {
-          id
-          name
-          description
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      samples {
+      selections {
         items {
           id
           groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -366,105 +221,46 @@ export const getRecording = /* GraphQL */ `
     }
   }
 `;
-export const listRecordings = /* GraphQL */ `
-  query ListRecordings(
-    $filter: ModelRecordingFilterInput
+export const listProjects = /* GraphQL */ `
+  query ListProjects(
+    $filter: ModelProjectFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listRecordings(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        archiveID
-        groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncRemixes = /* GraphQL */ `
-  query SyncRemixes(
-    $filter: ModelRemixFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncRemixes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
+    listProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         groupID
         name
+        type
+        access
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
+        remix {
+          bmp
         }
         createdAt
         updatedAt
-        tracks {
+        group {
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        recordings {
           nextToken
           startedAt
         }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -477,50 +273,92 @@ export const syncRemixes = /* GraphQL */ `
     }
   }
 `;
-export const getRemix = /* GraphQL */ `
-  query GetRemix($id: ID!) {
-    getRemix(id: $id) {
+export const syncMedia = /* GraphQL */ `
+  query SyncMedia(
+    $filter: ModelMediaFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncMedia(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        projectID
+        groupID
+        type
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
+        }
+        file {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+        createdAt
+        updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getMedia = /* GraphQL */ `
+  query GetMedia($id: ID!) {
+    getMedia(id: $id) {
       id
+      projectID
       groupID
-      name
+      type
       meta {
         title
         description
         authors
-        bmp
+        credits
+        licenses
+        readme
       }
-      images {
+      file {
         key
-        type
-        role
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
+        duration
         width
         height
       }
       createdAt
       updatedAt
-      tracks {
+      selections {
         items {
           id
           groupID
-          remixID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      samples {
-        items {
-          id
-          groupID
-          remixID
-          recordingID
+          projectID
+          mediaID
+          role
+          type
           createdAt
           updatedAt
           _version
@@ -536,40 +374,39 @@ export const getRemix = /* GraphQL */ `
     }
   }
 `;
-export const listRemixs = /* GraphQL */ `
-  query ListRemixs(
-    $filter: ModelRemixFilterInput
+export const listMedias = /* GraphQL */ `
+  query ListMedias(
+    $filter: ModelMediaFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listRemixs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        projectID
         groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -598,7 +435,7 @@ export const syncTracks = /* GraphQL */ `
       items {
         id
         groupID
-        remixID
+        projectID
         meta {
           name
           color
@@ -606,7 +443,7 @@ export const syncTracks = /* GraphQL */ `
           volume
         }
         clips {
-          sampleID
+          selectionID
         }
         createdAt
         updatedAt
@@ -624,7 +461,7 @@ export const getTrack = /* GraphQL */ `
     getTrack(id: $id) {
       id
       groupID
-      remixID
+      projectID
       meta {
         name
         color
@@ -632,7 +469,7 @@ export const getTrack = /* GraphQL */ `
         volume
       }
       clips {
-        sampleID
+        selectionID
       }
       createdAt
       updatedAt
@@ -652,7 +489,7 @@ export const listTracks = /* GraphQL */ `
       items {
         id
         groupID
-        remixID
+        projectID
         meta {
           name
           color
@@ -660,7 +497,7 @@ export const listTracks = /* GraphQL */ `
           volume
         }
         clips {
-          sampleID
+          selectionID
         }
         createdAt
         updatedAt
@@ -673,14 +510,14 @@ export const listTracks = /* GraphQL */ `
     }
   }
 `;
-export const syncSamples = /* GraphQL */ `
-  query SyncSamples(
-    $filter: ModelSampleFilterInput
+export const syncSelections = /* GraphQL */ `
+  query SyncSelections(
+    $filter: ModelSelectionFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncSamples(
+    syncSelections(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -689,36 +526,39 @@ export const syncSamples = /* GraphQL */ `
       items {
         id
         groupID
-        remixID
-        recordingID
-        region {
+        projectID
+        mediaID
+        role
+        type
+        audio {
           offset
           duration
         }
-        audio {
+        image {
+          aspect
+          x
+          y
+          width
+          height
+          unit
+        }
+        file {
           key
-          type
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
           duration
+          width
+          height
         }
         createdAt
         updatedAt
-        recording {
+        media {
           id
-          archiveID
+          projectID
           groupID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        remix {
-          id
-          groupID
-          name
+          type
           createdAt
           updatedAt
           _version
@@ -734,101 +574,65 @@ export const syncSamples = /* GraphQL */ `
     }
   }
 `;
-export const getSample = /* GraphQL */ `
-  query GetSample($id: ID!) {
-    getSample(id: $id) {
+export const getSelection = /* GraphQL */ `
+  query GetSelection($id: ID!) {
+    getSelection(id: $id) {
       id
       groupID
-      remixID
-      recordingID
-      region {
+      projectID
+      mediaID
+      role
+      type
+      audio {
         offset
         duration
       }
-      audio {
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      file {
         key
-        type
-        name
+        mimeType
+        fileName
+        fileSize
         thumbnail
-        size
         duration
+        width
+        height
       }
       createdAt
       updatedAt
-      recording {
+      media {
         id
-        archiveID
+        projectID
         groupID
-        meta {
-          title
-          description
-        }
-        audio {
-          key
-          type
-          name
-          thumbnail
-          size
-          duration
-        }
-        images {
-          key
-          type
-          role
-          name
-          thumbnail
-          size
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        archive {
-          id
-          groupID
-          name
-          access
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        samples {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      remix {
-        id
-        groupID
-        name
+        type
         meta {
           title
           description
           authors
-          bmp
+          credits
+          licenses
+          readme
         }
-        images {
+        file {
           key
-          type
-          role
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
+          duration
           width
           height
         }
         createdAt
         updatedAt
-        tracks {
-          nextToken
-          startedAt
-        }
-        samples {
+        selections {
           nextToken
           startedAt
         }
@@ -842,46 +646,49 @@ export const getSample = /* GraphQL */ `
     }
   }
 `;
-export const listSamples = /* GraphQL */ `
-  query ListSamples(
-    $filter: ModelSampleFilterInput
+export const listSelections = /* GraphQL */ `
+  query ListSelections(
+    $filter: ModelSelectionFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSamples(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listSelections(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         groupID
-        remixID
-        recordingID
-        region {
+        projectID
+        mediaID
+        role
+        type
+        audio {
           offset
           duration
         }
-        audio {
+        image {
+          aspect
+          x
+          y
+          width
+          height
+          unit
+        }
+        file {
           key
-          type
-          name
+          mimeType
+          fileName
+          fileSize
           thumbnail
-          size
           duration
+          width
+          height
         }
         createdAt
         updatedAt
-        recording {
+        media {
           id
-          archiveID
+          projectID
           groupID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        remix {
-          id
-          groupID
-          name
+          type
           createdAt
           updatedAt
           _version

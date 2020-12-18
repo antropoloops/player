@@ -1,6 +1,6 @@
 {
   "auth": {
-    "atplsafe02d2a": {
+    "atpls78daebb3": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
