@@ -1,5 +1,5 @@
 import { DataStore } from "aws-amplify";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DesktopView, Heading, List } from "../../@core/components";
 import IconButtonBig from "../../@remix/components/shared/Buttons";
 import { AddIcon } from "../../components/icons/Icons";

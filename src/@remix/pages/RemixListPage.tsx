@@ -8,14 +8,18 @@ import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import { Separator } from "../../@core/components/Separator";
+import useObserveModel from "../../@backend/hooks/useObserveModel";
+import { Project, ProjectType } from "../../models";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
   const history = useHistory();
   const group = useCurrentGroup();
-  const { data: remixes, refetch } = useListRemixesQuery({
-    groupId: group?.id || "",
-  });
+  const { data: remixes } = useObserveModel(Project, (c) =>
+    c.type("eq", ProjectType.REMIX)
+  );
+
+  const length = remixes.length || 0;
 
   return (
     <Layout nav="projects">
@@ -27,9 +31,11 @@ const RemixListPage: React.FC<Props> = () => {
           color="text-remixes"
           onClick={() => {
             if (group) {
-              createRemix(group.id, "Remezcla!").then((remix) => {
-                history.push(routes.remix(remix.id));
-              });
+              createRemix(group.id, "Remezcla-" + (length + 1)).then(
+                (remix) => {
+                  history.push(routes.remix(remix.id));
+                }
+              );
             }
           }}
         >
