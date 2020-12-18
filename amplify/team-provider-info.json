@@ -34,25 +34,5 @@
         "atpls78daebb3": {}
       }
     }
-  },
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-atpls-dev-123857-authRole",
-      "UnauthRoleArn": "arn:aws:iam::142080885131:role/amplify-atpls-dev-123857-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::142080885131:role/amplify-atpls-dev-123857-authRole",
-      "Region": "eu-west-1",
-      "DeploymentBucketName": "amplify-atpls-dev-123857-deployment",
-      "UnauthRoleName": "amplify-atpls-dev-123857-unauthRole",
-      "StackName": "amplify-atpls-dev-123857",
-      "StackId": "arn:aws:cloudformation:eu-west-1:142080885131:stack/amplify-atpls-dev-123857/9feef980-3c6e-11eb-bd8a-0a121e68abee",
-      "AmplifyAppId": "d2jvqewiydc3q6"
-    },
-    "categories": {
-      "auth": {
-        "atpls788ce5f0": {},
-        "atpls32b3c32a": {},
-        "atplsafe02d2a": {}
-      }
-    }
   }
 }
