@@ -44,6 +44,7 @@ const routes = {
   adminLogout: () => `/admin/salir`,
   // private?
   adminGroups: () => `/admin/_groups`,
+  adminGroup: (id: string) => `/admin/_groups/${id}`,
 };
 
 export default routes;

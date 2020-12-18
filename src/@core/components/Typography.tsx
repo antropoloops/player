@@ -5,11 +5,7 @@ type Props = {
   level: 1 | 2 | 3 | 4;
 };
 
-export const Heading: React.FC<Props> = ({
-  className = "",
-  level,
-  children,
-}) => {
+export const Title: React.FC<Props> = ({ className = "", level, children }) => {
   switch (level) {
     case 1:
       return <h1 className={"text-4xl " + className}>{children}</h1>;
@@ -21,3 +17,5 @@ export const Heading: React.FC<Props> = ({
       return <h4 className={"text-lg " + className}>{children}</h4>;
   }
 };
+
+export const Heading = Title;

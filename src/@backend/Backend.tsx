@@ -30,6 +30,7 @@ const Router = ({ fallback: Fallback }: Props) => (
       <Switch>
         <Route exact path={routes.adminDebug()} component={OfflineDebugPage} />
         <Route exact path={routes.adminGroups()} component={GroupsPage} />
+        <Route exact path={routes.adminGroup(":id")} component={GroupsPage} />
         <Route exact path={routes.adminLogin()} component={LoginPage} />
         <Route exact path={routes.adminLogout()} component={LogoutPage} />
         <Route component={Fallback} />

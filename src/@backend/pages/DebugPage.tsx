@@ -15,7 +15,17 @@ import {
 import { useCurrentGroup } from "../hooks/useCurrentGroup";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 
+async function fetchAll() {
+  const [groups, projects, media] = await Promise.all([
+    DataStore.query(Group),
+    DataStore.query(Project),
+    DataStore.query(Media),
+  ]);
+  return { projects, groups, media };
+}
+
 type TestPageProps = { className?: string };
+
 export function TestPage({ className }: TestPageProps) {
   const [all, setAll] = useState<object>({});
   const [count, inc] = useState(0);
@@ -64,33 +74,3 @@ export function TestPage({ className }: TestPageProps) {
 }
 
 export default TestPage;
-
-async function createScenenario() {
-  const group = await DataStore.save(
-    new Group({
-      name: "Grupo",
-      meta: {},
-    })
-  );
-  await DataStore.save(
-    new Project({
-      name: "Archivo",
-      groupID: group.id,
-      type: ProjectType.ARCHIVE,
-      access: ProjetAccess.GROUP,
-      meta: {
-        title: "Archivo compartido",
-      },
-      remix: {},
-    })
-  );
-}
-
-async function fetchAll() {
-  const [groups, archives, media] = await Promise.all([
-    DataStore.query(Group),
-    DataStore.query(Project),
-    DataStore.query(Media),
-  ]);
-  return { groups, archives, media };
-}
