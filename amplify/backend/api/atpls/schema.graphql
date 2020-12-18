@@ -36,7 +36,7 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
 
   group: Group @connection(fields: ["groupID"])
   recordings: [Media] @connection(keyName: "byProject", fields: ["id"])
-  tracks: [Track] @connection(keyName: "byProject", fields: ["id"])
+  # tracks: [Track] @connection(keyName: "byProject", fields: ["id"])
   selections: [Selection] @connection(keyName: "byProject", fields: ["id"])
 }
 
@@ -89,10 +89,9 @@ type ClipMetadata {
   selectionID: ID!
 }
 
-type Track
-  @model
-  @key(name: "byProject", fields: ["projectID"])
-  @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
+type Track @model {
+  # @key(name: "byProject", fields: ["projectID"])
+  # @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   id: ID!
   groupID: ID!
   projectID: ID!

@@ -102,7 +102,6 @@ export declare class Project {
   readonly updatedAt?: string;
   readonly group?: Group;
   readonly recordings?: (Media | null)[];
-  readonly tracks?: (Track | null)[];
   readonly selections?: (Selection | null)[];
   constructor(init: ModelInit<Project>);
   static copyOf(

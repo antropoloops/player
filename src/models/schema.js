@@ -137,20 +137,6 @@ export const schema = {
                         "associatedWith": "project"
                     }
                 },
-                "tracks": {
-                    "name": "tracks",
-                    "isArray": true,
-                    "type": {
-                        "model": "Track"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "projectID"
-                    }
-                },
                 "selections": {
                     "name": "selections",
                     "isArray": true,
@@ -493,25 +479,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProject",
-                        "fields": [
-                            "projectID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byGroup",
-                        "fields": [
-                            "groupID",
-                            "createdAt"
-                        ]
-                    }
                 }
             ]
         }
@@ -780,5 +747,5 @@ export const schema = {
             }
         }
     },
-    "version": "b053d62f40bfe1dc18a6e92108de364a"
+    "version": "48bdf6b957481873f177c27582837aeb"
 };
