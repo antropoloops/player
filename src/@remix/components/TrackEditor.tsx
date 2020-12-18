@@ -1,7 +1,7 @@
 import React from "react";
 import { Storage } from "@aws-amplify/storage";
 import { DataStore } from "@aws-amplify/datastore";
-import { Group, Media, Project, Track } from "../../@offline/datastore";
+import { Group, Media, Project, Track } from "../../@backend/datastore";
 import { DesktopView, Heading } from "../../@core/components";
 import { FilesInput } from "../../@archive/components/FilesInput";
 

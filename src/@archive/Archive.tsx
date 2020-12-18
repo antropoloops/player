@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import { CurrentGroupContextProvider } from "../@offline/contexts/CurrentGroupContext";
-import { useCurrentGroup } from "../@offline/hooks/useCurrentGroup";
-import { NotAuthorizedPage } from "../@offline/pages/NotAuthorizedPage";
+import { CurrentGroupContextProvider } from "../@backend/contexts/CurrentGroupContext";
+import { useCurrentGroup } from "../@backend/hooks/useCurrentGroup";
+import { NotAuthorizedPage } from "../@backend/pages/NotAuthorizedPage";
 import LoadingScreen from "../components/LoadingScreen";
 import routes from "../routes";
 import ArchiveListPage from "./pages/ArchiveListPage";

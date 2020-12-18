@@ -29,7 +29,7 @@ import LoadingScreen from "./components/LoadingScreen";
 const Archive = lazy(() => import("./@archive/Archive"));
 const Remix = lazy(() => import("./@remix/Remix"));
 const Sounds = lazy(() => import("./@sounds/Sounds"));
-const Offline = lazy(() => import("./@offline/Offline"));
+const Offline = lazy(() => import("./@backend/Offline"));
 
 const Router = () => (
   <BrowserRouter>

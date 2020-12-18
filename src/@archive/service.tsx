@@ -1,5 +1,5 @@
 import { DataStore } from "@aws-amplify/datastore";
-import { GetGroup, GetGroupProject, listProjects } from "../@offline/service";
+import { GetGroup, GetGroupProject, listProjects } from "../@backend/service";
 import { Media, Project } from "../models";
 
 export function listGroupArchives({ groupId }: GetGroup) {

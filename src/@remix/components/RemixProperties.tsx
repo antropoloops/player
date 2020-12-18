@@ -1,6 +1,6 @@
 import React from "react";
 import { PropertyList } from "../../@core/components";
-import { RemixMetadata } from "../../@offline/datastore";
+import { RemixMetadata } from "../../@backend/datastore";
 
 type Props = {
   className?: string;

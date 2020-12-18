@@ -1,5 +1,5 @@
 import React from "react";
-import { Group, Project } from "../../@offline/datastore";
+import { Group, Project } from "../../@backend/datastore";
 import { DesktopView, Heading } from "../../@core/components";
 import { RemixProperties } from "./RemixProperties";
 import { SampleGallery } from "./SampleGallery";

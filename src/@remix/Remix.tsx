@@ -6,9 +6,9 @@ import routes from "../routes";
 import RemixListPage from "./pages/RemixListPage";
 import RemixPlayPage from "./pages/RemixPlayPage";
 import RemixShowPage from "./pages/RemixShowPage";
-import { useCurrentGroup } from "../@offline/hooks/useCurrentGroup";
-import { NotAuthorizedPage } from "../@offline/pages/NotAuthorizedPage";
-import { CurrentGroupContextProvider } from "../@offline/contexts/CurrentGroupContext";
+import { useCurrentGroup } from "../@backend/hooks/useCurrentGroup";
+import { NotAuthorizedPage } from "../@backend/pages/NotAuthorizedPage";
+import { CurrentGroupContextProvider } from "../@backend/contexts/CurrentGroupContext";
 
 const Remix = ({ fallback }: Props) => {
   return (

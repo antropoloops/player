@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
+import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
 import {

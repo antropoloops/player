@@ -1,6 +1,6 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { useQuery } from "react-query";
-import { filterBy, GetGroup, GetGroupProject } from "../../@offline/service";
+import { filterBy, GetGroup, GetGroupProject } from "../../@backend/service";
 import { Project, ProjectType, Track } from "../../models";
 
 export function useListRemixesQuery(query: GetGroup) {

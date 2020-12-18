@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
+import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import { ArrowRight } from "../../components/Icons";
 import Layout from "../../components/layout/Layout";
 import LoadingScreen from "../../components/LoadingScreen";

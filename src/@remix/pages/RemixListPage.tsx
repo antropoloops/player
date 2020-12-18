@@ -6,7 +6,7 @@ import { AddIcon, CloudDownloadIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
-import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
+import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import { Separator } from "../../@core/components/Separator";
 
 type Props = {};

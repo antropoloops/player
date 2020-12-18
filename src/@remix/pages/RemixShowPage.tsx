@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { useCurrentGroup } from "../../@offline/hooks/useCurrentGroup";
+import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import {
   useGetRemixQuery,
   useListRemixTracksQuery,
 } from "../hooks/useRemixQueries";
-import { createTrack } from "../../@offline/service";
+import { createTrack } from "../../@backend/service";
 import BackToLink from "../../components/BackToLink";
 import { AddIcon, PlayCircleIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";

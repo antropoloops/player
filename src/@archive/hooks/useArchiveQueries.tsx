@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { GetGroup, GetGroupProject } from "../../@offline/service";
+import { GetGroup, GetGroupProject } from "../../@backend/service";
 import {
   getGroupArchive,
   listArchiveRecordings,
