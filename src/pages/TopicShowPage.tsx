@@ -10,6 +10,7 @@ import WhitePage from "../components/shared/PageDesktop";
 import cx from "classcat";
 import useLocale from "../hooks/useLocale";
 import { useGetTopicQuery } from "../@documentation/hooks/useTopicQueries";
+import { getSection } from "../@core/helpers/sectionHelpers";
 
 type Props = {};
 
@@ -22,9 +23,8 @@ const TopicShowPage: React.FC<Props> = () => {
   const { params } = useRouteMatch<RouteParams>();
   const { data: topics } = useQuery(["topics"], () => API.topics.list());
   const { data: topic } = useGetTopicQuery(params.id);
-  const { data: section } = useQuery(["section", "topics"], () =>
-    API.sections.get("topics")
-  );
+
+  const section = getSection("topis");
 
   return (
     <Layout

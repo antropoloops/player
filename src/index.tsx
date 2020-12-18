@@ -4,8 +4,10 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import Amplify from "aws-amplify";
-
 import config from "./aws-exports";
+
+declare var window: any;
+window.LOG_LEVEL = "DEBUG";
 
 Amplify.configure(config);
 

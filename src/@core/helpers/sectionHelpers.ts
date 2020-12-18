@@ -1,4 +1,4 @@
-import routes from "../routes";
+import routes from "../../routes";
 
 export type Section = {
   id: string;
@@ -8,7 +8,15 @@ export type Section = {
   external?: boolean;
 };
 
-const SECTIONS: Section[] = [
+export function listSections() {
+  return SECTIONS;
+}
+
+export function getSection(id: string) {
+  return SECTIONS.find((section) => section.id === id) as Section;
+}
+
+export const SECTIONS: Section[] = [
   {
     id: "home",
     image_url: "/images/sections/home.jpg",
@@ -50,11 +58,3 @@ const SECTIONS: Section[] = [
     to: routes.about(),
   },
 ];
-
-export async function listSections(): Promise<Section[]> {
-  return SECTIONS;
-}
-
-export async function getSection(id: string): Promise<Section | undefined> {
-  return SECTIONS.find((section) => section.id === id);
-}

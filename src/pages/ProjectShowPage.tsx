@@ -8,6 +8,7 @@ import API from "../api";
 import { Redirect } from "react-router-dom";
 import routes from "../routes";
 import { communityProject } from "../audioset/helpers";
+import { getSection } from "../@core/helpers/sectionHelpers";
 
 type Props = {
   idOrUrl: string;
@@ -24,9 +25,8 @@ const ProjectShowPage: React.FC<Props> = ({
   const { status, data: bundle } = useQuery(["bundle", idOrUrl], () =>
     API.bundles.get({ path: idOrUrl })
   );
-  const { data: section } = useQuery(["section", sectionName], () =>
-    API.sections.get(sectionName)
-  );
+
+  const section = getSection(sectionName);
 
   if (status === "loading" || !bundle) return <LoadingScreen />;
   if (isAudioset(bundle)) return <Redirect to={routes.audioset(bundle.id)} />;

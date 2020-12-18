@@ -5,7 +5,7 @@ import routes from "../../routes";
 import Layout from "../layout/Layout";
 import useLocale from "../../hooks/useLocale";
 import usePage from "../../hooks/usePage";
-import { Section } from "../../api/sections";
+import { Section } from "../../@core/helpers/sectionHelpers";
 import { Page } from "../../api/pages";
 import PageDesktop from "../shared/PageDesktop";
 import BackToLink from "../BackToLink";

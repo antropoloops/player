@@ -1,7 +1,5 @@
 import React from "react";
 import Layout from "../components/layout/Layout";
-import { useQuery } from "react-query";
-import API from "../api";
 import TopicBrowser from "../components/topics/TopicBrowser";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { Readme } from "../components/shared/Readme";
@@ -9,6 +7,7 @@ import usePage from "../hooks/usePage";
 import WhitePage from "../components/shared/PageDesktop";
 import useLocale from "../hooks/useLocale";
 import { useListTopicQuery } from "../@documentation/hooks/useTopicQueries";
+import { getSection } from "../@core/helpers/sectionHelpers";
 
 type Props = {};
 
@@ -16,10 +15,9 @@ const TopicListPage: React.FC<Props> = () => {
   const { formatMessage: FMT } = useLocale();
   const { data: topics } = useListTopicQuery();
   const { data: page } = usePage("temas");
-  const { data: section } = useQuery(["section", "topics"], () =>
-    API.sections.get("topics")
-  );
   const { isMobile } = useDeviceType();
+
+  const section = getSection("topics");
 
   if (!topics) return null;
 

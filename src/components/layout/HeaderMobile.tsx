@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "../Icons";
 import routes from "../../routes";
-import { Section } from "../../api/sections";
+import { Section } from "../../@core/helpers/sectionHelpers";
 import Navigation from "./Navigation";
 
 type Props = {

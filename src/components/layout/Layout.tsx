@@ -2,12 +2,11 @@ import React, { ReactNode } from "react";
 import useAnalytics from "../../hooks/useAnalytics";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import HeaderMobile from "./HeaderMobile";
-import { useQuery } from "react-query";
-import { listSections } from "../../api/sections";
 import NavLink from "./NavLink";
 import useLocale from "../../hooks/useLocale";
 import { useLocation, Link } from "react-router-dom";
 import cc from "classcat";
+import { SECTIONS, Section } from "../../@core/helpers/sectionHelpers";
 
 type Props = {
   className?: string;
@@ -18,6 +17,7 @@ type Props = {
   sidebar?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
+  sections?: Section[];
 };
 
 const Layout: React.FC<Props> = ({
@@ -30,12 +30,12 @@ const Layout: React.FC<Props> = ({
   children,
   visuals,
   desktop,
+  sections = SECTIONS,
 }) => {
   useAnalytics();
   const { isDesktop } = useDeviceType();
   const { pathname } = useLocation();
   const { formatMessage: f } = useLocale();
-  const { data: sections } = useQuery("sections", () => listSections());
 
   if (isDesktop) {
     return (

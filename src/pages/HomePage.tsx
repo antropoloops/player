@@ -8,18 +8,20 @@ import Page from "../components/shared/PageDesktop";
 import { useDeviceType } from "../hooks/useDeviceType";
 import { ArrowRight } from "../components/Icons";
 import HtmlContent from "../components/HtmlContent";
+import { getSection, listSections } from "../@core/helpers/sectionHelpers";
 
 type Props = {};
 
 const HomePage: React.FC<Props> = () => {
   const { isMobile } = useDeviceType();
-  const { data: sections } = useQuery("sections", () => API.sections.list());
   const { data: page } = useQuery(
     ["page", { slug: "inicio", locale: "es" }],
     () => API.pages.get({ slug: "inicio", locale: "es" })
   );
   const { formatMessage: f } = useLocale();
-  const home = sections && sections.find((section) => section.id === "home");
+
+  const sections = listSections();
+  const home = getSection("home");
 
   return (
     <Layout logo={true} desktop={<Page page={page} />}>

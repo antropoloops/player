@@ -10,6 +10,7 @@ import WhitePage from "../components/shared/PageDesktop";
 import { Readme } from "../components/shared/Readme";
 import useAnalytics from "../hooks/useAnalytics";
 import { useListGuidesQuery } from "../@documentation/hooks/useGuideQueries";
+import { getSection } from "../@core/helpers/sectionHelpers";
 
 type Props = {};
 
@@ -17,13 +18,10 @@ const GuideListPage: React.FC<Props> = () => {
   useAnalytics();
   const { formatMessage: f } = useLocale();
   const { data: guides } = useListGuidesQuery();
-  const { data: section } = useQuery(["section", "guides"], () =>
-    API.sections.get("guides")
-  );
   const { data: page } = usePage("guias");
   const { isMobile } = useDeviceType();
 
-  if (!section) return null;
+  const section = getSection("guides");
 
   return (
     <Layout title={f(section.id)} desktop={<WhitePage page={page} />}>

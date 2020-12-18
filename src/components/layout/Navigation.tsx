@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Section } from "../../api/sections";
+import { Section } from "../../@core/helpers/sectionHelpers";
 import useLocale from "../../hooks/useLocale";
 import NavLink from "./NavLink";
 
