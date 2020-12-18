@@ -1,22 +1,22 @@
 import { DataStore } from "aws-amplify";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DesktopView, Heading, List } from "../../@core/components";
-import { listProjectSections } from "../../@core/helpers/sectionHelpers";
 import IconButtonBig from "../../@remix/components/shared/Buttons";
 import { AddIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import { Group } from "../../models";
 import { GroupForm } from "../components/GroupForm";
-import { useListGroupsQuery } from "../hooks/useOfflineQueries";
 import { updateGroup } from "../service";
+import { useObserveModel } from "../hooks/useObserveModel";
 
 type Props = {
   className?: string;
 };
 
 export function GroupsPage({ className }: Props) {
-  const [group, setGroup] = useState<Group | undefined>();
-  const { data: groups, refetch } = useListGroupsQuery();
+  const [group, setEditGroup] = useState<Group | undefined>();
+  const { data: groups } = useObserveModel(Group);
+
   return (
     <Layout
       nav="projects"
@@ -27,10 +27,8 @@ export function GroupsPage({ className }: Props) {
             <GroupForm
               group={group}
               onSubmit={(data) => {
-                updateGroup(group, data).then(() => {
-                  refetch();
-                });
-                setGroup(undefined);
+                updateGroup(group, data);
+                setEditGroup(undefined);
               }}
             />
           )}
@@ -43,7 +41,7 @@ export function GroupsPage({ className }: Props) {
                     name: "nuevo-grupo-" + ((groups?.length || 0) + 1),
                     meta: {},
                   })
-                ).then(() => refetch());
+                );
               }}
             >
               Añadir grupo
@@ -59,7 +57,7 @@ export function GroupsPage({ className }: Props) {
               >
                 <button
                   onClick={() => {
-                    setGroup(group);
+                    setEditGroup(group);
                   }}
                 >
                   {group.name}

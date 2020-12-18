@@ -1,6 +1,8 @@
 import preval from "preval.macro";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
+import routes from "../../routes";
 import {
   DataStore,
   Project,
@@ -42,6 +44,9 @@ export function TestPage({ className }: TestPageProps) {
       <div className="flex flex-col p-4 text-white">
         <label>Group: {group?.name}</label>
         <label>User: {user?.email}</label>
+        <Link className="underline" to={routes.adminLogin()}>
+          login
+        </Link>
 
         <div className="py-4">
           <button
