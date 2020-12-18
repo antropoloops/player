@@ -1,6 +1,6 @@
 import { DataStore, syncExpression } from "@aws-amplify/datastore";
 import { Track } from "../../models";
-import { Project, Media, Sample } from "../../models";
+import { Project, Media, Selection } from "../../models";
 
 export { DataStore, Predicates } from "@aws-amplify/datastore";
 
@@ -17,7 +17,7 @@ DataStore.configure({
     syncExpression(Track, () => {
       return (c) => c.groupID("eq", _groupId);
     }),
-    syncExpression(Sample, () => {
+    syncExpression(Selection, () => {
       return (c) => c.groupID("eq", _groupId);
     }),
   ],

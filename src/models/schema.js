@@ -151,11 +151,11 @@ export const schema = {
                         "associatedWith": "projectID"
                     }
                 },
-                "samples": {
-                    "name": "samples",
+                "selections": {
+                    "name": "selections",
                     "isArray": true,
                     "type": {
-                        "model": "Sample"
+                        "model": "Selection"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -247,11 +247,11 @@ export const schema = {
                         "targetName": "projectID"
                     }
                 },
-                "samples": {
-                    "name": "samples",
+                "selections": {
+                    "name": "selections",
                     "isArray": true,
                     "type": {
-                        "model": "Sample"
+                        "model": "Selection"
                     },
                     "isRequired": false,
                     "attributes": [],
@@ -289,8 +289,8 @@ export const schema = {
                 }
             ]
         },
-        "Sample": {
-            "name": "Sample",
+        "Selection": {
+            "name": "Selection",
             "fields": {
                 "id": {
                     "name": "id",
@@ -304,6 +304,22 @@ export const schema = {
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
+                    "attributes": []
+                },
+                "role": {
+                    "name": "role",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "MediaType"
+                    },
+                    "isRequired": false,
                     "attributes": []
                 },
                 "audio": {
@@ -375,7 +391,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Samples",
+            "pluralName": "Selections",
             "attributes": [
                 {
                     "type": "model",
@@ -514,18 +530,18 @@ export const schema = {
                 "group"
             ]
         },
-        "ImageUnits": {
-            "name": "ImageUnits",
-            "values": [
-                "px",
-                "percent"
-            ]
-        },
         "MediaType": {
             "name": "MediaType",
             "values": [
                 "recording",
                 "image"
+            ]
+        },
+        "ImageUnits": {
+            "name": "ImageUnits",
+            "values": [
+                "px",
+                "percent"
             ]
         }
     },
@@ -754,8 +770,8 @@ export const schema = {
         "ClipMetadata": {
             "name": "ClipMetadata",
             "fields": {
-                "sampleID": {
-                    "name": "sampleID",
+                "selectionID": {
+                    "name": "selectionID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -764,5 +780,5 @@ export const schema = {
             }
         }
     },
-    "version": "3c42412f5cd607d09ae063a3f8f0e10b"
+    "version": "b053d62f40bfe1dc18a6e92108de364a"
 };

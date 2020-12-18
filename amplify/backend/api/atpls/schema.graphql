@@ -37,7 +37,7 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   group: Group @connection(fields: ["groupID"])
   recordings: [Media] @connection(keyName: "byProject", fields: ["id"])
   tracks: [Track] @connection(keyName: "byProject", fields: ["id"])
-  samples: [Sample] @connection(keyName: "byProject", fields: ["id"])
+  selections: [Selection] @connection(keyName: "byProject", fields: ["id"])
 }
 
 enum MediaType {
@@ -71,7 +71,7 @@ type Media
   updatedAt: AWSDateTime
 
   project: Project @connection(fields: ["projectID"])
-  samples: [Sample] @connection(keyName: "byMedia", fields: ["id"])
+  selections: [Selection] @connection(keyName: "byMedia", fields: ["id"])
 }
 
 type RemixMetadata {
@@ -86,7 +86,7 @@ type TrackMetadata {
 }
 
 type ClipMetadata {
-  sampleID: ID!
+  selectionID: ID!
 }
 
 type Track
@@ -123,7 +123,7 @@ type ImageCrop {
   unit: ImageUnits
 }
 
-type Sample
+type Selection
   @model
   @key(name: "byGroup", fields: ["groupID", "updatedAt"])
   @key(name: "byMedia", fields: ["mediaID", "updatedAt"])
@@ -133,6 +133,7 @@ type Sample
   projectID: ID!
   mediaID: ID!
   role: String
+  type: MediaType
 
   audio: AudioRegion!
   image: ImageCrop!

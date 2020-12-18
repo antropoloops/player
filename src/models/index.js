@@ -11,28 +11,28 @@ const ProjetAccess = {
   "GROUP": "group"
 };
 
-const ImageUnits = {
-  "PX": "px",
-  "PERCENT": "percent"
-};
-
 const MediaType = {
   "RECORDING": "recording",
   "IMAGE": "image"
 };
 
-const { Group, Project, Media, Sample, Track, Metadata, RemixMetadata, StoredFile, AudioRegion, ImageCrop, TrackMetadata, ClipMetadata } = initSchema(schema);
+const ImageUnits = {
+  "PX": "px",
+  "PERCENT": "percent"
+};
+
+const { Group, Project, Media, Selection, Track, Metadata, RemixMetadata, StoredFile, AudioRegion, ImageCrop, TrackMetadata, ClipMetadata } = initSchema(schema);
 
 export {
   Group,
   Project,
   Media,
-  Sample,
+  Selection,
   Track,
   ProjectType,
   ProjetAccess,
-  ImageUnits,
   MediaType,
+  ImageUnits,
   Metadata,
   RemixMetadata,
   StoredFile,

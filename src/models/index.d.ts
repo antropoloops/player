@@ -13,14 +13,14 @@ export enum ProjetAccess {
   GROUP = "group",
 }
 
-export enum ImageUnits {
-  PX = "px",
-  PERCENT = "percent",
-}
-
 export enum MediaType {
   RECORDING = "recording",
   IMAGE = "image",
+}
+
+export enum ImageUnits {
+  PX = "px",
+  PERCENT = "percent",
 }
 
 export declare class Metadata {
@@ -75,7 +75,7 @@ export declare class TrackMetadata {
 }
 
 export declare class ClipMetadata {
-  readonly sampleID: string;
+  readonly selectionID: string;
   constructor(init: ModelInit<ClipMetadata>);
 }
 
@@ -103,7 +103,7 @@ export declare class Project {
   readonly group?: Group;
   readonly recordings?: (Media | null)[];
   readonly tracks?: (Track | null)[];
-  readonly samples?: (Sample | null)[];
+  readonly selections?: (Selection | null)[];
   constructor(init: ModelInit<Project>);
   static copyOf(
     source: Project,
@@ -119,7 +119,7 @@ export declare class Media {
   readonly createdAt?: string;
   readonly updatedAt?: string;
   readonly project?: Project;
-  readonly samples?: (Sample | null)[];
+  readonly selections?: (Selection | null)[];
   constructor(init: ModelInit<Media>);
   static copyOf(
     source: Media,
@@ -127,9 +127,11 @@ export declare class Media {
   ): Media;
 }
 
-export declare class Sample {
+export declare class Selection {
   readonly id: string;
   readonly groupID: string;
+  readonly role?: string;
+  readonly type?: MediaType | keyof typeof MediaType;
   readonly audio: AudioRegion;
   readonly image: ImageCrop;
   readonly file?: StoredFile;
@@ -137,11 +139,11 @@ export declare class Sample {
   readonly updatedAt?: string;
   readonly media?: Media;
   readonly project?: Project;
-  constructor(init: ModelInit<Sample>);
+  constructor(init: ModelInit<Selection>);
   static copyOf(
-    source: Sample,
-    mutator: (draft: MutableModel<Sample>) => MutableModel<Sample> | void
-  ): Sample;
+    source: Selection,
+    mutator: (draft: MutableModel<Selection>) => MutableModel<Selection> | void
+  ): Selection;
 }
 
 export declare class Track {

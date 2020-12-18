@@ -13,8 +13,8 @@
     "api:mock": "json-server -p 1234 --watch server/db.json",
     "css:dev": "postcss src/styles/index.css -o src/styles/tailwind.css",
     "css:prod": "postcss src/styles/index.css -o src/styles/tailwind.css --env production",
-    "amplify:modelgen": "node amplify/scripts/amplify-modelgen.js",
-    "amplify:push": "node amplify/scripts/amplify-push.js"
+    "amplify-modelgen": "node amplify/scripts/amplify-modelgen.js",
+    "amplify-push": "node amplify/scripts/amplify-push.js"
   },
   "dependencies": {
     "@aws-amplify/auth": "^3.4.15",

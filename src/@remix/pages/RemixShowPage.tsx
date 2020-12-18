@@ -125,7 +125,7 @@ export function RemixShowPage({ className }: Props) {
                   icon={AddIcon}
                   onClick={() => {
                     track.clips?.push({
-                      sampleID: "",
+                      selectionID: "",
                     });
                   }}
                 >

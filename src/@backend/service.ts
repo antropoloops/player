@@ -1,5 +1,5 @@
 import { DataStore } from "./datastore";
-import { Sample, Track, TrackMetadata, Project, Group } from "./datastore";
+import { Selection, Track, TrackMetadata, Project, Group } from "./datastore";
 
 export type GetGroup = {
   groupId: string;
@@ -21,10 +21,6 @@ export async function filterBy<T>(
 export async function listProjects(filter?: (x: Project) => boolean) {
   const archives = await DataStore.query(Project);
   return filter ? archives.filter(filter) : archives;
-}
-
-export async function listSamples() {
-  return DataStore.query(Sample);
 }
 
 export async function listTracks(filter?: (t: Track) => boolean) {
@@ -49,8 +45,8 @@ export async function createTrack(
 }
 
 export async function listProjectSamples(groupId: string, projectId: string) {
-  const samples = await listSamples();
-  return samples.filter(
+  const selections = await DataStore.query(Selection);
+  return selections.filter(
     (s) => s.project?.id === projectId && s.groupID === groupId
   );
 }
