@@ -38,9 +38,11 @@ const routes = {
   sounds: () => `/sonidos`,
   soundEdit: (id: string) => `/sonidos/editar/${id}`,
 
-  offline: () => `/offline`,
-
-  groups: () => `/offline/groups`,
+  admin: () => `/admin`,
+  adminDebug: () => `/admin/debug`,
+  adminLogin: () => `/admin/entrar`,
+  // private?
+  adminGroups: () => `/admin/_groups`,
 };
 
 export default routes;
