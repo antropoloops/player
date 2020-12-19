@@ -2,6 +2,7 @@
 export { ReactComponent as AddIcon } from "./add_circle_outline-24px.svg";
 export { ReactComponent as ArrowBackIcon } from "./arrow_back-24px.svg";
 export { ReactComponent as ArrowForwardIcon } from "./arrow_forward-24px.svg";
+export { ReactComponent as ClearIcon } from "./clear-24px.svg";
 export { ReactComponent as CloseIcon } from "./close-24px.svg";
 export { ReactComponent as CheckIcon } from "./check-24px.svg";
 export { ReactComponent as CloudIcon } from "./cloud-24px.svg";

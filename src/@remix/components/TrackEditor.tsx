@@ -1,6 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Group, Project, Track, Selection } from "../../@backend/datastore";
+import {
+  Group,
+  Project,
+  Track,
+  Selection,
+  DataStore,
+} from "../../@backend/datastore";
 import { DesktopView, Heading } from "../../@core/components";
 import { FilesInput } from "../../@archive/components/FilesInput";
 import { updateTrack } from "../service";
@@ -10,6 +16,10 @@ import { Waveform } from "../../@sounds/components/Waveform";
 import TrackProperties from "./TrackProperties";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
+import { ActionButton } from "./shared/ActionButton";
+import { EditIcon } from "../../components/icons/Icons";
+import TrackForm from "./TrackForm";
+import { setegid } from "process";
 
 type Props = {
   group: Group;
@@ -26,11 +36,7 @@ export function TrackEditor({
   onChange,
   selections,
 }: Props) {
-  const project = {
-    groupId: remix.groupID,
-    projectId: remix.id,
-  };
-
+  const [edit, setEdit] = useState(false);
   if (!track) return null;
 
   const uploadFile = async (file: File) => {
@@ -41,43 +47,76 @@ export function TrackEditor({
     return selection.id;
   };
 
-  const trackSelections = selections || [];
-
   return (
     <DesktopView>
-      <Heading level={1}>{track.meta.name}</Heading>
-      <TrackProperties className="my-8" track={track} />
-      <FilesInput
-        colors="bg-remixes text-black"
-        onChange={onChange}
-        uploadFile={uploadFile}
-      >
-        Subir sonidos
-      </FilesInput>
-
-      <div className="mt-16">
-        {track.clips.map((clip) => {
-          const selection = selections?.find((s) => s.id === clip.selectionID);
-          if (!selection) return null;
-          const name = selection.media?.meta.title;
-          const thumbnail = selection.media?.file.thumbnail;
-          return (
-            <Link
-              key={selection.id}
-              to={routes.remixEditItemChild(remix.id, "s", selection.id)}
+      <Heading level={1} className="mb-8">
+        {track.meta.name}
+      </Heading>
+      {edit ? (
+        <TrackForm
+          className="max-w-2xl"
+          track={track.meta}
+          onSubmit={(data) => {
+            DataStore.save(
+              Track.copyOf(track, (draft) => {
+                draft.meta = data;
+              })
+            ).then(() => setEdit(false));
+            setEdit(false);
+          }}
+          onCancel={() => setEdit(false)}
+        />
+      ) : (
+        <>
+          <TrackProperties className="my-8" track={track} />
+          <div className="flex">
+            <ActionButton
+              colors="bg-remixes text-black"
+              className="mr-4"
+              icon={EditIcon}
+              smallIcon
+              onClick={() => {
+                setEdit(true);
+              }}
             >
-              <Heading className="mt-4" level={4}>
-                {name}
-              </Heading>
-              {thumbnail && (
-                <div className="mt-1 p-1 bg-gray-darker text-remixes opacity-75">
-                  <Waveform width={100} height={10} points={thumbnail} />
-                </div>
-              )}
-            </Link>
-          );
-        })}
-      </div>
+              Editar
+            </ActionButton>
+            <FilesInput
+              colors="bg-remixes text-black"
+              onChange={onChange}
+              uploadFile={uploadFile}
+            >
+              Subir sonidos
+            </FilesInput>
+          </div>
+
+          <div className="mt-16">
+            {track.clips.map((clip) => {
+              const selection = selections?.find(
+                (s) => s.id === clip.selectionID
+              );
+              if (!selection) return null;
+              const name = selection.media?.meta.title;
+              const thumbnail = selection.media?.file.thumbnail;
+              return (
+                <Link
+                  key={selection.id}
+                  to={routes.remixEditItemChild(remix.id, "s", selection.id)}
+                >
+                  <Heading className="mt-4" level={4}>
+                    {name}
+                  </Heading>
+                  {thumbnail && (
+                    <div className="mt-1 p-1 bg-gray-darker text-remixes opacity-75">
+                      <Waveform width={100} height={10} points={thumbnail} />
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       {/* <pre>{JSON.stringify(track, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(selections, null, 2)}</pre> */}

@@ -18,8 +18,12 @@ import TrackContainer from "../../components/simple-player/TrackContainer";
 import { IconButton } from "../../components/shared/IconButton";
 import { ShowRemix } from "../components/ShowRemix";
 import { TrackEditor } from "../components/TrackEditor";
-import { Track } from "../../models";
+import { Project, Selection, Track } from "../../models";
 import { Waveform } from "../../@sounds/components/Waveform";
+import {
+  useObserveList,
+  useObserveModel,
+} from "../../@backend/hooks/useObserveModel";
 
 type Params = {
   id: string;
@@ -44,23 +48,25 @@ export function RemixShowPage({ className }: Props) {
     projectId: params.id,
   };
 
-  const { data: remix } = useGetRemixQuery(project);
-  const { data: tracks, refetch: refetchTracks } = useListRemixTracksQuery(
-    project
+  const { data: remix } = useObserveModel(Project, params.id);
+  const { data: tracks } = useObserveList(Track, (t) =>
+    t.projectID("eq", params.id)
   );
-  const {
-    data: selections,
-    refetch: refetchSelections,
-  } = useListRemixSelectionsQuery(project);
+  const { data: selections } = useObserveList(Selection, (t) =>
+    t.projectID("eq", params.id)
+  );
+  // //const { data: remix } = useGetRemixQuery(project);
+  // const { data: tracks, refetch: refetchTracks } = useListRemixTracksQuery(
+  //   project
+  // );
+  // const {
+  //   data: selections,
+  //   refetch: refetchSelections,
+  // } = useListRemixSelectionsQuery(project);
 
   if (!group || !remix || !tracks || !selections) return <LoadingScreen />;
 
   const track = tracks.find((track) => track.id === params.childId);
-
-  const refetchAll = () => {
-    refetchTracks();
-    refetchSelections();
-  };
 
   const editor =
     params.type === "t" ? (
@@ -69,7 +75,7 @@ export function RemixShowPage({ className }: Props) {
         remix={remix}
         track={track}
         selections={selections}
-        onChange={refetchAll}
+        onChange={() => {}}
       />
     ) : (
       <ShowRemix group={group} remix={remix} />
@@ -94,7 +100,6 @@ export function RemixShowPage({ className }: Props) {
           icon={AddIcon}
           onClick={() => {
             createTrack(remix, { name: "Nueva Pista" }).then((track) => {
-              refetchTracks();
               gotoTrack(track);
             });
           }}
@@ -149,23 +154,6 @@ export function RemixShowPage({ className }: Props) {
                     </div>
                   );
                 })}
-
-                {/* {[].map((clipId) => (
-                  <Clip
-                    className="mb-micro last:mb-0"
-                    key={clipId}
-                    status={{ playing: false, time: 0 }}
-                    clip={safeFindClipById(audioset, clipId)}
-                    onClick={() => {
-                      // setEditor('clip')
-                      // history.push(
-                      //   routes.remixEditItemChild(params.id, "clip", clipId)
-                      // );
-                    }}
-                    isStream={false}
-                    skipAudio
-                  />
-                ))} */}
               </div>
               <div className="flex p-1">
                 <IconButton icon={AddIcon} onClick={() => {}}>

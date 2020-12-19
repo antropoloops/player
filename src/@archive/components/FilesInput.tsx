@@ -3,11 +3,6 @@ import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AddIcon } from "../../components/icons/Icons";
 import useSimpleAudioContext from "../hooks/useSimpleAudioContext";
-import {
-  createAudioThumbnail,
-  OfflineMediaFileAndData,
-  saveOfflineMediaFiles,
-} from "../offline";
 
 type Props = {
   onChange: (ids: string[]) => void;
