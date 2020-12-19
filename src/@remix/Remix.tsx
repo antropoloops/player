@@ -6,10 +6,11 @@ import routes from "../routes";
 import RemixListPage from "./pages/RemixListPage";
 import RemixPlayPage from "./pages/RemixPlayPage";
 import RemixShowPage from "./pages/RemixShowPage";
+import LoginGroupPage from "./pages/LoginGroupPage";
+
 import { useCurrentGroup } from "../@backend/hooks/useCurrentGroup";
 import { NotAuthorizedPage } from "../@backend/pages/NotAuthorizedPage";
 import { CurrentGroupContextProvider } from "../@backend/contexts/CurrentGroupContext";
-
 const Remix = ({ fallback }: Props) => {
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -42,6 +43,11 @@ function Router({ fallback: Fallback }: Props) {
         exact
         path={routes.remixRelation(":id", ":type?", ":childId?")}
         component={RemixShowPage}
+      />
+      <Route
+        exact
+        path={routes.remixLoginGroup(":id")}
+        component={LoginGroupPage}
       />
       <Route component={Fallback} />
     </Switch>

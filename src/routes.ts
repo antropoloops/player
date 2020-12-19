@@ -39,6 +39,7 @@ const routes = {
   remixEditItem: (id: string, item: string) => `/remezcla/editar/${id}/${item}`,
   remixEditItemChild: (id: string, item: string, childId: string) =>
     `/remezcla/editar/${id}/${item}/${childId}`,
+  remixLoginGroup: (id: string) => `/remezcla/entrar/${id}`,
 
   sounds: () => `/sonidos`,
   sound: (id: string) => `/sonidos/${id}`,
