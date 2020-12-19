@@ -7,6 +7,8 @@ import RemixListPage from "./pages/RemixListPage";
 import RemixPlayPage from "./pages/RemixPlayPage";
 import RemixShowPage from "./pages/RemixShowPage";
 import LoginGroupPage from "./pages/LoginGroupPage";
+import ArchiveListPage from "./pages/ArchiveListPage";
+import ArchivePage from "./pages/ArchiveShowPage";
 
 import { useCurrentGroup } from "../@backend/hooks/useCurrentGroup";
 import { NotAuthorizedPage } from "../@backend/pages/NotAuthorizedPage";
@@ -49,6 +51,10 @@ function Router({ fallback: Fallback }: Props) {
         path={routes.remixLoginGroup(":id")}
         component={LoginGroupPage}
       />
+
+      {/* ARCHIVE */}
+      <Route exact path={routes.archives()} component={ArchiveListPage} />
+      <Route exact path={routes.archive(":id")} component={ArchivePage} />
       <Route component={Fallback} />
     </Switch>
   );

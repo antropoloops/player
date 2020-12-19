@@ -26,7 +26,6 @@ import PlayRibbonPage from "./pages/new/PlayRibbonPage";
 
 import LoadingScreen from "./components/LoadingScreen";
 
-const Archive = lazy(() => import("./@archive/Archive"));
 const Remix = lazy(() => import("./@remix/Remix"));
 const Sounds = lazy(() => import("./@sounds/Sounds"));
 const Backend = lazy(() => import("./@backend/Backend"));
@@ -106,7 +105,7 @@ const Router = () => (
         </Route>
 
         <Route exact path={routes.archives() + "*"}>
-          <Archive fallback={NotFoundPage} />
+          <Remix fallback={NotFoundPage} />
         </Route>
         <Route exact path={routes.remixes() + "*"}>
           <Remix fallback={NotFoundPage} />
