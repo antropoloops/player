@@ -1,5 +1,9 @@
 # TimeTracking
 
+## 2020/12/19 6h Remix UI
+
+## 2020/12/18 6h AWS Services
+
 ## 2020/12/16 4h Groups
 
 ## 2020/12/16 4h AWS modeling
