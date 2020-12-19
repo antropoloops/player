@@ -1,29 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
-import {
-  useGetRemixQuery,
-  useListRemixSelectionsQuery,
-  useListRemixTracksQuery,
-} from "../hooks/useRemixQueries";
-import { createTrack } from "../../@backend/service";
 import BackToLink from "../../components/BackToLink";
-import { AddIcon, PlayCircleIcon } from "../../components/icons/Icons";
+import { PlayCircleIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import LoadingScreen from "../../components/LoadingScreen";
 import IconLink from "../../components/shared/IconLink";
 import routes from "../../routes";
-import IconButtonBig from "../components/shared/Buttons";
 import TrackContainer from "../../components/simple-player/TrackContainer";
-import { IconButton } from "../../components/shared/IconButton";
-import { ShowRemix } from "../components/ShowRemix";
-import { TrackEditor } from "../components/TrackEditor";
+import ShowEditRemix from "../components/ShowEditRemix";
+import ShowEditTrack from "../components/ShowEditTrack";
 import { Project, Selection, Track } from "../../models";
 import { Waveform } from "../../@sounds/components/Waveform";
 import {
   useObserveList,
   useObserveModel,
 } from "../../@backend/hooks/useObserveModel";
+import MediaObject from "../../components/MediaObject";
 
 type Params = {
   id: string;
@@ -41,12 +34,7 @@ export function RemixShowPage({ className }: Props) {
   const history = useHistory();
 
   const gotoTrack = (track: Track) =>
-    history.push(routes.remixRelation(params.id, "t", track.id));
-
-  const project = {
-    groupId: group?.id || "",
-    projectId: params.id,
-  };
+    history.push(routes.remixTrack(params.id, track.id));
 
   const { data: remix } = useObserveModel(Project, params.id);
   const { data: tracks } = useObserveList(Track, (t) =>
@@ -55,14 +43,6 @@ export function RemixShowPage({ className }: Props) {
   const { data: selections } = useObserveList(Selection, (t) =>
     t.projectID("eq", params.id)
   );
-  // //const { data: remix } = useGetRemixQuery(project);
-  // const { data: tracks, refetch: refetchTracks } = useListRemixTracksQuery(
-  //   project
-  // );
-  // const {
-  //   data: selections,
-  //   refetch: refetchSelections,
-  // } = useListRemixSelectionsQuery(project);
 
   if (!group || !remix || !tracks || !selections) return <LoadingScreen />;
 
@@ -70,7 +50,7 @@ export function RemixShowPage({ className }: Props) {
 
   const editor =
     params.type === "t" ? (
-      <TrackEditor
+      <ShowEditTrack
         group={group}
         remix={remix}
         track={track}
@@ -78,7 +58,7 @@ export function RemixShowPage({ className }: Props) {
         onChange={() => {}}
       />
     ) : (
-      <ShowRemix group={group} remix={remix} />
+      <ShowEditRemix group={group} remix={remix} />
     );
 
   return (
@@ -87,7 +67,7 @@ export function RemixShowPage({ className }: Props) {
       <Link to={routes.remix(params.id)}>
         <img src={"/images/gray-light.png"} alt="Remix" />
       </Link>
-      <h2 className="flex text-left p-1 mb-1 bg-remixes text-bg-dark">
+      <h2 className="flex text-left p-1 bg-remixes text-bg-dark">
         <Link className="flex-grow" to={routes.remix(params.id)}>
           {group.name} - {remix?.meta.title || "..."}
         </Link>
@@ -96,16 +76,6 @@ export function RemixShowPage({ className }: Props) {
         </IconLink>
       </h2>
       <div>
-        <IconButtonBig
-          icon={AddIcon}
-          onClick={() => {
-            createTrack(remix, { name: "Nueva Pista" }).then((track) => {
-              gotoTrack(track);
-            });
-          }}
-        >
-          Añadir pista
-        </IconButtonBig>
         {tracks.map((track) => (
           <TrackContainer
             key={track.id}
@@ -133,16 +103,17 @@ export function RemixShowPage({ className }: Props) {
                   const thumbnail = selection.media?.file.thumbnail;
 
                   return (
-                    <div
+                    <MediaObject
                       key={clip.selectionID}
-                      className="w-full flex items-stretch"
+                      alt={""}
+                      margin=""
+                      imageSize="w-cover-mini"
+                      ratio="1:1"
+                      to={routes.remixClip(remix.id, selection.id)}
+                      style={{ backgroundColor: track.meta.color }}
                     >
-                      <div className="ratio w-1/4">
-                        <svg viewBox="0 0 1 1" />
-                        <img src="/images/gray-light.png" alt="placeholder" />
-                      </div>
                       <div className="mx-1 flex-grow">
-                        <div className="text-xs my-1">
+                        <div className="text-xs my-1 truncate">
                           {selection.media?.meta.title}
                         </div>
                         <Waveform
@@ -151,14 +122,9 @@ export function RemixShowPage({ className }: Props) {
                           points={thumbnail || ""}
                         />
                       </div>
-                    </div>
+                    </MediaObject>
                   );
                 })}
-              </div>
-              <div className="flex p-1">
-                <IconButton icon={AddIcon} onClick={() => {}}>
-                  Añadir clip
-                </IconButton>
               </div>
             </div>
           </TrackContainer>

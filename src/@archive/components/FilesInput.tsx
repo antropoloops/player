@@ -2,9 +2,9 @@ import classcat from "classcat";
 import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AddIcon } from "../../components/icons/Icons";
-import useSimpleAudioContext from "../hooks/useSimpleAudioContext";
 
 type Props = {
+  className?: string;
   onChange: (ids: string[]) => void;
   colors?: string;
   style?: CSSProperties;
@@ -12,13 +12,13 @@ type Props = {
 };
 
 export const FilesInput: React.FC<Props> = ({
+  className,
   onChange,
   children,
   colors,
   style,
   uploadFile,
 }) => {
-  const ctx = useSimpleAudioContext();
   const [isUploading, setIsUploading] = useState(false);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -44,6 +44,7 @@ export const FilesInput: React.FC<Props> = ({
         "opacity-75 hover:opacity-100 focus:outline-none",
         colors || "text-black bg-gray-lighter",
         isUploading && "opacity-20",
+        className,
       ])}
       {...getRootProps()}
     >

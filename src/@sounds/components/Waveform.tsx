@@ -6,14 +6,22 @@ type WaveformProps = {
   width: number;
   height: number;
   points: string;
+  style?: React.CSSProperties;
 };
 
-export function Waveform({ className, width, height, points }: WaveformProps) {
+export function Waveform({
+  className,
+  width,
+  height,
+  points,
+  style,
+}: WaveformProps) {
   return (
     <svg
       className={className}
       preserveAspectRatio="none"
       viewBox={`0 0 ${width} ${height}`}
+      style={style}
     >
       <polygon points={points} fill="currentColor" />
     </svg>

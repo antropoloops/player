@@ -27,6 +27,11 @@ const routes = {
   remixes: () => `/remezcla`,
   remixNew: () => `/remezcla/nuevo`,
   remix: (id: string) => `/remezcla/${id}`,
+  remixTrack: (id: string, trackId: string) =>
+    `/remezcla/editar/${id}/t/${trackId}`,
+  remixClip: (id: string, selectionId: string) =>
+    `/remezcla/editar/${id}/c/${selectionId}`,
+
   remixRelation: (id: string, item: string, childId: string) =>
     `/remezcla/editar/${id}/${item}/${childId}`,
   remixPlay: (id: string) => `/remezcla/play/${id}`,

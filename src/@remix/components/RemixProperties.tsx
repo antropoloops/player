@@ -1,23 +1,29 @@
 import React from "react";
 import { PropertyList } from "../../@core/components";
-import { RemixMetadata } from "../../@backend/datastore";
+import { Metadata, RemixMetadata } from "../../@backend/datastore";
+
+type RemixData = {
+  meta: Metadata;
+  remix: RemixMetadata;
+};
 
 type Props = {
   className?: string;
-  meta: RemixMetadata;
+  remix: RemixData;
 };
 
-export function RemixProperties({ className, meta }: Props) {
+export function RemixProperties({ className, remix }: Props) {
   return (
     <PropertyList
       className={className}
-      keys={["title", "description", "bpm"]}
+      keys={["meta.title", "meta.description", "meta.authors", "remix.bpm"]}
       labels={{
-        title: "Título",
-        description: "Descipción",
-        bpm: "bpm",
+        "meta.title": "Título",
+        "meta.description": "Descipción",
+        "meta.authors": "Autoría",
+        "remix.bpm": "bpm",
       }}
-      values={meta}
+      values={remix}
     />
   );
 }

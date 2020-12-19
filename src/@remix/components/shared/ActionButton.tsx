@@ -12,6 +12,7 @@ type Props = {
   colors?: string;
   icon?: SvgIcon;
   smallIcon?: boolean;
+  style?: React.CSSProperties;
 };
 
 export const ActionButton: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const ActionButton: React.FC<Props> = ({
   icon: Icon = AddIcon,
   smallIcon,
   children,
+  style,
 }) => {
   return (
     <button
@@ -35,8 +37,14 @@ export const ActionButton: React.FC<Props> = ({
         className,
       ])}
       onClick={onClick}
+      style={style}
     >
-      <Icon className={cc([smallIcon ? "w-4 ml-1 mr-2" : "w-6 mr-2"])} />
+      <Icon
+        className={cc([
+          "fill-current",
+          smallIcon ? "w-4 ml-1 mr-2" : "w-6 mr-2",
+        ])}
+      />
       {children}
     </button>
   );

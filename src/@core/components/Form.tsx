@@ -15,17 +15,19 @@ export default Fieldset;
 
 type TextInputProps = {
   className?: string;
+  type?: string;
   name: string;
   autoFocus?: boolean;
 };
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ name, autoFocus }, ref) => (
+  ({ name, type, autoFocus }, ref) => (
     <input
-      autoFocus={autoFocus}
+      type={type}
       className="bg-gray-darker p-1 focus:outline-none"
       name={name}
       ref={ref}
+      autoFocus={autoFocus}
     />
   )
 );
