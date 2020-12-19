@@ -21,6 +21,7 @@ const routes = {
   archive: (id: string) => `/archivo/${id}`,
   archiveRecording: (id: string, recordingId: string) =>
     `/archivo/${id}/r/${recordingId}`,
+  archiveRelations: () => `/archivo/:id/:type/:childId`,
 
   // deprecated
   archiveOffline: () => `/archivo/offline`,

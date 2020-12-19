@@ -1,6 +1,6 @@
 import React from "react";
-import { PropertyList } from "../../@core/components";
-import { Metadata, RemixMetadata } from "../../@backend/datastore";
+import { PropertyList } from "../../../@core/components";
+import { Metadata, RemixMetadata } from "../../../@backend/datastore";
 
 type RemixData = {
   meta: Metadata;

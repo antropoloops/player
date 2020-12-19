@@ -1,11 +1,11 @@
 import classcat from "classcat";
 import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { AddIcon } from "../../components/icons/Icons";
+import { AddIcon } from "../../../components/icons/Icons";
 
 type Props = {
   className?: string;
-  onChange: (ids: string[]) => void;
+  onChange?: (ids: string[]) => void;
   colors?: string;
   style?: CSSProperties;
   uploadFile: (file: File) => Promise<string>;
@@ -30,7 +30,7 @@ export const FilesInput: React.FC<Props> = ({
         saved.push(id);
       }
       setIsUploading(false);
-      onChange(saved);
+      onChange?.(saved);
     },
     accept: ["audio/*"],
   });

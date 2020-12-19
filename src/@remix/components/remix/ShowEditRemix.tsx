@@ -5,16 +5,16 @@ import {
   Project,
   Selection,
   Track,
-} from "../../@backend/datastore";
-import { DesktopView, Heading } from "../../@core/components";
-import { AddIcon, EditIcon } from "../../components/icons/Icons";
+} from "../../../@backend/datastore";
+import { DesktopView, Heading } from "../../../@core/components";
+import { AddIcon, EditIcon } from "../../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
 import RemixForm from "./RemixForm";
-import ActionButton from "./shared/ActionButton";
+import ActionButton from "../shared/ActionButton";
 import { useHistory } from "react-router-dom";
-import routes from "../../routes";
-import { randomColor } from "../helpers/colorHelpers";
-import BackToLink from "../../components/BackToLink";
+import routes from "../../../routes";
+import { randomColor } from "../../helpers/colorHelpers";
+import BackToLink from "../../../components/BackToLink";
 
 type Props = {
   group: Group;

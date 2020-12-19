@@ -8,9 +8,9 @@ import LoadingScreen from "../../components/LoadingScreen";
 import IconLink from "../../components/shared/IconLink";
 import routes from "../../routes";
 import TrackContainer from "../../components/simple-player/TrackContainer";
-import ShowEditRemix from "../components/ShowEditRemix";
-import ShowEditTrack from "../components/ShowEditTrack";
-import ShowEditClip from "../components/ShowEditClip";
+import ShowEditRemix from "../components/remix/ShowEditRemix";
+import ShowEditTrack from "../components/remix/ShowEditTrack";
+import ShowEditClip from "../components/remix/ShowEditClip";
 import { Project, Selection, Track } from "../../models";
 import { Waveform } from "../../@sounds/components/Waveform";
 import {
@@ -74,7 +74,7 @@ export function RemixShowPage({ className }: Props) {
 
   return (
     <Layout nav="projects" desktop={editor}>
-      {/* <BackToLink to={routes.remixes()} label="Remezclas" /> */}
+      <BackToLink to={routes.remixes()} label="Remezclas" />
       <Link to={routes.remix(params.id)}>
         <img src={"/images/gray-light.png"} alt="Remix" />
       </Link>

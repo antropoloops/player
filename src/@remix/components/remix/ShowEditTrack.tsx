@@ -7,19 +7,19 @@ import {
   Selection,
   DataStore,
   TrackMetadata,
-} from "../../@backend/datastore";
-import { DesktopView, Heading } from "../../@core/components";
-import { FilesInput } from "../../@archive/components/FilesInput";
-import { updateTrack } from "../service";
-import { imageUploader } from "../services/imageUploader";
-import { Waveform } from "../../@sounds/components/Waveform";
+} from "../../../@backend/datastore";
+import { DesktopView, Heading } from "../../../@core/components";
+import { FilesInput } from "../shared/FilesInput";
+import { updateTrack } from "../../service";
+import { imageUploader } from "../../services/imageUploader";
+import { Waveform } from "../../../@sounds/components/Waveform";
 import TrackProperties from "./TrackProperties";
 import { Link, useHistory } from "react-router-dom";
-import routes from "../../routes";
-import { ActionButton } from "./shared/ActionButton";
-import { DeleteIcon, EditIcon } from "../../components/icons/Icons";
+import routes from "../../../routes";
+import { ActionButton } from "../shared/ActionButton";
+import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import TrackForm from "./TrackForm";
-import BackToLink from "../../components/BackToLink";
+import BackToLink from "../../../components/BackToLink";
 
 type Props = {
   group: Group;

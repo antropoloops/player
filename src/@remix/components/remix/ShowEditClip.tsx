@@ -1,13 +1,13 @@
 import { DataStore } from "aws-amplify";
 import React, { useMemo } from "react";
 import { useHistory } from "react-router-dom";
-import { DesktopView, Title } from "../../@core/components";
-import BackToLink from "../../components/BackToLink";
-import { DeleteIcon } from "../../components/icons/Icons";
-import { Group, Project, Selection, Track } from "../../models";
-import routes from "../../routes";
-import SamplePreview from "./SamplePreview";
-import ActionButton from "./shared/ActionButton";
+import { DesktopView } from "../../../@core/components";
+import BackToLink from "../../../components/BackToLink";
+import { DeleteIcon } from "../../../components/icons/Icons";
+import { Group, Project, Selection, Track } from "../../../models";
+import routes from "../../../routes";
+import SamplePreview from "../SamplePreview";
+import ActionButton from "../shared/ActionButton";
 
 type Props = {
   className?: string;

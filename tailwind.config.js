@@ -11,7 +11,7 @@ module.exports = {
         primary: "#ffdf01",
         alert: "#770000",
 
-        remixes: "#F43F5E",
+        remixes: "#C026D3",
         sounds: "#34D399",
         archives: "#FCD34D",
 

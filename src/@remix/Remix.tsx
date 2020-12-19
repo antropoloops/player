@@ -55,6 +55,7 @@ function Router({ fallback: Fallback }: Props) {
       {/* ARCHIVE */}
       <Route exact path={routes.archives()} component={ArchiveListPage} />
       <Route exact path={routes.archive(":id")} component={ArchivePage} />
+      <Route exact path={routes.archiveRelations()} component={ArchivePage} />
       <Route component={Fallback} />
     </Switch>
   );

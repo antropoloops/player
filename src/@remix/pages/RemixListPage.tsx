@@ -4,11 +4,12 @@ import { createRemix } from "../service";
 import { AddIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
-import { IconButtonBig } from "../components/shared/Buttons";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import { Separator } from "../../@core/components/Separator";
 import { useObserveList } from "../../@backend/hooks/useObserveModel";
 import { Project, ProjectType } from "../../models";
+import { DesktopView, Title } from "../../@core/components";
+import ActionButton from "../components/shared/ActionButton";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
@@ -21,26 +22,28 @@ const RemixListPage: React.FC<Props> = () => {
   const length = remixes.length || 0;
 
   return (
-    <Layout nav="projects">
-      <img src="/images/sections/community.jpg" alt="Remix" />
-      <Separator className="bg-remixes">Remezclas - {group?.name}</Separator>
-      <div className="flex">
-        <IconButtonBig
-          icon={AddIcon}
-          color="text-remixes"
-          onClick={() => {
-            if (group) {
-              createRemix(group.id, "Remezcla-" + (length + 1)).then(
-                (remix) => {
-                  history.push(routes.remix(remix.id));
+    <Layout
+      nav="projects"
+      desktop={
+        <DesktopView>
+          <Title level={1}>Remezclas</Title>
+          <div className="flex py-4">
+            <ActionButton
+              icon={AddIcon}
+              colors="bg-remixes text-black"
+              onClick={() => {
+                if (group) {
+                  createRemix(group.id, "Remezcla-" + (length + 1)).then(
+                    (remix) => {
+                      history.push(routes.remix(remix.id));
+                    }
+                  );
                 }
-              );
-            }
-          }}
-        >
-          Crear remezcla
-        </IconButtonBig>
-        {/* <IconButtonBig
+              }}
+            >
+              Crear nueva remezcla
+            </ActionButton>
+            {/* <IconButtonBig
           icon={CloudDownloadIcon}
           onClick={() => {
             const url =
@@ -52,7 +55,12 @@ const RemixListPage: React.FC<Props> = () => {
         >
           Importar proyecto
         </IconButtonBig> */}
-      </div>
+          </div>
+        </DesktopView>
+      }
+    >
+      <img src="/images/sections/community.jpg" alt="Remix" />
+      <Separator className="bg-remixes">Remezclas - {group?.name}</Separator>
       <div>
         {remixes &&
           remixes.map((remix) => (

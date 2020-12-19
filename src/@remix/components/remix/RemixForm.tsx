@@ -1,7 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Fieldset, { FormActions, TextInput } from "../../@core/components/Form";
-import { Metadata, RemixMetadata } from "../../models";
+import Fieldset, {
+  FormActions,
+  TextInput,
+} from "../../../@core/components/Form";
+import { Metadata, RemixMetadata } from "../../../models";
 
 type RemixData = {
   meta: Metadata;
