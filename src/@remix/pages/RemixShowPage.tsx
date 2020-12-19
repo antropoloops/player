@@ -76,7 +76,7 @@ export function RemixShowPage({ className }: Props) {
     );
 
   return (
-    <Layout desktop={editor}>
+    <Layout nav="projects" desktop={editor}>
       <BackToLink to={routes.remixes()} label="Remezclas" />
       <Link to={routes.remix(params.id)}>
         <img src={"/images/gray-light.png"} alt="Remix" />

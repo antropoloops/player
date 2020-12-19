@@ -6,7 +6,7 @@ import {
 } from "@aws-amplify/datastore";
 import { useEffect, useRef, useState } from "react";
 
-export function useObserveModel<T extends PersistentModel>(
+export function useObserveList<T extends PersistentModel>(
   Model: PersistentModelConstructor<T>,
   criteria?: ProducerModelPredicate<T>
   // paginationProducer?: ProducerPaginationInput<T>
@@ -29,4 +29,29 @@ export function useObserveModel<T extends PersistentModel>(
   return { data, isLoading };
 }
 
-export default useObserveModel;
+export function useObserveModel<T extends PersistentModel>(
+  Model: PersistentModelConstructor<T>,
+  id?: string
+) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<T | undefined>();
+
+  useEffect(() => {
+    if (!id) {
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+
+    const fetch = () =>
+      DataStore.query(Model, id).then((data) => {
+        setData(data);
+        setIsLoading(false);
+      });
+    fetch();
+    const subscription = DataStore.observe(Model, id).subscribe(() => fetch());
+    return () => subscription.unsubscribe();
+  }, [Model, id]);
+
+  return { data, isLoading };
+}

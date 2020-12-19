@@ -38,6 +38,12 @@ export const SECTIONS_PROJECT: Section[] = [
     home: true,
   },
   {
+    id: "Sonidos",
+    image_url: "/images/sections/projects.jpg",
+    to: routes.sounds(),
+    home: true,
+  },
+  {
     id: "[admin] Grupos",
     image_url: "/images/sections/projects.jpg",
     to: routes.adminGroups(),

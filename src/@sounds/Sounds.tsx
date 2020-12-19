@@ -5,19 +5,29 @@ import routes from "../routes";
 
 import { SoundListPage } from "./pages/SoundListPage";
 import { SoundEditPage } from "./pages/SoundEditPage";
+import SoundsPage from "./pages/SoundsPage";
+import { CurrentGroupContextProvider } from "../@backend/contexts/CurrentGroupContext";
 
 type Props = {
   fallback: React.ComponentType<any>;
 };
 
-const Sound = ({ fallback: Fallback }: Props) => (
-  <Suspense fallback={<LoadingScreen />}>
-    <Switch>
-      <Route exact path={routes.sounds()} component={SoundListPage} />
-      <Route exact path={routes.soundEdit(":id")} component={SoundEditPage} />
-      <Route component={Fallback} />
-    </Switch>
-  </Suspense>
-);
+const Sound = ({ fallback }: Props) => {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <CurrentGroupContextProvider>
+        <Router fallback={fallback} />
+      </CurrentGroupContextProvider>
+    </Suspense>
+  );
+};
 
 export default Sound;
+
+const Router = ({ fallback: Fallback }: Props) => (
+  <Switch>
+    <Route exact path={routes.sounds()} component={SoundsPage} />
+    <Route exact path={routes.soundEdit(":id")} component={SoundEditPage} />
+    <Route component={Fallback} />
+  </Switch>
+);

@@ -1,17 +1,18 @@
 import { createContext, useEffect, useState } from "react";
-import { changeGroup } from "../datastore";
+import LoadingScreen from "../../components/LoadingScreen";
+import { changeGroup, Group } from "../datastore";
+import { useObserveModel } from "../hooks/useObserveModel";
 
-type Group = {
-  id: string;
-  name: string;
-};
-type Listener = (group?: Group) => void;
+const STORAGE_KEY = "ATPLS_GROUP";
 
-let _currentGroup: Group | undefined;
+type Listener = (groupId: string) => void;
+
+let _currentGroupId = localStorage.getItem(STORAGE_KEY) || "";
+
 let listeners: Listener[] = [];
 
-export function getCurrentGroup() {
-  return _currentGroup;
+export function getCurrentGroupId() {
+  return _currentGroupId;
 }
 
 function subscribe(listener: Listener) {
@@ -21,24 +22,26 @@ function subscribe(listener: Listener) {
   };
 }
 
-export async function setCurrentGroup(group?: Group) {
-  _currentGroup = group;
-  if (group) changeGroup(group.id);
+export async function setCurrentGroup(groupId: string) {
+  _currentGroupId = groupId;
+  localStorage.setItem(STORAGE_KEY, groupId);
+  if (groupId) changeGroup(groupId);
   for (const listener of listeners) {
-    listener(group);
+    listener(groupId);
   }
 }
 
 export const CurrentGroupContext = createContext<Group | undefined>(undefined);
 
 export const CurrentGroupContextProvider: React.FC = ({ children }) => {
-  const [group, setGroup] = useState<Group | undefined>(_currentGroup);
+  const [groupId, setGroupId] = useState(_currentGroupId);
+  const { data, isLoading } = useObserveModel(Group, _currentGroupId);
 
-  useEffect(() => subscribe(setGroup), []);
+  useEffect(() => subscribe(setGroupId), [groupId]);
 
   return (
-    <CurrentGroupContext.Provider value={group}>
-      {children}
+    <CurrentGroupContext.Provider value={data}>
+      {isLoading ? <LoadingScreen /> : children}
     </CurrentGroupContext.Provider>
   );
 };

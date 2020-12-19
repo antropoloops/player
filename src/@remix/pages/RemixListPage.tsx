@@ -8,14 +8,14 @@ import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import { Separator } from "../../@core/components/Separator";
-import useObserveModel from "../../@backend/hooks/useObserveModel";
+import { useObserveList } from "../../@backend/hooks/useObserveModel";
 import { Project, ProjectType } from "../../models";
 
 type Props = {};
 const RemixListPage: React.FC<Props> = () => {
   const history = useHistory();
   const group = useCurrentGroup();
-  const { data: remixes } = useObserveModel(Project, (c) =>
+  const { data: remixes } = useObserveList(Project, (c) =>
     c.type("eq", ProjectType.REMIX)
   );
 

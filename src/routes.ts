@@ -36,6 +36,7 @@ const routes = {
     `/remezcla/editar/${id}/${item}/${childId}`,
 
   sounds: () => `/sonidos`,
+  sound: (id: string) => `/sonidos/${id}`,
   soundEdit: (id: string) => `/sonidos/editar/${id}`,
 
   admin: () => `/admin`,

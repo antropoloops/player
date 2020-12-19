@@ -7,7 +7,10 @@ import Amplify from "aws-amplify";
 import config from "./aws-exports";
 
 declare var window: any;
-window.LOG_LEVEL = "DEBUG";
+
+export function debugAws() {
+  window.LOG_LEVEL = "DEBUG";
+}
 
 Amplify.configure(config);
 

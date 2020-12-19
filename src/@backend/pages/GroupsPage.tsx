@@ -13,7 +13,7 @@ import Layout from "../../components/layout/Layout";
 import { Group } from "../../models";
 import { GroupForm } from "../components/GroupForm";
 import { updateGroup } from "../service";
-import { useObserveModel } from "../hooks/useObserveModel";
+import { useObserveList } from "../hooks/useObserveModel";
 import MediaObject from "../../components/MediaObject";
 import routes from "../../routes";
 import { Header } from "../../components/Header";
@@ -28,12 +28,13 @@ type Props = {
 export function GroupsPage({ className }: Props) {
   const params = useParams<{ id?: string }>();
   const [editGroup, setEditGroup] = useState<Group | undefined>();
-  const { data: groups } = useObserveModel(Group);
+  const { data: groups } = useObserveList(Group);
 
   const group = params.id ? groups.find((g) => g.id === params.id) : undefined;
 
   return (
     <Layout
+      title="Grupos"
       nav="projects"
       desktop={
         group && (
@@ -61,7 +62,7 @@ export function GroupsPage({ className }: Props) {
               <IconButton
                 icon={LoginIcon}
                 onClick={() => {
-                  setCurrentGroup(group);
+                  setCurrentGroup(group.id);
                 }}
               >
                 Entrar
