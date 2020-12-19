@@ -2,7 +2,7 @@ import classcat from "classcat";
 import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AddIcon } from "../../components/icons/Icons";
-import useSimpleAudioContext from "../hooks/useSimpleAudioContext";
+import useSimpleAudioContext from "../../@remix/hooks/useSimpleAudioContext";
 import {
   createAudioThumbnail,
   OfflineMediaFileAndData,

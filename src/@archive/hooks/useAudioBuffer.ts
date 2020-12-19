@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { blobToBuffer } from "../lib/web-audio";
-import useSimpleAudioContext from "./useSimpleAudioContext";
+import useSimpleAudioContext from "../../@remix/hooks/useSimpleAudioContext";
 
 export default function useAudioBuffer(blob?: Blob) {
   const [buffer, setBuffer] = useState<AudioBuffer>();

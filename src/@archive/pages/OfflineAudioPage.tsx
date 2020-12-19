@@ -7,7 +7,7 @@ import AudioFileList from "../components/AudioFileList";
 import { Link, useParams } from "react-router-dom";
 import { Waveform } from "../components/Waveform";
 import useAudioBuffer from "../hooks/useAudioBuffer";
-import { usePlayBuffer } from "../hooks/usePlayBuffer";
+import { usePlayBuffer } from "../../@remix/hooks/usePlayBuffer";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
 import { PlayCircleIcon, StopCircleIcon } from "../../components/icons/Icons";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";

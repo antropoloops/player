@@ -6,7 +6,6 @@ import routes from "../routes";
 import RemixListPage from "./pages/RemixListPage";
 import RemixPlayPage from "./pages/RemixPlayPage";
 import RemixShowPage from "./pages/RemixShowPage";
-import LoginGroupPage from "./pages/LoginGroupPage";
 import ArchiveListPage from "./pages/ArchiveListPage";
 import ArchivePage from "./pages/ArchiveShowPage";
 
@@ -45,11 +44,6 @@ function Router({ fallback: Fallback }: Props) {
         exact
         path={routes.remixRelation(":id", ":type?", ":childId?")}
         component={RemixShowPage}
-      />
-      <Route
-        exact
-        path={routes.remixLoginGroup(":id")}
-        component={LoginGroupPage}
       />
 
       {/* ARCHIVE */}

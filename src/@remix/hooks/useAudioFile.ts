@@ -1,6 +1,6 @@
 import { Storage } from "@aws-amplify/storage";
 import { useEffect, useState } from "react";
-import useSimpleAudioContext from "../../@archive/hooks/useSimpleAudioContext";
+import useSimpleAudioContext from "./useSimpleAudioContext";
 import { StoredFile } from "../../models";
 
 export default function useAudioFile(file?: StoredFile) {

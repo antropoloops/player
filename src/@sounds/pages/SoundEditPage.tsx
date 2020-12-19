@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Waveform } from "../components/Waveform";
 import useAudioBuffer from "../../@archive/hooks/useAudioBuffer";
-import { usePlayBuffer } from "../../@archive/hooks/usePlayBuffer";
+import { usePlayBuffer } from "../../@remix/hooks/usePlayBuffer";
 import Layout from "../../components/layout/Layout";
 import { SoundsBrowser } from "../components/SoundsBrowser";
 import { AudioProperties } from "../components/AudioProperties";

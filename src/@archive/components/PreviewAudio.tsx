@@ -3,7 +3,7 @@ import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { IconButton } from "../../components/shared/IconButton";
 import useAudioBuffer from "../hooks/useAudioBuffer";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
-import { usePlayBuffer } from "../hooks/usePlayBuffer";
+import { usePlayBuffer } from "../../@remix/hooks/usePlayBuffer";
 import { Waveform } from "./Waveform";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
 

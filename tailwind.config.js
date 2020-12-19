@@ -14,6 +14,7 @@ module.exports = {
         remixes: "#C026D3",
         sounds: "#34D399",
         archives: "#FCD34D",
+        groups: "#06B6D4",
 
         gray: {
           black: "#111",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { setCurrentGroup } from "../../@backend/contexts/CurrentGroupContext";
-import { NotAuthorizedPage } from "../../@backend/pages/NotAuthorizedPage";
+import { setCurrentGroup } from "../contexts/CurrentGroupContext";
+import { NotAuthorizedPage } from "./NotAuthorizedPage";
 import routes from "../../routes";
 
 type Props = {

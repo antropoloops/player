@@ -69,3 +69,5 @@ function useBufferPlayer(buffer?: AudioBuffer, region?: Region) {
 
   return { start, stop };
 }
+
+export default usePlayBuffer;

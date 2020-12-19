@@ -3,16 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
-import {
-  DataStore,
-  Project,
-  Group,
-  changeGroup,
-  Media,
-  ProjetAccess,
-  ProjectType,
-} from "../datastore";
-import { useCurrentGroup } from "../hooks/useCurrentGroup";
+import { DataStore, Project, Group, changeGroup, Media } from "../datastore";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 
 async function fetchAll() {
@@ -30,7 +21,6 @@ export function TestPage({ className }: TestPageProps) {
   const [all, setAll] = useState<object>({});
   const [count, inc] = useState(0);
 
-  const group = useCurrentGroup();
   const user = useCurrentUser();
 
   const refetch = () => inc(count + 1);
@@ -52,7 +42,6 @@ export function TestPage({ className }: TestPageProps) {
       }
     >
       <div className="flex flex-col p-4 text-white">
-        <label>Group: {group?.name}</label>
         <label>User: {user?.email}</label>
         <Link className="underline" to={routes.adminLogin()}>
           login
@@ -66,6 +55,13 @@ export function TestPage({ className }: TestPageProps) {
             }}
           >
             Borrar datos locales!
+          </button>
+          <button
+            onClick={() => {
+              DataStore.start();
+            }}
+          >
+            Recargar
           </button>
         </div>
       </div>

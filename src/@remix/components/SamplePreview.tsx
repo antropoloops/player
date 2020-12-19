@@ -4,7 +4,7 @@ import useAudioFile from "../hooks/useAudioFile";
 import { Waveform } from "../../@sounds/components/Waveform";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
 import { PlayButton } from "../../@sounds/components/PlayButton";
-import { usePlayBuffer } from "../../@archive/hooks/usePlayBuffer";
+import { usePlayBuffer } from "../hooks/usePlayBuffer";
 
 type Props = {
   className?: string;
