@@ -8,6 +8,7 @@ import ActionButton from "./shared/ActionButton";
 import { useHistory } from "react-router-dom";
 import routes from "../../routes";
 import { randomColor } from "../helpers/colorHelpers";
+import BackToLink from "../../components/BackToLink";
 
 type Props = {
   group: Group;
@@ -35,6 +36,7 @@ export default function ShowEditRemix({ remix, group }: Props) {
 
   return (
     <DesktopView>
+      <BackToLink label="Remezclas" to={routes.remixes()} />
       <Heading level={1} className="mb-8">
         {remix.meta.title}
       </Heading>

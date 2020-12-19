@@ -6,7 +6,7 @@ import useAutoUnlockAudio from "../../hooks/useAutoUnlockAudio";
 import { useDeviceType } from "../../hooks/useDeviceType";
 import { useKeyboardListener } from "../../hooks/useKeyboardListener";
 import useLocale from "../../hooks/useLocale";
-import BackToLink from "../BackToLink";
+import BackToLink from "../BackToHeaderLink";
 import PromptExit from "../shared/PromptExit";
 import TrackContainer from "./TrackContainer";
 import Visuals from "./Visuals";

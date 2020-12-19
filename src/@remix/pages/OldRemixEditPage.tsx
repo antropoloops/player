@@ -8,7 +8,7 @@ import TrackContainer from "../../components/simple-player/TrackContainer";
 import Clip from "../../components/simple-player/Clip";
 import { IconButton } from "../../components/shared/IconButton";
 import { PlayCircleIcon, AddIcon } from "../../components/icons/Icons";
-import BackToLink from "../../components/BackToLink";
+import BackToLink from "../../components/BackToHeaderLink";
 import routes from "../../routes";
 import { addNewClip, addNewTrack } from "../helpers/immutableHelpers";
 import { safeFindClipById } from "../../audioset";

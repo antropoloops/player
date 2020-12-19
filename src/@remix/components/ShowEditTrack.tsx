@@ -19,6 +19,7 @@ import routes from "../../routes";
 import { ActionButton } from "./shared/ActionButton";
 import { DeleteIcon, EditIcon } from "../../components/icons/Icons";
 import TrackForm from "./TrackForm";
+import BackToLink from "../../components/BackToLink";
 
 type Props = {
   group: Group;
@@ -65,6 +66,7 @@ export default function ShowEditTrack({
 
   return (
     <DesktopView>
+      <BackToLink label="Remezcla" to={routes.remix(remix.id)} />
       <Heading level={1} className="mb-8 p-4 -ml-4">
         {track.meta.name}
       </Heading>

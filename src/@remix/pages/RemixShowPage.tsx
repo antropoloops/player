@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
-import BackToLink from "../../components/BackToLink";
+import BackToLink from "../../components/BackToHeaderLink";
 import { PlayCircleIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import LoadingScreen from "../../components/LoadingScreen";
@@ -69,7 +69,8 @@ export function RemixShowPage({ className }: Props) {
       </Link>
       <h2 className="flex text-left p-1 bg-remixes text-bg-dark">
         <Link className="flex-grow" to={routes.remix(params.id)}>
-          {group.name} - {remix?.meta.title || "..."}
+          {remix?.meta.title || "..."}
+          <span className="ml-4 text-xs">{group.name}</span>
         </Link>
         <IconLink icon={PlayCircleIcon} to={routes.remixPlay(params.id)}>
           Play
