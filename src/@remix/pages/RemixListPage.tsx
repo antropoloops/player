@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useListRemixesQuery } from "../hooks/useRemixQueries";
 import { createRemix } from "../service";
-import { AddIcon, CloudDownloadIcon } from "../../components/icons/Icons";
+import { AddIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
 import { IconButtonBig } from "../components/shared/Buttons";
@@ -24,7 +23,7 @@ const RemixListPage: React.FC<Props> = () => {
   return (
     <Layout nav="projects">
       <img src="/images/sections/community.jpg" alt="Remix" />
-      <Separator className="bg-remixes">{group?.name}:remezclas</Separator>
+      <Separator className="bg-remixes">Remezclas - {group?.name}</Separator>
       <div className="flex">
         <IconButtonBig
           icon={AddIcon}

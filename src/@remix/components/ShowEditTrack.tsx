@@ -103,11 +103,9 @@ export default function ShowEditTrack({
             {track.clips.length === 0 && (
               <ActionButton
                 className="mr-4"
-                colors="bg-transparent"
                 icon={DeleteIcon}
                 smallIcon
                 onClick={deleteTrack}
-                style={{ color: track.meta.color }}
               >
                 Borrar pista
               </ActionButton>

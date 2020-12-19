@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { DataStore, Group, Project, Track } from "../../@backend/datastore";
+import {
+  DataStore,
+  Group,
+  Project,
+  Selection,
+  Track,
+} from "../../@backend/datastore";
 import { DesktopView, Heading } from "../../@core/components";
 import { AddIcon, EditIcon } from "../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
@@ -13,9 +19,11 @@ import BackToLink from "../../components/BackToLink";
 type Props = {
   group: Group;
   remix: Project;
+  tracks: Track[];
+  clips: Selection[];
 };
 
-export default function ShowEditRemix({ remix, group }: Props) {
+export default function ShowEditRemix({ remix, group, tracks, clips }: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
 
@@ -25,7 +33,9 @@ export default function ShowEditRemix({ remix, group }: Props) {
         groupID: group.id,
         projectID: remix.id,
         meta: {
-          name: "Pista",
+          name: "Pista-" + (tracks.length + 1),
+          volume: 1,
+          position: tracks.length,
           color: randomColor(),
         },
         clips: [],
@@ -82,6 +92,9 @@ export default function ShowEditRemix({ remix, group }: Props) {
           </div>
         </>
       )}
+      {/* <pre className="text-sm">
+        {JSON.stringify({ remix, tracks, clips }, null, 2)}
+      </pre> */}
     </DesktopView>
   );
 }

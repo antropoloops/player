@@ -8,17 +8,12 @@ type Props = {
 };
 
 export default function TrackProperties({ className, track }: Props) {
-  const data = {
-    ...track.meta,
-    updatedAt: track.updatedAt,
-    createdAt: track.createdAt,
-  };
   return (
     <PropertyList
       className={className}
-      keys={["name", "color", "position", "volume", "createdAt", "updatedAt"]}
+      keys={["name", "color", "position", "volume"]}
       labels={{}}
-      values={data}
+      values={track.meta}
     />
   );
 }

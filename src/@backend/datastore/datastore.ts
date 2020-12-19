@@ -25,7 +25,11 @@ DataStore.configure({
 
 export async function changeGroup(groupId: string) {
   _groupId = groupId;
-  await DataStore.stop();
-  await DataStore.clear();
-  await DataStore.start();
+  try {
+    await DataStore.stop();
+    await DataStore.clear();
+    await DataStore.start();
+  } catch (error) {
+    console.log("Error", error);
+  }
 }

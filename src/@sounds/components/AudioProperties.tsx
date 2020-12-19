@@ -1,7 +1,7 @@
 import React from "react";
 import { AudioMetadata } from "../backend";
 import { PropertyList } from "../../@core/components";
-import { formatTime } from "../helpers/timeHelpers";
+import { formatDuration } from "../helpers/timeHelpers";
 
 type AudioPropertiesProps = {
   className?: string;
@@ -20,7 +20,7 @@ export function AudioProperties({ className, audio }: AudioPropertiesProps) {
       }}
       values={{
         channels: audio?.numberOfChannels,
-        duration: formatTime(audio?.duration),
+        duration: formatDuration(audio?.duration),
         sampleRate: audio?.sampleRate,
       }}
     />

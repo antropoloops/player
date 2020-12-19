@@ -1,4 +1,4 @@
-export function formatTime(seconds?: number, placeholder = "--:--:--") {
+export function formatDuration(seconds?: number, placeholder = "--:--:--") {
   if (seconds === undefined) {
     return placeholder;
   }

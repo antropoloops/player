@@ -44,10 +44,15 @@ export function useObserveModel<T extends PersistentModel>(
     setIsLoading(true);
 
     const fetch = () =>
-      DataStore.query(Model, id).then((data) => {
-        setData(data);
-        setIsLoading(false);
-      });
+      DataStore.query(Model, id)
+        .then((data) => {
+          setData(data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log("ERROR", err);
+          setIsLoading(false);
+        });
     fetch();
     const subscription = DataStore.observe(Model, id).subscribe(() => fetch());
     return () => subscription.unsubscribe();

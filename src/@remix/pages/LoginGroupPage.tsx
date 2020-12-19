@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { setCurrentGroup } from "../../@backend/contexts/CurrentGroupContext";
 import { NotAuthorizedPage } from "../../@backend/pages/NotAuthorizedPage";
 import routes from "../../routes";
@@ -15,16 +15,13 @@ const GROUPS: Record<string, string> = {
 
 export default function LoginGroupPage({ className }: Props) {
   const params = useParams<{ id?: string }>();
-  const history = useHistory();
 
   const groupId = GROUPS[params.id || ""];
 
   if (groupId) {
     setCurrentGroup(groupId);
-    history.push(routes.remixes());
+    return <Redirect to={routes.remixes()} />;
   } else {
     return <NotAuthorizedPage />;
   }
-
-  return <div className={className}>{params.id}</div>;
 }

@@ -5,7 +5,7 @@ import useAudioBuffer from "../hooks/useAudioBuffer";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
 import { Waveform } from "./Waveform";
-import { formatTime } from "../../@sounds/helpers/timeHelpers";
+import { formatDuration } from "../../@sounds/helpers/timeHelpers";
 
 type Props = {
   storage?: {
@@ -42,7 +42,7 @@ const PreviewAudio: React.FC<Props> = ({
   return (
     <div className="">
       <label className="text-xs">
-        {formatTime(duration)} {storage.fileName || ""}
+        {formatDuration(duration)} {storage.fileName || ""}
       </label>
       <div
         className="w-full bg-gray-darker rounded-sm p-1"

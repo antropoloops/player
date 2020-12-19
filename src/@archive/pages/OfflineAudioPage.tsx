@@ -8,7 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import { Waveform } from "../components/Waveform";
 import useAudioBuffer from "../hooks/useAudioBuffer";
 import { usePlayBuffer } from "../hooks/usePlayBuffer";
-import { formatTime } from "../../@sounds/helpers/timeHelpers";
+import { formatDuration } from "../../@sounds/helpers/timeHelpers";
 import { PlayCircleIcon, StopCircleIcon } from "../../components/icons/Icons";
 import { useOfflineMediaFileQuery } from "../hooks/useOfflineMediaQueries";
 
@@ -45,7 +45,7 @@ const OfflineAudioPage: React.FC<Props> = () => {
 
               <h1 className="text-4xl">{file.mediaFile.name}</h1>
               <span className="ml-4 text-base">
-                {buffer ? formatTime(buffer.duration) : "--:--:--"}
+                {buffer ? formatDuration(buffer.duration) : "--:--:--"}
               </span>
             </div>
             {file.mediaFile.thumbnail && (

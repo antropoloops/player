@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Fieldset, { FormActions, TextInput } from "../../@core/components/Form";
-import { Track, TrackMetadata } from "../../models";
+import { TrackMetadata } from "../../models";
 
 type Props = {
   className?: string;
@@ -27,6 +27,18 @@ export default function TrackForm({
         <TextInput name="name" ref={register({ required: true })} autoFocus />
         <label>Color</label>
         <TextInput name="color" ref={register({ required: true })} />
+        <label>Posición</label>
+        <TextInput
+          type="number"
+          name="position"
+          ref={register({ required: true, valueAsNumber: true })}
+        />
+        <label>Volúmen</label>
+        <TextInput
+          type="number"
+          name="volume"
+          ref={register({ required: true, valueAsNumber: true })}
+        />
         <label></label>
         <FormActions className="my-4" onCancel={onCancel} />
       </Fieldset>

@@ -10,6 +10,7 @@ import routes from "../../routes";
 import TrackContainer from "../../components/simple-player/TrackContainer";
 import ShowEditRemix from "../components/ShowEditRemix";
 import ShowEditTrack from "../components/ShowEditTrack";
+import ShowEditClip from "../components/ShowEditClip";
 import { Project, Selection, Track } from "../../models";
 import { Waveform } from "../../@sounds/components/Waveform";
 import {
@@ -46,24 +47,34 @@ export function RemixShowPage({ className }: Props) {
 
   if (!group || !remix || !tracks || !selections) return <LoadingScreen />;
 
-  const track = tracks.find((track) => track.id === params.childId);
+  const track =
+    params.type === "t" && tracks.find((track) => track.id === params.childId);
+  const sample =
+    params.type === "c" &&
+    selections.find((track) => track.id === params.childId);
 
-  const editor =
-    params.type === "t" ? (
-      <ShowEditTrack
-        group={group}
-        remix={remix}
-        track={track}
-        selections={selections}
-        onChange={() => {}}
-      />
-    ) : (
-      <ShowEditRemix group={group} remix={remix} />
-    );
+  const editor = sample ? (
+    <ShowEditClip group={group} remix={remix} tracks={tracks} sample={sample} />
+  ) : track ? (
+    <ShowEditTrack
+      group={group}
+      remix={remix}
+      track={track}
+      selections={selections}
+      onChange={() => {}}
+    />
+  ) : (
+    <ShowEditRemix
+      group={group}
+      remix={remix}
+      tracks={tracks}
+      clips={selections}
+    />
+  );
 
   return (
     <Layout nav="projects" desktop={editor}>
-      <BackToLink to={routes.remixes()} label="Remezclas" />
+      {/* <BackToLink to={routes.remixes()} label="Remezclas" /> */}
       <Link to={routes.remix(params.id)}>
         <img src={"/images/gray-light.png"} alt="Remix" />
       </Link>
@@ -118,6 +129,7 @@ export function RemixShowPage({ className }: Props) {
                           {selection.media?.meta.title}
                         </div>
                         <Waveform
+                          className="opacity-50"
                           width={100}
                           height={10}
                           points={thumbnail || ""}
