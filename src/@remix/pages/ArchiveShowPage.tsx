@@ -25,9 +25,7 @@ export default function ArchiveShowPage() {
   if (!group) return <NotAuthorizedPage />;
   else if (!archive) return null;
 
-  const main = (
-    <ShowEditArchive group={group} archive={archive} recordings={recordings} />
-  );
+  const main = <ShowEditArchive group={group} archive={archive} />;
 
   return (
     <Layout title="Archivo" nav="projects" desktop={main}>

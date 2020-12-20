@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import routes from "../../routes";
+import { getCurrentGroupId } from "../contexts/CurrentGroupContext";
 import { DataStore, Project, Group, changeGroup, Media } from "../datastore";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 
@@ -51,7 +52,7 @@ export function TestPage({ className }: TestPageProps) {
           <button
             className="bg-red-600 rounded p-2 my-4 mr-4"
             onClick={() => {
-              changeGroup("").then(() => refetch());
+              changeGroup(getCurrentGroupId()).then(() => refetch());
             }}
           >
             Borrar datos locales!

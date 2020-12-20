@@ -68,7 +68,7 @@ export function RemixShowPage({ className }: Props) {
       group={group}
       remix={remix}
       tracks={tracks}
-      clips={selections}
+      samples={selections}
     />
   );
 

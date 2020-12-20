@@ -19,10 +19,9 @@ import { imageUploader } from "../../services/imageUploader";
 type Props = {
   group: Group;
   archive: Project;
-  recordings: Selection[];
 };
 
-export default function ShowEditArchive({ group, archive, recordings }: Props) {
+export default function ShowEditArchive({ group, archive }: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
 

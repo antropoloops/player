@@ -17,6 +17,8 @@ export function imageUploader(project: Project, group: Group) {
       `${group.id}/${project.id}/${uuid()}`,
       file
     );
+    const buffer = await blobToBuffer(file);
+    const points = getPolygonPoints(buffer, 100, 10);
     const media = await DataStore.save(
       new Media({
         groupID: group.id,
@@ -30,15 +32,16 @@ export function imageUploader(project: Project, group: Group) {
           mimeType: file.type,
           fileName: file.name,
           fileSize: file.size,
+          duration: buffer.duration,
+          thumbnail: points,
         },
       })
     );
-    await addAudioMetadata(media, file);
     const selection = await DataStore.save(
       new Selection({
         groupID: group.id,
         projectID: project.id,
-        media: media,
+        mediaID: media.id,
         type: MediaType.RECORDING,
       })
     );
@@ -51,7 +54,6 @@ export function imageUploader(project: Project, group: Group) {
 export async function addAudioMetadata(media: Media, file: File) {
   const buffer = await blobToBuffer(file);
   const points = getPolygonPoints(buffer, 100, 10);
-  console.log("AUDIO METADATA!!", buffer.duration);
   await DataStore.save(
     Media.copyOf(media, (draft) => {
       draft.file.duration = buffer.duration;

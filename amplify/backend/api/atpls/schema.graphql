@@ -34,10 +34,10 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
-  group: Group @connection(fields: ["groupID"])
-  recordings: [Media] @connection(keyName: "byProject", fields: ["id"])
+  # group: Group @connection(fields: ["groupID"])
+  # recordings: [Media] @connection(keyName: "byProject", fields: ["id"])
   # tracks: [Track] @connection(keyName: "byProject", fields: ["id"])
-  selections: [Selection] @connection(keyName: "byProject", fields: ["id"])
+  # selections: [Selection] @connection(keyName: "byProject", fields: ["id"])
 }
 
 enum MediaType {
@@ -71,8 +71,8 @@ type Media
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
-  #project: Project @connection(fields: ["projectID"])
-  selections: [Selection] @connection(keyName: "byMedia", fields: ["id"])
+  # project: Project @connection(fields: ["projectID"])
+  # selections: [Selection] @connection(keyName: "byMedia", fields: ["id"])
 }
 
 type RemixMetadata {
@@ -133,6 +133,7 @@ type Selection
   groupID: ID!
   projectID: ID!
   mediaID: ID!
+  trackID: ID
 
   role: String
   type: MediaType

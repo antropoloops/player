@@ -119,23 +119,6 @@ export const syncProjects = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        group {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -166,55 +149,6 @@ export const getProject = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      group {
-        id
-        name
-        meta {
-          title
-          description
-          authors
-          credits
-          licenses
-          readme
-        }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      recordings {
-        items {
-          id
-          projectID
-          groupID
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
-      selections {
-        items {
-          id
-          groupID
-          projectID
-          mediaID
-          role
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
       _version
       _deleted
       _lastChangedAt
@@ -247,23 +181,6 @@ export const listProjects = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        group {
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        recordings {
-          nextToken
-          startedAt
-        }
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -311,10 +228,6 @@ export const syncMedia = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -351,23 +264,6 @@ export const getMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      selections {
-        items {
-          id
-          groupID
-          projectID
-          mediaID
-          role
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
       _version
       _deleted
       _lastChangedAt
@@ -406,10 +302,6 @@ export const listMedias = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -528,6 +420,7 @@ export const syncSelections = /* GraphQL */ `
         groupID
         projectID
         mediaID
+        trackID
         role
         type
         audio {
@@ -581,6 +474,7 @@ export const getSelection = /* GraphQL */ `
       groupID
       projectID
       mediaID
+      trackID
       role
       type
       audio {
@@ -632,10 +526,6 @@ export const getSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -658,6 +548,7 @@ export const listSelections = /* GraphQL */ `
         groupID
         projectID
         mediaID
+        trackID
         role
         type
         audio {

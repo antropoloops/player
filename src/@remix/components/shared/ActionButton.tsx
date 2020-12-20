@@ -28,12 +28,15 @@ export const ActionButton: React.FC<Props> = ({
 }) => {
   return (
     <button
+      disabled={disabled}
       type={type}
       className={cc([
         "flex items-center p-1 pr-4 text-ag-dark rounded-full",
-        "opacity-75 hover:opacity-100 focus:outline-none",
+        "focus:outline-none",
         colors || "text-black bg-gray-lighter",
-        disabled && "opacity-20",
+        disabled
+          ? "opacity-25 cursor-not-allowed"
+          : "opacity-75 hover:opacity-100",
         className,
       ])}
       onClick={onClick}

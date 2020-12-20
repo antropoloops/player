@@ -7,7 +7,7 @@ import {
   Track,
 } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
-import { AddIcon, EditIcon } from "../../../components/icons/Icons";
+import { AddIcon, DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
 import RemixForm from "./RemixForm";
 import ActionButton from "../shared/ActionButton";
@@ -20,10 +20,19 @@ type Props = {
   group: Group;
   remix: Project;
   tracks: Track[];
-  clips: Selection[];
+  samples: Selection[];
 };
 
-export default function ShowEditRemix({ remix, group, tracks, clips }: Props) {
+async function deleteRemix(remix: Project) {
+  return DataStore.delete(remix);
+}
+
+export default function ShowEditRemix({
+  remix,
+  group,
+  tracks,
+  samples,
+}: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
 
@@ -88,6 +97,19 @@ export default function ShowEditRemix({ remix, group, tracks, clips }: Props) {
               onClick={addTrack}
             >
               Añadir pista
+            </ActionButton>
+            <ActionButton
+              disabled={!!(tracks.length || samples.length)}
+              colors="bg-transparent text-white"
+              icon={DeleteIcon}
+              smallIcon
+              onClick={() => {
+                deleteRemix(remix).then(() => {
+                  history.push(routes.remixes());
+                });
+              }}
+            >
+              Borrar remix
             </ActionButton>
           </div>
         </>
