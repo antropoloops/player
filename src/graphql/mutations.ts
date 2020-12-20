@@ -191,6 +191,24 @@ export const createMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -227,6 +245,24 @@ export const updateMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -263,6 +299,24 @@ export const deleteMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -349,7 +403,18 @@ export const createSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -400,6 +465,10 @@ export const createSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -421,7 +490,18 @@ export const updateSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -472,6 +552,10 @@ export const updateSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -493,7 +577,18 @@ export const deleteSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -544,6 +639,10 @@ export const deleteSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt

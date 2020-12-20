@@ -50,6 +50,11 @@ export declare class StoredFile {
   constructor(init: ModelInit<StoredFile>);
 }
 
+export declare class ClipMetadata {
+  readonly keyboardKey?: string;
+  constructor(init: ModelInit<ClipMetadata>);
+}
+
 export declare class AudioRegion {
   readonly offset: number;
   readonly duration: number;
@@ -72,11 +77,6 @@ export declare class TrackMetadata {
   readonly position?: number;
   readonly volume?: number;
   constructor(init: ModelInit<TrackMetadata>);
-}
-
-export declare class ClipMetadata {
-  readonly selectionID: string;
-  constructor(init: ModelInit<ClipMetadata>);
 }
 
 export declare class Group {
@@ -128,7 +128,9 @@ export declare class Selection {
   readonly groupID: string;
   readonly projectID: string;
   readonly trackID?: string;
-  readonly role?: string;
+  readonly parentID?: string;
+  readonly clip?: ClipMetadata;
+  readonly meta?: Metadata;
   readonly type?: MediaType | keyof typeof MediaType;
   readonly audio?: AudioRegion;
   readonly image?: ImageCrop;

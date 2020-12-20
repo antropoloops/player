@@ -85,10 +85,6 @@ type TrackMetadata {
   volume: Float
 }
 
-type ClipMetadata {
-  selectionID: ID!
-}
-
 type Track
   @model
   @key(name: "byProject", fields: ["projectID"])
@@ -122,6 +118,10 @@ type ImageCrop {
   unit: ImageUnits
 }
 
+type ClipMetadata {
+  keyboardKey: String
+}
+
 type Selection
   @model
   @key(name: "byGroup", fields: ["groupID", "updatedAt"])
@@ -133,7 +133,12 @@ type Selection
   mediaID: ID!
   trackID: ID
 
-  role: String
+  # Parent: images of a sound
+  parentID: ID
+
+  # Optional parameters based on type
+  clip: ClipMetadata
+  meta: Metadata
   type: MediaType
   audio: AudioRegion
   image: ImageCrop

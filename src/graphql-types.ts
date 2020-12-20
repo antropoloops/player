@@ -264,7 +264,9 @@ export type CreateSelectionInput = {
   projectID: string;
   mediaID: string;
   trackID?: string | null;
-  role?: string | null;
+  parentID?: string | null;
+  clip?: ClipMetadataInput | null;
+  meta?: MetadataInput | null;
   type?: MediaType | null;
   audio?: AudioRegionInput | null;
   image?: ImageCropInput | null;
@@ -272,6 +274,10 @@ export type CreateSelectionInput = {
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
+};
+
+export type ClipMetadataInput = {
+  keyboardKey?: string | null;
 };
 
 export type AudioRegionInput = {
@@ -298,7 +304,7 @@ export type ModelSelectionConditionInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
-  role?: ModelStringInput | null;
+  parentID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
@@ -313,7 +319,9 @@ export type UpdateSelectionInput = {
   projectID?: string | null;
   mediaID?: string | null;
   trackID?: string | null;
-  role?: string | null;
+  parentID?: string | null;
+  clip?: ClipMetadataInput | null;
+  meta?: MetadataInput | null;
   type?: MediaType | null;
   audio?: AudioRegionInput | null;
   image?: ImageCropInput | null;
@@ -377,7 +385,7 @@ export type ModelSelectionFilterInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
-  role?: ModelStringInput | null;
+  parentID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
@@ -600,6 +608,26 @@ export type CreateMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -640,6 +668,26 @@ export type UpdateMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -680,6 +728,26 @@ export type DeleteMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -777,7 +845,20 @@ export type CreateSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -834,6 +915,11 @@ export type CreateSelectionMutation = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -857,7 +943,20 @@ export type UpdateSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -914,6 +1013,11 @@ export type UpdateSelectionMutation = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -937,7 +1041,20 @@ export type DeleteSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -994,6 +1111,11 @@ export type DeleteSelectionMutation = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1246,6 +1368,11 @@ export type SyncMediaQuery = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1288,6 +1415,26 @@ export type GetMediaQuery = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1331,6 +1478,11 @@ export type ListMediasQuery = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1447,7 +1599,20 @@ export type SyncSelectionsQuery = {
       projectID: string;
       mediaID: string;
       trackID: string | null;
-      role: string | null;
+      parentID: string | null;
+      clip: {
+        __typename: "ClipMetadata";
+        keyboardKey: string | null;
+      } | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      } | null;
       type: MediaType | null;
       audio: {
         __typename: "AudioRegion";
@@ -1509,7 +1674,20 @@ export type GetSelectionQuery = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -1566,6 +1744,11 @@ export type GetSelectionQuery = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1592,7 +1775,20 @@ export type ListSelectionsQuery = {
       projectID: string;
       mediaID: string;
       trackID: string | null;
-      role: string | null;
+      parentID: string | null;
+      clip: {
+        __typename: "ClipMetadata";
+        keyboardKey: string | null;
+      } | null;
+      meta: {
+        __typename: "Metadata";
+        title: string | null;
+        description: string | null;
+        authors: string | null;
+        credits: string | null;
+        licenses: string | null;
+        readme: string | null;
+      } | null;
       type: MediaType | null;
       audio: {
         __typename: "AudioRegion";
@@ -1821,6 +2017,26 @@ export type OnCreateMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1856,6 +2072,26 @@ export type OnUpdateMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1891,6 +2127,26 @@ export type OnDeleteMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
+    selections: {
+      __typename: "ModelSelectionConnection";
+      items: Array<{
+        __typename: "Selection";
+        id: string;
+        groupID: string;
+        projectID: string;
+        mediaID: string;
+        trackID: string | null;
+        parentID: string | null;
+        type: MediaType | null;
+        createdAt: string | null;
+        updatedAt: string | null;
+        _version: number;
+        _deleted: boolean | null;
+        _lastChangedAt: number;
+      } | null> | null;
+      nextToken: string | null;
+      startedAt: number | null;
+    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1968,7 +2224,20 @@ export type OnCreateSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -2025,6 +2294,11 @@ export type OnCreateSelectionSubscription = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2043,7 +2317,20 @@ export type OnUpdateSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -2100,6 +2387,11 @@ export type OnUpdateSelectionSubscription = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2118,7 +2410,20 @@ export type OnDeleteSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    role: string | null;
+    parentID: string | null;
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
+    } | null;
+    meta: {
+      __typename: "Metadata";
+      title: string | null;
+      description: string | null;
+      authors: string | null;
+      credits: string | null;
+      licenses: string | null;
+      readme: string | null;
+    } | null;
     type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
@@ -2175,6 +2480,11 @@ export type OnDeleteSelectionSubscription = {
       };
       createdAt: string | null;
       updatedAt: string | null;
+      selections: {
+        __typename: "ModelSelectionConnection";
+        nextToken: string | null;
+        startedAt: number | null;
+      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;

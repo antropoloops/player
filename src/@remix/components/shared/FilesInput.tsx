@@ -1,4 +1,5 @@
 import classcat from "classcat";
+import { image } from "d3";
 import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AddIcon } from "../../../components/icons/Icons";
@@ -7,19 +8,25 @@ type Props = {
   className?: string;
   onChange?: (ids: string[]) => void;
   colors?: string;
-  style?: CSSProperties;
   uploadFile: (file: File) => Promise<string>;
+  fileType: "audio" | "image";
+  maxFiles?: number;
+  bgColor?: string;
 };
 
 export const FilesInput: React.FC<Props> = ({
   className,
+  fileType,
   onChange,
   children,
   colors,
-  style,
+  bgColor,
   uploadFile,
+  maxFiles,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
+
+  const accept = fileType === "audio" ? ["audio/*"] : ["image/*"];
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: async (files: File[]) => {
@@ -32,12 +39,13 @@ export const FilesInput: React.FC<Props> = ({
       setIsUploading(false);
       onChange?.(saved);
     },
-    accept: ["audio/*"],
+    accept: accept,
+    maxFiles: maxFiles,
   });
 
   return (
     <button
-      style={style}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
       disabled={isUploading}
       className={classcat([
         "flex items-center p-1 pr-4 text-ag-dark rounded-full",

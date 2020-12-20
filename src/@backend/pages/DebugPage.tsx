@@ -43,9 +43,14 @@ export function TestPage({ className }: TestPageProps) {
       }
     >
       <div className="flex flex-col p-4 text-white">
-        <label>User: {user?.email}</label>
         <Link className="underline" to={routes.adminLogin()}>
-          login
+          login user
+        </Link>
+        <Link className="underline" to={routes.adminLoginGroup("prueba")}>
+          login group test
+        </Link>
+        <Link className="underline" to={routes.adminLoginGroup("dev")}>
+          login group dev
         </Link>
 
         <div className="py-4">

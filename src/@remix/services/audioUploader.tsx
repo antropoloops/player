@@ -9,23 +9,28 @@ import {
   MediaType,
   Track,
 } from "../../@backend/datastore";
+import { blobToBuffer } from "../../@sounds/lib/web-audio";
+import { getPolygonPoints } from "../../@sounds/lib/svg-wave";
 
-export function imageUploader(
+export function audioUploader(
+  ctx: AudioContext,
   group: Group,
   project: Project,
-  track: Track | undefined,
-  selectionId?: string
+  track: Track | undefined
 ) {
   const uploadFile = async (file: File) => {
     const result: any = await Storage.put(
       `${group.id}/${project.id}/${uuid()}`,
       file
     );
+    const buffer = await blobToBuffer(ctx, file);
+    const points = getPolygonPoints(buffer, 100, 10);
+    const duration = buffer.duration;
     const media = await DataStore.save(
       new Media({
-        type: MediaType.IMAGE,
         groupID: group.id,
         projectID: project.id,
+        type: MediaType.RECORDING,
         meta: {
           title: file.name,
         },
@@ -34,21 +39,37 @@ export function imageUploader(
           mimeType: file.type,
           fileName: file.name,
           fileSize: file.size,
+          duration: duration,
+          thumbnail: points,
         },
       })
     );
     const selection = await DataStore.save(
       new Selection({
-        type: MediaType.IMAGE,
         groupID: group.id,
         projectID: project.id,
         media: media,
         trackID: track?.id,
-        parentID: selectionId,
+        type: MediaType.RECORDING,
       })
     );
     return selection;
   };
 
   return uploadFile;
+}
+
+export async function addAudioMetadata(
+  ctx: AudioContext,
+  media: Media,
+  file: File
+) {
+  const buffer = await blobToBuffer(ctx, file);
+  const points = getPolygonPoints(buffer, 100, 10);
+  await DataStore.save(
+    Media.copyOf(media, (draft) => {
+      draft.file.duration = buffer.duration;
+      draft.file.thumbnail = points;
+    })
+  );
 }

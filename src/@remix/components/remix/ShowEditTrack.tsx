@@ -11,7 +11,7 @@ import {
 import { DesktopView, Heading } from "../../../@core/components";
 import { FilesInput } from "../shared/FilesInput";
 import { updateTrack } from "../../service";
-import { imageUploader } from "../../services/imageUploader";
+import { audioUploader } from "../../services/audioUploader";
 import { Waveform } from "../../../@sounds/components/Waveform";
 import TrackProperties from "./TrackProperties";
 import { Link, useHistory } from "react-router-dom";
@@ -43,7 +43,7 @@ export default function ShowEditTrack({
   if (!track) return null;
 
   const uploadFile = async (file: File) => {
-    const uploader = imageUploader(ctx, group, remix, track);
+    const uploader = audioUploader(ctx, group, remix, track);
     const selection = await uploader(file);
     return selection.id;
   };
@@ -94,13 +94,15 @@ export default function ShowEditTrack({
               Editar
             </ActionButton>
             <FilesInput
+              fileType="audio"
+              maxFiles={1}
               className="mr-4"
               colors="bg-remixes text-black"
+              bgColor={track.meta.color}
               onChange={onChange}
               uploadFile={uploadFile}
-              style={{ backgroundColor: track.meta.color }}
             >
-              Subir sonidos
+              Subir sonido
             </FilesInput>
             {samples.length === 0 && (
               <ActionButton
@@ -121,7 +123,7 @@ export default function ShowEditTrack({
               return (
                 <Link
                   key={sample.id}
-                  to={routes.remixEditItemChild(remix.id, "s", sample.id)}
+                  to={routes.remixClip(remix.id, sample.id)}
                 >
                   <Heading className="mt-4" level={4}>
                     {name}

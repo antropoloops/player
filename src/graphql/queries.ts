@@ -225,6 +225,10 @@ export const syncMedia = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -261,6 +265,24 @@ export const getMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -299,6 +321,10 @@ export const listMedias = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -409,7 +435,18 @@ export const syncSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        role
+        parentID
+        clip {
+          keyboardKey
+        }
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
+        }
         type
         audio {
           offset
@@ -463,7 +500,18 @@ export const getSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -514,6 +562,10 @@ export const getSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -537,7 +589,18 @@ export const listSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        role
+        parentID
+        clip {
+          keyboardKey
+        }
+        meta {
+          title
+          description
+          authors
+          credits
+          licenses
+          readme
+        }
         type
         audio {
           offset

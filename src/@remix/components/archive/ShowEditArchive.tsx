@@ -14,7 +14,7 @@ import BackToLink from "../../../components/BackToLink";
 import ArchiveForm from "./ArchiveForm";
 import ArchiveProperties from "./ArchiveProperties";
 import FilesInput from "../shared/FilesInput";
-import { imageUploader } from "../../services/imageUploader";
+import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 
 type Props = {
@@ -28,7 +28,7 @@ export default function ShowEditArchive({ group, archive }: Props) {
   const ctx = useSimpleAudioContext();
 
   const uploadFile = async (file: File) => {
-    const uploader = imageUploader(ctx, group, archive, undefined);
+    const uploader = audioUploader(ctx, group, archive, undefined);
     const selection = await uploader(file);
     return selection.id;
   };
@@ -68,6 +68,7 @@ export default function ShowEditArchive({ group, archive }: Props) {
               Editar
             </ActionButton>
             <FilesInput
+              fileType="audio"
               colors="bg-archives text-black"
               className="mr-4"
               uploadFile={uploadFile}

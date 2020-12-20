@@ -170,6 +170,24 @@ export const onCreateMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -203,6 +221,24 @@ export const onUpdateMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -236,6 +272,24 @@ export const onDeleteMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      selections {
+        items {
+          id
+          groupID
+          projectID
+          mediaID
+          trackID
+          parentID
+          type
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       _version
       _deleted
       _lastChangedAt
@@ -310,7 +364,18 @@ export const onCreateSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -361,6 +426,10 @@ export const onCreateSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -379,7 +448,18 @@ export const onUpdateSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -430,6 +510,10 @@ export const onUpdateSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt
@@ -448,7 +532,18 @@ export const onDeleteSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      role
+      parentID
+      clip {
+        keyboardKey
+      }
+      meta {
+        title
+        description
+        authors
+        credits
+        licenses
+        readme
+      }
       type
       audio {
         offset
@@ -499,6 +594,10 @@ export const onDeleteSelection = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        selections {
+          nextToken
+          startedAt
+        }
         _version
         _deleted
         _lastChangedAt

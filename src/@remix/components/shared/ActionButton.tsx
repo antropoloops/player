@@ -34,7 +34,7 @@ export const ActionButton: React.FC<Props> = ({
       type={type}
       className={cc([
         "flex items-center p-1 pr-4 text-ag-dark rounded-full",
-        "focus:outline-none",
+        "whitespace-no-wrap focus:outline-none",
         margins,
         colors,
         disabled

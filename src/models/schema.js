@@ -261,10 +261,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "role": {
-                    "name": "role",
+                "parentID": {
+                    "name": "parentID",
                     "isArray": false,
-                    "type": "String",
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "clip": {
+                    "name": "clip",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ClipMetadata"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "meta": {
+                    "name": "meta",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Metadata"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -598,6 +616,18 @@ export const schema = {
                 }
             }
         },
+        "ClipMetadata": {
+            "name": "ClipMetadata",
+            "fields": {
+                "keyboardKey": {
+                    "name": "keyboardKey",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
         "AudioRegion": {
             "name": "AudioRegion",
             "fields": {
@@ -698,19 +728,7 @@ export const schema = {
                     "attributes": []
                 }
             }
-        },
-        "ClipMetadata": {
-            "name": "ClipMetadata",
-            "fields": {
-                "selectionID": {
-                    "name": "selectionID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            }
         }
     },
-    "version": "c62dfb4d02f9a7b3cf3cf17f587aebf3"
+    "version": "ced6006c5352be87c93a99bbc4bfaf98"
 };
