@@ -30,7 +30,6 @@ export default function ArchiveListPage({ className }: Props) {
         type: ProjectType.ARCHIVE,
         groupID: group.id,
         access: ProjetAccess.GROUP,
-        name: "Archivo",
         meta: {
           title: "Archivo " + (archives.length + 1),
         },

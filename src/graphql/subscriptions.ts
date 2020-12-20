@@ -70,7 +70,6 @@ export const onCreateProject = /* GraphQL */ `
     onCreateProject {
       id
       groupID
-      name
       type
       access
       meta {
@@ -97,7 +96,6 @@ export const onUpdateProject = /* GraphQL */ `
     onUpdateProject {
       id
       groupID
-      name
       type
       access
       meta {
@@ -124,7 +122,6 @@ export const onDeleteProject = /* GraphQL */ `
     onDeleteProject {
       id
       groupID
-      name
       type
       access
       meta {
@@ -257,9 +254,6 @@ export const onCreateTrack = /* GraphQL */ `
         position
         volume
       }
-      clips {
-        selectionID
-      }
       createdAt
       updatedAt
       _version
@@ -280,9 +274,6 @@ export const onUpdateTrack = /* GraphQL */ `
         position
         volume
       }
-      clips {
-        selectionID
-      }
       createdAt
       updatedAt
       _version
@@ -302,9 +293,6 @@ export const onDeleteTrack = /* GraphQL */ `
         color
         position
         volume
-      }
-      clips {
-        selectionID
       }
       createdAt
       updatedAt

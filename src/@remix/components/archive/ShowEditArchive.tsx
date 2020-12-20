@@ -15,6 +15,7 @@ import ArchiveForm from "./ArchiveForm";
 import ArchiveProperties from "./ArchiveProperties";
 import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
+import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 
 type Props = {
   group: Group;
@@ -24,9 +25,11 @@ type Props = {
 export default function ShowEditArchive({ group, archive }: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+  const ctx = useSimpleAudioContext();
 
   const uploadFile = async (file: File) => {
-    const selection = await imageUploader(archive, group)(file);
+    const uploader = imageUploader(ctx, group, archive, undefined);
+    const selection = await uploader(file);
     return selection.id;
   };
 

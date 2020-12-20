@@ -6,8 +6,7 @@ export async function blobToArrayBuffer(blob: Blob) {
   return await new Response(blob).arrayBuffer();
 }
 
-export async function blobToBuffer(blob: Blob) {
+export async function blobToBuffer(context: AudioContext, blob: Blob) {
   const arrayBuffer = await blobToArrayBuffer(blob);
-  const context = createOfflineAudioContext();
   return await context.decodeAudioData(arrayBuffer);
 }

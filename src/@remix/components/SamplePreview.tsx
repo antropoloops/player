@@ -1,5 +1,5 @@
 import React from "react";
-import { Selection, Track } from "../../models";
+import { Media, Selection, Track } from "../../models";
 import useAudioFile from "../hooks/useAudioFile";
 import { Waveform } from "../../@sounds/components/Waveform";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
@@ -10,10 +10,18 @@ type Props = {
   className?: string;
   track?: Track;
   sample: Selection;
+  sound?: Media;
 };
 
-export default function SamplePreview({ className, sample, track }: Props) {
-  const file = sample.file || sample.media?.file;
+export default function SamplePreview({
+  className,
+  sample,
+  track,
+  sound,
+}: Props) {
+  const file = sample.file || sample.media?.file || sound?.file;
+  const thumbnail = file?.thumbnail || "";
+
   const { buffer, load, isLoading } = useAudioFile(file);
 
   const [play, { playing }] = usePlayBuffer(buffer, {
@@ -21,15 +29,15 @@ export default function SamplePreview({ className, sample, track }: Props) {
     duration: buffer?.duration || 0,
   });
 
-  if (!file) return null;
-
   const color = track?.meta.color || "white";
 
   return (
     <div className={className}>
-      <label htmlFor="Nombre del sonido" className="text-xs">
-        {file.fileName} {formatDuration(file.duration)}
-      </label>
+      {file && (
+        <label htmlFor="Nombre del sonido" className="text-xs">
+          {file.fileName} {formatDuration(file.duration)}
+        </label>
+      )}
       <div className="flex items-center">
         <PlayButton
           className="border-2 rounded-full mr-4"
@@ -51,7 +59,7 @@ export default function SamplePreview({ className, sample, track }: Props) {
           <Waveform
             width={100}
             height={10}
-            points={file.thumbnail || ""}
+            points={thumbnail}
             style={{ color }}
           />
         </div>

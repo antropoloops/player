@@ -47,7 +47,6 @@ export default function ShowEditRemix({
           position: tracks.length,
           color: randomColor(),
         },
-        clips: [],
       })
     );
     history.push(routes.remixEditItemChild(remix.id, "t", track.id));

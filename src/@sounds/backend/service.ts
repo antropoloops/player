@@ -53,9 +53,12 @@ export async function createOfflineSound(fileName: string, blob: Blob) {
   return sound;
 }
 
-export async function addAudioInformation(sound: OfflineSound) {
+export async function addAudioInformation(
+  ctx: AudioContext,
+  sound: OfflineSound
+) {
   const { data, file } = sound;
-  const buffer = await blobToBuffer(file.blob);
+  const buffer = await blobToBuffer(ctx, file.blob);
   const points = getPolygonPoints(buffer, 100, 10);
   data.audio = {
     length: buffer.length,

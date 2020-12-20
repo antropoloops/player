@@ -53,13 +53,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "type": {
                     "name": "type",
                     "isArray": false,
@@ -194,6 +187,20 @@ export const schema = {
                     "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
+                },
+                "selections": {
+                    "name": "selections",
+                    "isArray": true,
+                    "type": {
+                        "model": "Selection"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "id"
+                    }
                 }
             },
             "syncable": true,
@@ -223,92 +230,6 @@ export const schema = {
                 }
             ]
         },
-        "Track": {
-            "name": "Track",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "groupID": {
-                    "name": "groupID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "projectID": {
-                    "name": "projectID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "meta": {
-                    "name": "meta",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "TrackMetadata"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "clips": {
-                    "name": "clips",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "ClipMetadata"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "isArrayNullable": false
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Tracks",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProject",
-                        "fields": [
-                            "projectID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byGroup",
-                        "fields": [
-                            "groupID",
-                            "createdAt"
-                        ]
-                    }
-                }
-            ]
-        },
         "Selection": {
             "name": "Selection",
             "fields": {
@@ -328,13 +249,6 @@ export const schema = {
                 },
                 "projectID": {
                     "name": "projectID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "mediaID": {
-                    "name": "mediaID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -413,8 +327,8 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id"
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "mediaID"
                     }
                 }
             },
@@ -452,6 +366,82 @@ export const schema = {
                         "fields": [
                             "projectID",
                             "updatedAt"
+                        ]
+                    }
+                }
+            ]
+        },
+        "Track": {
+            "name": "Track",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "groupID": {
+                    "name": "groupID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "projectID": {
+                    "name": "projectID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "meta": {
+                    "name": "meta",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "TrackMetadata"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Tracks",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProject",
+                        "fields": [
+                            "projectID"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byGroup",
+                        "fields": [
+                            "groupID",
+                            "createdAt"
                         ]
                     }
                 }
@@ -588,7 +578,7 @@ export const schema = {
                 "duration": {
                     "name": "duration",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -608,65 +598,20 @@ export const schema = {
                 }
             }
         },
-        "TrackMetadata": {
-            "name": "TrackMetadata",
-            "fields": {
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "color": {
-                    "name": "color",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "position": {
-                    "name": "position",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "volume": {
-                    "name": "volume",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
-        },
-        "ClipMetadata": {
-            "name": "ClipMetadata",
-            "fields": {
-                "selectionID": {
-                    "name": "selectionID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            }
-        },
         "AudioRegion": {
             "name": "AudioRegion",
             "fields": {
                 "offset": {
                     "name": "offset",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": true,
                     "attributes": []
                 },
                 "duration": {
                     "name": "duration",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "Float",
                     "isRequired": true,
                     "attributes": []
                 }
@@ -720,7 +665,52 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "TrackMetadata": {
+            "name": "TrackMetadata",
+            "fields": {
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "color": {
+                    "name": "color",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "position": {
+                    "name": "position",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "volume": {
+                    "name": "volume",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "ClipMetadata": {
+            "name": "ClipMetadata",
+            "fields": {
+                "selectionID": {
+                    "name": "selectionID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
         }
     },
-    "version": "38f4c8b8c0e6b5c47a01e3e83a5b20a7"
+    "version": "c62dfb4d02f9a7b3cf3cf17f587aebf3"
 };

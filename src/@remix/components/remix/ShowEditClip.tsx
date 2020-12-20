@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { DesktopView } from "../../../@core/components";
 import BackToLink from "../../../components/BackToLink";
 import { DeleteIcon } from "../../../components/icons/Icons";
-import { Group, Project, Selection, Track } from "../../../models";
+import { Group, Media, Project, Selection, Track } from "../../../models";
 import routes from "../../../routes";
 import SamplePreview from "../SamplePreview";
 import ActionButton from "../shared/ActionButton";
@@ -15,14 +15,10 @@ type Props = {
   remix: Project;
   tracks: Track[];
   sample: Selection;
+  sounds: Media[];
 };
 
-const deleteClip = async (track: Track, sample: Selection) => {
-  await DataStore.save(
-    Track.copyOf(track, (draft) => {
-      draft.clips = draft.clips.filter((x) => x.selectionID !== sample.id);
-    })
-  );
+const deleteClip = async (sample: Selection) => {
   await DataStore.delete(sample);
 };
 
@@ -32,17 +28,10 @@ export default function ShowEditClip({
   remix,
   tracks,
   sample,
+  sounds,
 }: Props) {
   const history = useHistory();
-  const { clip, track } = useMemo(() => {
-    for (const track of tracks) {
-      const clip = track.clips.find((clip) => clip.selectionID === sample.id);
-      if (clip) return { clip, track };
-    }
-    return {};
-  }, [tracks, sample.id]);
-
-  const thumbnail = sample.file?.thumbnail || sample.media?.file.thumbnail;
+  const track = tracks.find((t) => t.id === sample.trackID);
 
   return (
     <DesktopView>
@@ -60,7 +49,7 @@ export default function ShowEditClip({
           colors="bg-transparent"
           onClick={() => {
             if (!track) return;
-            deleteClip(track, sample);
+            deleteClip(sample);
             history.push(
               track
                 ? routes.remixTrack(remix.id, track.id)
@@ -72,6 +61,7 @@ export default function ShowEditClip({
           Borrar sonido
         </ActionButton>
       </div>
+      <pre className="mt-4 font-xs">{JSON.stringify(sample, null, 2)}</pre>
     </DesktopView>
   );
 }

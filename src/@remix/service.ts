@@ -12,7 +12,6 @@ export async function createRemix(groupId: string, name: string) {
   return await DataStore.save(
     new Project({
       groupID: groupId,
-      name: name,
       type: ProjectType.REMIX,
       access: ProjetAccess.GROUP,
       meta: { title: name },

@@ -55,10 +55,11 @@ export function TestPage({ className }: TestPageProps) {
               changeGroup(getCurrentGroupId()).then(() => refetch());
             }}
           >
-            Borrar datos locales!
+            Borrar datos
           </button>
           <button
             onClick={() => {
+              DataStore.stop();
               DataStore.start();
             }}
           >

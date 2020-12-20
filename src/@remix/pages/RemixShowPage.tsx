@@ -4,14 +4,13 @@ import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import BackToLink from "../../components/BackToHeaderLink";
 import { PlayCircleIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
-import LoadingScreen from "../../components/LoadingScreen";
 import IconLink from "../../components/shared/IconLink";
 import routes from "../../routes";
 import TrackContainer from "../../components/simple-player/TrackContainer";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
-import { Project, Selection, Track } from "../../models";
+import { Media, Project, Selection, Track } from "../../models";
 import { Waveform } from "../../@sounds/components/Waveform";
 import {
   useObserveList,
@@ -44,8 +43,9 @@ export function RemixShowPage({ className }: Props) {
   const { data: selections } = useObserveList(Selection, (t) =>
     t.projectID("eq", params.id)
   );
-
-  if (!group || !remix || !tracks || !selections) return <LoadingScreen />;
+  const { data: sounds } = useObserveList(Media, (t) =>
+    t.projectID("eq", params.id)
+  );
 
   const track =
     params.type === "t" && tracks.find((track) => track.id === params.childId);
@@ -53,24 +53,31 @@ export function RemixShowPage({ className }: Props) {
     params.type === "c" &&
     selections.find((track) => track.id === params.childId);
 
-  const editor = sample ? (
-    <ShowEditClip group={group} remix={remix} tracks={tracks} sample={sample} />
-  ) : track ? (
-    <ShowEditTrack
-      group={group}
-      remix={remix}
-      track={track}
-      selections={selections}
-      onChange={() => {}}
-    />
-  ) : (
-    <ShowEditRemix
-      group={group}
-      remix={remix}
-      tracks={tracks}
-      samples={selections}
-    />
-  );
+  const editor =
+    !group || !remix ? null : sample ? (
+      <ShowEditClip
+        group={group}
+        remix={remix}
+        tracks={tracks}
+        sample={sample}
+        sounds={sounds}
+      />
+    ) : track ? (
+      <ShowEditTrack
+        group={group}
+        remix={remix}
+        track={track}
+        selections={selections}
+        onChange={() => {}}
+      />
+    ) : (
+      <ShowEditRemix
+        group={group}
+        remix={remix}
+        tracks={tracks}
+        samples={selections}
+      />
+    );
 
   return (
     <Layout nav="projects" desktop={editor}>
@@ -81,7 +88,7 @@ export function RemixShowPage({ className }: Props) {
       <h2 className="flex text-left p-1 bg-remixes text-bg-dark">
         <Link className="flex-grow" to={routes.remix(params.id)}>
           {remix?.meta.title || "..."}
-          <span className="ml-4 text-xs">{group.name}</span>
+          <span className="ml-4 text-xs">{group?.name}</span>
         </Link>
         <IconLink icon={PlayCircleIcon} to={routes.remixPlay(params.id)}>
           Play
@@ -107,37 +114,35 @@ export function RemixShowPage({ className }: Props) {
           >
             <div className="w-full bg-gray-dark">
               <div className="bg-gray-medium bg-opacity-50">
-                {track.clips.map((clip) => {
-                  const selection = selections.find(
-                    (s) => s.id === clip.selectionID
-                  );
-                  if (!selection) return null;
-                  const thumbnail = selection.media?.file.thumbnail;
+                {selections
+                  .filter((s) => s.trackID === track.id)
+                  .map((selection) => {
+                    const thumbnail = selection.media?.file.thumbnail;
 
-                  return (
-                    <MediaObject
-                      key={clip.selectionID}
-                      alt={""}
-                      margin=""
-                      imageSize="w-cover-mini"
-                      ratio="1:1"
-                      to={routes.remixClip(remix.id, selection.id)}
-                      style={{ backgroundColor: track.meta.color }}
-                    >
-                      <div className="mx-1 flex-grow">
-                        <div className="text-xs my-1 truncate">
-                          {selection.media?.meta.title}
+                    return (
+                      <MediaObject
+                        key={selection.id}
+                        alt={""}
+                        margin=""
+                        imageSize="w-cover-mini"
+                        ratio="1:1"
+                        to={routes.remixClip(params.id, selection.id)}
+                        style={{ backgroundColor: track.meta.color }}
+                      >
+                        <div className="mx-1 flex-grow">
+                          <div className="text-xs my-1 truncate">
+                            {selection.media?.meta.title}
+                          </div>
+                          <Waveform
+                            className="opacity-50"
+                            width={100}
+                            height={10}
+                            points={thumbnail || ""}
+                          />
                         </div>
-                        <Waveform
-                          className="opacity-50"
-                          width={100}
-                          height={10}
-                          points={thumbnail || ""}
-                        />
-                      </div>
-                    </MediaObject>
-                  );
-                })}
+                      </MediaObject>
+                    );
+                  })}
               </div>
             </div>
           </TrackContainer>

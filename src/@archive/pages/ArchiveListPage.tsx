@@ -26,10 +26,12 @@ const ArchiveListPage: React.FC<Props> = () => {
           className="bg-gray-light group max-w-full hover:bg-gray-lighter"
           to={routes.archive(archive.id)}
           image="/images/sections/community.jpg"
-          alt={archive.name}
+          alt={archive.meta.title || "Sin título"}
         >
           <div className="w-2/3 flex items-center p-2 group-hover:text-white-light">
-            <span className="flex-grow text-lg truncate">{archive.name}</span>
+            <span className="flex-grow text-lg truncate">
+              {archive.meta.title || "Sin título"}
+            </span>
             <ArrowRight className="text-white-dark flex-shrink-0 ml-2 my-2 group-hover:text-white" />
           </div>
         </MediaObject>

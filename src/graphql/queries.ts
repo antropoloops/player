@@ -103,7 +103,6 @@ export const syncProjects = /* GraphQL */ `
       items {
         id
         groupID
-        name
         type
         access
         meta {
@@ -133,7 +132,6 @@ export const getProject = /* GraphQL */ `
     getProject(id: $id) {
       id
       groupID
-      name
       type
       access
       meta {
@@ -165,7 +163,6 @@ export const listProjects = /* GraphQL */ `
       items {
         id
         groupID
-        name
         type
         access
         meta {
@@ -334,9 +331,6 @@ export const syncTracks = /* GraphQL */ `
           position
           volume
         }
-        clips {
-          selectionID
-        }
         createdAt
         updatedAt
         _version
@@ -359,9 +353,6 @@ export const getTrack = /* GraphQL */ `
         color
         position
         volume
-      }
-      clips {
-        selectionID
       }
       createdAt
       updatedAt
@@ -387,9 +378,6 @@ export const listTracks = /* GraphQL */ `
           color
           position
           volume
-        }
-        clips {
-          selectionID
         }
         createdAt
         updatedAt

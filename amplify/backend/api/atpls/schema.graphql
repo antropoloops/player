@@ -24,7 +24,6 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   id: ID!
   groupID: ID!
 
-  name: String!
   type: ProjectType!
   access: ProjetAccess!
   meta: Metadata!
@@ -51,7 +50,7 @@ type StoredFile {
   fileName: String
   fileSize: Int
   thumbnail: String
-  duration: Int
+  duration: Float
   width: Int
   height: Int
 }
@@ -72,7 +71,7 @@ type Media
   updatedAt: AWSDateTime
 
   # project: Project @connection(fields: ["projectID"])
-  # selections: [Selection] @connection(keyName: "byMedia", fields: ["id"])
+  selections: [Selection] @connection(fields: ["id"])
 }
 
 type RemixMetadata {
@@ -99,15 +98,14 @@ type Track
   projectID: ID!
 
   meta: TrackMetadata!
-  clips: [ClipMetadata!]!
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 }
 
 type AudioRegion {
-  offset: Int!
-  duration: Int!
+  offset: Float!
+  duration: Float!
 }
 
 enum ImageUnits {

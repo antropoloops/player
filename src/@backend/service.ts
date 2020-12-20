@@ -40,7 +40,6 @@ export async function createTrack(
       groupID: project.groupID,
       projectID: project.id,
       meta: meta || {},
-      clips: [],
     })
   );
 }

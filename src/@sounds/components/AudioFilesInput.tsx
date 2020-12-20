@@ -1,6 +1,7 @@
 import classcat from "classcat";
 import React, { CSSProperties, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import useSimpleAudioContext from "../../@remix/hooks/useSimpleAudioContext";
 import { AddIcon } from "../../components/icons/Icons";
 import useAudioContext from "../../hooks/useAudioContext";
 import {
@@ -23,7 +24,7 @@ export const AudioFilesInput: React.FC<Props> = ({
   bgColor,
   style,
 }) => {
-  const ctx = useAudioContext();
+  const ctx = useSimpleAudioContext();
   const [isUploading, setIsUploading] = useState(false);
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -32,7 +33,7 @@ export const AudioFilesInput: React.FC<Props> = ({
       const saved: OfflineSound[] = [];
       for (const file of files) {
         const sound = await createOfflineSound(file.name, file);
-        if (ctx) await addAudioInformation(sound);
+        if (ctx) await addAudioInformation(ctx, sound);
         saved.push(sound);
       }
       setIsUploading(false);

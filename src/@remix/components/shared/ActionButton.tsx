@@ -12,6 +12,7 @@ type Props = {
   colors?: string;
   icon?: SvgIcon;
   smallIcon?: boolean;
+  margins?: string;
   style?: React.CSSProperties;
 };
 
@@ -19,8 +20,9 @@ export const ActionButton: React.FC<Props> = ({
   type = "button",
   className,
   onClick,
+  margins = "mr-4",
   disabled,
-  colors,
+  colors = "text-black bg-gray-lighter",
   icon: Icon = AddIcon,
   smallIcon,
   children,
@@ -33,7 +35,8 @@ export const ActionButton: React.FC<Props> = ({
       className={cc([
         "flex items-center p-1 pr-4 text-ag-dark rounded-full",
         "focus:outline-none",
-        colors || "text-black bg-gray-lighter",
+        margins,
+        colors,
         disabled
           ? "opacity-25 cursor-not-allowed"
           : "opacity-75 hover:opacity-100",

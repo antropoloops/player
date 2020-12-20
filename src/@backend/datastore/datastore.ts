@@ -1,4 +1,5 @@
 import { DataStore, syncExpression } from "@aws-amplify/datastore";
+import { Hub } from "aws-amplify";
 import { Track } from "../../models";
 import { Project, Media, Selection } from "../../models";
 
@@ -23,13 +24,17 @@ DataStore.configure({
   ],
 });
 
+Hub.listen("datastore", async (hubData) => {
+  const { event, data } = hubData.payload;
+  console.log("DATASTORE EVENT", event, data);
+});
+
 export async function changeGroup(groupId: string) {
   _groupId = groupId;
   try {
     await DataStore.stop();
-    await DataStore.clear();
     await DataStore.start();
   } catch (error) {
-    console.log("Error", error);
+    console.log("Change group error", error);
   }
 }

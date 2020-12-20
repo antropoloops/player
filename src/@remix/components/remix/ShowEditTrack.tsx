@@ -20,12 +20,13 @@ import { ActionButton } from "../shared/ActionButton";
 import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import TrackForm from "./TrackForm";
 import BackToLink from "../../../components/BackToLink";
+import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 
 type Props = {
   group: Group;
   remix: Project;
   track?: Track;
-  selections?: Selection[];
+  selections: Selection[];
   onChange: () => void;
 };
 
@@ -37,14 +38,13 @@ export default function ShowEditTrack({
   selections,
 }: Props) {
   const history = useHistory();
+  const ctx = useSimpleAudioContext();
   const [edit, setEdit] = useState(false);
   if (!track) return null;
 
   const uploadFile = async (file: File) => {
-    const selection = await imageUploader(remix, group)(file);
-    await updateTrack(track, {
-      clips: [...track.clips, { selectionID: selection.id }],
-    });
+    const uploader = imageUploader(ctx, group, remix, track);
+    const selection = await uploader(file);
     return selection.id;
   };
 
@@ -61,6 +61,8 @@ export default function ShowEditTrack({
     await DataStore.delete(Track, track.id);
     history.push(routes.remix(remix.id));
   };
+
+  const samples = selections.filter((s) => s.trackID === track.id);
 
   const style = { color: track.meta.color };
 
@@ -100,7 +102,7 @@ export default function ShowEditTrack({
             >
               Subir sonidos
             </FilesInput>
-            {track.clips.length === 0 && (
+            {samples.length === 0 && (
               <ActionButton
                 className="mr-4"
                 icon={DeleteIcon}
@@ -113,17 +115,13 @@ export default function ShowEditTrack({
           </div>
 
           <div className="mt-16">
-            {track.clips.map((clip) => {
-              const selection = selections?.find(
-                (s) => s.id === clip.selectionID
-              );
-              if (!selection) return null;
-              const name = selection.media?.meta.title;
-              const thumbnail = selection.media?.file.thumbnail;
+            {samples.map((sample) => {
+              const name = sample.media?.meta.title;
+              const thumbnail = sample.media?.file.thumbnail;
               return (
                 <Link
-                  key={selection.id}
-                  to={routes.remixEditItemChild(remix.id, "s", selection.id)}
+                  key={sample.id}
+                  to={routes.remixEditItemChild(remix.id, "s", sample.id)}
                 >
                   <Heading className="mt-4" level={4}>
                     {name}

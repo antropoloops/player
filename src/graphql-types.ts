@@ -79,7 +79,6 @@ export type DeleteGroupInput = {
 export type CreateProjectInput = {
   id?: string | null;
   groupID: string;
-  name: string;
   type: ProjectType;
   access: ProjetAccess;
   meta: MetadataInput;
@@ -104,7 +103,6 @@ export type RemixMetadataInput = {
 
 export type ModelProjectConditionInput = {
   groupID?: ModelIDInput | null;
-  name?: ModelStringInput | null;
   type?: ModelProjectTypeInput | null;
   access?: ModelProjetAccessInput | null;
   createdAt?: ModelStringInput | null;
@@ -143,7 +141,6 @@ export type ModelProjetAccessInput = {
 export type UpdateProjectInput = {
   id: string;
   groupID?: string | null;
-  name?: string | null;
   type?: ProjectType | null;
   access?: ProjetAccess | null;
   meta?: MetadataInput | null;
@@ -224,7 +221,6 @@ export type CreateTrackInput = {
   groupID: string;
   projectID: string;
   meta: TrackMetadataInput;
-  clips: Array<ClipMetadataInput>;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -235,10 +231,6 @@ export type TrackMetadataInput = {
   color?: string | null;
   position?: number | null;
   volume?: number | null;
-};
-
-export type ClipMetadataInput = {
-  selectionID: string;
 };
 
 export type ModelTrackConditionInput = {
@@ -256,7 +248,6 @@ export type UpdateTrackInput = {
   groupID?: string | null;
   projectID?: string | null;
   meta?: TrackMetadataInput | null;
-  clips?: Array<ClipMetadataInput> | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -348,7 +339,6 @@ export type ModelGroupFilterInput = {
 export type ModelProjectFilterInput = {
   id?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
-  name?: ModelStringInput | null;
   type?: ModelProjectTypeInput | null;
   access?: ModelProjetAccessInput | null;
   createdAt?: ModelStringInput | null;
@@ -487,7 +477,6 @@ export type CreateProjectMutation = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -521,7 +510,6 @@ export type UpdateProjectMutation = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -555,7 +543,6 @@ export type DeleteProjectMutation = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -717,10 +704,6 @@ export type CreateTrackMutation = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -747,10 +730,6 @@ export type UpdateTrackMutation = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -777,10 +756,6 @@ export type DeleteTrackMutation = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1136,7 +1111,6 @@ export type SyncProjectsQuery = {
       __typename: "Project";
       id: string;
       groupID: string;
-      name: string;
       type: ProjectType;
       access: ProjetAccess;
       meta: {
@@ -1172,7 +1146,6 @@ export type GetProjectQuery = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -1209,7 +1182,6 @@ export type ListProjectsQuery = {
       __typename: "Project";
       id: string;
       groupID: string;
-      name: string;
       type: ProjectType;
       access: ProjetAccess;
       meta: {
@@ -1390,10 +1362,6 @@ export type SyncTracksQuery = {
         position: number | null;
         volume: number | null;
       };
-      clips: Array<{
-        __typename: "ClipMetadata";
-        selectionID: string;
-      }>;
       createdAt: string | null;
       updatedAt: string | null;
       _version: number;
@@ -1422,10 +1390,6 @@ export type GetTrackQuery = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1455,10 +1419,6 @@ export type ListTracksQuery = {
         position: number | null;
         volume: number | null;
       };
-      clips: Array<{
-        __typename: "ClipMetadata";
-        selectionID: string;
-      }>;
       createdAt: string | null;
       updatedAt: string | null;
       _version: number;
@@ -1753,7 +1713,6 @@ export type OnCreateProjectSubscription = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -1782,7 +1741,6 @@ export type OnUpdateProjectSubscription = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -1811,7 +1769,6 @@ export type OnDeleteProjectSubscription = {
     __typename: "Project";
     id: string;
     groupID: string;
-    name: string;
     type: ProjectType;
     access: ProjetAccess;
     meta: {
@@ -1953,10 +1910,6 @@ export type OnCreateTrackSubscription = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1978,10 +1931,6 @@ export type OnUpdateTrackSubscription = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -2003,10 +1952,6 @@ export type OnDeleteTrackSubscription = {
       position: number | null;
       volume: number | null;
     };
-    clips: Array<{
-      __typename: "ClipMetadata";
-      selectionID: string;
-    }>;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;

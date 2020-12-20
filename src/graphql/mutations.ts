@@ -82,7 +82,6 @@ export const createProject = /* GraphQL */ `
     createProject(input: $input, condition: $condition) {
       id
       groupID
-      name
       type
       access
       meta {
@@ -112,7 +111,6 @@ export const updateProject = /* GraphQL */ `
     updateProject(input: $input, condition: $condition) {
       id
       groupID
-      name
       type
       access
       meta {
@@ -142,7 +140,6 @@ export const deleteProject = /* GraphQL */ `
     deleteProject(input: $input, condition: $condition) {
       id
       groupID
-      name
       type
       access
       meta {
@@ -287,9 +284,6 @@ export const createTrack = /* GraphQL */ `
         position
         volume
       }
-      clips {
-        selectionID
-      }
       createdAt
       updatedAt
       _version
@@ -313,9 +307,6 @@ export const updateTrack = /* GraphQL */ `
         position
         volume
       }
-      clips {
-        selectionID
-      }
       createdAt
       updatedAt
       _version
@@ -338,9 +329,6 @@ export const deleteTrack = /* GraphQL */ `
         color
         position
         volume
-      }
-      clips {
-        selectionID
       }
       createdAt
       updatedAt
