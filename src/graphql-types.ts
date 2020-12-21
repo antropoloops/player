@@ -264,10 +264,11 @@ export type CreateSelectionInput = {
   projectID: string;
   mediaID: string;
   trackID?: string | null;
-  parentID?: string | null;
+  type: MediaType;
+  coverID?: string | null;
+  sampleID?: string | null;
   clip?: ClipMetadataInput | null;
   meta?: MetadataInput | null;
-  type?: MediaType | null;
   audio?: AudioRegionInput | null;
   image?: ImageCropInput | null;
   file?: StoredFileInput | null;
@@ -304,8 +305,9 @@ export type ModelSelectionConditionInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
-  parentID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
+  coverID?: ModelIDInput | null;
+  sampleID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelSelectionConditionInput | null> | null;
@@ -319,10 +321,11 @@ export type UpdateSelectionInput = {
   projectID?: string | null;
   mediaID?: string | null;
   trackID?: string | null;
-  parentID?: string | null;
+  type?: MediaType | null;
+  coverID?: string | null;
+  sampleID?: string | null;
   clip?: ClipMetadataInput | null;
   meta?: MetadataInput | null;
-  type?: MediaType | null;
   audio?: AudioRegionInput | null;
   image?: ImageCropInput | null;
   file?: StoredFileInput | null;
@@ -385,8 +388,9 @@ export type ModelSelectionFilterInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
-  parentID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
+  coverID?: ModelIDInput | null;
+  sampleID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
   and?: Array<ModelSelectionFilterInput | null> | null;
@@ -617,8 +621,9 @@ export type CreateMediaMutation = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -677,8 +682,9 @@ export type UpdateMediaMutation = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -737,8 +743,9 @@ export type DeleteMediaMutation = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -845,7 +852,9 @@ export type CreateSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -859,7 +868,6 @@ export type CreateSelectionMutation = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -943,7 +951,9 @@ export type UpdateSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -957,7 +967,6 @@ export type UpdateSelectionMutation = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -1041,7 +1050,9 @@ export type DeleteSelectionMutation = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -1055,7 +1066,6 @@ export type DeleteSelectionMutation = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -1424,8 +1434,9 @@ export type GetMediaQuery = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -1599,7 +1610,9 @@ export type SyncSelectionsQuery = {
       projectID: string;
       mediaID: string;
       trackID: string | null;
-      parentID: string | null;
+      type: MediaType;
+      coverID: string | null;
+      sampleID: string | null;
       clip: {
         __typename: "ClipMetadata";
         keyboardKey: string | null;
@@ -1613,7 +1626,6 @@ export type SyncSelectionsQuery = {
         licenses: string | null;
         readme: string | null;
       } | null;
-      type: MediaType | null;
       audio: {
         __typename: "AudioRegion";
         offset: number;
@@ -1674,7 +1686,9 @@ export type GetSelectionQuery = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -1688,7 +1702,6 @@ export type GetSelectionQuery = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -1775,7 +1788,9 @@ export type ListSelectionsQuery = {
       projectID: string;
       mediaID: string;
       trackID: string | null;
-      parentID: string | null;
+      type: MediaType;
+      coverID: string | null;
+      sampleID: string | null;
       clip: {
         __typename: "ClipMetadata";
         keyboardKey: string | null;
@@ -1789,7 +1804,6 @@ export type ListSelectionsQuery = {
         licenses: string | null;
         readme: string | null;
       } | null;
-      type: MediaType | null;
       audio: {
         __typename: "AudioRegion";
         offset: number;
@@ -2026,8 +2040,9 @@ export type OnCreateMediaSubscription = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2081,8 +2096,9 @@ export type OnUpdateMediaSubscription = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2136,8 +2152,9 @@ export type OnDeleteMediaSubscription = {
         projectID: string;
         mediaID: string;
         trackID: string | null;
-        parentID: string | null;
-        type: MediaType | null;
+        type: MediaType;
+        coverID: string | null;
+        sampleID: string | null;
         createdAt: string | null;
         updatedAt: string | null;
         _version: number;
@@ -2224,7 +2241,9 @@ export type OnCreateSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -2238,7 +2257,6 @@ export type OnCreateSelectionSubscription = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -2317,7 +2335,9 @@ export type OnUpdateSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -2331,7 +2351,6 @@ export type OnUpdateSelectionSubscription = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
@@ -2410,7 +2429,9 @@ export type OnDeleteSelectionSubscription = {
     projectID: string;
     mediaID: string;
     trackID: string | null;
-    parentID: string | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     clip: {
       __typename: "ClipMetadata";
       keyboardKey: string | null;
@@ -2424,7 +2445,6 @@ export type OnDeleteSelectionSubscription = {
       licenses: string | null;
       readme: string | null;
     } | null;
-    type: MediaType | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;

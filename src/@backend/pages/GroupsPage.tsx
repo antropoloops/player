@@ -17,7 +17,7 @@ type Props = {
 
 export function GroupsPage({ className }: Props) {
   const params = useParams<{ id?: string }>();
-  const { data: groups } = useObserveList(Group);
+  const { data: groups } = useObserveList(Group, "all");
 
   const group = params.id ? groups.find((g) => g.id === params.id) : undefined;
 

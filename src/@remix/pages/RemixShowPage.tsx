@@ -1,22 +1,16 @@
 import React from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
-import BackToLink from "../../components/BackToHeaderLink";
-import { PlayCircleIcon } from "../../components/icons/Icons";
 import Layout from "../../components/layout/Layout";
-import IconLink from "../../components/shared/IconLink";
-import routes from "../../routes";
-import TrackContainer from "../../components/simple-player/TrackContainer";
+import RemixBrowser from "../components/remix/RemixBrowser";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
-import { Media, Project, Selection, Track } from "../../models";
-import { Waveform } from "../../@sounds/components/Waveform";
+import { Media, MediaType, Project, Selection, Track } from "../../models";
 import {
   useObserveList,
   useObserveModel,
 } from "../../@backend/hooks/useObserveModel";
-import MediaObject from "../../components/MediaObject";
 
 type Params = {
   id: string;
@@ -31,21 +25,22 @@ type Props = {
 export function RemixShowPage({ className }: Props) {
   const params = useParams<Params>();
   const group = useCurrentGroup();
-  const history = useHistory();
 
-  const gotoTrack = (track: Track) =>
-    history.push(routes.remixTrack(params.id, track.id));
+  const remixId = params.id;
 
   const { data: remix } = useObserveModel(Project, params.id);
-  const { data: tracks } = useObserveList(Track, (t) =>
+  const { data: tracks } = useObserveList(Track, remixId, (t) =>
     t.projectID("eq", params.id)
   );
-  const { data: selections } = useObserveList(Selection, (t) =>
+  const { data: selections } = useObserveList(Selection, remixId, (t) =>
     t.projectID("eq", params.id)
   );
-  const { data: sounds } = useObserveList(Media, (t) =>
+  const { data: files } = useObserveList(Media, remixId, (t) =>
     t.projectID("eq", params.id)
   );
+
+  const clips = selections.filter((s) => s.type === MediaType.RECORDING);
+  const covers = selections.filter((s) => s.type === MediaType.IMAGE);
 
   const track =
     params.type === "t" && tracks.find((track) => track.id === params.childId);
@@ -59,8 +54,8 @@ export function RemixShowPage({ className }: Props) {
         group={group}
         remix={remix}
         tracks={tracks}
-        sample={sample}
-        sounds={sounds}
+        sample={sample || undefined}
+        files={files}
       />
     ) : track ? (
       <ShowEditTrack
@@ -81,73 +76,14 @@ export function RemixShowPage({ className }: Props) {
 
   return (
     <Layout nav="projects" desktop={editor}>
-      <BackToLink to={routes.remixes()} label="Remezclas" />
-      <Link to={routes.remix(params.id)}>
-        <img src={"/images/gray-light.png"} alt="Remix" />
-      </Link>
-      <h2 className="flex text-left p-1 bg-remixes text-bg-dark">
-        <Link className="flex-grow" to={routes.remix(params.id)}>
-          {remix?.meta.title || "..."}
-          <span className="ml-4 text-xs">{group?.name}</span>
-        </Link>
-        <IconLink icon={PlayCircleIcon} to={routes.remixPlay(params.id)}>
-          Play
-        </IconLink>
-      </h2>
-      <div>
-        {tracks.map((track) => (
-          <TrackContainer
-            key={track.id}
-            track={{
-              id: track.id,
-              name: track.meta.name || "",
-              color: track.meta.color || "",
-            }}
-            status={{
-              playing: false,
-              time: 0,
-            }}
-            onStopTrack={() => undefined}
-            onClick={() => {
-              gotoTrack(track);
-            }}
-          >
-            <div className="w-full bg-gray-dark">
-              <div className="bg-gray-medium bg-opacity-50">
-                {selections
-                  .filter((s) => s.trackID === track.id)
-                  .map((selection) => {
-                    const thumbnail = selection.media?.file.thumbnail;
-
-                    return (
-                      <MediaObject
-                        key={selection.id}
-                        alt={""}
-                        margin=""
-                        imageSize="w-cover-mini"
-                        ratio="1:1"
-                        to={routes.remixClip(params.id, selection.id)}
-                        style={{ backgroundColor: track.meta.color }}
-                      >
-                        <div className="mx-1 flex-grow">
-                          <div className="text-xs my-1 truncate">
-                            {selection.media?.meta.title}
-                          </div>
-                          <Waveform
-                            className="opacity-50"
-                            width={100}
-                            height={10}
-                            points={thumbnail || ""}
-                          />
-                        </div>
-                      </MediaObject>
-                    );
-                  })}
-              </div>
-            </div>
-          </TrackContainer>
-        ))}
-      </div>
+      {remix && (
+        <RemixBrowser
+          remix={remix}
+          tracks={tracks}
+          clips={clips}
+          covers={covers}
+        />
+      )}
     </Layout>
   );
 }

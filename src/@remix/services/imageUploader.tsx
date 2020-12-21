@@ -14,7 +14,7 @@ export function imageUploader(
   group: Group,
   project: Project,
   track: Track | undefined,
-  selectionId?: string
+  sampleId?: string
 ) {
   const uploadFile = async (file: File) => {
     const result: any = await Storage.put(
@@ -44,7 +44,7 @@ export function imageUploader(
         projectID: project.id,
         media: media,
         trackID: track?.id,
-        parentID: selectionId,
+        sampleID: sampleId,
       })
     );
     return selection;

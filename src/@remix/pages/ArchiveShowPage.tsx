@@ -18,7 +18,7 @@ export default function ArchiveShowPage() {
   const group = useCurrentGroup();
 
   const { data: archive } = useObserveModel(Project, params.id);
-  const { data: recordings } = useObserveList(Media, (c) =>
+  const { data: recordings } = useObserveList(Media, params.id, (c) =>
     c.projectID("eq", params.id)
   );
 

@@ -1,6 +1,7 @@
 import React from "react";
 import cc from "classcat";
 import { AddIcon } from "../../../components/icons/Icons";
+import Spinner from "./Spinner";
 
 type SvgIcon = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
@@ -14,6 +15,7 @@ type Props = {
   smallIcon?: boolean;
   margins?: string;
   style?: React.CSSProperties;
+  working?: boolean;
 };
 
 export const ActionButton: React.FC<Props> = ({
@@ -26,6 +28,7 @@ export const ActionButton: React.FC<Props> = ({
   icon: Icon = AddIcon,
   smallIcon,
   children,
+  working,
   style,
 }) => {
   return (
@@ -45,12 +48,16 @@ export const ActionButton: React.FC<Props> = ({
       onClick={onClick}
       style={style}
     >
-      <Icon
-        className={cc([
-          "fill-current",
-          smallIcon ? "w-4 ml-1 mr-2" : "w-6 mr-2",
-        ])}
-      />
+      {working ? (
+        <Spinner />
+      ) : (
+        <Icon
+          className={cc([
+            "fill-current",
+            smallIcon ? "w-4 ml-1 mr-2" : "w-6 mr-2",
+          ])}
+        />
+      )}
       {children}
     </button>
   );

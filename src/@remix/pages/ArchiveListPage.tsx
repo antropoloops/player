@@ -18,7 +18,7 @@ type Props = {
 export default function ArchiveListPage({ className }: Props) {
   const history = useHistory();
   const group = useCurrentGroup();
-  const { data: archives } = useObserveList(Project, (c) =>
+  const { data: archives } = useObserveList(Project, group?.id, (c) =>
     c.type("eq", ProjectType.ARCHIVE)
   );
 

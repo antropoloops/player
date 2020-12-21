@@ -2,11 +2,11 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { EmptyImages } from "../../helpers/imageHelpers";
 import { Selection, StoredFile } from "../../../models";
 import { Storage } from "aws-amplify";
+import classcat from "classcat";
 
 type Props = {
   className?: string;
-  images?: Selection[];
-  children?: ReactNode;
+  cover?: Selection;
 };
 
 function useStorageUrl(key?: string) {
@@ -27,26 +27,22 @@ function useStorageUrl(key?: string) {
   return { url };
 }
 
-export default function ImagePreview({ className, images, children }: Props) {
-  const image = images && images[0];
-  const file = image?.file || image?.media?.file;
+export default function CoverPreview({ className, cover }: Props) {
+  const file = cover?.file || cover?.media?.file;
   const { url } = useStorageUrl(file?.key);
 
   const imgSrc = url || EmptyImages.light;
 
   return (
-    <div className={className}>
-      <div className="relative ratio max-w-sm">
-        <svg viewBox="0 0 1 1" />
-        <img className="w-full" src={EmptyImages.light} alt="" />
-        {imgSrc ? (
-          <div
-            className="absolute inset-0 bg-cover"
-            style={{ backgroundImage: `url(${url})` }}
-          />
-        ) : null}
-      </div>
-      <div className="flex mt-4">{children}</div>
+    <div className={classcat(["relative ratio max-w-sm", className])}>
+      <svg viewBox="0 0 1 1" />
+      <img className="w-full" src={EmptyImages.light} alt="" />
+      {imgSrc ? (
+        <div
+          className="absolute inset-0 bg-cover"
+          style={{ backgroundImage: `url(${url})` }}
+        />
+      ) : null}
     </div>
   );
 }

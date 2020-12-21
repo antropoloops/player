@@ -15,8 +15,8 @@ type Props = {};
 const RemixListPage: React.FC<Props> = () => {
   const history = useHistory();
   const group = useCurrentGroup();
-  const { data: remixes } = useObserveList(Project, (c) =>
-    c.type("eq", ProjectType.REMIX)
+  const { data: remixes } = useObserveList(Project, group?.id, (c) =>
+    c.groupID("eq", group?.id || "").type("eq", ProjectType.REMIX)
   );
 
   const length = remixes.length || 0;

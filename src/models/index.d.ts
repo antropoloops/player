@@ -128,10 +128,11 @@ export declare class Selection {
   readonly groupID: string;
   readonly projectID: string;
   readonly trackID?: string;
-  readonly parentID?: string;
+  readonly type: MediaType | keyof typeof MediaType;
+  readonly coverID?: string;
+  readonly sampleID?: string;
   readonly clip?: ClipMetadata;
   readonly meta?: Metadata;
-  readonly type?: MediaType | keyof typeof MediaType;
   readonly audio?: AudioRegion;
   readonly image?: ImageCrop;
   readonly file?: StoredFile;

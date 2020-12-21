@@ -1,8 +1,8 @@
 import classcat from "classcat";
-import { image } from "d3";
-import React, { CSSProperties, useState } from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AddIcon } from "../../../components/icons/Icons";
+import Spinner from "./Spinner";
 
 type Props = {
   className?: string;
@@ -49,15 +49,15 @@ export const FilesInput: React.FC<Props> = ({
       disabled={isUploading}
       className={classcat([
         "flex items-center p-1 pr-4 text-ag-dark rounded-full",
-        "opacity-75 hover:opacity-100 focus:outline-none",
+        "focus:outline-none",
         colors || "text-black bg-gray-lighter",
-        isUploading && "opacity-20",
+        isUploading ? "opacity-25" : "opacity-75 hover:opacity-100",
         className,
       ])}
       {...getRootProps()}
     >
       <input {...getInputProps()} />
-      <AddIcon className="icon mr-2 w-6 h-6" />
+      {isUploading ? <Spinner /> : <AddIcon className="icon mr-2 w-6 h-6" />}
       {children}
     </button>
   );

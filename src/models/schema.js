@@ -261,8 +261,24 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "parentID": {
-                    "name": "parentID",
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "MediaType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "coverID": {
+                    "name": "coverID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sampleID": {
+                    "name": "sampleID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": false,
@@ -282,15 +298,6 @@ export const schema = {
                     "isArray": false,
                     "type": {
                         "nonModel": "Metadata"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "type": {
-                    "name": "type",
-                    "isArray": false,
-                    "type": {
-                        "enum": "MediaType"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -730,5 +737,5 @@ export const schema = {
             }
         }
     },
-    "version": "ced6006c5352be87c93a99bbc4bfaf98"
+    "version": "9a2b45f4c5ab32211c54528c173afc27"
 };

@@ -272,8 +272,9 @@ export const getMedia = /* GraphQL */ `
           projectID
           mediaID
           trackID
-          parentID
           type
+          coverID
+          sampleID
           createdAt
           updatedAt
           _version
@@ -435,7 +436,9 @@ export const syncSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        parentID
+        type
+        coverID
+        sampleID
         clip {
           keyboardKey
         }
@@ -447,7 +450,6 @@ export const syncSelections = /* GraphQL */ `
           licenses
           readme
         }
-        type
         audio {
           offset
           duration
@@ -500,7 +502,9 @@ export const getSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      parentID
+      type
+      coverID
+      sampleID
       clip {
         keyboardKey
       }
@@ -512,7 +516,6 @@ export const getSelection = /* GraphQL */ `
         licenses
         readme
       }
-      type
       audio {
         offset
         duration
@@ -589,7 +592,9 @@ export const listSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        parentID
+        type
+        coverID
+        sampleID
         clip {
           keyboardKey
         }
@@ -601,7 +606,6 @@ export const listSelections = /* GraphQL */ `
           licenses
           readme
         }
-        type
         audio {
           offset
           duration

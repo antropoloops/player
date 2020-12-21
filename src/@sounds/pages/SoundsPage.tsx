@@ -3,12 +3,11 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Waveform } from "../../@archive/components/Waveform";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
-import { useCurrentUser } from "../../@backend/hooks/useCurrentUser";
 import { useObserveList } from "../../@backend/hooks/useObserveModel";
 import { NotAuthorizedPage } from "../../@backend/pages/NotAuthorizedPage";
 import { DesktopView, Separator } from "../../@core/components";
 import Layout from "../../components/layout/Layout";
-import { Media, MediaType, Metadata } from "../../models";
+import { Media, MediaType } from "../../models";
 import routes from "../../routes";
 import { AudioFilesInput } from "../components/AudioFilesInput";
 
@@ -17,7 +16,7 @@ type Props = {};
 const SoundPage: React.FC<Props> = () => {
   const params = useParams<{ id?: string }>();
   const group = useCurrentGroup();
-  const { data: sounds } = useObserveList(Media, (c) =>
+  const { data: sounds } = useObserveList(Media, group?.id, (c) =>
     c.type("eq", MediaType.RECORDING)
   );
 

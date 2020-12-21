@@ -177,8 +177,9 @@ export const onCreateMedia = /* GraphQL */ `
           projectID
           mediaID
           trackID
-          parentID
           type
+          coverID
+          sampleID
           createdAt
           updatedAt
           _version
@@ -228,8 +229,9 @@ export const onUpdateMedia = /* GraphQL */ `
           projectID
           mediaID
           trackID
-          parentID
           type
+          coverID
+          sampleID
           createdAt
           updatedAt
           _version
@@ -279,8 +281,9 @@ export const onDeleteMedia = /* GraphQL */ `
           projectID
           mediaID
           trackID
-          parentID
           type
+          coverID
+          sampleID
           createdAt
           updatedAt
           _version
@@ -364,7 +367,9 @@ export const onCreateSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      parentID
+      type
+      coverID
+      sampleID
       clip {
         keyboardKey
       }
@@ -376,7 +381,6 @@ export const onCreateSelection = /* GraphQL */ `
         licenses
         readme
       }
-      type
       audio {
         offset
         duration
@@ -448,7 +452,9 @@ export const onUpdateSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      parentID
+      type
+      coverID
+      sampleID
       clip {
         keyboardKey
       }
@@ -460,7 +466,6 @@ export const onUpdateSelection = /* GraphQL */ `
         licenses
         readme
       }
-      type
       audio {
         offset
         duration
@@ -532,7 +537,9 @@ export const onDeleteSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      parentID
+      type
+      coverID
+      sampleID
       clip {
         keyboardKey
       }
@@ -544,7 +551,6 @@ export const onDeleteSelection = /* GraphQL */ `
         licenses
         readme
       }
-      type
       audio {
         offset
         duration

@@ -133,13 +133,17 @@ type Selection
   mediaID: ID!
   trackID: ID
 
-  # Parent: images of a sound
-  parentID: ID
+  type: MediaType!
+
+  # Samples can have one main cover
+  coverID: ID
+
+  # Cover belongs_to many samples
+  sampleID: ID
 
   # Optional parameters based on type
   clip: ClipMetadata
   meta: Metadata
-  type: MediaType
   audio: AudioRegion
   image: ImageCrop
   file: StoredFile

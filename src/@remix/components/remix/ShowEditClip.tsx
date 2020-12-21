@@ -7,14 +7,11 @@ import { Group, Media, Project, Selection, Track } from "../../../models";
 import routes from "../../../routes";
 import SamplePreview from "../SamplePreview";
 import DeleteAction from "../shared/DeleteAction";
-import ImagePreview from "../media/ImagePreview";
-import ActionButton from "../shared/ActionButton";
+import CoverPreview from "../media/CoverPreview";
 import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
-import {
-  useObserveList,
-  useObserveModel,
-} from "../../../@backend/hooks/useObserveModel";
+import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
+import ActionButton from "../shared/ActionButton";
 
 type Props = {
   className?: string;
@@ -22,7 +19,7 @@ type Props = {
   remix: Project;
   tracks: Track[];
   sample: Selection;
-  sounds: Media[];
+  files: Media[];
 };
 
 const deleteClip = async (sample: Selection) => {
@@ -35,20 +32,23 @@ export default function ShowEditClip({
   remix,
   tracks,
   sample,
-  sounds,
+  files,
 }: Props) {
   const history = useHistory();
   const track = tracks.find((t) => t.id === sample.trackID);
-  const { data: images } = useObserveList(Selection, (s) =>
-    s.parentID("eq", sample.id)
-  );
+  const { data: cover } = useObserveModel(Selection, sample.coverID);
 
   const title = sample.meta?.title || sample.media?.meta?.title;
 
   const uploadImage = async (file: File) => {
     const uploader = imageUploader(group, remix, track, sample.id);
-    const image = await uploader(file);
-    return image.id;
+    const cover = await uploader(file);
+    await DataStore.save(
+      Selection.copyOf(sample, (draft) => {
+        draft.coverID = cover.id;
+      })
+    );
+    return cover.id;
   };
 
   return (
@@ -60,8 +60,8 @@ export default function ShowEditClip({
       )}
       <Title level={1}>{title}</Title>
 
-      <SamplePreview sample={sample} track={track} />
-      <ImagePreview images={images} className="my-4">
+      <CoverPreview cover={cover} className="my-4" />
+      <div className="flex">
         <FilesInput
           fileType="image"
           maxFiles={1}
@@ -70,9 +70,13 @@ export default function ShowEditClip({
           bgColor={track?.meta.color}
           uploadFile={uploadImage}
         >
-          Añadir imágen
+          Añadir portada
         </FilesInput>
-      </ImagePreview>
+      </div>
+      <SamplePreview className="mt-8" sample={sample} track={track} />
+      <div className="flex my-4">
+        <ActionButton>Editar sonido</ActionButton>
+      </div>
 
       <DeleteAction
         message="Vas a borrar éste sonido, pero la grabación no se borrará."
@@ -87,7 +91,7 @@ export default function ShowEditClip({
         }}
         smallIcon
       >
-        Borrar sonido
+        Borrar clip
       </DeleteAction>
       {/* <pre className="mt-4 font-xs">{JSON.stringify(sample, null, 2)}</pre> */}
     </DesktopView>

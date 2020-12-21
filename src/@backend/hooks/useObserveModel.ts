@@ -8,21 +8,28 @@ import { useEffect, useRef, useState } from "react";
 
 export function useObserveList<T extends PersistentModel>(
   Model: PersistentModelConstructor<T>,
+  key: string | undefined,
   criteria?: ProducerModelPredicate<T>
   // paginationProducer?: ProducerPaginationInput<T>
 ) {
   const [data, setData] = useState<T[]>([]);
-  const query = useRef(criteria);
+  const query = useRef<ProducerModelPredicate<T> | undefined | null>(criteria);
+
+  useEffect(() => {
+    query.current = criteria;
+  }, [criteria]);
 
   useEffect(() => {
     const criteria = query.current;
+    if (key === undefined || criteria === null) return;
+
     const fetch = () => DataStore.query(Model, criteria).then(setData);
     fetch();
     const subscription = DataStore.observe(Model, criteria).subscribe(() =>
       fetch()
     );
     return () => subscription.unsubscribe();
-  }, [Model]);
+  }, [Model, key]);
 
   const isLoading = data === undefined;
 
@@ -39,6 +46,7 @@ export function useObserveModel<T extends PersistentModel>(
   useEffect(() => {
     if (!id) {
       setIsLoading(false);
+      setData(undefined);
       return;
     }
     setIsLoading(true);
