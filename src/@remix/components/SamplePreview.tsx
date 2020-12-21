@@ -34,7 +34,7 @@ export default function SamplePreview({
   return (
     <div className={className}>
       {file && (
-        <label htmlFor="Nombre del sonido" className="text-xs">
+        <label htmlFor="Nombre del sonido" className="text-sm lg:text-base">
           {file.fileName} {formatDuration(file.duration)}
         </label>
       )}

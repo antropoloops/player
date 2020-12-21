@@ -1,30 +1,25 @@
-import classcat from "classcat";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { AddIcon } from "../../../components/icons/Icons";
-import Spinner from "./Spinner";
+import { ActionIcon, getActionProps } from "./ActionButton";
+
+type SvgIcon = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 
 type Props = {
   className?: string;
   onChange?: (ids: string[]) => void;
   colors?: string;
   uploadFile: (file: File) => Promise<string>;
+  icon?: SvgIcon;
+  smallIcon?: boolean;
   fileType: "audio" | "image";
   maxFiles?: number;
   bgColor?: string;
 };
 
-export const FilesInput: React.FC<Props> = ({
-  className,
-  fileType,
-  onChange,
-  children,
-  colors,
-  bgColor,
-  uploadFile,
-  maxFiles,
-}) => {
+export const FilesInput: React.FC<Props> = (props) => {
   const [isUploading, setIsUploading] = useState(false);
+
+  const { uploadFile, onChange, fileType, maxFiles, children } = props;
 
   const accept = fileType === "audio" ? ["audio/*"] : ["image/*"];
 
@@ -45,19 +40,11 @@ export const FilesInput: React.FC<Props> = ({
 
   return (
     <button
-      style={bgColor ? { backgroundColor: bgColor } : undefined}
-      disabled={isUploading}
-      className={classcat([
-        "flex items-center p-1 pr-4 text-ag-dark rounded-full",
-        "focus:outline-none",
-        colors || "text-black bg-gray-lighter",
-        isUploading ? "opacity-25" : "opacity-75 hover:opacity-100",
-        className,
-      ])}
+      {...getActionProps({ ...props, working: isUploading })}
       {...getRootProps()}
     >
       <input {...getInputProps()} />
-      {isUploading ? <Spinner /> : <AddIcon className="icon mr-2 w-6 h-6" />}
+      <ActionIcon {...props} working={isUploading} />
       {children}
     </button>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DataStore } from "aws-amplify";
-import { DesktopView, Separator, Title } from "../../@core/components";
+import { DesktopView, Title } from "../../@core/components";
 import { LoginIcon, EditIcon, DeleteIcon } from "../../components/icons/Icons";
 import { Group, Project } from "../../models";
 import { GroupForm } from "../components/GroupForm";

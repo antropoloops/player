@@ -1,31 +1,13 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import { EmptyImages } from "../../helpers/imageHelpers";
 import { Selection, StoredFile } from "../../../models";
-import { Storage } from "aws-amplify";
 import classcat from "classcat";
+import { useStorageUrl } from "../../../@backend/hooks/useStorage";
 
 type Props = {
   className?: string;
   cover?: Selection;
 };
-
-function useStorageUrl(key?: string) {
-  const [url, setUrl] = useState("");
-
-  useEffect(() => {
-    if (!key) {
-      setUrl("");
-    } else {
-      Storage.get(key, { download: false }).then((newUrl) => {
-        if (typeof newUrl === "string") {
-          setUrl(newUrl);
-        }
-      });
-    }
-  }, [key]);
-
-  return { url };
-}
 
 export default function CoverPreview({ className, cover }: Props) {
   const file = cover?.file || cover?.media?.file;

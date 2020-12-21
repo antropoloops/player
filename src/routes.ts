@@ -34,6 +34,8 @@ const routes = {
     `/remezcla/editar/${id}/t/${trackId}`,
   remixClip: (id: string, selectionId: string) =>
     `/remezcla/editar/${id}/c/${selectionId}`,
+  remixCover: (remixId: string, clipId: string) =>
+    `/remezcla/editar/${remixId}/i/${clipId}`,
 
   remixRelation: (id: string, item: string, childId: string) =>
     `/remezcla/editar/${id}/${item}/${childId}`,

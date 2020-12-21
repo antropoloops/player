@@ -12,6 +12,8 @@ import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
 import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
 import ActionButton from "../shared/ActionButton";
+import ActionLink from "../shared/ActionLink";
+import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
 
 type Props = {
   className?: string;
@@ -62,15 +64,24 @@ export default function ShowEditClip({
 
       <CoverPreview cover={cover} className="my-4" />
       <div className="flex">
+        {cover && (
+          <ActionLink
+            to={routes.remixCover(remix.id, sample.id)}
+            icon={EditIcon}
+            smallIcon
+          >
+            Editar portada
+          </ActionLink>
+        )}
         <FilesInput
           fileType="image"
           maxFiles={1}
           className="mr-4"
-          colors="bg-remixes text-black"
-          bgColor={track?.meta.color}
+          icon={CloudUploadIcon}
+          smallIcon
           uploadFile={uploadImage}
         >
-          Añadir portada
+          {cover ? "Cambiar portada" : "Añadir portada"}
         </FilesInput>
       </div>
       <SamplePreview className="mt-8" sample={sample} track={track} />

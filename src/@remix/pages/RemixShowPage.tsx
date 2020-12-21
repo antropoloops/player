@@ -6,6 +6,7 @@ import RemixBrowser from "../components/remix/RemixBrowser";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
+import EditCover from "../components/cover/EditCover";
 import { Media, MediaType, Project, Selection, Track } from "../../models";
 import {
   useObserveList,
@@ -44,12 +45,12 @@ export function RemixShowPage({ className }: Props) {
 
   const track =
     params.type === "t" && tracks.find((track) => track.id === params.childId);
-  const sample =
-    params.type === "c" &&
-    selections.find((track) => track.id === params.childId);
+  const sample = selections.find((track) => track.id === params.childId);
 
   const editor =
-    !group || !remix ? null : sample ? (
+    !group || !remix ? null : params.type === "i" ? (
+      <EditCover group={group} remix={remix} clipId={params.childId} />
+    ) : sample && params.type === "c" ? (
       <ShowEditClip
         group={group}
         remix={remix}
