@@ -56,6 +56,21 @@ export default function ShowEditTrack({
     setEdit(false);
   };
 
+  const addNewClip = async () => {
+    const clip = await DataStore.save(
+      new Clip({
+        groupID: group.id,
+        projectID: remix.id,
+        trackID: track.id,
+        meta: {
+          title: "Clip sin título",
+        },
+        clip: {},
+      })
+    );
+    history.push(routes.remixClip(remix.id, clip.id));
+  };
+
   const deleteTrack = async () => {
     await DataStore.delete(Track, track.id);
     history.push(routes.remix(remix.id));
@@ -103,7 +118,7 @@ export default function ShowEditTrack({
             >
               Subir sonido
             </FilesInput> */}
-            <ActionButton>Añadir clip</ActionButton>
+            <ActionButton onClick={addNewClip}>Añadir clip</ActionButton>
             {samples.length === 0 && (
               <ActionButton
                 className="mr-4"

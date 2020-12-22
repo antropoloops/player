@@ -320,7 +320,7 @@ export const schema = {
                     "name": "trackID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "meta": {

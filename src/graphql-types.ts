@@ -262,7 +262,7 @@ export type CreateClipInput = {
   id?: string | null;
   groupID: string;
   projectID: string;
-  trackID?: string | null;
+  trackID: string;
   meta: MetadataInput;
   clip: ClipMetadataInput;
   audioID?: string | null;
@@ -781,7 +781,7 @@ export type CreateClipMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -852,7 +852,7 @@ export type UpdateClipMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -923,7 +923,7 @@ export type DeleteClipMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -1424,7 +1424,7 @@ export type SyncClipsQuery = {
       id: string;
       groupID: string;
       projectID: string;
-      trackID: string | null;
+      trackID: string;
       meta: {
         __typename: "Metadata";
         title: string | null;
@@ -1497,7 +1497,7 @@ export type GetClipQuery = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -1571,7 +1571,7 @@ export type ListClipsQuery = {
       id: string;
       groupID: string;
       projectID: string;
-      trackID: string | null;
+      trackID: string;
       meta: {
         __typename: "Metadata";
         title: string | null;
@@ -1958,7 +1958,7 @@ export type OnCreateClipSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -2024,7 +2024,7 @@ export type OnUpdateClipSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -2090,7 +2090,7 @@ export type OnDeleteClipSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    trackID: string | null;
+    trackID: string;
     meta: {
       __typename: "Metadata";
       title: string | null;

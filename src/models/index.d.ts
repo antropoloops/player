@@ -140,7 +140,7 @@ export declare class Clip {
   readonly id: string;
   readonly groupID: string;
   readonly projectID: string;
-  readonly trackID?: string;
+  readonly trackID: string;
   readonly meta: Metadata;
   readonly clip: ClipMetadata;
   readonly audioID?: string;

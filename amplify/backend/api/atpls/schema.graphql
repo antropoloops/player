@@ -129,8 +129,8 @@ type Clip
   id: ID!
   groupID: ID!
   projectID: ID!
+  trackID: ID!
 
-  trackID: ID
   meta: Metadata!
   clip: ClipMetadata!
 

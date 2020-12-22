@@ -44,18 +44,7 @@ export function audioUploader(
         },
       })
     );
-    const selection = await DataStore.save(
-      new Clip({
-        groupID: group.id,
-        projectID: project.id,
-        meta: {},
-        clip: {},
-        audioID: audio.id,
-        audioFile: audio.file,
-        trackID: track?.id,
-      })
-    );
-    return selection;
+    return audio;
   };
 
   return uploadFile;
