@@ -147,8 +147,8 @@ export const onCreateMedia = /* GraphQL */ `
   subscription OnCreateMedia {
     onCreateMedia {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -180,8 +180,8 @@ export const onUpdateMedia = /* GraphQL */ `
   subscription OnUpdateMedia {
     onUpdateMedia {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -213,8 +213,8 @@ export const onDeleteMedia = /* GraphQL */ `
   subscription OnDeleteMedia {
     onDeleteMedia {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -308,7 +308,6 @@ export const onCreateClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -355,9 +354,6 @@ export const onCreateClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version
@@ -372,7 +368,6 @@ export const onUpdateClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -419,9 +414,6 @@ export const onUpdateClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version
@@ -436,7 +428,6 @@ export const onDeleteClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -483,9 +474,6 @@ export const onDeleteClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version

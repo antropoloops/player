@@ -202,8 +202,8 @@ export const syncMedia = /* GraphQL */ `
     ) {
       items {
         id
-        projectID
         groupID
+        projectID
         type
         meta {
           title
@@ -238,8 +238,8 @@ export const getMedia = /* GraphQL */ `
   query GetMedia($id: ID!) {
     getMedia(id: $id) {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -276,8 +276,8 @@ export const listMedias = /* GraphQL */ `
     listMedias(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        projectID
         groupID
+        projectID
         type
         meta {
           title
@@ -407,7 +407,6 @@ export const syncClips = /* GraphQL */ `
         id
         groupID
         projectID
-        mediaID
         trackID
         meta {
           title
@@ -454,9 +453,6 @@ export const syncClips = /* GraphQL */ `
           width
           height
         }
-        type
-        coverID
-        sampleID
         createdAt
         updatedAt
         _version
@@ -474,7 +470,6 @@ export const getClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -521,9 +516,6 @@ export const getClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version
@@ -543,7 +535,6 @@ export const listClips = /* GraphQL */ `
         id
         groupID
         projectID
-        mediaID
         trackID
         meta {
           title
@@ -590,9 +581,6 @@ export const listClips = /* GraphQL */ `
           width
           height
         }
-        type
-        coverID
-        sampleID
         createdAt
         updatedAt
         _version

@@ -133,15 +133,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "projectID": {
-                    "name": "projectID",
+                "groupID": {
+                    "name": "groupID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
                 },
-                "groupID": {
-                    "name": "groupID",
+                "projectID": {
+                    "name": "projectID",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
@@ -316,13 +316,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "mediaID": {
-                    "name": "mediaID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "trackID": {
                     "name": "trackID",
                     "isArray": false,
@@ -345,7 +338,7 @@ export const schema = {
                     "type": {
                         "nonModel": "ClipMetadata"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "audioID": {
@@ -395,29 +388,6 @@ export const schema = {
                     "type": {
                         "nonModel": "StoredFile"
                     },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "type": {
-                    "name": "type",
-                    "isArray": false,
-                    "type": {
-                        "enum": "MediaType"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "coverID": {
-                    "name": "coverID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "sampleID": {
-                    "name": "sampleID",
-                    "isArray": false,
-                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -730,5 +700,5 @@ export const schema = {
             }
         }
     },
-    "version": "bd95ba93f7c626b433f5a23ed26bb741"
+    "version": "ab27565822cf2594f23ea7dfd6084705"
 };

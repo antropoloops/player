@@ -168,8 +168,8 @@ export const createMedia = /* GraphQL */ `
   ) {
     createMedia(input: $input, condition: $condition) {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -204,8 +204,8 @@ export const updateMedia = /* GraphQL */ `
   ) {
     updateMedia(input: $input, condition: $condition) {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -240,8 +240,8 @@ export const deleteMedia = /* GraphQL */ `
   ) {
     deleteMedia(input: $input, condition: $condition) {
       id
-      projectID
       groupID
+      projectID
       type
       meta {
         title
@@ -347,7 +347,6 @@ export const createClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -394,9 +393,6 @@ export const createClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version
@@ -414,7 +410,6 @@ export const updateClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -461,9 +456,6 @@ export const updateClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version
@@ -481,7 +473,6 @@ export const deleteClip = /* GraphQL */ `
       id
       groupID
       projectID
-      mediaID
       trackID
       meta {
         title
@@ -528,9 +519,6 @@ export const deleteClip = /* GraphQL */ `
         width
         height
       }
-      type
-      coverID
-      sampleID
       createdAt
       updatedAt
       _version

@@ -60,8 +60,8 @@ type Media
   @key(name: "byGroup", fields: ["groupID"])
   @key(name: "byProject", fields: ["projectID"]) {
   id: ID!
-  projectID: ID!
   groupID: ID!
+  projectID: ID!
 
   type: MediaType!
   meta: Metadata!
@@ -129,15 +129,12 @@ type Clip
   id: ID!
   groupID: ID!
   projectID: ID!
-  mediaID: ID # deprecated
+
   trackID: ID
-
   meta: Metadata!
+  clip: ClipMetadata!
 
-  # Optional parameters based on type
-  clip: ClipMetadata
-
-  # Clip (prev. Clip) can have one audio and/or one image
+  # Clip can have one audio and/or one image
   audioID: ID
   audio: AudioRegion
   audioFile: StoredFile
@@ -145,11 +142,6 @@ type Clip
   image: ImageCrop
   imageFile: StoredFile
 
-  type: MediaType! # deprecated
-  # Samples can have one main cover
-  coverID: ID #deprecated
-  # Cover belongs_to many samples
-  sampleID: ID #deprecated
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 

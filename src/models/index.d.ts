@@ -108,8 +108,8 @@ export declare class Project {
 
 export declare class Media {
   readonly id: string;
-  readonly projectID: string;
   readonly groupID: string;
+  readonly projectID: string;
   readonly type: MediaType | keyof typeof MediaType;
   readonly meta: Metadata;
   readonly file: StoredFile;
@@ -140,19 +140,15 @@ export declare class Clip {
   readonly id: string;
   readonly groupID: string;
   readonly projectID: string;
-  readonly mediaID?: string;
   readonly trackID?: string;
   readonly meta: Metadata;
-  readonly clip?: ClipMetadata;
+  readonly clip: ClipMetadata;
   readonly audioID?: string;
   readonly audio?: AudioRegion;
   readonly audioFile?: StoredFile;
   readonly imageID?: string;
   readonly image?: ImageCrop;
   readonly imageFile?: StoredFile;
-  readonly type: MediaType | keyof typeof MediaType;
-  readonly coverID?: string;
-  readonly sampleID?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Clip>);

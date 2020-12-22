@@ -20,12 +20,12 @@ type Props = {
   group: Group;
   remix: Project;
   tracks: Track[];
-  sample: Clip;
+  clip: Clip;
   files: Media[];
 };
 
-const deleteClip = async (sample: Clip) => {
-  await DataStore.delete(sample);
+const deleteClip = async (clip: Clip) => {
+  await DataStore.delete(clip);
 };
 
 export default function ShowEditClip({
@@ -33,25 +33,26 @@ export default function ShowEditClip({
   group,
   remix,
   tracks,
-  sample,
+  clip,
   files,
 }: Props) {
   const history = useHistory();
-  const track = tracks.find((t) => t.id === sample.trackID);
-  const { data: cover } = useObserveModel(Clip, sample.coverID);
+  const track = tracks.find((t) => t.id === clip.trackID);
 
   // @meta
-  const title = sample.meta?.title;
+  const title = clip.meta?.title;
 
   const uploadImage = async (file: File) => {
-    const uploader = imageUploader(group, remix, track, sample.id);
-    const cover = await uploader(file);
-    await DataStore.save(
-      Clip.copyOf(sample, (draft) => {
-        draft.coverID = cover.id;
-      })
-    );
-    return cover.id;
+    // FIXME
+    // const uploader = imageUploader(group, remix, track, clip.id);
+    // const cover = await uploader(file);
+    // await DataStore.save(
+    //   Clip.copyOf(clip, (draft) => {
+    //     draft.coverID = cover.id;
+    //   })
+    // );
+    // return cover.id;
+    return "";
   };
 
   return (
@@ -63,11 +64,11 @@ export default function ShowEditClip({
       )}
       <Title level={1}>{title}</Title>
 
-      <CoverPreview cover={cover} className="my-4" />
+      <CoverPreview cover={clip} className="my-4" />
       <div className="flex">
-        {cover && (
+        {clip.imageID && (
           <ActionLink
-            to={routes.remixCover(remix.id, sample.id)}
+            to={routes.remixCover(remix.id, clip.id)}
             icon={EditIcon}
             smallIcon
           >
@@ -82,10 +83,10 @@ export default function ShowEditClip({
           smallIcon
           uploadFile={uploadImage}
         >
-          {cover ? "Cambiar portada" : "Añadir portada"}
+          {clip.imageID ? "Cambiar portada" : "Añadir portada"}
         </FilesInput>
       </div>
-      <SamplePreview className="mt-8" sample={sample} track={track} />
+      <SamplePreview className="mt-8" sample={clip} track={track} />
       <div className="flex my-4">
         <ActionButton>Editar sonido</ActionButton>
       </div>
@@ -94,7 +95,7 @@ export default function ShowEditClip({
         message="Vas a borrar éste sonido, pero la grabación no se borrará."
         onClick={() => {
           if (!track) return;
-          deleteClip(sample);
+          deleteClip(clip);
           history.push(
             track
               ? routes.remixTrack(remix.id, track.id)
@@ -105,7 +106,7 @@ export default function ShowEditClip({
       >
         Borrar clip
       </DeleteAction>
-      {/* <pre className="mt-4 font-xs">{JSON.stringify(sample, null, 2)}</pre> */}
+      {/* <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre> */}
     </DesktopView>
   );
 }

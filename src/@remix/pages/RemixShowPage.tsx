@@ -33,19 +33,16 @@ export function RemixShowPage({ className }: Props) {
   const { data: tracks } = useObserveList(Track, remixId, (t) =>
     t.projectID("eq", params.id)
   );
-  const { data: selections } = useObserveList(Clip, remixId, (t) =>
+  const { data: clips } = useObserveList(Clip, remixId, (t) =>
     t.projectID("eq", params.id)
   );
   const { data: files } = useObserveList(Media, remixId, (t) =>
     t.projectID("eq", params.id)
   );
 
-  const clips = selections.filter((s) => s.type === MediaType.RECORDING);
-  const covers = selections.filter((s) => s.type === MediaType.IMAGE);
-
   const track =
     params.type === "t" && tracks.find((track) => track.id === params.childId);
-  const sample = selections.find((track) => track.id === params.childId);
+  const sample = clips.find((track) => track.id === params.childId);
 
   const editor =
     !group || !remix ? null : params.type === "i" ? (
@@ -55,7 +52,7 @@ export function RemixShowPage({ className }: Props) {
         group={group}
         remix={remix}
         tracks={tracks}
-        sample={sample || undefined}
+        clip={sample || undefined}
         files={files}
       />
     ) : track ? (
@@ -63,7 +60,7 @@ export function RemixShowPage({ className }: Props) {
         group={group}
         remix={remix}
         track={track}
-        selections={selections}
+        selections={clips}
         onChange={() => {}}
       />
     ) : (
@@ -71,7 +68,7 @@ export function RemixShowPage({ className }: Props) {
         group={group}
         remix={remix}
         tracks={tracks}
-        samples={selections}
+        samples={clips}
       />
     );
 
@@ -82,7 +79,7 @@ export function RemixShowPage({ className }: Props) {
           remix={remix}
           tracks={tracks}
           clips={clips}
-          covers={covers}
+          covers={clips}
         />
       )}
     </Layout>

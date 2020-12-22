@@ -17,9 +17,7 @@ export default function EditCover({ group, remix, clipId }: Props) {
   const aspect = 1; // 16 / 9
   const [crop, setCrop] = useState<Crop>({ aspect });
   const { data: clip } = useObserveModel(Clip, clipId);
-  const { data: cover } = useObserveModel(Clip, clip?.coverID);
-  const { data: imageResource } = useObserveModel(Media, clip?.imageID);
-  const key = cover?.audioFile?.key || imageResource?.file.key;
+  const key = clip?.imageFile?.key;
   const { image } = useStorageImage(key);
 
   return (
