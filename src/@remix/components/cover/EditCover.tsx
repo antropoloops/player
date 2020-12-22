@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DesktopView } from "../../../@core/components";
-import { Group, Project, Selection } from "../../../models";
+import { Group, Media, Project, Selection } from "../../../models";
 import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
 import { useStorageImage } from "../../../@backend/hooks/useStorage";
 import ReactCrop, { Crop } from "react-image-crop";
@@ -18,7 +18,8 @@ export default function EditCover({ group, remix, clipId }: Props) {
   const [crop, setCrop] = useState<Crop>({ aspect });
   const { data: clip } = useObserveModel(Selection, clipId);
   const { data: cover } = useObserveModel(Selection, clip?.coverID);
-  const key = cover?.media?.file.key;
+  const { data: imageResource } = useObserveModel(Media, clip?.imageID);
+  const key = cover?.audioFile?.key || imageResource?.file.key;
   const { image } = useStorageImage(key);
 
   return (

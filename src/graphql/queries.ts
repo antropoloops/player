@@ -225,10 +225,6 @@ export const syncMedia = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -265,25 +261,6 @@ export const getMedia = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      selections {
-        items {
-          id
-          groupID
-          projectID
-          mediaID
-          trackID
-          type
-          coverID
-          sampleID
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
-        nextToken
-        startedAt
-      }
       _version
       _deleted
       _lastChangedAt
@@ -322,10 +299,6 @@ export const listMedias = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -436,12 +409,6 @@ export const syncSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        type
-        coverID
-        sampleID
-        clip {
-          keyboardKey
-        }
         meta {
           title
           description
@@ -450,19 +417,15 @@ export const syncSelections = /* GraphQL */ `
           licenses
           readme
         }
+        clip {
+          keyboardKey
+        }
+        audioID
         audio {
           offset
           duration
         }
-        image {
-          aspect
-          x
-          y
-          width
-          height
-          unit
-        }
-        file {
+        audioFile {
           key
           mimeType
           fileName
@@ -472,19 +435,30 @@ export const syncSelections = /* GraphQL */ `
           width
           height
         }
+        imageID
+        image {
+          aspect
+          x
+          y
+          width
+          height
+          unit
+        }
+        imageFile {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+        type
+        coverID
+        sampleID
         createdAt
         updatedAt
-        media {
-          id
-          projectID
-          groupID
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         _version
         _deleted
         _lastChangedAt
@@ -502,12 +476,6 @@ export const getSelection = /* GraphQL */ `
       projectID
       mediaID
       trackID
-      type
-      coverID
-      sampleID
-      clip {
-        keyboardKey
-      }
       meta {
         title
         description
@@ -516,19 +484,15 @@ export const getSelection = /* GraphQL */ `
         licenses
         readme
       }
+      clip {
+        keyboardKey
+      }
+      audioID
       audio {
         offset
         duration
       }
-      image {
-        aspect
-        x
-        y
-        width
-        height
-        unit
-      }
-      file {
+      audioFile {
         key
         mimeType
         fileName
@@ -538,41 +502,30 @@ export const getSelection = /* GraphQL */ `
         width
         height
       }
+      imageID
+      image {
+        aspect
+        x
+        y
+        width
+        height
+        unit
+      }
+      imageFile {
+        key
+        mimeType
+        fileName
+        fileSize
+        thumbnail
+        duration
+        width
+        height
+      }
+      type
+      coverID
+      sampleID
       createdAt
       updatedAt
-      media {
-        id
-        projectID
-        groupID
-        type
-        meta {
-          title
-          description
-          authors
-          credits
-          licenses
-          readme
-        }
-        file {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
-        }
-        createdAt
-        updatedAt
-        selections {
-          nextToken
-          startedAt
-        }
-        _version
-        _deleted
-        _lastChangedAt
-      }
       _version
       _deleted
       _lastChangedAt
@@ -592,12 +545,6 @@ export const listSelections = /* GraphQL */ `
         projectID
         mediaID
         trackID
-        type
-        coverID
-        sampleID
-        clip {
-          keyboardKey
-        }
         meta {
           title
           description
@@ -606,19 +553,15 @@ export const listSelections = /* GraphQL */ `
           licenses
           readme
         }
+        clip {
+          keyboardKey
+        }
+        audioID
         audio {
           offset
           duration
         }
-        image {
-          aspect
-          x
-          y
-          width
-          height
-          unit
-        }
-        file {
+        audioFile {
           key
           mimeType
           fileName
@@ -628,19 +571,30 @@ export const listSelections = /* GraphQL */ `
           width
           height
         }
+        imageID
+        image {
+          aspect
+          x
+          y
+          width
+          height
+          unit
+        }
+        imageFile {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+        type
+        coverID
+        sampleID
         createdAt
         updatedAt
-        media {
-          id
-          projectID
-          groupID
-          type
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-        }
         _version
         _deleted
         _lastChangedAt

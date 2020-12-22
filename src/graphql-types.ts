@@ -262,16 +262,19 @@ export type CreateSelectionInput = {
   id?: string | null;
   groupID: string;
   projectID: string;
-  mediaID: string;
+  mediaID?: string | null;
   trackID?: string | null;
+  meta: MetadataInput;
+  clip?: ClipMetadataInput | null;
+  audioID?: string | null;
+  audio?: AudioRegionInput | null;
+  audioFile?: StoredFileInput | null;
+  imageID?: string | null;
+  image?: ImageCropInput | null;
+  imageFile?: StoredFileInput | null;
   type: MediaType;
   coverID?: string | null;
   sampleID?: string | null;
-  clip?: ClipMetadataInput | null;
-  meta?: MetadataInput | null;
-  audio?: AudioRegionInput | null;
-  image?: ImageCropInput | null;
-  file?: StoredFileInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -305,6 +308,8 @@ export type ModelSelectionConditionInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
+  audioID?: ModelIDInput | null;
+  imageID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
   coverID?: ModelIDInput | null;
   sampleID?: ModelIDInput | null;
@@ -321,14 +326,17 @@ export type UpdateSelectionInput = {
   projectID?: string | null;
   mediaID?: string | null;
   trackID?: string | null;
+  meta?: MetadataInput | null;
+  clip?: ClipMetadataInput | null;
+  audioID?: string | null;
+  audio?: AudioRegionInput | null;
+  audioFile?: StoredFileInput | null;
+  imageID?: string | null;
+  image?: ImageCropInput | null;
+  imageFile?: StoredFileInput | null;
   type?: MediaType | null;
   coverID?: string | null;
   sampleID?: string | null;
-  clip?: ClipMetadataInput | null;
-  meta?: MetadataInput | null;
-  audio?: AudioRegionInput | null;
-  image?: ImageCropInput | null;
-  file?: StoredFileInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -388,6 +396,8 @@ export type ModelSelectionFilterInput = {
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
   trackID?: ModelIDInput | null;
+  audioID?: ModelIDInput | null;
+  imageID?: ModelIDInput | null;
   type?: ModelMediaTypeInput | null;
   coverID?: ModelIDInput | null;
   sampleID?: ModelIDInput | null;
@@ -612,27 +622,6 @@ export type CreateMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -673,27 +662,6 @@ export type UpdateMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -734,27 +702,6 @@ export type DeleteMediaMutation = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -850,15 +797,8 @@ export type CreateSelectionMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -867,22 +807,18 @@ export type CreateSelectionMutation = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -893,45 +829,32 @@ export type CreateSelectionMutation = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -949,15 +872,8 @@ export type UpdateSelectionMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -966,22 +882,18 @@ export type UpdateSelectionMutation = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -992,45 +904,32 @@ export type UpdateSelectionMutation = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1048,15 +947,8 @@ export type DeleteSelectionMutation = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -1065,22 +957,18 @@ export type DeleteSelectionMutation = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -1091,45 +979,32 @@ export type DeleteSelectionMutation = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1378,11 +1253,6 @@ export type SyncMediaQuery = {
       };
       createdAt: string | null;
       updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1425,27 +1295,6 @@ export type GetMediaQuery = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1489,11 +1338,6 @@ export type ListMediasQuery = {
       };
       createdAt: string | null;
       updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1608,15 +1452,8 @@ export type SyncSelectionsQuery = {
       id: string;
       groupID: string;
       projectID: string;
-      mediaID: string;
+      mediaID: string | null;
       trackID: string | null;
-      type: MediaType;
-      coverID: string | null;
-      sampleID: string | null;
-      clip: {
-        __typename: "ClipMetadata";
-        keyboardKey: string | null;
-      } | null;
       meta: {
         __typename: "Metadata";
         title: string | null;
@@ -1625,22 +1462,18 @@ export type SyncSelectionsQuery = {
         credits: string | null;
         licenses: string | null;
         readme: string | null;
+      };
+      clip: {
+        __typename: "ClipMetadata";
+        keyboardKey: string | null;
       } | null;
+      audioID: string | null;
       audio: {
         __typename: "AudioRegion";
         offset: number;
         duration: number;
       } | null;
-      image: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-        unit: ImageUnits | null;
-      } | null;
-      file: {
+      audioFile: {
         __typename: "StoredFile";
         key: string;
         mimeType: string;
@@ -1651,20 +1484,32 @@ export type SyncSelectionsQuery = {
         width: number | null;
         height: number | null;
       } | null;
+      imageID: string | null;
+      image: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+        unit: ImageUnits | null;
+      } | null;
+      imageFile: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      type: MediaType;
+      coverID: string | null;
+      sampleID: string | null;
       createdAt: string | null;
       updatedAt: string | null;
-      media: {
-        __typename: "Media";
-        id: string;
-        projectID: string;
-        groupID: string;
-        type: MediaType;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -1684,15 +1529,8 @@ export type GetSelectionQuery = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -1701,22 +1539,18 @@ export type GetSelectionQuery = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -1727,45 +1561,32 @@ export type GetSelectionQuery = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -1786,15 +1607,8 @@ export type ListSelectionsQuery = {
       id: string;
       groupID: string;
       projectID: string;
-      mediaID: string;
+      mediaID: string | null;
       trackID: string | null;
-      type: MediaType;
-      coverID: string | null;
-      sampleID: string | null;
-      clip: {
-        __typename: "ClipMetadata";
-        keyboardKey: string | null;
-      } | null;
       meta: {
         __typename: "Metadata";
         title: string | null;
@@ -1803,22 +1617,18 @@ export type ListSelectionsQuery = {
         credits: string | null;
         licenses: string | null;
         readme: string | null;
+      };
+      clip: {
+        __typename: "ClipMetadata";
+        keyboardKey: string | null;
       } | null;
+      audioID: string | null;
       audio: {
         __typename: "AudioRegion";
         offset: number;
         duration: number;
       } | null;
-      image: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-        unit: ImageUnits | null;
-      } | null;
-      file: {
+      audioFile: {
         __typename: "StoredFile";
         key: string;
         mimeType: string;
@@ -1829,20 +1639,32 @@ export type ListSelectionsQuery = {
         width: number | null;
         height: number | null;
       } | null;
+      imageID: string | null;
+      image: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+        unit: ImageUnits | null;
+      } | null;
+      imageFile: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      type: MediaType;
+      coverID: string | null;
+      sampleID: string | null;
       createdAt: string | null;
       updatedAt: string | null;
-      media: {
-        __typename: "Media";
-        id: string;
-        projectID: string;
-        groupID: string;
-        type: MediaType;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null;
       _version: number;
       _deleted: boolean | null;
       _lastChangedAt: number;
@@ -2031,27 +1853,6 @@ export type OnCreateMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2087,27 +1888,6 @@ export type OnUpdateMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2143,27 +1923,6 @@ export type OnDeleteMediaSubscription = {
     };
     createdAt: string | null;
     updatedAt: string | null;
-    selections: {
-      __typename: "ModelSelectionConnection";
-      items: Array<{
-        __typename: "Selection";
-        id: string;
-        groupID: string;
-        projectID: string;
-        mediaID: string;
-        trackID: string | null;
-        type: MediaType;
-        coverID: string | null;
-        sampleID: string | null;
-        createdAt: string | null;
-        updatedAt: string | null;
-        _version: number;
-        _deleted: boolean | null;
-        _lastChangedAt: number;
-      } | null> | null;
-      nextToken: string | null;
-      startedAt: number | null;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2239,15 +1998,8 @@ export type OnCreateSelectionSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -2256,22 +2008,18 @@ export type OnCreateSelectionSubscription = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -2282,45 +2030,32 @@ export type OnCreateSelectionSubscription = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2333,15 +2068,8 @@ export type OnUpdateSelectionSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -2350,22 +2078,18 @@ export type OnUpdateSelectionSubscription = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -2376,45 +2100,32 @@ export type OnUpdateSelectionSubscription = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;
@@ -2427,15 +2138,8 @@ export type OnDeleteSelectionSubscription = {
     id: string;
     groupID: string;
     projectID: string;
-    mediaID: string;
+    mediaID: string | null;
     trackID: string | null;
-    type: MediaType;
-    coverID: string | null;
-    sampleID: string | null;
-    clip: {
-      __typename: "ClipMetadata";
-      keyboardKey: string | null;
-    } | null;
     meta: {
       __typename: "Metadata";
       title: string | null;
@@ -2444,22 +2148,18 @@ export type OnDeleteSelectionSubscription = {
       credits: string | null;
       licenses: string | null;
       readme: string | null;
+    };
+    clip: {
+      __typename: "ClipMetadata";
+      keyboardKey: string | null;
     } | null;
+    audioID: string | null;
     audio: {
       __typename: "AudioRegion";
       offset: number;
       duration: number;
     } | null;
-    image: {
-      __typename: "ImageCrop";
-      aspect: number | null;
-      x: number | null;
-      y: number | null;
-      width: number | null;
-      height: number | null;
-      unit: ImageUnits | null;
-    } | null;
-    file: {
+    audioFile: {
       __typename: "StoredFile";
       key: string;
       mimeType: string;
@@ -2470,45 +2170,32 @@ export type OnDeleteSelectionSubscription = {
       width: number | null;
       height: number | null;
     } | null;
+    imageID: string | null;
+    image: {
+      __typename: "ImageCrop";
+      aspect: number | null;
+      x: number | null;
+      y: number | null;
+      width: number | null;
+      height: number | null;
+      unit: ImageUnits | null;
+    } | null;
+    imageFile: {
+      __typename: "StoredFile";
+      key: string;
+      mimeType: string;
+      fileName: string | null;
+      fileSize: number | null;
+      thumbnail: string | null;
+      duration: number | null;
+      width: number | null;
+      height: number | null;
+    } | null;
+    type: MediaType;
+    coverID: string | null;
+    sampleID: string | null;
     createdAt: string | null;
     updatedAt: string | null;
-    media: {
-      __typename: "Media";
-      id: string;
-      projectID: string;
-      groupID: string;
-      type: MediaType;
-      meta: {
-        __typename: "Metadata";
-        title: string | null;
-        description: string | null;
-        authors: string | null;
-        credits: string | null;
-        licenses: string | null;
-        readme: string | null;
-      };
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      };
-      createdAt: string | null;
-      updatedAt: string | null;
-      selections: {
-        __typename: "ModelSelectionConnection";
-        nextToken: string | null;
-        startedAt: number | null;
-      } | null;
-      _version: number;
-      _deleted: boolean | null;
-      _lastChangedAt: number;
-    } | null;
     _version: number;
     _deleted: boolean | null;
     _lastChangedAt: number;

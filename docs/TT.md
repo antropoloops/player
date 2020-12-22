@@ -1,5 +1,7 @@
 # TimeTracking
 
+## 2020/12/20 8h - Images, Datastore schema
+
 ## 2020/12/19 6h Remix UI
 
 ## 2020/12/18 6h AWS Services

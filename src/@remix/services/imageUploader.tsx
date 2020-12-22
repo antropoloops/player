@@ -21,7 +21,7 @@ export function imageUploader(
       `${group.id}/${project.id}/${uuid()}`,
       file
     );
-    const media = await DataStore.save(
+    const image = await DataStore.save(
       new Media({
         type: MediaType.IMAGE,
         groupID: group.id,
@@ -42,7 +42,8 @@ export function imageUploader(
         type: MediaType.IMAGE,
         groupID: group.id,
         projectID: project.id,
-        media: media,
+        imageID: image.id,
+        imageFile: image.file,
         trackID: track?.id,
         sampleID: sampleId,
       })

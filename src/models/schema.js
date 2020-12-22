@@ -187,20 +187,6 @@ export const schema = {
                     "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
-                },
-                "selections": {
-                    "name": "selections",
-                    "isArray": true,
-                    "type": {
-                        "model": "Selection"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "id"
-                    }
                 }
             },
             "syncable": true,
@@ -225,172 +211,6 @@ export const schema = {
                         "name": "byProject",
                         "fields": [
                             "projectID"
-                        ]
-                    }
-                }
-            ]
-        },
-        "Selection": {
-            "name": "Selection",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "groupID": {
-                    "name": "groupID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "projectID": {
-                    "name": "projectID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "trackID": {
-                    "name": "trackID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "type": {
-                    "name": "type",
-                    "isArray": false,
-                    "type": {
-                        "enum": "MediaType"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "coverID": {
-                    "name": "coverID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "sampleID": {
-                    "name": "sampleID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "clip": {
-                    "name": "clip",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "ClipMetadata"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "meta": {
-                    "name": "meta",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "Metadata"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "audio": {
-                    "name": "audio",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "AudioRegion"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "image": {
-                    "name": "image",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "ImageCrop"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "file": {
-                    "name": "file",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "StoredFile"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "media": {
-                    "name": "media",
-                    "isArray": false,
-                    "type": {
-                        "model": "Media"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "mediaID"
-                    }
-                }
-            },
-            "syncable": true,
-            "pluralName": "Selections",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byGroup",
-                        "fields": [
-                            "groupID",
-                            "updatedAt"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byMedia",
-                        "fields": [
-                            "mediaID",
-                            "updatedAt"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byProject",
-                        "fields": [
-                            "projectID",
-                            "updatedAt"
                         ]
                     }
                 }
@@ -467,6 +287,179 @@ export const schema = {
                         "fields": [
                             "groupID",
                             "createdAt"
+                        ]
+                    }
+                }
+            ]
+        },
+        "Selection": {
+            "name": "Selection",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "groupID": {
+                    "name": "groupID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "projectID": {
+                    "name": "projectID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "mediaID": {
+                    "name": "mediaID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "trackID": {
+                    "name": "trackID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "clip": {
+                    "name": "clip",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ClipMetadata"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "meta": {
+                    "name": "meta",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Metadata"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "audioID": {
+                    "name": "audioID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "audio": {
+                    "name": "audio",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "AudioRegion"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "audioFile": {
+                    "name": "audioFile",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "imageID": {
+                    "name": "imageID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "image": {
+                    "name": "image",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ImageCrop"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "imageFile": {
+                    "name": "imageFile",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "MediaType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "coverID": {
+                    "name": "coverID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sampleID": {
+                    "name": "sampleID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Selections",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byGroup",
+                        "fields": [
+                            "groupID",
+                            "updatedAt"
+                        ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byProject",
+                        "fields": [
+                            "projectID",
+                            "updatedAt"
                         ]
                     }
                 }
@@ -623,13 +616,34 @@ export const schema = {
                 }
             }
         },
-        "ClipMetadata": {
-            "name": "ClipMetadata",
+        "TrackMetadata": {
+            "name": "TrackMetadata",
             "fields": {
-                "keyboardKey": {
-                    "name": "keyboardKey",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "color": {
+                    "name": "color",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "position": {
+                    "name": "position",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "volume": {
+                    "name": "volume",
+                    "isArray": false,
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -703,39 +717,18 @@ export const schema = {
                 }
             }
         },
-        "TrackMetadata": {
-            "name": "TrackMetadata",
+        "ClipMetadata": {
+            "name": "ClipMetadata",
             "fields": {
-                "name": {
-                    "name": "name",
+                "keyboardKey": {
+                    "name": "keyboardKey",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "color": {
-                    "name": "color",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "position": {
-                    "name": "position",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "volume": {
-                    "name": "volume",
-                    "isArray": false,
-                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 }
             }
         }
     },
-    "version": "9a2b45f4c5ab32211c54528c173afc27"
+    "version": "9c6e96ba3e6ddfcd01726aa8aae3cca2"
 };

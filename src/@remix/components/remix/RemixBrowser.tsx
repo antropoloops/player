@@ -75,22 +75,22 @@ export function RemixShowPage({
               <div className="bg-gray-medium bg-opacity-50">
                 {clips
                   .filter((s) => s.trackID === track.id)
-                  .map((selection) => {
-                    const thumbnail = selection.media?.file.thumbnail;
+                  .map((clip) => {
+                    const thumbnail = clip.imageFile?.thumbnail;
 
                     return (
                       <MediaObject
-                        key={selection.id}
+                        key={clip.id}
                         alt={""}
                         margin=""
                         imageSize="w-cover-mini"
                         ratio="1:1"
-                        to={routes.remixClip(params.id, selection.id)}
+                        to={routes.remixClip(params.id, clip.id)}
                         style={{ backgroundColor: track.meta.color }}
                       >
                         <div className="mx-1 flex-grow">
                           <div className="text-xs my-1 truncate">
-                            {selection.media?.meta.title}
+                            {clip.meta?.title}
                           </div>
                           <Waveform
                             className="opacity-50"

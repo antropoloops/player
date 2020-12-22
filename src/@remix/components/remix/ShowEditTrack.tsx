@@ -10,7 +10,6 @@ import {
 } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
 import { FilesInput } from "../shared/FilesInput";
-import { updateTrack } from "../../service";
 import { audioUploader } from "../../services/audioUploader";
 import { Waveform } from "../../../@sounds/components/Waveform";
 import TrackProperties from "./TrackProperties";
@@ -118,8 +117,8 @@ export default function ShowEditTrack({
 
           <div className="mt-16">
             {samples.map((sample) => {
-              const name = sample.media?.meta.title;
-              const thumbnail = sample.media?.file.thumbnail;
+              const name = sample.meta?.title;
+              const thumbnail = sample.audioFile?.thumbnail;
               return (
                 <Link
                   key={sample.id}

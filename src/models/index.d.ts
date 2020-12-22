@@ -50,9 +50,12 @@ export declare class StoredFile {
   constructor(init: ModelInit<StoredFile>);
 }
 
-export declare class ClipMetadata {
-  readonly keyboardKey?: string;
-  constructor(init: ModelInit<ClipMetadata>);
+export declare class TrackMetadata {
+  readonly name?: string;
+  readonly color?: string;
+  readonly position?: number;
+  readonly volume?: number;
+  constructor(init: ModelInit<TrackMetadata>);
 }
 
 export declare class AudioRegion {
@@ -71,12 +74,9 @@ export declare class ImageCrop {
   constructor(init: ModelInit<ImageCrop>);
 }
 
-export declare class TrackMetadata {
-  readonly name?: string;
-  readonly color?: string;
-  readonly position?: number;
-  readonly volume?: number;
-  constructor(init: ModelInit<TrackMetadata>);
+export declare class ClipMetadata {
+  readonly keyboardKey?: string;
+  constructor(init: ModelInit<ClipMetadata>);
 }
 
 export declare class Group {
@@ -115,35 +115,11 @@ export declare class Media {
   readonly file: StoredFile;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly selections?: (Selection | null)[];
   constructor(init: ModelInit<Media>);
   static copyOf(
     source: Media,
     mutator: (draft: MutableModel<Media>) => MutableModel<Media> | void
   ): Media;
-}
-
-export declare class Selection {
-  readonly id: string;
-  readonly groupID: string;
-  readonly projectID: string;
-  readonly trackID?: string;
-  readonly type: MediaType | keyof typeof MediaType;
-  readonly coverID?: string;
-  readonly sampleID?: string;
-  readonly clip?: ClipMetadata;
-  readonly meta?: Metadata;
-  readonly audio?: AudioRegion;
-  readonly image?: ImageCrop;
-  readonly file?: StoredFile;
-  readonly createdAt?: string;
-  readonly updatedAt?: string;
-  readonly media?: Media;
-  constructor(init: ModelInit<Selection>);
-  static copyOf(
-    source: Selection,
-    mutator: (draft: MutableModel<Selection>) => MutableModel<Selection> | void
-  ): Selection;
 }
 
 export declare class Track {
@@ -158,4 +134,30 @@ export declare class Track {
     source: Track,
     mutator: (draft: MutableModel<Track>) => MutableModel<Track> | void
   ): Track;
+}
+
+export declare class Selection {
+  readonly id: string;
+  readonly groupID: string;
+  readonly projectID: string;
+  readonly mediaID?: string;
+  readonly trackID?: string;
+  readonly clip?: ClipMetadata;
+  readonly meta?: Metadata;
+  readonly audioID?: string;
+  readonly audio?: AudioRegion;
+  readonly audioFile?: StoredFile;
+  readonly imageID?: string;
+  readonly image?: ImageCrop;
+  readonly imageFile?: StoredFile;
+  readonly type: MediaType | keyof typeof MediaType;
+  readonly coverID?: string;
+  readonly sampleID?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Selection>);
+  static copyOf(
+    source: Selection,
+    mutator: (draft: MutableModel<Selection>) => MutableModel<Selection> | void
+  ): Selection;
 }

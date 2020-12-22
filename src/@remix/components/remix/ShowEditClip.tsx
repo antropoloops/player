@@ -40,7 +40,8 @@ export default function ShowEditClip({
   const track = tracks.find((t) => t.id === sample.trackID);
   const { data: cover } = useObserveModel(Selection, sample.coverID);
 
-  const title = sample.meta?.title || sample.media?.meta?.title;
+  // @meta
+  const title = sample.meta?.title;
 
   const uploadImage = async (file: File) => {
     const uploader = imageUploader(group, remix, track, sample.id);

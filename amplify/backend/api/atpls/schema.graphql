@@ -71,7 +71,7 @@ type Media
   updatedAt: AWSDateTime
 
   # project: Project @connection(fields: ["projectID"])
-  selections: [Selection] @connection(fields: ["id"])
+  # selections: [Selection] @connection(fields: ["id"])
 }
 
 type RemixMetadata {
@@ -125,32 +125,34 @@ type ClipMetadata {
 type Selection
   @model
   @key(name: "byGroup", fields: ["groupID", "updatedAt"])
-  @key(name: "byMedia", fields: ["mediaID", "updatedAt"])
   @key(name: "byProject", fields: ["projectID", "updatedAt"]) {
   id: ID!
   groupID: ID!
   projectID: ID!
-  mediaID: ID!
+  mediaID: ID # deprecated
   trackID: ID
 
-  type: MediaType!
-
-  # Samples can have one main cover
-  coverID: ID
-
-  # Cover belongs_to many samples
-  sampleID: ID
+  meta: Metadata!
 
   # Optional parameters based on type
   clip: ClipMetadata
-  meta: Metadata
-  audio: AudioRegion
-  image: ImageCrop
-  file: StoredFile
 
+  # Clip (prev. Selection) can have one audio and/or one image
+  audioID: ID
+  audio: AudioRegion
+  audioFile: StoredFile
+  imageID: ID
+  image: ImageCrop
+  imageFile: StoredFile
+
+  type: MediaType! # deprecated
+  # Samples can have one main cover
+  coverID: ID #deprecated
+  # Cover belongs_to many samples
+  sampleID: ID #deprecated
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
 
-  media: Media @connection(fields: ["mediaID"])
+  # media: Media @connection(fields: ["mediaID"])
   # project: Project @connection(fields: ["projectID"])
 }

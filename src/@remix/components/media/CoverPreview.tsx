@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
 import { EmptyImages } from "../../helpers/imageHelpers";
-import { Selection, StoredFile } from "../../../models";
+import { Selection } from "../../../models";
 import classcat from "classcat";
 import { useStorageUrl } from "../../../@backend/hooks/useStorage";
 
@@ -10,7 +9,7 @@ type Props = {
 };
 
 export default function CoverPreview({ className, cover }: Props) {
-  const file = cover?.file || cover?.media?.file;
+  const file = cover?.imageFile;
   const { url } = useStorageUrl(file?.key);
 
   const imgSrc = url || EmptyImages.light;

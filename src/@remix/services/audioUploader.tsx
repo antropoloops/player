@@ -26,7 +26,7 @@ export function audioUploader(
     const buffer = await blobToBuffer(ctx, file);
     const points = getPolygonPoints(buffer, 100, 10);
     const duration = buffer.duration;
-    const media = await DataStore.save(
+    const audio = await DataStore.save(
       new Media({
         groupID: group.id,
         projectID: project.id,
@@ -48,7 +48,8 @@ export function audioUploader(
       new Selection({
         groupID: group.id,
         projectID: project.id,
-        media: media,
+        audioID: audio.id,
+        audioFile: audio.file,
         trackID: track?.id,
         type: MediaType.RECORDING,
       })

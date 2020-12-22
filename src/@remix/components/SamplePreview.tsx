@@ -19,10 +19,10 @@ export default function SamplePreview({
   track,
   sound,
 }: Props) {
-  const file = sample.file || sample.media?.file || sound?.file;
+  const file = sample.audioFile;
   const thumbnail = file?.thumbnail || "";
 
-  const { buffer, load, isLoading } = useAudioFile(file);
+  const { buffer, load } = useAudioFile(file);
 
   const [play, { playing }] = usePlayBuffer(buffer, {
     offset: 0,
