@@ -7,7 +7,7 @@ import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
 import EditCover from "../components/cover/EditCover";
-import { Media, MediaType, Project, Selection, Track } from "../../models";
+import { Media, MediaType, Project, Clip, Track } from "../../models";
 import {
   useObserveList,
   useObserveModel,
@@ -33,7 +33,7 @@ export function RemixShowPage({ className }: Props) {
   const { data: tracks } = useObserveList(Track, remixId, (t) =>
     t.projectID("eq", params.id)
   );
-  const { data: selections } = useObserveList(Selection, remixId, (t) =>
+  const { data: selections } = useObserveList(Clip, remixId, (t) =>
     t.projectID("eq", params.id)
   );
   const { data: files } = useObserveList(Media, remixId, (t) =>

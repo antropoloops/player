@@ -7,6 +7,8 @@ import { GroupForm } from "../components/GroupForm";
 import { updateGroup } from "../service";
 import { setCurrentGroup } from "../contexts/CurrentGroupContext";
 import ActionButton from "../../@remix/components/shared/ActionButton";
+import { useHistory } from "react-router-dom";
+import routes from "../../routes";
 
 type Props = {
   group: Group;
@@ -21,11 +23,11 @@ async function deleteGroup(group: Group) {
     return false;
   }
   const deleted = await DataStore.delete(group);
-  console.log("del", deleted);
   return true;
 }
 
 export default function ShowEditGroup({ group }: Props) {
+  const history = useHistory();
   const [editGroup, setEditGroup] = useState<Group | undefined>();
   return (
     <DesktopView>
@@ -51,7 +53,9 @@ export default function ShowEditGroup({ group }: Props) {
         <ActionButton
           icon={LoginIcon}
           onClick={() => {
-            setCurrentGroup(group.id);
+            setCurrentGroup(group.id).then(() => {
+              history.push(routes.remixes());
+            });
           }}
         >
           Entrar

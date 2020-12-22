@@ -5,7 +5,7 @@ import {
   Group,
   Media,
   Project,
-  Selection,
+  Clip,
   MediaType,
   Track,
 } from "../../@backend/datastore";
@@ -45,13 +45,14 @@ export function audioUploader(
       })
     );
     const selection = await DataStore.save(
-      new Selection({
+      new Clip({
+        type: MediaType.RECORDING,
         groupID: group.id,
         projectID: project.id,
+        meta: {},
         audioID: audio.id,
         audioFile: audio.file,
         trackID: track?.id,
-        type: MediaType.RECORDING,
       })
     );
     return selection;

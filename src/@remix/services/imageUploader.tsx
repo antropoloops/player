@@ -5,7 +5,7 @@ import {
   Group,
   Media,
   Project,
-  Selection,
+  Clip,
   MediaType,
   Track,
 } from "../../@backend/datastore";
@@ -38,9 +38,10 @@ export function imageUploader(
       })
     );
     const selection = await DataStore.save(
-      new Selection({
+      new Clip({
         type: MediaType.IMAGE,
         groupID: group.id,
+        meta: {},
         projectID: project.id,
         imageID: image.id,
         imageFile: image.file,

@@ -390,14 +390,14 @@ export const listTracks = /* GraphQL */ `
     }
   }
 `;
-export const syncSelections = /* GraphQL */ `
-  query SyncSelections(
-    $filter: ModelSelectionFilterInput
+export const syncClips = /* GraphQL */ `
+  query SyncClips(
+    $filter: ModelClipFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncSelections(
+    syncClips(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -468,9 +468,9 @@ export const syncSelections = /* GraphQL */ `
     }
   }
 `;
-export const getSelection = /* GraphQL */ `
-  query GetSelection($id: ID!) {
-    getSelection(id: $id) {
+export const getClip = /* GraphQL */ `
+  query GetClip($id: ID!) {
+    getClip(id: $id) {
       id
       groupID
       projectID
@@ -532,13 +532,13 @@ export const getSelection = /* GraphQL */ `
     }
   }
 `;
-export const listSelections = /* GraphQL */ `
-  query ListSelections(
-    $filter: ModelSelectionFilterInput
+export const listClips = /* GraphQL */ `
+  query ListClips(
+    $filter: ModelClipFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listSelections(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listClips(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         groupID

@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  DataStore,
-  Group,
-  Project,
-  Selection,
-} from "../../../@backend/datastore";
+import { DataStore, Group, Project, Clip } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
 import { EditIcon } from "../../../components/icons/Icons";
 import ActionButton from "../shared/ActionButton";

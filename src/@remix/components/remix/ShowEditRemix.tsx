@@ -3,7 +3,7 @@ import {
   DataStore,
   Group,
   Project,
-  Selection,
+  Clip,
   Track,
 } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
@@ -20,7 +20,7 @@ type Props = {
   group: Group;
   remix: Project;
   tracks: Track[];
-  samples: Selection[];
+  samples: Clip[];
 };
 
 async function deleteRemix(remix: Project) {

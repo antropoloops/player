@@ -1,5 +1,5 @@
 import React from "react";
-import { Media, Selection, Track } from "../../models";
+import { Media, Clip, Track } from "../../models";
 import useAudioFile from "../hooks/useAudioFile";
 import { Waveform } from "../../@sounds/components/Waveform";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
@@ -9,7 +9,7 @@ import { usePlayBuffer } from "../hooks/usePlayBuffer";
 type Props = {
   className?: string;
   track?: Track;
-  sample: Selection;
+  sample: Clip;
   sound?: Media;
 };
 

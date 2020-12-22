@@ -302,9 +302,9 @@ export const onDeleteTrack = /* GraphQL */ `
     }
   }
 `;
-export const onCreateSelection = /* GraphQL */ `
-  subscription OnCreateSelection {
-    onCreateSelection {
+export const onCreateClip = /* GraphQL */ `
+  subscription OnCreateClip {
+    onCreateClip {
       id
       groupID
       projectID
@@ -366,9 +366,9 @@ export const onCreateSelection = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateSelection = /* GraphQL */ `
-  subscription OnUpdateSelection {
-    onUpdateSelection {
+export const onUpdateClip = /* GraphQL */ `
+  subscription OnUpdateClip {
+    onUpdateClip {
       id
       groupID
       projectID
@@ -430,9 +430,9 @@ export const onUpdateSelection = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteSelection = /* GraphQL */ `
-  subscription OnDeleteSelection {
-    onDeleteSelection {
+export const onDeleteClip = /* GraphQL */ `
+  subscription OnDeleteClip {
+    onDeleteClip {
       id
       groupID
       projectID

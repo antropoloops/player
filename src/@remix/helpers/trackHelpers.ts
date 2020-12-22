@@ -1,5 +1,5 @@
-import { Track, Selection } from "../../models";
+import { Track, Clip } from "../../models";
 
-export function getTrackSamples(track: Track, selections: Selection[]) {
+export function getTrackSamples(track: Track, selections: Clip[]) {
   return selections.filter((s) => s.trackID === track.id);
 }

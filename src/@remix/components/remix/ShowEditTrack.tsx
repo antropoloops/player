@@ -4,7 +4,7 @@ import {
   Group,
   Project,
   Track,
-  Selection,
+  Clip,
   DataStore,
   TrackMetadata,
 } from "../../../@backend/datastore";
@@ -25,7 +25,7 @@ type Props = {
   group: Group;
   remix: Project;
   track?: Track;
-  selections: Selection[];
+  selections: Clip[];
   onChange: () => void;
 };
 
@@ -92,7 +92,7 @@ export default function ShowEditTrack({
             >
               Editar
             </ActionButton>
-            <FilesInput
+            {/* <FilesInput
               fileType="audio"
               maxFiles={1}
               className="mr-4"
@@ -102,7 +102,8 @@ export default function ShowEditTrack({
               uploadFile={uploadFile}
             >
               Subir sonido
-            </FilesInput>
+            </FilesInput> */}
+            <ActionButton>Añadir clip</ActionButton>
             {samples.length === 0 && (
               <ActionButton
                 className="mr-4"

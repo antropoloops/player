@@ -338,12 +338,12 @@ export const deleteTrack = /* GraphQL */ `
     }
   }
 `;
-export const createSelection = /* GraphQL */ `
-  mutation CreateSelection(
-    $input: CreateSelectionInput!
-    $condition: ModelSelectionConditionInput
+export const createClip = /* GraphQL */ `
+  mutation CreateClip(
+    $input: CreateClipInput!
+    $condition: ModelClipConditionInput
   ) {
-    createSelection(input: $input, condition: $condition) {
+    createClip(input: $input, condition: $condition) {
       id
       groupID
       projectID
@@ -405,12 +405,12 @@ export const createSelection = /* GraphQL */ `
     }
   }
 `;
-export const updateSelection = /* GraphQL */ `
-  mutation UpdateSelection(
-    $input: UpdateSelectionInput!
-    $condition: ModelSelectionConditionInput
+export const updateClip = /* GraphQL */ `
+  mutation UpdateClip(
+    $input: UpdateClipInput!
+    $condition: ModelClipConditionInput
   ) {
-    updateSelection(input: $input, condition: $condition) {
+    updateClip(input: $input, condition: $condition) {
       id
       groupID
       projectID
@@ -472,12 +472,12 @@ export const updateSelection = /* GraphQL */ `
     }
   }
 `;
-export const deleteSelection = /* GraphQL */ `
-  mutation DeleteSelection(
-    $input: DeleteSelectionInput!
-    $condition: ModelSelectionConditionInput
+export const deleteClip = /* GraphQL */ `
+  mutation DeleteClip(
+    $input: DeleteClipInput!
+    $condition: ModelClipConditionInput
   ) {
-    deleteSelection(input: $input, condition: $condition) {
+    deleteClip(input: $input, condition: $condition) {
       id
       groupID
       projectID

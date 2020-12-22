@@ -136,14 +136,14 @@ export declare class Track {
   ): Track;
 }
 
-export declare class Selection {
+export declare class Clip {
   readonly id: string;
   readonly groupID: string;
   readonly projectID: string;
   readonly mediaID?: string;
   readonly trackID?: string;
+  readonly meta: Metadata;
   readonly clip?: ClipMetadata;
-  readonly meta?: Metadata;
   readonly audioID?: string;
   readonly audio?: AudioRegion;
   readonly audioFile?: StoredFile;
@@ -155,9 +155,9 @@ export declare class Selection {
   readonly sampleID?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  constructor(init: ModelInit<Selection>);
+  constructor(init: ModelInit<Clip>);
   static copyOf(
-    source: Selection,
-    mutator: (draft: MutableModel<Selection>) => MutableModel<Selection> | void
-  ): Selection;
+    source: Clip,
+    mutator: (draft: MutableModel<Clip>) => MutableModel<Clip> | void
+  ): Clip;
 }

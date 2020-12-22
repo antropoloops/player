@@ -258,7 +258,7 @@ export type DeleteTrackInput = {
   _version?: number | null;
 };
 
-export type CreateSelectionInput = {
+export type CreateClipInput = {
   id?: string | null;
   groupID: string;
   projectID: string;
@@ -303,7 +303,7 @@ export enum ImageUnits {
   percent = "percent",
 }
 
-export type ModelSelectionConditionInput = {
+export type ModelClipConditionInput = {
   groupID?: ModelIDInput | null;
   projectID?: ModelIDInput | null;
   mediaID?: ModelIDInput | null;
@@ -315,12 +315,12 @@ export type ModelSelectionConditionInput = {
   sampleID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelSelectionConditionInput | null> | null;
-  or?: Array<ModelSelectionConditionInput | null> | null;
-  not?: ModelSelectionConditionInput | null;
+  and?: Array<ModelClipConditionInput | null> | null;
+  or?: Array<ModelClipConditionInput | null> | null;
+  not?: ModelClipConditionInput | null;
 };
 
-export type UpdateSelectionInput = {
+export type UpdateClipInput = {
   id: string;
   groupID?: string | null;
   projectID?: string | null;
@@ -342,7 +342,7 @@ export type UpdateSelectionInput = {
   _version?: number | null;
 };
 
-export type DeleteSelectionInput = {
+export type DeleteClipInput = {
   id?: string | null;
   _version?: number | null;
 };
@@ -390,7 +390,7 @@ export type ModelTrackFilterInput = {
   not?: ModelTrackFilterInput | null;
 };
 
-export type ModelSelectionFilterInput = {
+export type ModelClipFilterInput = {
   id?: ModelIDInput | null;
   groupID?: ModelIDInput | null;
   projectID?: ModelIDInput | null;
@@ -403,9 +403,9 @@ export type ModelSelectionFilterInput = {
   sampleID?: ModelIDInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelSelectionFilterInput | null> | null;
-  or?: Array<ModelSelectionFilterInput | null> | null;
-  not?: ModelSelectionFilterInput | null;
+  and?: Array<ModelClipFilterInput | null> | null;
+  or?: Array<ModelClipFilterInput | null> | null;
+  not?: ModelClipFilterInput | null;
 };
 
 export type CreateGroupMutationVariables = {
@@ -786,14 +786,14 @@ export type DeleteTrackMutation = {
   } | null;
 };
 
-export type CreateSelectionMutationVariables = {
-  input: CreateSelectionInput;
-  condition?: ModelSelectionConditionInput | null;
+export type CreateClipMutationVariables = {
+  input: CreateClipInput;
+  condition?: ModelClipConditionInput | null;
 };
 
-export type CreateSelectionMutation = {
-  createSelection: {
-    __typename: "Selection";
+export type CreateClipMutation = {
+  createClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -861,14 +861,14 @@ export type CreateSelectionMutation = {
   } | null;
 };
 
-export type UpdateSelectionMutationVariables = {
-  input: UpdateSelectionInput;
-  condition?: ModelSelectionConditionInput | null;
+export type UpdateClipMutationVariables = {
+  input: UpdateClipInput;
+  condition?: ModelClipConditionInput | null;
 };
 
-export type UpdateSelectionMutation = {
-  updateSelection: {
-    __typename: "Selection";
+export type UpdateClipMutation = {
+  updateClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -936,14 +936,14 @@ export type UpdateSelectionMutation = {
   } | null;
 };
 
-export type DeleteSelectionMutationVariables = {
-  input: DeleteSelectionInput;
-  condition?: ModelSelectionConditionInput | null;
+export type DeleteClipMutationVariables = {
+  input: DeleteClipInput;
+  condition?: ModelClipConditionInput | null;
 };
 
-export type DeleteSelectionMutation = {
-  deleteSelection: {
-    __typename: "Selection";
+export type DeleteClipMutation = {
+  deleteClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -1437,18 +1437,18 @@ export type ListTracksQuery = {
   } | null;
 };
 
-export type SyncSelectionsQueryVariables = {
-  filter?: ModelSelectionFilterInput | null;
+export type SyncClipsQueryVariables = {
+  filter?: ModelClipFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
   lastSync?: number | null;
 };
 
-export type SyncSelectionsQuery = {
-  syncSelections: {
-    __typename: "ModelSelectionConnection";
+export type SyncClipsQuery = {
+  syncClips: {
+    __typename: "ModelClipConnection";
     items: Array<{
-      __typename: "Selection";
+      __typename: "Clip";
       id: string;
       groupID: string;
       projectID: string;
@@ -1519,13 +1519,13 @@ export type SyncSelectionsQuery = {
   } | null;
 };
 
-export type GetSelectionQueryVariables = {
+export type GetClipQueryVariables = {
   id: string;
 };
 
-export type GetSelectionQuery = {
-  getSelection: {
-    __typename: "Selection";
+export type GetClipQuery = {
+  getClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -1593,17 +1593,17 @@ export type GetSelectionQuery = {
   } | null;
 };
 
-export type ListSelectionsQueryVariables = {
-  filter?: ModelSelectionFilterInput | null;
+export type ListClipsQueryVariables = {
+  filter?: ModelClipFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListSelectionsQuery = {
-  listSelections: {
-    __typename: "ModelSelectionConnection";
+export type ListClipsQuery = {
+  listClips: {
+    __typename: "ModelClipConnection";
     items: Array<{
-      __typename: "Selection";
+      __typename: "Clip";
       id: string;
       groupID: string;
       projectID: string;
@@ -1992,9 +1992,9 @@ export type OnDeleteTrackSubscription = {
   } | null;
 };
 
-export type OnCreateSelectionSubscription = {
-  onCreateSelection: {
-    __typename: "Selection";
+export type OnCreateClipSubscription = {
+  onCreateClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -2062,9 +2062,9 @@ export type OnCreateSelectionSubscription = {
   } | null;
 };
 
-export type OnUpdateSelectionSubscription = {
-  onUpdateSelection: {
-    __typename: "Selection";
+export type OnUpdateClipSubscription = {
+  onUpdateClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;
@@ -2132,9 +2132,9 @@ export type OnUpdateSelectionSubscription = {
   } | null;
 };
 
-export type OnDeleteSelectionSubscription = {
-  onDeleteSelection: {
-    __typename: "Selection";
+export type OnDeleteClipSubscription = {
+  onDeleteClip: {
+    __typename: "Clip";
     id: string;
     groupID: string;
     projectID: string;

@@ -1,11 +1,11 @@
 import { EmptyImages } from "../../helpers/imageHelpers";
-import { Selection } from "../../../models";
+import { Clip } from "../../../models";
 import classcat from "classcat";
 import { useStorageUrl } from "../../../@backend/hooks/useStorage";
 
 type Props = {
   className?: string;
-  cover?: Selection;
+  cover?: Clip;
 };
 
 export default function CoverPreview({ className, cover }: Props) {

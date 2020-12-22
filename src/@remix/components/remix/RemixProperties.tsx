@@ -1,6 +1,11 @@
 import React from "react";
 import { PropertyList } from "../../../@core/components";
-import { Metadata, RemixMetadata, Track } from "../../../@backend/datastore";
+import {
+  Metadata,
+  RemixMetadata,
+  Track,
+  Clip,
+} from "../../../@backend/datastore";
 
 type RemixData = {
   meta: Metadata;
@@ -11,7 +16,7 @@ type Props = {
   className?: string;
   remix: RemixData;
   tracks?: Track[];
-  samples?: Selection[];
+  samples?: Clip[];
 };
 
 const KEYS = [

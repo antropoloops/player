@@ -6,7 +6,7 @@ import { PlayCircleIcon } from "../../../components/icons/Icons";
 import IconLink from "../../../components/shared/IconLink";
 import routes from "../../../routes";
 import TrackContainer from "../../../components/simple-player/TrackContainer";
-import { Project, Selection, Track } from "../../../models";
+import { Project, Clip, Track } from "../../../models";
 import { Waveform } from "../../../@sounds/components/Waveform";
 import MediaObject from "../../../components/MediaObject";
 
@@ -20,8 +20,8 @@ type Props = {
   className?: string;
   remix: Project;
   tracks: Track[];
-  clips: Selection[];
-  covers: Selection[];
+  clips: Clip[];
+  covers: Clip[];
 };
 
 export function RemixShowPage({

@@ -3,7 +3,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { DesktopView, Title } from "../../../@core/components";
 import BackToLink from "../../../components/BackToLink";
-import { Group, Media, Project, Selection, Track } from "../../../models";
+import { Group, Media, Project, Clip, Track } from "../../../models";
 import routes from "../../../routes";
 import SamplePreview from "../SamplePreview";
 import DeleteAction from "../shared/DeleteAction";
@@ -20,11 +20,11 @@ type Props = {
   group: Group;
   remix: Project;
   tracks: Track[];
-  sample: Selection;
+  sample: Clip;
   files: Media[];
 };
 
-const deleteClip = async (sample: Selection) => {
+const deleteClip = async (sample: Clip) => {
   await DataStore.delete(sample);
 };
 
@@ -38,7 +38,7 @@ export default function ShowEditClip({
 }: Props) {
   const history = useHistory();
   const track = tracks.find((t) => t.id === sample.trackID);
-  const { data: cover } = useObserveModel(Selection, sample.coverID);
+  const { data: cover } = useObserveModel(Clip, sample.coverID);
 
   // @meta
   const title = sample.meta?.title;
@@ -47,7 +47,7 @@ export default function ShowEditClip({
     const uploader = imageUploader(group, remix, track, sample.id);
     const cover = await uploader(file);
     await DataStore.save(
-      Selection.copyOf(sample, (draft) => {
+      Clip.copyOf(sample, (draft) => {
         draft.coverID = cover.id;
       })
     );

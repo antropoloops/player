@@ -292,8 +292,8 @@ export const schema = {
                 }
             ]
         },
-        "Selection": {
-            "name": "Selection",
+        "Clip": {
+            "name": "Clip",
             "fields": {
                 "id": {
                     "name": "id",
@@ -330,20 +330,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "clip": {
-                    "name": "clip",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "ClipMetadata"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "meta": {
                     "name": "meta",
                     "isArray": false,
                     "type": {
                         "nonModel": "Metadata"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "clip": {
+                    "name": "clip",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ClipMetadata"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -437,7 +437,7 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Selections",
+            "pluralName": "Clips",
             "attributes": [
                 {
                     "type": "model",
@@ -730,5 +730,5 @@ export const schema = {
             }
         }
     },
-    "version": "9c6e96ba3e6ddfcd01726aa8aae3cca2"
+    "version": "bd95ba93f7c626b433f5a23ed26bb741"
 };
