@@ -675,15 +675,6 @@ export const schema = {
                     "type": "Float",
                     "isRequired": false,
                     "attributes": []
-                },
-                "unit": {
-                    "name": "unit",
-                    "isArray": false,
-                    "type": {
-                        "enum": "ImageUnits"
-                    },
-                    "isRequired": false,
-                    "attributes": []
                 }
             }
         },
@@ -700,5 +691,5 @@ export const schema = {
             }
         }
     },
-    "version": "ab27565822cf2594f23ea7dfd6084705"
+    "version": "88fd3c91608a804229c487ae15acd89f"
 };

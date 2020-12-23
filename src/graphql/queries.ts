@@ -441,7 +441,6 @@ export const syncClips = /* GraphQL */ `
           y
           width
           height
-          unit
         }
         imageFile {
           key
@@ -504,7 +503,6 @@ export const getClip = /* GraphQL */ `
         y
         width
         height
-        unit
       }
       imageFile {
         key
@@ -569,7 +567,6 @@ export const listClips = /* GraphQL */ `
           y
           width
           height
-          unit
         }
         imageFile {
           key

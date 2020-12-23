@@ -115,7 +115,6 @@ type ImageCrop {
   y: Float
   width: Float
   height: Float
-  unit: ImageUnits
 }
 
 type ClipMetadata {

@@ -133,7 +133,7 @@ export default function ShowEditClip({
       >
         Borrar clip
       </DeleteAction>
-      <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre>
+      {/* <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre> */}
     </DesktopView>
   );
 }

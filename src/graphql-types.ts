@@ -291,13 +291,7 @@ export type ImageCropInput = {
   y?: number | null;
   width?: number | null;
   height?: number | null;
-  unit?: ImageUnits | null;
 };
-
-export enum ImageUnits {
-  px = "px",
-  percent = "percent",
-}
 
 export type ModelClipConditionInput = {
   groupID?: ModelIDInput | null;
@@ -820,7 +814,6 @@ export type CreateClipMutation = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -891,7 +884,6 @@ export type UpdateClipMutation = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -962,7 +954,6 @@ export type DeleteClipMutation = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -1463,7 +1454,6 @@ export type SyncClipsQuery = {
         y: number | null;
         width: number | null;
         height: number | null;
-        unit: ImageUnits | null;
       } | null;
       imageFile: {
         __typename: "StoredFile";
@@ -1536,7 +1526,6 @@ export type GetClipQuery = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -1610,7 +1599,6 @@ export type ListClipsQuery = {
         y: number | null;
         width: number | null;
         height: number | null;
-        unit: ImageUnits | null;
       } | null;
       imageFile: {
         __typename: "StoredFile";
@@ -1997,7 +1985,6 @@ export type OnCreateClipSubscription = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -2063,7 +2050,6 @@ export type OnUpdateClipSubscription = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";
@@ -2129,7 +2115,6 @@ export type OnDeleteClipSubscription = {
       y: number | null;
       width: number | null;
       height: number | null;
-      unit: ImageUnits | null;
     } | null;
     imageFile: {
       __typename: "StoredFile";

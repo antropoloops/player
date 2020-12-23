@@ -70,7 +70,6 @@ export declare class ImageCrop {
   readonly y?: number;
   readonly width?: number;
   readonly height?: number;
-  readonly unit?: ImageUnits | keyof typeof ImageUnits;
   constructor(init: ModelInit<ImageCrop>);
 }
 

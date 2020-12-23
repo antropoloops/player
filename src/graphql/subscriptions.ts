@@ -342,7 +342,6 @@ export const onCreateClip = /* GraphQL */ `
         y
         width
         height
-        unit
       }
       imageFile {
         key
@@ -402,7 +401,6 @@ export const onUpdateClip = /* GraphQL */ `
         y
         width
         height
-        unit
       }
       imageFile {
         key
@@ -462,7 +460,6 @@ export const onDeleteClip = /* GraphQL */ `
         y
         width
         height
-        unit
       }
       imageFile {
         key

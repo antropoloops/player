@@ -41,6 +41,7 @@ export function useStorageImage(urlOrStorageKey?: string) {
 
 function preloadImage(url: string): Promise<HTMLImageElement> {
   const image = document.createElement("img");
+  image.crossOrigin = "Anonymous";
   image.src = url;
 
   return new Promise(function (resolve, reject) {

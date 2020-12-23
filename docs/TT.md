@@ -1,5 +1,7 @@
 # TimeTracking
 
+## 2020/12/22 4h - Crop images
+
 ## 2020/12/20 8h - Images, Datastore schema
 
 ## 2020/12/19 6h Remix UI
