@@ -23,9 +23,9 @@ export default function ShowEditArchive({ group, archive }: Props) {
   const ctx = useSimpleAudioContext();
 
   const uploadFile = async (file: File) => {
-    const uploader = audioUploader(ctx, group, archive, undefined);
-    const selection = await uploader(file);
-    return selection.id;
+    const uploader = audioUploader(ctx, group, archive);
+    const audio = await uploader(file);
+    return audio.id;
   };
 
   return (

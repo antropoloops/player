@@ -23,7 +23,7 @@ const DeleteAction: React.FC<Props> = ({
   return (
     <div
       className={classcat([
-        "flex my-4 bg-red-700 bg-opacity-25  p-4",
+        "flex my-16 bg-red-700 bg-opacity-25 p-4",
         className,
       ])}
     >
@@ -31,7 +31,7 @@ const DeleteAction: React.FC<Props> = ({
         <div className="flex items-center">
           <label className="flex flex-grow flex-col mr-4 text-sm">
             <p>{message}</p>
-            <p>Esta acción no se puede deshacer. Quieres continuar?</p>
+            <p>Esta acción no se puede deshacer. ¿Quieres continuar?</p>
           </label>
           <ActionButton
             disabled={disabled}

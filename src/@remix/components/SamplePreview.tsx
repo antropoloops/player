@@ -10,15 +10,9 @@ type Props = {
   className?: string;
   track?: Track;
   sample: Clip;
-  sound?: Media;
 };
 
-export default function SamplePreview({
-  className,
-  sample,
-  track,
-  sound,
-}: Props) {
+export default function SamplePreview({ className, sample, track }: Props) {
   const file = sample.audioFile;
   const thumbnail = file?.thumbnail || "";
 
@@ -39,22 +33,24 @@ export default function SamplePreview({
         </label>
       )}
       <div className="flex items-center">
-        <PlayButton
-          className="border-2 rounded-full mr-4"
-          style={{ borderColor: color, color }}
-          onClick={() => {
-            if (playing) {
-              play(false);
-            } else if (buffer) {
-              play(true);
-            } else {
-              load().then(() => {
+        {file && (
+          <PlayButton
+            className="border-2 rounded-full mr-4"
+            style={{ borderColor: color, color }}
+            onClick={() => {
+              if (playing) {
+                play(false);
+              } else if (buffer) {
                 play(true);
-              });
-            }
-          }}
-          playing={playing}
-        />
+              } else {
+                load().then(() => {
+                  play(true);
+                });
+              }
+            }}
+            playing={playing}
+          />
+        )}
         <div className="flex-grow mt-1 p-1 bg-gray-darker text-remixes opacity-75">
           <Waveform
             width={100}

@@ -6,9 +6,9 @@ import { PlayCircleIcon } from "../../../components/icons/Icons";
 import IconLink from "../../../components/shared/IconLink";
 import routes from "../../../routes";
 import TrackContainer from "../../../components/simple-player/TrackContainer";
-import { Project, Clip, Track } from "../../../models";
-import { Waveform } from "../../../@sounds/components/Waveform";
-import MediaObject from "../../../components/MediaObject";
+import { Project, Clip, Track, Media } from "../../../models";
+import { useObserveList } from "../../../@backend/hooks/useObserveModel";
+import ClipItem from "./ClipItem";
 
 type Params = {
   id: string;
@@ -21,19 +21,15 @@ type Props = {
   remix: Project;
   tracks: Track[];
   clips: Clip[];
-  covers: Clip[];
 };
 
-export function RemixShowPage({
-  className,
-  remix,
-  tracks,
-  clips,
-  covers,
-}: Props) {
+export function RemixShowPage({ className, remix, tracks, clips }: Props) {
   const params = useParams<Params>();
   const group = useCurrentGroup();
   const history = useHistory();
+  const { data: files } = useObserveList(Media, remix.id, (t) =>
+    t.projectID("eq", params.id)
+  );
 
   const gotoTrack = (track: Track) =>
     history.push(routes.remixTrack(params.id, track.id));
@@ -76,30 +72,13 @@ export function RemixShowPage({
                 {clips
                   .filter((s) => s.trackID === track.id)
                   .map((clip) => {
-                    const thumbnail = clip.imageFile?.thumbnail;
-
                     return (
-                      <MediaObject
+                      <ClipItem
                         key={clip.id}
-                        alt={""}
-                        margin=""
-                        imageSize="w-cover-mini"
-                        ratio="1:1"
-                        to={routes.remixClip(params.id, clip.id)}
-                        style={{ backgroundColor: track.meta.color }}
-                      >
-                        <div className="mx-1 flex-grow">
-                          <div className="text-xs my-1 truncate">
-                            {clip.meta?.title}
-                          </div>
-                          <Waveform
-                            className="opacity-50"
-                            width={100}
-                            height={10}
-                            points={thumbnail || ""}
-                          />
-                        </div>
-                      </MediaObject>
+                        remix={remix}
+                        track={track}
+                        clip={clip}
+                      />
                     );
                   })}
               </div>

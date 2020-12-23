@@ -11,7 +11,7 @@ declare var window: any;
 export function debugAws() {
   window.LOG_LEVEL = "DEBUG";
 }
-debugAws();
+//debugAws();
 
 Amplify.configure(config);
 

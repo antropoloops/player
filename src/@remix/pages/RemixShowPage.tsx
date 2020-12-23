@@ -36,9 +36,6 @@ export function RemixShowPage({ className }: Props) {
   const { data: clips } = useObserveList(Clip, remixId, (t) =>
     t.projectID("eq", params.id)
   );
-  const { data: files } = useObserveList(Media, remixId, (t) =>
-    t.projectID("eq", params.id)
-  );
 
   const track =
     params.type === "t" && tracks.find((track) => track.id === params.childId);
@@ -53,7 +50,6 @@ export function RemixShowPage({ className }: Props) {
         remix={remix}
         tracks={tracks}
         clip={sample || undefined}
-        files={files}
       />
     ) : track ? (
       <ShowEditTrack
@@ -74,14 +70,7 @@ export function RemixShowPage({ className }: Props) {
 
   return (
     <Layout nav="projects" desktop={editor}>
-      {remix && (
-        <RemixBrowser
-          remix={remix}
-          tracks={tracks}
-          clips={clips}
-          covers={clips}
-        />
-      )}
+      {remix && <RemixBrowser remix={remix} tracks={tracks} clips={clips} />}
     </Layout>
   );
 }

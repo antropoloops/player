@@ -14,6 +14,8 @@ import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
 import ActionButton from "../shared/ActionButton";
 import ActionLink from "../shared/ActionLink";
 import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
+import { audioUploader } from "../../services/audioUploader";
+import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 
 type Props = {
   className?: string;
@@ -21,7 +23,6 @@ type Props = {
   remix: Project;
   tracks: Track[];
   clip: Clip;
-  files: Media[];
 };
 
 const deleteClip = async (clip: Clip) => {
@@ -34,25 +35,41 @@ export default function ShowEditClip({
   remix,
   tracks,
   clip,
-  files,
 }: Props) {
   const history = useHistory();
-  const track = tracks.find((t) => t.id === clip.trackID);
+  const ctx = useSimpleAudioContext();
 
+  const track = tracks.find((t) => t.id === clip.trackID);
   // @meta
   const title = clip.meta?.title;
 
-  const uploadImage = async (file: File) => {
-    // FIXME
-    // const uploader = imageUploader(group, remix, track, clip.id);
-    // const cover = await uploader(file);
-    // await DataStore.save(
-    //   Clip.copyOf(clip, (draft) => {
-    //     draft.coverID = cover.id;
-    //   })
-    // );
-    // return cover.id;
-    return "";
+  const uploadCover = async (file: File) => {
+    const uploader = imageUploader(group, remix);
+    const image = await uploader(file);
+    await DataStore.save(
+      Clip.copyOf(clip, (draft) => {
+        draft.imageID = image.id;
+        draft.imageFile = image.file;
+        draft.image = {};
+      })
+    );
+    return clip.id;
+  };
+
+  const uploadSample = async (file: File) => {
+    const uploader = audioUploader(ctx, group, remix);
+    const audio = await uploader(file);
+    await DataStore.save(
+      Clip.copyOf(clip, (draft) => {
+        draft.audioID = audio.id;
+        draft.audioFile = audio.file;
+        draft.audio = {
+          offset: 0,
+          duration: audio.file.duration || 0,
+        };
+      })
+    );
+    return clip.id;
   };
 
   return (
@@ -81,18 +98,28 @@ export default function ShowEditClip({
           className="mr-4"
           icon={CloudUploadIcon}
           smallIcon
-          uploadFile={uploadImage}
+          uploadFile={uploadCover}
         >
           {clip.imageID ? "Cambiar portada" : "Añadir portada"}
         </FilesInput>
       </div>
       <SamplePreview className="mt-8" sample={clip} track={track} />
       <div className="flex my-4">
-        <ActionButton>Editar sonido</ActionButton>
+        {clip.audioID && <ActionButton>Editar sonido</ActionButton>}
+        <FilesInput
+          fileType="audio"
+          maxFiles={1}
+          className="mr-4"
+          icon={CloudUploadIcon}
+          smallIcon
+          uploadFile={uploadSample}
+        >
+          {clip.audioID ? "Cambiar sonido" : "Añadir sonido"}
+        </FilesInput>
       </div>
 
       <DeleteAction
-        message="Vas a borrar éste sonido, pero la grabación no se borrará."
+        message="Vas a borrar éste clip."
         onClick={() => {
           if (!track) return;
           deleteClip(clip);
@@ -106,7 +133,7 @@ export default function ShowEditClip({
       >
         Borrar clip
       </DeleteAction>
-      {/* <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre> */}
+      <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre>
     </DesktopView>
   );
 }

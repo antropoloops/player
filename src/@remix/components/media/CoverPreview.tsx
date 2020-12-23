@@ -17,7 +17,7 @@ export default function CoverPreview({ className, cover }: Props) {
   return (
     <div className={classcat(["relative ratio max-w-sm", className])}>
       <svg viewBox="0 0 1 1" />
-      <img className="w-full" src={EmptyImages.light} alt="" />
+      <img className="w-full" src={EmptyImages.darker} alt="" />
       {imgSrc ? (
         <div
           className="absolute inset-0 bg-cover"

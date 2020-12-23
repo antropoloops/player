@@ -9,8 +9,6 @@ import {
   TrackMetadata,
 } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
-import { FilesInput } from "../shared/FilesInput";
-import { audioUploader } from "../../services/audioUploader";
 import { Waveform } from "../../../@sounds/components/Waveform";
 import TrackProperties from "./TrackProperties";
 import { Link, useHistory } from "react-router-dom";
@@ -19,7 +17,6 @@ import { ActionButton } from "../shared/ActionButton";
 import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import TrackForm from "./TrackForm";
 import BackToLink from "../../../components/BackToLink";
-import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 
 type Props = {
   group: Group;
@@ -37,15 +34,8 @@ export default function ShowEditTrack({
   selections,
 }: Props) {
   const history = useHistory();
-  const ctx = useSimpleAudioContext();
   const [edit, setEdit] = useState(false);
   if (!track) return null;
-
-  const uploadFile = async (file: File) => {
-    const uploader = audioUploader(ctx, group, remix, track);
-    const selection = await uploader(file);
-    return selection.id;
-  };
 
   const saveTrack = async (data: TrackMetadata) => {
     await DataStore.save(
