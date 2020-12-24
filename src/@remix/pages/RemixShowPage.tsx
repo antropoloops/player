@@ -6,8 +6,8 @@ import RemixBrowser from "../components/remix/RemixBrowser";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
-import EditCover from "../components/cover/EditCover";
-import { Media, MediaType, Project, Clip, Track } from "../../models";
+import EditCover from "../components/clip/EditCover";
+import { Project, Clip, Track } from "../../models";
 import {
   useObserveList,
   useObserveModel,
