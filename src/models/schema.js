@@ -89,6 +89,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "image": {
+                    "name": "image",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "EditedImage"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -484,6 +493,69 @@ export const schema = {
                 }
             }
         },
+        "EditedImage": {
+            "name": "EditedImage",
+            "fields": {
+                "crop": {
+                    "name": "crop",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ImageCrop"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "file": {
+                    "name": "file",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "ImageCrop": {
+            "name": "ImageCrop",
+            "fields": {
+                "aspect": {
+                    "name": "aspect",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "x": {
+                    "name": "x",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "y": {
+                    "name": "y",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "width": {
+                    "name": "width",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "height": {
+                    "name": "height",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
         "StoredFile": {
             "name": "StoredFile",
             "fields": {
@@ -597,46 +669,6 @@ export const schema = {
                 }
             }
         },
-        "ImageCrop": {
-            "name": "ImageCrop",
-            "fields": {
-                "aspect": {
-                    "name": "aspect",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "x": {
-                    "name": "x",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "y": {
-                    "name": "y",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "width": {
-                    "name": "width",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "height": {
-                    "name": "height",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
-        },
         "ClipMetadata": {
             "name": "ClipMetadata",
             "fields": {
@@ -700,29 +732,6 @@ export const schema = {
                 }
             }
         },
-        "EditedImage": {
-            "name": "EditedImage",
-            "fields": {
-                "crop": {
-                    "name": "crop",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "ImageCrop"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "file": {
-                    "name": "file",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "StoredFile"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
-        },
         "EditableAudio": {
             "name": "EditableAudio",
             "fields": {
@@ -770,5 +779,5 @@ export const schema = {
             }
         }
     },
-    "version": "818b4ae8c3e79f7ae85e13b46bbf946b"
+    "version": "25ac2e4c5fe9dbdb592252d57da25a13"
 };

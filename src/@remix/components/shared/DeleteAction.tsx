@@ -6,9 +6,8 @@ import { DeleteIcon, CloseIcon } from "../../../components/icons/Icons";
 type Props = {
   className?: string;
   message?: string;
-  disabled?: boolean;
+  disabled?: string;
   onClick?: () => void;
-  smallIcon?: boolean;
 };
 
 const DeleteAction: React.FC<Props> = ({
@@ -17,13 +16,13 @@ const DeleteAction: React.FC<Props> = ({
   disabled,
   children,
   onClick,
-  smallIcon,
 }) => {
   const [confirm, setConfirm] = useState(false);
   return (
     <div
       className={classcat([
         "flex my-16 bg-red-700 bg-opacity-25 p-4",
+        disabled && "opacity-50",
         className,
       ])}
     >
@@ -33,12 +32,7 @@ const DeleteAction: React.FC<Props> = ({
             <p>{message}</p>
             <p>Esta acción no se puede deshacer. ¿Quieres continuar?</p>
           </label>
-          <ActionButton
-            disabled={disabled}
-            icon={DeleteIcon}
-            onClick={onClick}
-            smallIcon={smallIcon}
-          >
+          <ActionButton icon={DeleteIcon} onClick={onClick} smallIcon>
             Si, borrar
           </ActionButton>
           <ActionButton
@@ -46,21 +40,25 @@ const DeleteAction: React.FC<Props> = ({
             onClick={() => {
               setConfirm(false);
             }}
-            smallIcon={smallIcon}
+            smallIcon
           >
             No, cancelar
           </ActionButton>
         </div>
       ) : (
-        <ActionButton
-          icon={DeleteIcon}
-          onClick={() => {
-            setConfirm(true);
-          }}
-          smallIcon={smallIcon}
-        >
-          {children}
-        </ActionButton>
+        <div className="flex items-center">
+          <ActionButton
+            disabled={!!disabled}
+            icon={DeleteIcon}
+            onClick={() => {
+              setConfirm(true);
+            }}
+            smallIcon
+          >
+            {children}
+          </ActionButton>
+          {disabled && <label>{disabled}</label>}
+        </div>
       )}
     </div>
   );

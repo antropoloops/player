@@ -83,6 +83,7 @@ export type CreateProjectInput = {
   access: ProjetAccess;
   meta: MetadataInput;
   remix: RemixMetadataInput;
+  image?: EditedImageInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -99,6 +100,30 @@ export enum ProjetAccess {
 
 export type RemixMetadataInput = {
   bmp?: number | null;
+};
+
+export type EditedImageInput = {
+  crop?: ImageCropInput | null;
+  file?: StoredFileInput | null;
+};
+
+export type ImageCropInput = {
+  aspect?: number | null;
+  x?: number | null;
+  y?: number | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+export type StoredFileInput = {
+  key: string;
+  mimeType: string;
+  fileName?: string | null;
+  fileSize?: number | null;
+  thumbnail?: string | null;
+  duration?: number | null;
+  width?: number | null;
+  height?: number | null;
 };
 
 export type ModelProjectConditionInput = {
@@ -145,6 +170,7 @@ export type UpdateProjectInput = {
   access?: ProjetAccess | null;
   meta?: MetadataInput | null;
   remix?: RemixMetadataInput | null;
+  image?: EditedImageInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -171,17 +197,6 @@ export enum MediaType {
   recording = "recording",
   image = "image",
 }
-
-export type StoredFileInput = {
-  key: string;
-  mimeType: string;
-  fileName?: string | null;
-  fileSize?: number | null;
-  thumbnail?: string | null;
-  duration?: number | null;
-  width?: number | null;
-  height?: number | null;
-};
 
 export type ModelMediaConditionInput = {
   groupID?: ModelIDInput | null;
@@ -299,19 +314,6 @@ export type AudioRegionInput = {
 export type EditableImageInput = {
   original: MediaResourceInput;
   current: EditedImageInput;
-};
-
-export type EditedImageInput = {
-  crop?: ImageCropInput | null;
-  file?: StoredFileInput | null;
-};
-
-export type ImageCropInput = {
-  aspect?: number | null;
-  x?: number | null;
-  y?: number | null;
-  width?: number | null;
-  height?: number | null;
 };
 
 export type ModelClipConditionInput = {
@@ -504,6 +506,28 @@ export type CreateProjectMutation = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -537,6 +561,28 @@ export type UpdateProjectMutation = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -570,6 +616,28 @@ export type DeleteProjectMutation = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1050,6 +1118,28 @@ export type GetProjectQuery = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1506,6 +1596,28 @@ export type OnCreateProjectSubscription = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1534,6 +1646,28 @@ export type OnUpdateProjectSubscription = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;
@@ -1562,6 +1696,28 @@ export type OnDeleteProjectSubscription = {
       __typename: "RemixMetadata";
       bmp: number | null;
     };
+    image: {
+      __typename: "EditedImage";
+      crop: {
+        __typename: "ImageCrop";
+        aspect: number | null;
+        x: number | null;
+        y: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+      file: {
+        __typename: "StoredFile";
+        key: string;
+        mimeType: string;
+        fileName: string | null;
+        fileSize: number | null;
+        thumbnail: string | null;
+        duration: number | null;
+        width: number | null;
+        height: number | null;
+      } | null;
+    } | null;
     createdAt: string | null;
     updatedAt: string | null;
     _version: number;

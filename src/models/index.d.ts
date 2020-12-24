@@ -38,6 +38,21 @@ export declare class RemixMetadata {
   constructor(init: ModelInit<RemixMetadata>);
 }
 
+export declare class EditedImage {
+  readonly crop?: ImageCrop;
+  readonly file?: StoredFile;
+  constructor(init: ModelInit<EditedImage>);
+}
+
+export declare class ImageCrop {
+  readonly aspect?: number;
+  readonly x?: number;
+  readonly y?: number;
+  readonly width?: number;
+  readonly height?: number;
+  constructor(init: ModelInit<ImageCrop>);
+}
+
 export declare class StoredFile {
   readonly key: string;
   readonly mimeType: string;
@@ -64,15 +79,6 @@ export declare class AudioRegion {
   constructor(init: ModelInit<AudioRegion>);
 }
 
-export declare class ImageCrop {
-  readonly aspect?: number;
-  readonly x?: number;
-  readonly y?: number;
-  readonly width?: number;
-  readonly height?: number;
-  constructor(init: ModelInit<ImageCrop>);
-}
-
 export declare class ClipMetadata {
   readonly name: string;
   readonly keyboardKey?: string;
@@ -89,12 +95,6 @@ export declare class EditedAudio {
   readonly region?: AudioRegion;
   readonly file?: StoredFile;
   constructor(init: ModelInit<EditedAudio>);
-}
-
-export declare class EditedImage {
-  readonly crop?: ImageCrop;
-  readonly file?: StoredFile;
-  constructor(init: ModelInit<EditedImage>);
 }
 
 export declare class EditableAudio {
@@ -127,6 +127,7 @@ export declare class Project {
   readonly access: ProjetAccess | keyof typeof ProjetAccess;
   readonly meta: Metadata;
   readonly remix: RemixMetadata;
+  readonly image?: EditedImage;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Project>);

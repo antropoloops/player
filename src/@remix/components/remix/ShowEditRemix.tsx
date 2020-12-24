@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import routes from "../../../routes";
 import { randomColor } from "../../helpers/colorHelpers";
 import BackToLink from "../../../components/BackToLink";
+import DeleteAction from "../shared/DeleteAction";
 
 type Props = {
   group: Group;
@@ -89,28 +90,25 @@ export default function ShowEditRemix({
             >
               Editar
             </ActionButton>
-            <ActionButton
-              colors="bg-remixes text-black"
-              className="mr-4"
-              icon={AddIcon}
-              onClick={addTrack}
-            >
+            <ActionButton className="mr-4" icon={AddIcon} onClick={addTrack}>
               Añadir pista
             </ActionButton>
-            <ActionButton
-              disabled={!!(tracks.length || samples.length)}
-              colors="bg-transparent text-white"
-              icon={DeleteIcon}
-              smallIcon
-              onClick={() => {
-                deleteRemix(remix).then(() => {
-                  history.push(routes.remixes());
-                });
-              }}
-            >
-              Borrar remix
-            </ActionButton>
           </div>
+          <DeleteAction
+            disabled={
+              tracks.length || samples.length
+                ? "No se puede borrar porque no está vacío"
+                : ""
+            }
+            message="Vas a borrar ésta remezcla"
+            onClick={() => {
+              deleteRemix(remix).then(() => {
+                history.push(routes.remixes());
+              });
+            }}
+          >
+            Borrar remezcla
+          </DeleteAction>
         </>
       )}
       {/* <pre className="text-sm">

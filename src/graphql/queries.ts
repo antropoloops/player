@@ -145,6 +145,25 @@ export const getProject = /* GraphQL */ `
       remix {
         bmp
       }
+      image {
+        crop {
+          aspect
+          x
+          y
+          width
+          height
+        }
+        file {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+      }
       createdAt
       updatedAt
       _version

@@ -95,6 +95,25 @@ export const createProject = /* GraphQL */ `
       remix {
         bmp
       }
+      image {
+        crop {
+          aspect
+          x
+          y
+          width
+          height
+        }
+        file {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+      }
       createdAt
       updatedAt
       _version
@@ -124,6 +143,25 @@ export const updateProject = /* GraphQL */ `
       remix {
         bmp
       }
+      image {
+        crop {
+          aspect
+          x
+          y
+          width
+          height
+        }
+        file {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
+      }
       createdAt
       updatedAt
       _version
@@ -152,6 +190,25 @@ export const deleteProject = /* GraphQL */ `
       }
       remix {
         bmp
+      }
+      image {
+        crop {
+          aspect
+          x
+          y
+          width
+          height
+        }
+        file {
+          key
+          mimeType
+          fileName
+          fileSize
+          thumbnail
+          duration
+          width
+          height
+        }
       }
       createdAt
       updatedAt

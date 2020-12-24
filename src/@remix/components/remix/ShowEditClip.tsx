@@ -141,7 +141,6 @@ export default function ShowEditClip({
               : routes.remix(remix.id)
           );
         }}
-        smallIcon
       >
         Borrar clip
       </DeleteAction>
