@@ -53,9 +53,8 @@ export default function ShowEditTrack({
         projectID: remix.id,
         trackID: track.id,
         meta: {
-          title: "Clip sin título",
+          name: "Clip sin título",
         },
-        clip: {},
       })
     );
     history.push(routes.remixClip(remix.id, clip.id));
@@ -123,8 +122,8 @@ export default function ShowEditTrack({
 
           <div className="mt-16">
             {samples.map((sample) => {
-              const name = sample.meta?.title;
-              const thumbnail = sample.audioFile?.thumbnail;
+              const name = sample.meta.name;
+              const thumbnail = sample.audio?.current.file?.thumbnail;
               return (
                 <Link
                   key={sample.id}

@@ -327,49 +327,17 @@ export const schema = {
                     "name": "meta",
                     "isArray": false,
                     "type": {
-                        "nonModel": "Metadata"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "clip": {
-                    "name": "clip",
-                    "isArray": false,
-                    "type": {
                         "nonModel": "ClipMetadata"
                     },
                     "isRequired": true,
-                    "attributes": []
-                },
-                "audioID": {
-                    "name": "audioID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
                     "attributes": []
                 },
                 "audio": {
                     "name": "audio",
                     "isArray": false,
                     "type": {
-                        "nonModel": "AudioRegion"
+                        "nonModel": "EditableAudio"
                     },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "audioFile": {
-                    "name": "audioFile",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "StoredFile"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "imageID": {
-                    "name": "imageID",
-                    "isArray": false,
-                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -377,16 +345,7 @@ export const schema = {
                     "name": "image",
                     "isArray": false,
                     "type": {
-                        "nonModel": "ImageCrop"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "imageFile": {
-                    "name": "imageFile",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "StoredFile"
+                        "nonModel": "EditableImage"
                     },
                     "isRequired": false,
                     "attributes": []
@@ -681,6 +640,13 @@ export const schema = {
         "ClipMetadata": {
             "name": "ClipMetadata",
             "fields": {
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "keyboardKey": {
                     "name": "keyboardKey",
                     "isArray": false,
@@ -689,7 +655,120 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "MediaResource": {
+            "name": "MediaResource",
+            "fields": {
+                "mediaID": {
+                    "name": "mediaID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "file": {
+                    "name": "file",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "EditedAudio": {
+            "name": "EditedAudio",
+            "fields": {
+                "region": {
+                    "name": "region",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "AudioRegion"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "file": {
+                    "name": "file",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "EditedImage": {
+            "name": "EditedImage",
+            "fields": {
+                "crop": {
+                    "name": "crop",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "ImageCrop"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "file": {
+                    "name": "file",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "StoredFile"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "EditableAudio": {
+            "name": "EditableAudio",
+            "fields": {
+                "original": {
+                    "name": "original",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "MediaResource"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "current": {
+                    "name": "current",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "EditedAudio"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "EditableImage": {
+            "name": "EditableImage",
+            "fields": {
+                "original": {
+                    "name": "original",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "MediaResource"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "current": {
+                    "name": "current",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "EditedImage"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
         }
     },
-    "version": "88fd3c91608a804229c487ae15acd89f"
+    "version": "818b4ae8c3e79f7ae85e13b46bbf946b"
 };

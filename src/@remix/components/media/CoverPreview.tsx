@@ -5,11 +5,11 @@ import { useStorageUrl } from "../../../@backend/hooks/useStorage";
 
 type Props = {
   className?: string;
-  cover?: Clip;
+  clip?: Clip;
 };
 
-export default function CoverPreview({ className, cover }: Props) {
-  const file = cover?.imageFile;
+export default function CoverPreview({ className, clip }: Props) {
+  const file = clip?.image?.current.file;
   const { url } = useStorageUrl(file?.key);
 
   const imgSrc = url || EmptyImages.light;

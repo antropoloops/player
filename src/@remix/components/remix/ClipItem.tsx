@@ -13,8 +13,8 @@ type Props = {
 };
 
 export default function ClipItem({ className, remix, clip, track }: Props) {
-  const thumbnail = clip.audioFile?.thumbnail;
-  const { image } = useStorageImage(clip.imageFile?.key);
+  const thumbnail = clip.audio?.current.file?.thumbnail;
+  const { image } = useStorageImage(clip.image?.current.file?.key);
 
   return (
     <MediaObject
@@ -28,7 +28,7 @@ export default function ClipItem({ className, remix, clip, track }: Props) {
       style={{ backgroundColor: track.meta.color }}
     >
       <div className="mx-1 flex-grow">
-        <div className="text-xs my-1 truncate">{clip.meta?.title}</div>
+        <div className="text-xs my-1 truncate">{clip.meta?.name}</div>
         <Waveform
           className="opacity-50"
           width={100}

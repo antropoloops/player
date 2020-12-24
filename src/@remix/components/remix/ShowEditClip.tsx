@@ -3,14 +3,13 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { DesktopView, Title } from "../../../@core/components";
 import BackToLink from "../../../components/BackToLink";
-import { Group, Media, Project, Clip, Track } from "../../../models";
+import { Group, Project, Clip, Track } from "../../../models";
 import routes from "../../../routes";
 import SamplePreview from "../SamplePreview";
 import DeleteAction from "../shared/DeleteAction";
 import CoverPreview from "../media/CoverPreview";
 import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
-import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
 import ActionButton from "../shared/ActionButton";
 import ActionLink from "../shared/ActionLink";
 import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
@@ -40,17 +39,23 @@ export default function ShowEditClip({
   const ctx = useSimpleAudioContext();
 
   const track = tracks.find((t) => t.id === clip.trackID);
-  // @meta
-  const title = clip.meta?.title;
+  const title = clip.meta.name;
 
   const uploadCover = async (file: File) => {
     const uploader = imageUploader(group, remix);
     const image = await uploader(file);
     await DataStore.save(
       Clip.copyOf(clip, (draft) => {
-        draft.imageID = image.id;
-        draft.imageFile = image.file;
-        draft.image = {};
+        draft.image = {
+          original: {
+            mediaID: image.id,
+            file: image.file,
+          },
+          current: {
+            file: image.file,
+            crop: {},
+          },
+        };
       })
     );
     return clip.id;
@@ -61,11 +66,18 @@ export default function ShowEditClip({
     const audio = await uploader(file);
     await DataStore.save(
       Clip.copyOf(clip, (draft) => {
-        draft.audioID = audio.id;
-        draft.audioFile = audio.file;
         draft.audio = {
-          offset: 0,
-          duration: audio.file.duration || 0,
+          original: {
+            mediaID: audio.id,
+            file: audio.file,
+          },
+          current: {
+            file: audio.file,
+            region: {
+              offset: 0,
+              duration: audio.file.duration || 0,
+            },
+          },
         };
       })
     );
@@ -81,9 +93,9 @@ export default function ShowEditClip({
       )}
       <Title level={1}>{title}</Title>
 
-      <CoverPreview cover={clip} className="my-4" />
+      <CoverPreview clip={clip} className="my-4" />
       <div className="flex">
-        {clip.imageID && (
+        {clip.image && (
           <ActionLink
             to={routes.remixCover(remix.id, clip.id)}
             icon={EditIcon}
@@ -100,12 +112,12 @@ export default function ShowEditClip({
           smallIcon
           uploadFile={uploadCover}
         >
-          {clip.imageID ? "Cambiar portada" : "Añadir portada"}
+          {clip.image ? "Cambiar portada" : "Añadir portada"}
         </FilesInput>
       </div>
-      <SamplePreview className="mt-8" sample={clip} track={track} />
+      <SamplePreview className="mt-8" clip={clip} track={track} />
       <div className="flex my-4">
-        {clip.audioID && <ActionButton>Editar sonido</ActionButton>}
+        {clip.audio && <ActionButton>Editar sonido</ActionButton>}
         <FilesInput
           fileType="audio"
           maxFiles={1}
@@ -114,7 +126,7 @@ export default function ShowEditClip({
           smallIcon
           uploadFile={uploadSample}
         >
-          {clip.audioID ? "Cambiar sonido" : "Añadir sonido"}
+          {clip.audio ? "Cambiar sonido" : "Añadir sonido"}
         </FilesInput>
       </div>
 

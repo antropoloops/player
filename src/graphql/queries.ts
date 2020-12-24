@@ -409,48 +409,8 @@ export const syncClips = /* GraphQL */ `
         projectID
         trackID
         meta {
-          title
-          description
-          authors
-          credits
-          licenses
-          readme
-        }
-        clip {
+          name
           keyboardKey
-        }
-        audioID
-        audio {
-          offset
-          duration
-        }
-        audioFile {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
-        }
-        imageID
-        image {
-          aspect
-          x
-          y
-          width
-          height
-        }
-        imageFile {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
         }
         createdAt
         updatedAt
@@ -471,48 +431,18 @@ export const getClip = /* GraphQL */ `
       projectID
       trackID
       meta {
-        title
-        description
-        authors
-        credits
-        licenses
-        readme
-      }
-      clip {
+        name
         keyboardKey
       }
-      audioID
       audio {
-        offset
-        duration
+        original {
+          mediaID
+        }
       }
-      audioFile {
-        key
-        mimeType
-        fileName
-        fileSize
-        thumbnail
-        duration
-        width
-        height
-      }
-      imageID
       image {
-        aspect
-        x
-        y
-        width
-        height
-      }
-      imageFile {
-        key
-        mimeType
-        fileName
-        fileSize
-        thumbnail
-        duration
-        width
-        height
+        original {
+          mediaID
+        }
       }
       createdAt
       updatedAt
@@ -535,48 +465,8 @@ export const listClips = /* GraphQL */ `
         projectID
         trackID
         meta {
-          title
-          description
-          authors
-          credits
-          licenses
-          readme
-        }
-        clip {
+          name
           keyboardKey
-        }
-        audioID
-        audio {
-          offset
-          duration
-        }
-        audioFile {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
-        }
-        imageID
-        image {
-          aspect
-          x
-          y
-          width
-          height
-        }
-        imageFile {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
         }
         createdAt
         updatedAt

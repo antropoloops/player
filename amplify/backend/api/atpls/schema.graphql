@@ -118,7 +118,33 @@ type ImageCrop {
 }
 
 type ClipMetadata {
+  name: String!
   keyboardKey: String
+}
+
+type MediaResource {
+  mediaID: ID
+  file: StoredFile
+}
+
+type EditedAudio {
+  region: AudioRegion
+  file: StoredFile
+}
+
+type EditedImage {
+  crop: ImageCrop
+  file: StoredFile
+}
+
+type EditableAudio {
+  original: MediaResource!
+  current: EditedAudio!
+}
+
+type EditableImage {
+  original: MediaResource!
+  current: EditedImage!
 }
 
 type Clip
@@ -130,16 +156,10 @@ type Clip
   projectID: ID!
   trackID: ID!
 
-  meta: Metadata!
-  clip: ClipMetadata!
+  meta: ClipMetadata!
 
-  # Clip can have one audio and/or one image
-  audioID: ID
-  audio: AudioRegion
-  audioFile: StoredFile
-  imageID: ID
-  image: ImageCrop
-  imageFile: StoredFile
+  audio: EditableAudio
+  image: EditableImage
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

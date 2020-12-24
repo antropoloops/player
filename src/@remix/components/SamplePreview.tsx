@@ -1,5 +1,5 @@
 import React from "react";
-import { Media, Clip, Track } from "../../models";
+import { Clip, Track } from "../../models";
 import useAudioFile from "../hooks/useAudioFile";
 import { Waveform } from "../../@sounds/components/Waveform";
 import { formatDuration } from "../../@sounds/helpers/timeHelpers";
@@ -9,11 +9,11 @@ import { usePlayBuffer } from "../hooks/usePlayBuffer";
 type Props = {
   className?: string;
   track?: Track;
-  sample: Clip;
+  clip: Clip;
 };
 
-export default function SamplePreview({ className, sample, track }: Props) {
-  const file = sample.audioFile;
+export default function SamplePreview({ className, clip, track }: Props) {
+  const file = clip.audio?.current.file;
   const thumbnail = file?.thumbnail || "";
 
   const { buffer, load } = useAudioFile(file);

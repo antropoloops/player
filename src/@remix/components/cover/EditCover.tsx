@@ -32,14 +32,13 @@ const getCrop = (crop?: ImageCrop): Crop | undefined => ({
 export default function EditCover({ group, remix, clipId }: Props) {
   const history = useHistory();
   const { data: clip } = useObserveModel(Clip, clipId);
-  const { data: media } = useObserveModel(Media, clip?.imageID);
-  const { image } = useStorageImage(media?.file.key);
+  const { image } = useStorageImage(clip?.image?.original.file?.key);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [crop, setCrop] = useState<Crop | undefined>();
 
   useEffect(() => {
     if (clip) {
-      setCrop(getCrop(clip.image));
+      setCrop(getCrop(clip.image?.current.crop));
     }
   }, [clip]);
 
@@ -50,19 +49,21 @@ export default function EditCover({ group, remix, clipId }: Props) {
     const file = await cropImage(
       imageRef.current,
       crop,
-      media?.file.fileName || ""
+      clip.image?.current.file?.fileName || ""
     );
     if (!file) return;
 
     const newMedia = await upload(file);
     const saved = await DataStore.save(
       Clip.copyOf(clip, (draft) => {
-        draft.image = crop;
-        draft.imageFile = {
-          key: newMedia.file.key,
-          mimeType: "image/jpg",
-          width: crop.width,
-          height: crop.height,
+        if (!draft.image) return;
+
+        draft.image.current = {
+          file: newMedia.file,
+          crop: {
+            width: crop.width,
+            height: crop.height,
+          },
         };
       })
     );

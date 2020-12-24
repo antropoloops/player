@@ -74,8 +74,39 @@ export declare class ImageCrop {
 }
 
 export declare class ClipMetadata {
+  readonly name: string;
   readonly keyboardKey?: string;
   constructor(init: ModelInit<ClipMetadata>);
+}
+
+export declare class MediaResource {
+  readonly mediaID?: string;
+  readonly file?: StoredFile;
+  constructor(init: ModelInit<MediaResource>);
+}
+
+export declare class EditedAudio {
+  readonly region?: AudioRegion;
+  readonly file?: StoredFile;
+  constructor(init: ModelInit<EditedAudio>);
+}
+
+export declare class EditedImage {
+  readonly crop?: ImageCrop;
+  readonly file?: StoredFile;
+  constructor(init: ModelInit<EditedImage>);
+}
+
+export declare class EditableAudio {
+  readonly original: MediaResource;
+  readonly current: EditedAudio;
+  constructor(init: ModelInit<EditableAudio>);
+}
+
+export declare class EditableImage {
+  readonly original: MediaResource;
+  readonly current: EditedImage;
+  constructor(init: ModelInit<EditableImage>);
 }
 
 export declare class Group {
@@ -140,14 +171,9 @@ export declare class Clip {
   readonly groupID: string;
   readonly projectID: string;
   readonly trackID: string;
-  readonly meta: Metadata;
-  readonly clip: ClipMetadata;
-  readonly audioID?: string;
-  readonly audio?: AudioRegion;
-  readonly audioFile?: StoredFile;
-  readonly imageID?: string;
-  readonly image?: ImageCrop;
-  readonly imageFile?: StoredFile;
+  readonly meta: ClipMetadata;
+  readonly audio?: EditableAudio;
+  readonly image?: EditableImage;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Clip>);
