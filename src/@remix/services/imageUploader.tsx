@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import { encode } from "blurhash";
 import { Storage } from "@aws-amplify/storage";
 import { DataStore } from "@aws-amplify/datastore";
 import { Group, Media, Project, MediaType } from "../../@backend/datastore";
@@ -10,7 +11,11 @@ export function imageUploader(group: Group, project: Project) {
       `${group.id}/${project.id}/${uuid()}`,
       file
     );
-    const image = await DataStore.save(
+    const url = URL.createObjectURL(file);
+    const image = await loadImage(url);
+    const thumbnail = await encodeImageToBlurhash(image);
+
+    const media = await DataStore.save(
       new Media({
         type: MediaType.IMAGE,
         groupID: group.id,
@@ -23,10 +28,13 @@ export function imageUploader(group: Group, project: Project) {
           mimeType: file.type,
           fileName: file.name,
           fileSize: file.size,
+          width: image.width,
+          height: image.height,
+          thumbnail,
         },
       })
     );
-    return image;
+    return media;
   };
 
   return uploadFile;
@@ -78,4 +86,33 @@ export function cropImage(
       1
     );
   });
+}
+
+async function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = (error: any) => reject(error);
+    img.src = src;
+  });
+}
+
+function getImageData(image: HTMLImageElement): ImageData | undefined {
+  const canvas = document.createElement("canvas");
+  canvas.width = image.width;
+  canvas.height = image.height;
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  context.drawImage(image, 0, 0);
+  return context.getImageData(0, 0, image.width, image.height);
+}
+
+async function encodeImageToBlurhash(image: HTMLImageElement): Promise<string> {
+  const imageData = getImageData(image);
+  if (!imageData) {
+    return "";
+  }
+
+  return encode(imageData.data, imageData.width, imageData.height, 4, 4);
 }
