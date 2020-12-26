@@ -4,8 +4,8 @@ import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import Layout from "../../components/layout/Layout";
 import RemixBrowser from "../components/remix/RemixBrowser";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
-import ShowEditTrack from "../components/remix/ShowEditTrack";
-import ShowEditClip from "../components/remix/ShowEditClip";
+import ShowEditTrack from "../components/track/ShowEditTrack";
+import ShowEditClip from "../components/clip/ShowEditClip";
 import EditClipCover from "../components/clip/EditClipCover";
 import { Project, Clip, Track } from "../../models";
 import {

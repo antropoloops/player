@@ -8,8 +8,10 @@ import routes from "../../../routes";
 import TrackContainer from "../../../components/simple-player/TrackContainer";
 import { Project, Clip, Track, Media } from "../../../models";
 import { useObserveList } from "../../../@backend/hooks/useObserveModel";
-import ClipItem from "./ClipItem";
 import { useStorageUrl } from "../../../@backend/hooks/useStorage";
+import { Waveform } from "../../../@sounds/components/Waveform";
+import MediaObject from "../../../components/MediaObject";
+import { useStorageImage } from "../../../@backend/hooks/useStorage";
 
 type Params = {
   id: string;
@@ -101,3 +103,38 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
 }
 
 export default RemixShowPage;
+
+type ClipItemProps = {
+  className?: string;
+  remix: Project;
+  clip: Clip;
+  track: Track;
+};
+
+function ClipItem({ className, remix, clip, track }: ClipItemProps) {
+  const thumbnail = clip.audio?.current.file?.thumbnail;
+  const { image } = useStorageImage(clip.image?.current.file?.key);
+
+  return (
+    <MediaObject
+      key={clip.id}
+      alt={""}
+      image={image?.src}
+      margin=""
+      imageSize="w-cover-mini"
+      ratio="1:1"
+      to={routes.remixClip(remix.id, clip.id)}
+      style={{ backgroundColor: track.meta.color }}
+    >
+      <div className="mx-1 flex-grow">
+        <div className="text-xs my-1 truncate">{clip.meta?.name}</div>
+        <Waveform
+          className="opacity-50"
+          width={100}
+          height={10}
+          points={thumbnail || ""}
+        />
+      </div>
+    </MediaObject>
+  );
+}
