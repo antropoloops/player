@@ -16,6 +16,8 @@ import routes from "../../../routes";
 import { randomColor } from "../../helpers/colorHelpers";
 import BackToLink from "../../../components/BackToLink";
 import DeleteAction from "../shared/DeleteAction";
+import ShowEditImage from "../image/ShowEditImage";
+import { imageUploader } from "../../services/imageUploader";
 
 type Props = {
   group: Group;
@@ -36,6 +38,26 @@ export default function ShowEditRemix({
 }: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+
+  const uploadCover = async (file: File) => {
+    const uploader = imageUploader(group, remix);
+    const image = await uploader(file);
+    await DataStore.save(
+      Project.copyOf(remix, (draft) => {
+        draft.image = {
+          original: {
+            mediaID: image.id,
+            file: image.file,
+          },
+          current: {
+            file: image.file,
+            crop: {},
+          },
+        };
+      })
+    );
+    return remix.id;
+  };
 
   const addTrack = async () => {
     const track = await DataStore.save(
@@ -94,6 +116,12 @@ export default function ShowEditRemix({
               Añadir pista
             </ActionButton>
           </div>
+          <ShowEditImage
+            editableImage={remix.image}
+            editPath={routes.remixEditItem(remix.id, "cover")}
+            uploadCover={uploadCover}
+            aspect="16:9"
+          />
           <DeleteAction
             disabled={
               tracks.length || samples.length

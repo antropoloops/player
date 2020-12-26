@@ -31,7 +31,7 @@ const getCrop = (aspect: number, crop?: ImageCrop): Crop | undefined => ({
   x: crop?.x || 0,
   y: crop?.y || 0,
   width: crop?.width || 300,
-  height: crop?.height || 300,
+  height: crop?.height || 300 / aspect,
   unit: "px",
 });
 

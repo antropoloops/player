@@ -7,14 +7,13 @@ import { Group, Project, Clip, Track } from "../../../models";
 import routes from "../../../routes";
 import SamplePreview from "../SamplePreview";
 import DeleteAction from "../shared/DeleteAction";
-import CoverPreview from "../media/CoverPreview";
 import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
 import ActionButton from "../shared/ActionButton";
-import ActionLink from "../shared/ActionLink";
-import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
+import { CloudUploadIcon } from "../../../components/icons/Icons";
 import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
+import ShowEditImage from "../image/ShowEditImage";
 
 type Props = {
   className?: string;
@@ -93,28 +92,13 @@ export default function ShowEditClip({
       )}
       <Title level={1}>{title}</Title>
 
-      <CoverPreview clip={clip} className="my-4" />
-      <div className="flex">
-        {clip.image && (
-          <ActionLink
-            to={routes.remixCover(remix.id, clip.id)}
-            icon={EditIcon}
-            smallIcon
-          >
-            Editar portada
-          </ActionLink>
-        )}
-        <FilesInput
-          fileType="image"
-          maxFiles={1}
-          className="mr-4"
-          icon={CloudUploadIcon}
-          smallIcon
-          uploadFile={uploadCover}
-        >
-          {clip.image ? "Cambiar portada" : "Añadir portada"}
-        </FilesInput>
-      </div>
+      <ShowEditImage
+        aspect="1"
+        editableImage={clip.image}
+        uploadCover={uploadCover}
+        editPath={routes.remixCover(remix.id, clip.id)}
+      />
+
       <SamplePreview className="mt-8" clip={clip} track={track} />
       <div className="flex my-4">
         {clip.audio && <ActionButton>Editar sonido</ActionButton>}

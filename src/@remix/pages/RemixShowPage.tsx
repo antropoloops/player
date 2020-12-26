@@ -6,12 +6,15 @@ import RemixBrowser from "../components/remix/RemixBrowser";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
 import ShowEditTrack from "../components/remix/ShowEditTrack";
 import ShowEditClip from "../components/remix/ShowEditClip";
-import EditCover from "../components/clip/EditCover";
+import EditClipCover from "../components/clip/EditClipCover";
 import { Project, Clip, Track } from "../../models";
 import {
   useObserveList,
   useObserveModel,
 } from "../../@backend/hooks/useObserveModel";
+import EditImage from "../components/image/EditImage";
+import routes from "../../routes";
+import { DataStore } from "aws-amplify";
 
 type Params = {
   id: string;
@@ -42,8 +45,25 @@ export function RemixShowPage({ className }: Props) {
   const sample = clips.find((track) => track.id === params.childId);
 
   const editor =
-    !group || !remix ? null : params.type === "i" ? (
-      <EditCover group={group} remix={remix} clipId={params.childId} />
+    !group || !remix ? null : params.type === "cover" ? (
+      <EditImage
+        group={group}
+        remix={remix}
+        aspect={16 / 9}
+        backTo={routes.remix(remix.id)}
+        editableImage={remix.image}
+        saveImage={async (current) => {
+          return DataStore.save(
+            Project.copyOf(remix, (draft) => {
+              if (draft.image) {
+                draft.image.current = current;
+              }
+            })
+          );
+        }}
+      />
+    ) : params.type === "i" ? (
+      <EditClipCover group={group} remix={remix} clipId={params.childId} />
     ) : sample && params.type === "c" ? (
       <ShowEditClip
         group={group}

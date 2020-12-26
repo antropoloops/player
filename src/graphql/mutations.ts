@@ -96,22 +96,8 @@ export const createProject = /* GraphQL */ `
         bmp
       }
       image {
-        crop {
-          aspect
-          x
-          y
-          width
-          height
-        }
-        file {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
+        original {
+          mediaID
         }
       }
       createdAt
@@ -144,22 +130,8 @@ export const updateProject = /* GraphQL */ `
         bmp
       }
       image {
-        crop {
-          aspect
-          x
-          y
-          width
-          height
-        }
-        file {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
+        original {
+          mediaID
         }
       }
       createdAt
@@ -192,22 +164,8 @@ export const deleteProject = /* GraphQL */ `
         bmp
       }
       image {
-        crop {
-          aspect
-          x
-          y
-          width
-          height
-        }
-        file {
-          key
-          mimeType
-          fileName
-          fileSize
-          thumbnail
-          duration
-          width
-          height
+        original {
+          mediaID
         }
       }
       createdAt

@@ -29,7 +29,7 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   meta: Metadata!
 
   remix: RemixMetadata!
-  image: EditedImage
+  image: EditableImage
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime

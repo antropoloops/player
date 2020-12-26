@@ -38,6 +38,30 @@ export declare class RemixMetadata {
   constructor(init: ModelInit<RemixMetadata>);
 }
 
+export declare class EditableImage {
+  readonly original: MediaResource;
+  readonly current: EditedImage;
+  constructor(init: ModelInit<EditableImage>);
+}
+
+export declare class MediaResource {
+  readonly mediaID?: string;
+  readonly file?: StoredFile;
+  constructor(init: ModelInit<MediaResource>);
+}
+
+export declare class StoredFile {
+  readonly key: string;
+  readonly mimeType: string;
+  readonly fileName?: string;
+  readonly fileSize?: number;
+  readonly thumbnail?: string;
+  readonly duration?: number;
+  readonly width?: number;
+  readonly height?: number;
+  constructor(init: ModelInit<StoredFile>);
+}
+
 export declare class EditedImage {
   readonly crop?: ImageCrop;
   readonly file?: StoredFile;
@@ -51,18 +75,6 @@ export declare class ImageCrop {
   readonly width?: number;
   readonly height?: number;
   constructor(init: ModelInit<ImageCrop>);
-}
-
-export declare class StoredFile {
-  readonly key: string;
-  readonly mimeType: string;
-  readonly fileName?: string;
-  readonly fileSize?: number;
-  readonly thumbnail?: string;
-  readonly duration?: number;
-  readonly width?: number;
-  readonly height?: number;
-  constructor(init: ModelInit<StoredFile>);
 }
 
 export declare class TrackMetadata {
@@ -85,12 +97,6 @@ export declare class ClipMetadata {
   constructor(init: ModelInit<ClipMetadata>);
 }
 
-export declare class MediaResource {
-  readonly mediaID?: string;
-  readonly file?: StoredFile;
-  constructor(init: ModelInit<MediaResource>);
-}
-
 export declare class EditedAudio {
   readonly region?: AudioRegion;
   readonly file?: StoredFile;
@@ -101,12 +107,6 @@ export declare class EditableAudio {
   readonly original: MediaResource;
   readonly current: EditedAudio;
   constructor(init: ModelInit<EditableAudio>);
-}
-
-export declare class EditableImage {
-  readonly original: MediaResource;
-  readonly current: EditedImage;
-  constructor(init: ModelInit<EditableImage>);
 }
 
 export declare class Group {
@@ -127,7 +127,7 @@ export declare class Project {
   readonly access: ProjetAccess | keyof typeof ProjetAccess;
   readonly meta: Metadata;
   readonly remix: RemixMetadata;
-  readonly image?: EditedImage;
+  readonly image?: EditableImage;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Project>);

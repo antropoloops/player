@@ -83,7 +83,7 @@ export type CreateProjectInput = {
   access: ProjetAccess;
   meta: MetadataInput;
   remix: RemixMetadataInput;
-  image?: EditedImageInput | null;
+  image?: EditableImageInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -102,17 +102,14 @@ export type RemixMetadataInput = {
   bmp?: number | null;
 };
 
-export type EditedImageInput = {
-  crop?: ImageCropInput | null;
-  file?: StoredFileInput | null;
+export type EditableImageInput = {
+  original: MediaResourceInput;
+  current: EditedImageInput;
 };
 
-export type ImageCropInput = {
-  aspect?: number | null;
-  x?: number | null;
-  y?: number | null;
-  width?: number | null;
-  height?: number | null;
+export type MediaResourceInput = {
+  mediaID?: string | null;
+  file?: StoredFileInput | null;
 };
 
 export type StoredFileInput = {
@@ -122,6 +119,19 @@ export type StoredFileInput = {
   fileSize?: number | null;
   thumbnail?: string | null;
   duration?: number | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+export type EditedImageInput = {
+  crop?: ImageCropInput | null;
+  file?: StoredFileInput | null;
+};
+
+export type ImageCropInput = {
+  aspect?: number | null;
+  x?: number | null;
+  y?: number | null;
   width?: number | null;
   height?: number | null;
 };
@@ -170,7 +180,7 @@ export type UpdateProjectInput = {
   access?: ProjetAccess | null;
   meta?: MetadataInput | null;
   remix?: RemixMetadataInput | null;
-  image?: EditedImageInput | null;
+  image?: EditableImageInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -296,11 +306,6 @@ export type EditableAudioInput = {
   current: EditedAudioInput;
 };
 
-export type MediaResourceInput = {
-  mediaID?: string | null;
-  file?: StoredFileInput | null;
-};
-
 export type EditedAudioInput = {
   region?: AudioRegionInput | null;
   file?: StoredFileInput | null;
@@ -309,11 +314,6 @@ export type EditedAudioInput = {
 export type AudioRegionInput = {
   offset: number;
   duration: number;
-};
-
-export type EditableImageInput = {
-  original: MediaResourceInput;
-  current: EditedImageInput;
 };
 
 export type ModelClipConditionInput = {
@@ -507,26 +507,11 @@ export type CreateProjectMutation = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -562,26 +547,11 @@ export type UpdateProjectMutation = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -617,26 +587,11 @@ export type DeleteProjectMutation = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -1119,26 +1074,11 @@ export type GetProjectQuery = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -1597,26 +1537,11 @@ export type OnCreateProjectSubscription = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -1647,26 +1572,11 @@ export type OnUpdateProjectSubscription = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;
@@ -1697,26 +1607,11 @@ export type OnDeleteProjectSubscription = {
       bmp: number | null;
     };
     image: {
-      __typename: "EditedImage";
-      crop: {
-        __typename: "ImageCrop";
-        aspect: number | null;
-        x: number | null;
-        y: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
-      file: {
-        __typename: "StoredFile";
-        key: string;
-        mimeType: string;
-        fileName: string | null;
-        fileSize: number | null;
-        thumbnail: string | null;
-        duration: number | null;
-        width: number | null;
-        height: number | null;
-      } | null;
+      __typename: "EditableImage";
+      original: {
+        __typename: "MediaResource";
+        mediaID: string | null;
+      };
     } | null;
     createdAt: string | null;
     updatedAt: string | null;

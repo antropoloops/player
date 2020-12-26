@@ -10,7 +10,7 @@ type Props = {
   clipId?: string;
 };
 
-export default function EditCover({ group, remix, clipId }: Props) {
+export default function EditClipCover({ group, remix, clipId }: Props) {
   const { data: clip } = useObserveModel(Clip, clipId);
 
   return (

@@ -9,6 +9,7 @@ import TrackContainer from "../../../components/simple-player/TrackContainer";
 import { Project, Clip, Track, Media } from "../../../models";
 import { useObserveList } from "../../../@backend/hooks/useObserveModel";
 import ClipItem from "./ClipItem";
+import { useStorageUrl } from "../../../@backend/hooks/useStorage";
 
 type Params = {
   id: string;
@@ -30,6 +31,7 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
   const { data: files } = useObserveList(Media, remix.id, (t) =>
     t.projectID("eq", params.id)
   );
+  const { url: coverUrl } = useStorageUrl(remix.image?.current.file?.key);
 
   const gotoTrack = (track: Track) =>
     history.push(routes.remixTrack(params.id, track.id));
@@ -37,8 +39,16 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
   return (
     <div className={className}>
       <BackToLink to={routes.remixes()} label="Remezclas" />
-      <Link to={routes.remix(params.id)}>
-        <img src={"/images/gray-light.png"} alt="Remix" />
+      <Link className="relative ratio" to={routes.remix(params.id)}>
+        <svg className="text-gray-darker" viewBox="0 0 16 9">
+          <rect width="20" height="20" fill="currentColor" />
+        </svg>
+        {coverUrl ? (
+          <div
+            className="absolute inset-0 bg-cover"
+            style={{ backgroundImage: `url(${coverUrl})` }}
+          />
+        ) : null}
       </Link>
       <h2 className="flex text-left p-1 bg-remixes text-bg-dark">
         <Link className="flex-grow" to={routes.remix(params.id)}>

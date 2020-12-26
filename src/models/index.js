@@ -21,7 +21,7 @@ const ImageUnits = {
   "PERCENT": "percent"
 };
 
-const { Group, Project, Media, Track, Clip, Metadata, RemixMetadata, EditedImage, ImageCrop, StoredFile, TrackMetadata, AudioRegion, ClipMetadata, MediaResource, EditedAudio, EditableAudio, EditableImage } = initSchema(schema);
+const { Group, Project, Media, Track, Clip, Metadata, RemixMetadata, EditableImage, MediaResource, StoredFile, EditedImage, ImageCrop, TrackMetadata, AudioRegion, ClipMetadata, EditedAudio, EditableAudio } = initSchema(schema);
 
 export {
   Group,
@@ -35,14 +35,14 @@ export {
   ImageUnits,
   Metadata,
   RemixMetadata,
+  EditableImage,
+  MediaResource,
+  StoredFile,
   EditedImage,
   ImageCrop,
-  StoredFile,
   TrackMetadata,
   AudioRegion,
   ClipMetadata,
-  MediaResource,
   EditedAudio,
-  EditableAudio,
-  EditableImage
+  EditableAudio
 };
