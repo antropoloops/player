@@ -1,4 +1,4 @@
-import { Storage } from "@aws-amplify/storage";
+import { Storage } from "../../@backend/storage";
 import { useEffect, useState } from "react";
 import useSimpleAudioContext from "./useSimpleAudioContext";
 import { StoredFile } from "../../models";

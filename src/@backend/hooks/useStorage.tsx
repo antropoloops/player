@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Storage } from "aws-amplify";
+import { Storage } from "../../@backend/storage";
 import { useQuery } from "react-query";
 
 export function useStorageUrl(key?: string) {

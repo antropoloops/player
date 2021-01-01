@@ -1,5 +1,4 @@
-import { v4 as uuid } from "uuid";
-import { Storage } from "@aws-amplify/storage";
+import { Storage } from "../../@backend/storage";
 import { DataStore } from "@aws-amplify/datastore";
 import { Group, Media, Project, MediaType } from "../../@backend/datastore";
 import { blobToBuffer } from "../../@sounds/lib/web-audio";
@@ -11,10 +10,10 @@ export function audioUploader(
   project: Project
 ) {
   const uploadFile = async (file: File) => {
-    const result: any = await Storage.put(
-      `${group.id}/${project.id}/${uuid()}`,
-      file
-    );
+    const { key } = await Storage.put(file, {
+      groupId: group.id,
+      projectId: project.id,
+    });
     const buffer = await blobToBuffer(ctx, file);
     const points = getPolygonPoints(buffer, 100, 10);
     const duration = buffer.duration;
@@ -27,7 +26,7 @@ export function audioUploader(
           title: file.name,
         },
         file: {
-          key: result.key,
+          key,
           mimeType: file.type,
           fileName: file.name,
           fileSize: file.size,

@@ -7,7 +7,7 @@ import {
   Track,
 } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
-import { AddIcon, DeleteIcon, EditIcon } from "../../../components/icons/Icons";
+import { AddIcon, EditIcon } from "../../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
 import RemixForm from "./RemixForm";
 import ActionButton from "../shared/ActionButton";

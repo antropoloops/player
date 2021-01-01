@@ -1,19 +1,18 @@
-import { v4 as uuid } from "uuid";
 import { encode } from "blurhash";
-import { Storage } from "@aws-amplify/storage";
+import { Storage } from "../../@backend/storage";
 import { DataStore } from "@aws-amplify/datastore";
 import { Group, Media, Project, MediaType } from "../../@backend/datastore";
 import { Crop } from "react-image-crop";
 
 export function imageUploader(group: Group, project: Project) {
   const uploadFile = async (file: File) => {
-    const result: any = await Storage.put(
-      `${group.id}/${project.id}/${uuid()}`,
-      file
-    );
+    const { key } = await Storage.put(file, {
+      groupId: group.id,
+      projectId: project.id,
+    });
     const url = URL.createObjectURL(file);
     const image = await loadImage(url);
-    const thumbnail = await encodeImageToBlurhash(image);
+    const thumbnail = ""; // await encodeImageToBlurhash(image);
 
     const media = await DataStore.save(
       new Media({
@@ -24,7 +23,7 @@ export function imageUploader(group: Group, project: Project) {
           title: file.name,
         },
         file: {
-          key: result.key,
+          key,
           mimeType: file.type,
           fileName: file.name,
           fileSize: file.size,

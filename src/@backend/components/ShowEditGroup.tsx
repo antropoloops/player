@@ -18,7 +18,6 @@ async function deleteGroup(group: Group) {
   const projects = await DataStore.query(Project, (p) =>
     p.groupID("eq", group.id)
   );
-  console.log("tiene proyectos", projects);
   if (projects.length) {
     return false;
   }
