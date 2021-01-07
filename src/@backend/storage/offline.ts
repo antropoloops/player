@@ -1,16 +1,18 @@
 import { openDB, DBSchema, IDBPDatabase, deleteDB } from "idb";
 
-type OfflineStorageStatus = "ready" | "upload" | "delete";
+type SyncStatus = "upload" | "delete";
+
+export type OfflineSyncTask = {
+  key: string;
+  status: SyncStatus;
+  time: number;
+  running?: boolean;
+};
 
 export type OfflineObject = {
   key: string;
   groupID?: string;
   blob: Blob;
-  stats: {
-    status: OfflineStorageStatus;
-    reads: number;
-    updatedAt: Date;
-  };
 };
 
 const DB_NAME = "atpls-offline-storage";
@@ -21,6 +23,10 @@ interface OfflineStorageSchema extends DBSchema {
   blobs: {
     key: string;
     value: OfflineObject;
+  };
+  sync: {
+    key: string;
+    value: OfflineSyncTask;
   };
 }
 
@@ -33,6 +39,9 @@ async function openDatabase() {
   return await openDB<OfflineStorageSchema>(DB_NAME, 1, {
     upgrade(db) {
       db.createObjectStore("blobs", {
+        keyPath: "key",
+      });
+      const sync = db.createObjectStore("sync", {
         keyPath: "key",
       });
     },
