@@ -35,6 +35,8 @@ const routes = {
     `/remezcla/${remixId}/pista/${trackId}`,
   remixClip: (remixId: string, clipId: string) =>
     `/remezcla/${remixId}/clip/${clipId}`,
+  remixClipEdit: (remixId: string, clipId: string) =>
+    `/remezcla/${remixId}/clip/${clipId}/editar`,
   remixCover: (remixId: string) => `/remezcla/${remixId}/portada`,
   remixEditBackground: (remixId: string) => `/remezcla/${remixId}/fondo`,
   remixClipAudio: (remixId: string, clipId: string) =>

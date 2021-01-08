@@ -1,7 +1,7 @@
 import { DataStore } from "aws-amplify";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { DesktopView, Title } from "../../../@core/components";
+import { DesktopView, PropertyList, Title } from "../../../@core/components";
 import { Clip } from "../../../models";
 import routes from "../../../routes";
 import DeleteAction from "../shared/DeleteAction";
@@ -12,6 +12,8 @@ import ShowEditImage from "../image/ImageShow";
 import AudioShow from "../audio/AudioShow";
 import { RemixEditProps } from "../../contexts/RemixContext";
 import RemixNavigation from "../remix/RemixNavigation";
+import ActionLink from "../shared/ActionLink";
+import { EditIcon } from "../../../components/icons/Icons";
 
 const deleteClip = async (clip: Clip) => {
   await DataStore.delete(clip);
@@ -82,6 +84,17 @@ export default function ClipShow({
       <RemixNavigation remix={remix} track={track} current="Clip" />
       <Title level={1}>{title}</Title>
 
+      <ClipProperties className="my-4" clip={clip} />
+      <div className="flex">
+        <ActionLink
+          icon={EditIcon}
+          smallIcon
+          to={routes.remixClipEdit(remix.id, clip.id)}
+        >
+          Editar
+        </ActionLink>
+      </div>
+
       <ShowEditImage
         aspect="1"
         editableImage={clip.image}
@@ -113,5 +126,22 @@ export default function ClipShow({
       </DeleteAction>
       {/* <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre> */}
     </DesktopView>
+  );
+}
+
+function ClipProperties({
+  className,
+  clip,
+}: {
+  className?: string;
+  clip: Clip;
+}) {
+  return (
+    <PropertyList
+      className={className}
+      keys={["name", "keyboardKey"]}
+      labels={{ name: "Nombre", keyboardKey: "tecla" }}
+      values={clip.meta}
+    />
   );
 }

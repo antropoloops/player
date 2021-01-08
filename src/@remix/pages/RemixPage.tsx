@@ -17,8 +17,9 @@ import { DataStore } from "aws-amplify";
 import TrackShow from "../components/track/TrackShow";
 import ClipShow from "../components/clip/ClipShow";
 import { RemixEditProps } from "../contexts/RemixContext";
-import EditClipCover from "../components/clip/ClipEditCover";
-import EditClipAudio from "../components/clip/ClipEditAudio";
+import ClipEditCover from "../components/clip/ClipEditCover";
+import ClipEdit from "../components/clip/ClipEdit";
+import ClipAudioEdit from "../components/clip/ClipEditAudio";
 
 export default function RemixPage() {
   const params = useParams<{ id: string }>();
@@ -73,14 +74,21 @@ export default function RemixPage() {
               exact
               path={routes.remixClipCover(":id", ":clipId")}
               render={({ match: { params } }) => (
-                <EditClipCover {...context} clipId={params.clipId} />
+                <ClipEditCover {...context} clipId={params.clipId} />
               )}
             />
             <Route
               exact
               path={routes.remixClipAudio(":id", ":clipId")}
               render={({ match: { params } }) => (
-                <EditClipAudio {...context} clipId={params.clipId} />
+                <ClipAudioEdit {...context} clipId={params.clipId} />
+              )}
+            />
+            <Route
+              exact
+              path={routes.remixClipEdit(":id", ":clipId")}
+              render={({ match: { params } }) => (
+                <ClipEdit {...context} clipId={params.clipId} />
               )}
             />
 
