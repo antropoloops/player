@@ -752,6 +752,34 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "x": {
+                    "name": "x",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "y": {
+                    "name": "y",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lat": {
+                    "name": "lat",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lng": {
+                    "name": "lng",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
                 }
             }
         },
@@ -802,5 +830,5 @@ export const schema = {
             }
         }
     },
-    "version": "961a5fd86347fe9560bd1af66188cedd"
+    "version": "5a19e3fcd3fed66ff8fd87ccc3bbf09a"
 };

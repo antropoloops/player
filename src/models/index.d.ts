@@ -99,6 +99,10 @@ export declare class AudioRegion {
 export declare class ClipMetadata {
   readonly name: string;
   readonly keyboardKey?: string;
+  readonly x?: number;
+  readonly y?: number;
+  readonly lat?: number;
+  readonly lng?: number;
   constructor(init: ModelInit<ClipMetadata>);
 }
 

@@ -126,12 +126,10 @@ type ImageCrop {
 type ClipMetadata {
   name: String!
   keyboardKey: String
-  position: {
-    x: Float,
-    y: Float
-    lat: Float,
-    lng: Float
-  }
+  x: Float
+  y: Float
+  lat: Float
+  lng: Float
 }
 
 type MediaResource {

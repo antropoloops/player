@@ -24,7 +24,22 @@ Generate TS models:
 amplify codegen models
 ```
 
+Generate GraphlQL code:
+
+```
+amplify codegen
+```
+
 ## Deploy
+
+Ensure both codegen and codegen models are up to date.
+
+```
+amplify env list
+amplify env checkout storm
+amplify push
+amplify env checkout staging
+```
 
 ## License
 
