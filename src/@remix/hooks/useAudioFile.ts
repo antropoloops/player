@@ -1,5 +1,5 @@
 import { Storage } from "../../@backend/storage";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useSimpleAudioContext from "./useSimpleAudioContext";
 import { StoredFile } from "../../models";
 
@@ -17,7 +17,7 @@ export default function useAudioFile(file?: StoredFile) {
     }
   }, [file, currentKey]);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     if (!file) return;
     try {
       setIsLoading(true);
@@ -32,7 +32,7 @@ export default function useAudioFile(file?: StoredFile) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [file, ctx]);
 
   return { buffer, load, isLoading, error };
 }

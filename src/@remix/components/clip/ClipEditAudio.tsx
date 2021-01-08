@@ -1,6 +1,6 @@
 import { Clip, Track, Group, Project } from "../../../models";
 import RemixNavigation from "../remix/RemixNavigation";
-import AudioPreview from "../audio/AudioPreview";
+import AudioEdit from "../audio/AudioEdit";
 import { Heading } from "../../../@core/components";
 
 export default function EditClipAudio({
@@ -24,7 +24,7 @@ export default function EditClipAudio({
       />
       <Heading level={1}>Editar sonido</Heading>
       {clip && (
-        <AudioPreview
+        <AudioEdit
           file={clip.audio?.current.file}
           color={track?.meta.color || "white"}
         />

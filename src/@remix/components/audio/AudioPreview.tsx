@@ -12,7 +12,7 @@ type Props = {
   color: string;
 };
 
-export default function SoundPreview({ className, file, color }: Props) {
+export default function AudioPreview({ className, file, color }: Props) {
   const thumbnail = file?.thumbnail || "";
 
   const { buffer, load } = useAudioFile(file);

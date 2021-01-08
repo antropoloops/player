@@ -27,7 +27,7 @@ export function calculatePolygonPoints(
   bufferDuration: number,
   offset: number,
   duration: number
-) {
+): string {
   const h2 = h / 2,
     step = ((duration / bufferDuration) * data0.length) / w,
     ind = ~~((offset / bufferDuration) * data0.length),
