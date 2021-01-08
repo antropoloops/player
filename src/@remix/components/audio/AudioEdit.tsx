@@ -7,6 +7,7 @@ import { PlayButton } from "../../../@sounds/components/PlayButton";
 import { usePlayBuffer } from "../../hooks/usePlayBuffer";
 import { getPolygonPoints } from "../../../@archive/lib/svg-wave";
 import { useGestureResponder } from "react-gesture-responder";
+import { formatTime } from "../../helpers/timeHelpers";
 
 type Props = {
   className?: string;
@@ -67,15 +68,19 @@ function useAudioRegion() {
     },
   });
 
-  return { left, right, bindLeft, bindRight, waveRef: ref };
+  return { left, right, bindLeft, bindRight, waveRef: ref, width };
 }
 
 export default function AudioEdit({ className, file, color }: Props) {
   const [size, setSize] = useState({ width: 100, height: 10 });
   const [thumbnail, setThumbnail] = useState("");
-  const { left, right, bindLeft, bindRight, waveRef } = useAudioRegion();
+  const { left, right, bindLeft, bindRight, waveRef, width } = useAudioRegion();
 
   const { buffer, load } = useAudioFile(file);
+
+  const pixelsToTime = (position: number, duration: number) => {
+    return (position * duration) / width;
+  };
 
   useEffect(() => {
     if (!buffer) {
@@ -138,14 +143,19 @@ export default function AudioEdit({ className, file, color }: Props) {
           <div
             {...bindLeft}
             className="absolute inset-y-0 w-4 cursor-move"
-            style={{ left }}
+            style={{ left: left - 8 }}
           />
           <div
             {...bindRight}
             className="absolute inset-y-0 w-4 cursor-move"
-            style={{ right }}
+            style={{ right: right - 8 }}
           />
         </div>
+      </div>
+
+      <div>
+        {formatTime(pixelsToTime(left, buffer?.duration || 0))} {pixelsToTime}{" "}
+        {left}
       </div>
     </div>
   );
