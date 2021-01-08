@@ -26,7 +26,12 @@ type Props = {
   clips: Clip[];
 };
 
-export function RemixShowPage({ className, remix, tracks, clips }: Props) {
+export default function RemixBrowser({
+  className,
+  remix,
+  tracks,
+  clips,
+}: Props) {
   const params = useParams<Params>();
   const group = useCurrentGroup();
   const history = useHistory();
@@ -95,8 +100,6 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
     </div>
   );
 }
-
-export default RemixShowPage;
 
 type ClipItemProps = {
   className?: string;

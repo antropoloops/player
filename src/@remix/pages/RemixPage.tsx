@@ -15,10 +15,10 @@ import { DesktopView } from "../../@core/components";
 import EditImage from "../components/image/EditImage";
 import { DataStore } from "aws-amplify";
 import TrackShow from "../components/track/TrackShow";
-import ClipShow from "../components/clip/ShowEditClip";
+import ClipShow from "../components/clip/ClipShow";
 import { RemixEditProps } from "../contexts/RemixContext";
-import EditClipCover from "../components/clip/EditClipCover";
-import EditClipAudio from "../components/clip/EditClipAudio";
+import EditClipCover from "../components/clip/ClipEditCover";
+import EditClipAudio from "../components/clip/ClipEditAudio";
 
 export default function RemixPage() {
   const params = useParams<{ id: string }>();

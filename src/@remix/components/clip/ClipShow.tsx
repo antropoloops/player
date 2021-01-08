@@ -3,23 +3,22 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { DesktopView, Title } from "../../../@core/components";
 import BackToLink from "../../../components/BackToLink";
-import { Group, Project, Clip, Track } from "../../../models";
+import { Clip } from "../../../models";
 import routes from "../../../routes";
 import DeleteAction from "../shared/DeleteAction";
 import { imageUploader } from "../../services/imageUploader";
-import ActionButton from "../shared/ActionButton";
-import { CloudUploadIcon } from "../../../components/icons/Icons";
 import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 import ShowEditImage from "../image/ShowEditImage";
-import ShowEditAudio from "../audio/ShowEditAudio";
+import ShowEditAudio from "../audio/AudioShow";
 import { RemixEditProps } from "../../contexts/RemixContext";
+import RemixNavigation from "../remix/RemixNavigation";
 
 const deleteClip = async (clip: Clip) => {
   await DataStore.delete(clip);
 };
 
-export default function ShowEditClip({
+export default function ClipShow({
   clipId,
   group,
   remix,
@@ -81,6 +80,7 @@ export default function ShowEditClip({
 
   return (
     <DesktopView>
+      <RemixNavigation remix={remix} track={track} clip={clip} />
       {track && (
         <BackToLink to={routes.remixTrack(remix.id, track.id)}>
           {track.meta.name}
