@@ -22,6 +22,8 @@
     "@aws-amplify/datastore": "^2.9.1",
     "@aws-amplify/storage": "^3.3.15",
     "@aws-amplify/ui-react": "^0.2.32",
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.6",
     "@react-hook/window-size": "^3.0.6",
     "@tailwindcss/typography": "^0.2.0",
     "@types/chroma-js": "^1.4.3",

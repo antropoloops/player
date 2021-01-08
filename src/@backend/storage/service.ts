@@ -13,6 +13,12 @@ type StorageGetConfig = {
   download?: boolean;
 };
 
+export async function getBlob(key: string) {
+  const db = await getDatabase();
+  const object = await db.get("blobs", key);
+  return object?.blob;
+}
+
 export async function get(
   key: string,
   config?: StorageGetConfig
@@ -115,4 +121,5 @@ export const Storage = {
   get,
   put,
   remove,
+  getBlob,
 };

@@ -80,10 +80,7 @@ export default function RemixPage() {
               exact
               path={routes.remixClipAudio(":id", ":clipId")}
               render={({ match: { params } }) => (
-                <EditClipAudio
-                  {...context}
-                  clip={clips?.find((c) => c.id === params.clipId)}
-                />
+                <EditClipAudio {...context} clipId={params.clipId} />
               )}
             />
 

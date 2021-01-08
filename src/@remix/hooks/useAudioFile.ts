@@ -1,5 +1,5 @@
 import { Storage } from "../../@backend/storage";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useSimpleAudioContext from "./useSimpleAudioContext";
 import { StoredFile } from "../../models";
 
@@ -21,7 +21,7 @@ export default function useAudioFile(file?: StoredFile) {
     if (!file) return;
     try {
       setIsLoading(true);
-      const signedUrl = await Storage.get(file.key, { download: false });
+      const signedUrl = await Storage.get(file.key);
       const response = await fetch(signedUrl.toString());
       const arrayBuffer = await response.arrayBuffer();
       const buffer = await ctx.decodeAudioData(arrayBuffer);
