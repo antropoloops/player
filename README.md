@@ -34,11 +34,20 @@ amplify codegen
 
 Ensure both codegen and codegen models are up to date.
 
+Try with `storm` (aka development) first.
+
 ```
 amplify env list
 amplify env checkout storm
 amplify push
 amplify env checkout staging
+```
+
+If developed is ready, move to staging:
+
+```
+amplify env checkout staging
+amplify push
 ```
 
 ## License

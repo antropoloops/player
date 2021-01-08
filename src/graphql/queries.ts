@@ -416,6 +416,10 @@ export const syncClips = /* GraphQL */ `
         meta {
           name
           keyboardKey
+          x
+          y
+          lat
+          lng
         }
         createdAt
         updatedAt
@@ -438,6 +442,10 @@ export const getClip = /* GraphQL */ `
       meta {
         name
         keyboardKey
+        x
+        y
+        lat
+        lng
       }
       audio {
         original {
@@ -472,6 +480,10 @@ export const listClips = /* GraphQL */ `
         meta {
           name
           keyboardKey
+          x
+          y
+          lat
+          lng
         }
         createdAt
         updatedAt

@@ -305,6 +305,10 @@ export type CreateClipInput = {
 export type ClipMetadataInput = {
   name: string;
   keyboardKey?: string | null;
+  x?: number | null;
+  y?: number | null;
+  lat?: number | null;
+  lng?: number | null;
 };
 
 export type EditableAudioInput = {
@@ -821,6 +825,10 @@ export type CreateClipMutation = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -860,6 +868,10 @@ export type UpdateClipMutation = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -899,6 +911,10 @@ export type DeleteClipMutation = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -1375,6 +1391,10 @@ export type SyncClipsQuery = {
         __typename: "ClipMetadata";
         name: string;
         keyboardKey: string | null;
+        x: number | null;
+        y: number | null;
+        lat: number | null;
+        lng: number | null;
       };
       createdAt: string | null;
       updatedAt: string | null;
@@ -1402,6 +1422,10 @@ export type GetClipQuery = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -1444,6 +1468,10 @@ export type ListClipsQuery = {
         __typename: "ClipMetadata";
         name: string;
         keyboardKey: string | null;
+        x: number | null;
+        y: number | null;
+        lat: number | null;
+        lng: number | null;
       };
       createdAt: string | null;
       updatedAt: string | null;
@@ -1806,6 +1834,10 @@ export type OnCreateClipSubscription = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -1840,6 +1872,10 @@ export type OnUpdateClipSubscription = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";
@@ -1874,6 +1910,10 @@ export type OnDeleteClipSubscription = {
       __typename: "ClipMetadata";
       name: string;
       keyboardKey: string | null;
+      x: number | null;
+      y: number | null;
+      lat: number | null;
+      lng: number | null;
     };
     audio: {
       __typename: "EditableAudio";

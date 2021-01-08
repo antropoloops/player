@@ -327,6 +327,10 @@ export const onCreateClip = /* GraphQL */ `
       meta {
         name
         keyboardKey
+        x
+        y
+        lat
+        lng
       }
       audio {
         original {
@@ -356,6 +360,10 @@ export const onUpdateClip = /* GraphQL */ `
       meta {
         name
         keyboardKey
+        x
+        y
+        lat
+        lng
       }
       audio {
         original {
@@ -385,6 +393,10 @@ export const onDeleteClip = /* GraphQL */ `
       meta {
         name
         keyboardKey
+        x
+        y
+        lat
+        lng
       }
       audio {
         original {
