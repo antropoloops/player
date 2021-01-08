@@ -1,7 +1,7 @@
 import { DataStore } from "aws-amplify";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { DesktopView, PropertyList, Title } from "../../../@core/components";
+import { PropertyList, Title } from "../../../@core/components";
 import { Clip } from "../../../models";
 import routes from "../../../routes";
 import DeleteAction from "../shared/DeleteAction";
@@ -80,7 +80,7 @@ export default function ClipShow({
   };
 
   return (
-    <DesktopView>
+    <div>
       <RemixNavigation remix={remix} track={track} current="Clip" />
       <Title level={1}>{title}</Title>
 
@@ -125,7 +125,7 @@ export default function ClipShow({
         Borrar clip
       </DeleteAction>
       {/* <pre className="mt-4 font-xs">{JSON.stringify(clip, null, 2)}</pre> */}
-    </DesktopView>
+    </div>
   );
 }
 

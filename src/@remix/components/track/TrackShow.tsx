@@ -5,16 +5,15 @@ import {
   DataStore,
   TrackMetadata,
 } from "../../../@backend/datastore";
-import { DesktopView, Heading } from "../../../@core/components";
-import { Waveform } from "../../../@sounds/components/Waveform";
+import { Heading } from "../../../@core/components";
 import TrackProperties from "./TrackProperties";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import routes from "../../../routes";
 import { ActionButton } from "../shared/ActionButton";
-import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
-import TrackForm from "./TrackForm";
+import { EditIcon } from "../../../components/icons/Icons";
 import RemixNavigation from "../remix/RemixNavigation";
 import { RemixEditProps } from "../../contexts/RemixContext";
+import ActionLink from "../shared/ActionLink";
 
 export default function TrackShow({
   remix,
@@ -24,18 +23,9 @@ export default function TrackShow({
   clips,
 }: RemixEditProps & { trackId: string }) {
   const history = useHistory();
-  const [edit, setEdit] = useState(false);
+
   const track = tracks?.find((t) => t.id === trackId);
   if (!track) return null;
-
-  const saveTrack = async (data: TrackMetadata) => {
-    await DataStore.save(
-      Track.copyOf(track, (draft) => {
-        draft.meta = data;
-      })
-    );
-    setEdit(false);
-  };
 
   const addNewClip = async () => {
     const clip = await DataStore.save(
@@ -48,100 +38,30 @@ export default function TrackShow({
         },
       })
     );
-    history.push(routes.remixClip(remix.id, clip.id));
+    history.push(routes.remixClipEdit(remix.id, clip.id));
   };
-
-  const deleteTrack = async () => {
-    await DataStore.delete(Track, track.id);
-    history.push(routes.remix(remix.id));
-  };
-
-  const samples = clips?.filter((s) => s.trackID === track.id) || [];
-
-  const style = { color: track.meta.color };
 
   return (
-    <DesktopView>
+    <div>
       <RemixNavigation remix={remix} current="Pista" />
       <Heading level={1} className="mb-8 p-4 -ml-4">
         {track.meta.name}
       </Heading>
-      {edit ? (
-        <TrackForm
-          className="max-w-2xl"
-          track={track.meta}
-          onSubmit={saveTrack}
-          onCancel={() => setEdit(false)}
-        />
-      ) : (
-        <>
-          <TrackProperties className="my-8" track={track} />
-          <div className="flex">
-            <ActionButton
-              className="mr-4"
-              icon={EditIcon}
-              smallIcon
-              onClick={() => {
-                setEdit(true);
-              }}
-            >
-              Editar
-            </ActionButton>
-            {/* <FilesInput
-              fileType="audio"
-              maxFiles={1}
-              className="mr-4"
-              colors="bg-remixes text-black"
-              bgColor={track.meta.color}
-              onChange={onChange}
-              uploadFile={uploadFile}
-            >
-              Subir sonido
-            </FilesInput> */}
-            <ActionButton onClick={addNewClip}>Añadir clip</ActionButton>
-            {samples.length === 0 && (
-              <ActionButton
-                className="mr-4"
-                icon={DeleteIcon}
-                smallIcon
-                onClick={deleteTrack}
-              >
-                Borrar pista
-              </ActionButton>
-            )}
-          </div>
-
-          <div className="mt-16">
-            {samples.map((sample) => {
-              const name = sample.meta.name;
-              const thumbnail = sample.audio?.current.file?.thumbnail;
-              return (
-                <Link
-                  key={sample.id}
-                  to={routes.remixClip(remix.id, sample.id)}
-                >
-                  <Heading className="mt-4" level={4}>
-                    {name}
-                  </Heading>
-                  {thumbnail && (
-                    <div className="mt-1 p-1 bg-gray-darker text-remixes opacity-75">
-                      <Waveform
-                        width={100}
-                        height={10}
-                        points={thumbnail}
-                        style={style}
-                      />
-                    </div>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        </>
-      )}
+      <TrackProperties className="my-8" track={track} />
+      <div className="flex">
+        <ActionLink
+          className="mr-4"
+          icon={EditIcon}
+          smallIcon
+          to={routes.remixTrackEdit(remix.id, track.id)}
+        >
+          Editar
+        </ActionLink>
+        <ActionButton onClick={addNewClip}>Añadir clip</ActionButton>
+      </div>
 
       {/* <pre>{JSON.stringify(track, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(clips, null, 2)}</pre> */}
-    </DesktopView>
+    </div>
   );
 }

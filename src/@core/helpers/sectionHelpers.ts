@@ -37,12 +37,6 @@ export const SECTIONS_PROJECT: Section[] = [
     to: routes.archives(),
     home: true,
   },
-  // {
-  //   id: "Sonidos",
-  //   image_url: "/images/sections/projects.jpg",
-  //   to: routes.sounds(),
-  //   home: true,
-  // },
   {
     id: "[admin] Grupos",
     image_url: "/images/sections/projects.jpg",
@@ -56,7 +50,7 @@ export const SECTIONS_PROJECT: Section[] = [
     home: true,
   },
 ];
-export const SECTIONS: Section[] = [
+export const SECTIONS_REMIX: Section[] = [
   {
     id: "home",
     image_url: "/images/sections/home.jpg",
@@ -73,6 +67,11 @@ export const SECTIONS: Section[] = [
     image_url: "/images/sections/community.jpg",
     to: routes.community(),
     home: true,
+  },
+  {
+    id: "remix",
+    image_url: "/images/sections/home.jpg",
+    to: routes.remixes(),
   },
   {
     id: "topics",
@@ -98,3 +97,5 @@ export const SECTIONS: Section[] = [
     to: routes.about(),
   },
 ];
+
+export const SECTIONS = SECTIONS_REMIX.filter((s) => s.id !== "remix");

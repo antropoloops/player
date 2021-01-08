@@ -23,7 +23,7 @@ const RemixListPage: React.FC<Props> = () => {
 
   return (
     <Layout
-      nav="projects"
+      nav="remix"
       desktop={
         <DesktopView>
           <Title level={1}>Remezclas</Title>

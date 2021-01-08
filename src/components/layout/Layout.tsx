@@ -6,7 +6,11 @@ import NavLink from "./NavLink";
 import useLocale from "../../hooks/useLocale";
 import { useLocation, Link } from "react-router-dom";
 import cc from "classcat";
-import { SECTIONS, SECTIONS_PROJECT } from "../../@core/helpers/sectionHelpers";
+import {
+  SECTIONS,
+  SECTIONS_PROJECT,
+  SECTIONS_REMIX,
+} from "../../@core/helpers/sectionHelpers";
 
 type Props = {
   className?: string;
@@ -17,7 +21,7 @@ type Props = {
   sidebar?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
-  nav?: "sections" | "projects";
+  nav?: "sections" | "projects" | "remix";
 };
 
 const Layout: React.FC<Props> = ({
@@ -37,7 +41,12 @@ const Layout: React.FC<Props> = ({
   const { pathname } = useLocation();
   const { formatMessage: f } = useLocale();
 
-  const sections = nav === "projects" ? SECTIONS_PROJECT : SECTIONS;
+  const sections =
+    nav === "projects"
+      ? SECTIONS_PROJECT
+      : nav === "remix"
+      ? SECTIONS_REMIX
+      : SECTIONS;
 
   if (isDesktop) {
     return (

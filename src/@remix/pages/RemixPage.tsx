@@ -15,6 +15,7 @@ import { DesktopView } from "../../@core/components";
 import EditImage from "../components/image/ImageEdit";
 import { DataStore } from "aws-amplify";
 import TrackShow from "../components/track/TrackShow";
+import TrackEdit from "../components/track/TrackEdit";
 import ClipShow from "../components/clip/ClipShow";
 import { RemixEditProps } from "../contexts/RemixContext";
 import ClipEditCover from "../components/clip/ClipEditCover";
@@ -40,7 +41,7 @@ export default function RemixPage() {
 
   return (
     <Layout
-      nav="projects"
+      nav="remix"
       desktop={
         <DesktopView>
           <Switch>
@@ -61,6 +62,13 @@ export default function RemixPage() {
               path={routes.remixTrack(":id", ":trackId")}
               render={({ match: { params } }) => (
                 <TrackShow {...context} trackId={params.trackId} />
+              )}
+            />
+            <Route
+              exact
+              path={routes.remixTrackEdit(":id", ":trackId")}
+              render={({ match: { params } }) => (
+                <TrackEdit {...context} trackId={params.trackId} />
               )}
             />
             <Route

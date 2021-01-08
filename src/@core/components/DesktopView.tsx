@@ -16,5 +16,5 @@ export const DesktopView: React.FC<Props> = ({
   children,
 }) => {
   // TODO: make it responsive
-  return <div className={"p-4 text-white" + className}>{children}</div>;
+  return <div className={"py-4 px-20 text-white" + className}>{children}</div>;
 };
