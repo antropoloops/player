@@ -32,7 +32,7 @@ export default function ShowEditImage({
       <div className="flex">
         {current && (
           <ActionLink to={editPath} icon={EditIcon} smallIcon>
-            Editar portada
+            Editar imágen
           </ActionLink>
         )}
         <FilesInput
@@ -43,7 +43,7 @@ export default function ShowEditImage({
           smallIcon
           uploadFile={uploadCover}
         >
-          {current ? "Cambiar portada" : "Añadir portada"}
+          {current ? "Cambiar imágen" : "Añadir imágen"}
         </FilesInput>
       </div>
     </div>

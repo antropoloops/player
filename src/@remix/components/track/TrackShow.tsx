@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-
 import {
-  Group,
-  Project,
   Track,
   Clip,
   DataStore,
@@ -16,19 +13,19 @@ import routes from "../../../routes";
 import { ActionButton } from "../shared/ActionButton";
 import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import TrackForm from "./TrackForm";
-import BackToLink from "../../../components/BackToLink";
 import RemixNavigation from "../remix/RemixNavigation";
+import { RemixEditProps } from "../../contexts/RemixContext";
 
-type Props = {
-  group: Group;
-  remix: Project;
-  track?: Track;
-  clips: Clip[];
-};
-
-export default function ShowEditTrack({ remix, group, track, clips }: Props) {
+export default function TrackShow({
+  remix,
+  group,
+  tracks,
+  trackId,
+  clips,
+}: RemixEditProps & { trackId: string }) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+  const track = tracks?.find((t) => t.id === trackId);
   if (!track) return null;
 
   const saveTrack = async (data: TrackMetadata) => {
@@ -59,7 +56,7 @@ export default function ShowEditTrack({ remix, group, track, clips }: Props) {
     history.push(routes.remix(remix.id));
   };
 
-  const samples = clips.filter((s) => s.trackID === track.id);
+  const samples = clips?.filter((s) => s.trackID === track.id) || [];
 
   const style = { color: track.meta.color };
 

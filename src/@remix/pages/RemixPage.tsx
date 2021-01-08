@@ -12,6 +12,13 @@ import RemixBrowser from "../components/remix/RemixBrowser";
 import RemixShow from "../components/remix/RemixShow";
 import RemixEdit from "../components/remix/RemixEdit";
 import { DesktopView } from "../../@core/components";
+import EditImage from "../components/image/EditImage";
+import { DataStore } from "aws-amplify";
+import TrackShow from "../components/track/TrackShow";
+import ClipShow from "../components/clip/ShowEditClip";
+import { RemixEditProps } from "../contexts/RemixContext";
+import EditClipCover from "../components/clip/EditClipCover";
+import EditClipAudio from "../components/clip/EditClipAudio";
 
 export default function RemixPage() {
   const params = useParams<{ id: string }>();
@@ -42,6 +49,44 @@ export default function RemixPage() {
             <Route exact path={routes.remixEdit(":id")}>
               <RemixEdit {...context} />
             </Route>
+            <Route exact path={routes.remixCover(":id")}>
+              <RemixEditCover {...context} />
+            </Route>
+            <Route exact path={routes.remixEditBackground(":id")}>
+              <RemixEditBackground {...context} />
+            </Route>
+            <Route
+              exact
+              path={routes.remixTrack(":id", ":trackId")}
+              render={({ match: { params } }) => (
+                <TrackShow {...context} trackId={params.trackId} />
+              )}
+            />
+            <Route
+              exact
+              path={routes.remixClip(":id", ":clipId")}
+              render={({ match: { params } }) => (
+                <ClipShow {...context} clipId={params.clipId} />
+              )}
+            />
+            <Route
+              exact
+              path={routes.remixClipCover(":id", ":clipId")}
+              render={({ match: { params } }) => (
+                <EditClipCover {...context} clipId={params.clipId} />
+              )}
+            />
+            <Route
+              exact
+              path={routes.remixClipAudio(":id", ":clipId")}
+              render={({ match: { params } }) => (
+                <EditClipAudio
+                  {...context}
+                  clip={clips?.find((c) => c.id === params.clipId)}
+                />
+              )}
+            />
+
             <Route path="*">
               <div>Error</div>
             </Route>
@@ -51,5 +96,47 @@ export default function RemixPage() {
     >
       {<RemixBrowser {...context} />}
     </Layout>
+  );
+}
+
+function RemixEditCover({ group, remix }: RemixEditProps) {
+  return (
+    <EditImage
+      group={group}
+      remix={remix}
+      aspect={16 / 9}
+      backTo={routes.remix(remix.id)}
+      editableImage={remix.image}
+      saveImage={async (current) => {
+        return DataStore.save(
+          Project.copyOf(remix, (draft) => {
+            if (draft.image) {
+              draft.image.current = current;
+            }
+          })
+        );
+      }}
+    />
+  );
+}
+
+function RemixEditBackground({ group, remix }: RemixEditProps) {
+  return (
+    <EditImage
+      group={group}
+      remix={remix}
+      aspect={16 / 9}
+      backTo={routes.remix(remix.id)}
+      editableImage={remix.display?.image}
+      saveImage={async (current) => {
+        return DataStore.save(
+          Project.copyOf(remix, (draft) => {
+            if (draft.display?.image) {
+              draft.display.image.current = current;
+            }
+          })
+        );
+      }}
+    />
   );
 }

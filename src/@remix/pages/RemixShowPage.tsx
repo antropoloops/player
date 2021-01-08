@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import ShowEditRemix from "../components/remix/ShowEditRemix";
-import ShowEditTrack from "../components/track/ShowEditTrack";
+import ShowEditTrack from "../components/track/TrackShow";
 import ShowEditClip from "../components/clip/ShowEditClip";
 import EditClipCover from "../components/clip/EditClipCover";
 import { Project, Clip, Track } from "../../models";

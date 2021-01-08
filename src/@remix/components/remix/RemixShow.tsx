@@ -1,4 +1,4 @@
-import { DataStore, Project, Track } from "../../../@backend/datastore";
+import { DataStore, Group, Project, Track } from "../../../@backend/datastore";
 import { Heading } from "../../../@core/components";
 import { AddIcon, EditIcon } from "../../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
@@ -17,6 +17,48 @@ async function deleteRemix(remix: Project) {
   return DataStore.delete(remix);
 }
 
+const uploadCover = async (group: Group, remix: Project, file: File) => {
+  const uploader = imageUploader(group, remix);
+  const image = await uploader(file);
+  await DataStore.save(
+    Project.copyOf(remix, (draft) => {
+      draft.image = {
+        original: {
+          mediaID: image.id,
+          file: image.file,
+        },
+        current: {
+          file: image.file,
+          crop: {},
+        },
+      };
+    })
+  );
+  return remix.id;
+};
+async function uploadBackground(group: Group, remix: Project, file: File) {
+  const uploader = imageUploader(group, remix);
+  const image = await uploader(file);
+  await DataStore.save(
+    Project.copyOf(remix, (draft) => {
+      const editableImage = {
+        original: {
+          mediaID: image.id,
+          file: image.file,
+        },
+        current: {
+          file: image.file,
+          crop: {},
+        },
+      };
+      draft.display = {
+        image: editableImage,
+      };
+    })
+  );
+  return remix.id;
+}
+
 export default function RemixShow({
   remix,
   group,
@@ -29,26 +71,6 @@ export default function RemixShow({
 
   const trackCount = tracks?.length || 0;
   const clipCount = clips?.length || 0;
-
-  const uploadCover = async (file: File) => {
-    const uploader = imageUploader(group, remix);
-    const image = await uploader(file);
-    await DataStore.save(
-      Project.copyOf(remix, (draft) => {
-        draft.image = {
-          original: {
-            mediaID: image.id,
-            file: image.file,
-          },
-          current: {
-            file: image.file,
-            crop: {},
-          },
-        };
-      })
-    );
-    return remix.id;
-  };
 
   const addTrack = async () => {
     const track = await DataStore.save(
@@ -85,32 +107,30 @@ export default function RemixShow({
         </ActionLink>
       </div>
 
-      <Heading className="mt-8 mb-4" level={2}>
-        Portada
-      </Heading>
-      <ShowEditImage
-        editableImage={remix.image}
-        editPath={routes.remixCover(remix.id)}
-        uploadCover={async (file) => {
-          const id = await uploadCover(file);
-          history.push(routes.remixCover(remix.id));
-          return id;
-        }}
-        aspect="16:9"
-      />
-      <Heading className="mt-8 mb-4" level={2}>
-        Fondo
-      </Heading>
-      <ShowEditImage
-        editableImage={remix.display?.image}
-        editPath={routes.remixCover(remix.id)}
-        uploadCover={async (file) => {
-          const id = await uploadCover(file);
-          history.push(routes.remixCover(remix.id));
-          return id;
-        }}
-        aspect="16:9"
-      />
+      <div className="flex flex-col lg:flex-row">
+        <div className="lg:mr-4">
+          <Heading className="mt-8 mb-4" level={2}>
+            Portada
+          </Heading>
+          <ShowEditImage
+            aspect="16:9"
+            editableImage={remix.image}
+            editPath={routes.remixCover(remix.id)}
+            uploadCover={(file) => uploadCover(group, remix, file)}
+          />
+        </div>
+        <div>
+          <Heading className="mt-8 mb-4" level={2}>
+            Fondo
+          </Heading>
+          <ShowEditImage
+            aspect="16:9"
+            editableImage={remix.display?.image}
+            editPath={routes.remixEditBackground(remix.id)}
+            uploadCover={(file) => uploadBackground(group, remix, file)}
+          />
+        </div>
+      </div>
 
       <Heading className="mt-8 mb-4" level={2}>
         Pistas
