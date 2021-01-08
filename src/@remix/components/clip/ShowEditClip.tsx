@@ -14,6 +14,7 @@ import { CloudUploadIcon } from "../../../components/icons/Icons";
 import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 import ShowEditImage from "../image/ShowEditImage";
+import ShowEditAudio from "../audio/ShowEditAudio";
 
 type Props = {
   className?: string;
@@ -99,20 +100,12 @@ export default function ShowEditClip({
         editPath={routes.remixCover(remix.id, clip.id)}
       />
 
-      <SamplePreview className="mt-8" clip={clip} track={track} />
-      <div className="flex my-4">
-        {clip.audio && <ActionButton>Editar sonido</ActionButton>}
-        <FilesInput
-          fileType="audio"
-          maxFiles={1}
-          className="mr-4"
-          icon={CloudUploadIcon}
-          smallIcon
-          uploadFile={uploadSample}
-        >
-          {clip.audio ? "Cambiar sonido" : "Añadir sonido"}
-        </FilesInput>
-      </div>
+      <ShowEditAudio
+        className="mt-8"
+        editableSound={clip.audio}
+        color={track?.meta.color || "white"}
+        uploadAudio={uploadSample}
+      />
 
       <DeleteAction
         message="Vas a borrar éste clip."
