@@ -2,15 +2,14 @@ import { DataStore } from "aws-amplify";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { DesktopView, Title } from "../../../@core/components";
-import BackToLink from "../../../components/BackToLink";
 import { Clip } from "../../../models";
 import routes from "../../../routes";
 import DeleteAction from "../shared/DeleteAction";
 import { imageUploader } from "../../services/imageUploader";
 import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
-import ShowEditImage from "../image/ShowEditImage";
-import ShowEditAudio from "../audio/AudioShow";
+import ShowEditImage from "../image/ImageShow";
+import AudioShow from "../audio/AudioShow";
 import { RemixEditProps } from "../../contexts/RemixContext";
 import RemixNavigation from "../remix/RemixNavigation";
 
@@ -80,12 +79,7 @@ export default function ClipShow({
 
   return (
     <DesktopView>
-      <RemixNavigation remix={remix} track={track} clip={clip} />
-      {track && (
-        <BackToLink to={routes.remixTrack(remix.id, track.id)}>
-          {track.meta.name}
-        </BackToLink>
-      )}
+      <RemixNavigation remix={remix} track={track} current="Clip" />
       <Title level={1}>{title}</Title>
 
       <ShowEditImage
@@ -95,7 +89,7 @@ export default function ClipShow({
         editPath={routes.remixClipCover(remix.id, clip.id)}
       />
 
-      <ShowEditAudio
+      <AudioShow
         className="mt-8"
         editableSound={clip.audio}
         color={track?.meta.color || "white"}

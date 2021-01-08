@@ -4,6 +4,7 @@ import ImagePreview from "./ImagePreview";
 import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
 import ActionLink from "../shared/ActionLink";
 import FilesInput from "../shared/FilesInput";
+import { useHistory } from "react-router-dom";
 
 type Props = {
   className?: string;
@@ -13,13 +14,14 @@ type Props = {
   aspect: "1" | "16:9";
 };
 
-export default function ShowEditImage({
+export default function ImageShow({
   className,
   aspect,
   uploadCover,
   editableImage,
   editPath,
 }: Props) {
+  const history = useHistory();
   const current = editableImage?.current;
 
   return (
@@ -41,7 +43,11 @@ export default function ShowEditImage({
           className="mr-4"
           icon={CloudUploadIcon}
           smallIcon
-          uploadFile={uploadCover}
+          uploadFile={async (file) => {
+            const id = await uploadCover(file);
+            history.push(editPath);
+            return id;
+          }}
         >
           {current ? "Cambiar imágen" : "Añadir imágen"}
         </FilesInput>

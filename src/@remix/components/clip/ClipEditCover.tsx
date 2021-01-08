@@ -1,6 +1,6 @@
 import { Clip, Group, Project } from "../../../models";
 import { useObserveModel } from "../../../@backend/hooks/useObserveModel";
-import EditImage from "../image/EditImage";
+import EditImage from "../image/ImageEdit";
 import routes from "../../../routes";
 import { DataStore } from "aws-amplify";
 

@@ -12,7 +12,7 @@ import RemixBrowser from "../components/remix/RemixBrowser";
 import RemixShow from "../components/remix/RemixShow";
 import RemixEdit from "../components/remix/RemixEdit";
 import { DesktopView } from "../../@core/components";
-import EditImage from "../components/image/EditImage";
+import EditImage from "../components/image/ImageEdit";
 import { DataStore } from "aws-amplify";
 import TrackShow from "../components/track/TrackShow";
 import ClipShow from "../components/clip/ClipShow";

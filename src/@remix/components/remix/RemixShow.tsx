@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import routes from "../../../routes";
 import { randomColor } from "../../helpers/colorHelpers";
 import DeleteAction from "../shared/DeleteAction";
-import ShowEditImage from "../image/ShowEditImage";
+import ShowEditImage from "../image/ImageShow";
 import { imageUploader } from "../../services/imageUploader";
 import { RemixEditProps } from "../../contexts/RemixContext";
 import RemixNavigation from "./RemixNavigation";

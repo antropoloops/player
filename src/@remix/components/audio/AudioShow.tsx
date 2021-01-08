@@ -4,6 +4,7 @@ import classcat from "classcat";
 import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
 import FilesInput from "../shared/FilesInput";
 import ActionLink from "../shared/ActionLink";
+import { useHistory } from "react-router-dom";
 
 type Props = {
   className?: string;
@@ -20,6 +21,7 @@ export default function ShowEditAudio({
   color,
   uploadAudio,
 }: Props) {
+  const history = useHistory();
   const current = editableSound?.current;
 
   return (
@@ -37,7 +39,11 @@ export default function ShowEditAudio({
           className="mr-4"
           icon={CloudUploadIcon}
           smallIcon
-          uploadFile={uploadAudio}
+          uploadFile={async (file) => {
+            const id = await uploadAudio(file);
+            history.push(editPath);
+            return id;
+          }}
         >
           {editableSound ? "Cambiar sonido" : "Añadir sonido"}
         </FilesInput>
