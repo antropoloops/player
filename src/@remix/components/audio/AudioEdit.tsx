@@ -8,6 +8,7 @@ import { usePlayBuffer } from "../../hooks/usePlayBuffer";
 import { getPolygonPoints } from "../../../@archive/lib/svg-wave";
 import { useGestureResponder } from "react-gesture-responder";
 import { formatTime } from "../../helpers/timeHelpers";
+import { Heading } from "../../../@core/components";
 
 type Props = {
   className?: string;
@@ -40,7 +41,7 @@ function useElementWidth() {
   return { element, ref, width };
 }
 
-function useAudioRegion() {
+function useAudioRegion(buffer?: AudioBuffer) {
   const { element, ref, width } = useElementWidth();
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
@@ -68,19 +69,39 @@ function useAudioRegion() {
     },
   });
 
-  return { left, right, bindLeft, bindRight, waveRef: ref, width };
+  const bufferDuration = buffer?.duration || 0;
+  const pixelsToTime = bufferDuration / width;
+
+  const timeLeft = left * pixelsToTime;
+  const timeRight = (width - right) * pixelsToTime;
+  const duration = timeRight - timeLeft;
+
+  return {
+    left,
+    right,
+    bindLeft,
+    bindRight,
+    waveRef: ref,
+    timeLeft,
+    timeRight,
+    duration,
+  };
 }
 
 export default function AudioEdit({ className, file, color }: Props) {
+  const { buffer, load } = useAudioFile(file);
   const [size, setSize] = useState({ width: 100, height: 10 });
   const [thumbnail, setThumbnail] = useState("");
-  const { left, right, bindLeft, bindRight, waveRef, width } = useAudioRegion();
-
-  const { buffer, load } = useAudioFile(file);
-
-  const pixelsToTime = (position: number, duration: number) => {
-    return (position * duration) / width;
-  };
+  const {
+    left,
+    right,
+    bindLeft,
+    bindRight,
+    waveRef,
+    timeLeft,
+    timeRight,
+    duration,
+  } = useAudioRegion(buffer);
 
   useEffect(() => {
     if (!buffer) {
@@ -96,8 +117,8 @@ export default function AudioEdit({ className, file, color }: Props) {
   }, [buffer, load]);
 
   const [play, { playing }] = usePlayBuffer(buffer, {
-    offset: 0,
-    duration: buffer?.duration || 0,
+    offset: timeLeft,
+    duration,
   });
 
   return (
@@ -107,25 +128,42 @@ export default function AudioEdit({ className, file, color }: Props) {
           {file.fileName} {formatDuration(file.duration)}
         </label>
       )}
-      <div className="my-8 flex items-center">
-        {file && (
-          <PlayButton
-            className="border-2 rounded-full mr-4"
-            style={{ borderColor: color, color }}
-            onClick={() => {
-              if (playing) {
-                play(false);
-              } else if (buffer) {
-                play(true);
-              } else {
-                load().then(() => {
+      <div className="my-8 ">
+        <div className="my-4 flex items-center">
+          {file && (
+            <PlayButton
+              className="border-2 rounded-full mr-4"
+              style={{ borderColor: color, color }}
+              onClick={() => {
+                if (playing) {
+                  play(false);
+                } else if (buffer) {
                   play(true);
-                });
-              }
-            }}
-            playing={playing}
-          />
-        )}
+                } else {
+                  load().then(() => {
+                    play(true);
+                  });
+                }
+              }}
+              playing={playing}
+            />
+          )}
+          <Heading level={2}>{formatTime(0)}</Heading>
+          <div className="flex m-4">
+            <div className="mr-4">
+              <label>Duración: </label>
+              {formatTime(timeRight - timeLeft)}
+            </div>
+            <div>
+              <label>Inicio: </label>
+              {formatTime(timeLeft)}
+            </div>
+            <div className="ml-4">
+              <label>Final: </label>
+              {formatTime(timeRight)}
+            </div>
+          </div>
+        </div>
         <div
           ref={waveRef}
           className="relative flex-grow mt-1 p-1 bg-gray-darker text-remixes opacity-75"
@@ -151,11 +189,6 @@ export default function AudioEdit({ className, file, color }: Props) {
             style={{ right: right - 8 }}
           />
         </div>
-      </div>
-
-      <div>
-        {formatTime(pixelsToTime(left, buffer?.duration || 0))} {pixelsToTime}{" "}
-        {left}
       </div>
     </div>
   );
