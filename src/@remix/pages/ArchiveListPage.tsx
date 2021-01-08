@@ -44,7 +44,7 @@ export default function ArchiveListPage({ className }: Props) {
   return (
     <Layout
       title="Archivos"
-      nav="projects"
+      nav="admin"
       desktop={
         <DesktopView>
           <Title level={1}>Archivos</Title>

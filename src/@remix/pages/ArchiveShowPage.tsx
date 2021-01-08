@@ -28,7 +28,7 @@ export default function ArchiveShowPage() {
   const main = <ShowEditArchive group={group} archive={archive} />;
 
   return (
-    <Layout title="Archivo" nav="projects" desktop={main}>
+    <Layout title="Archivo" nav="admin" desktop={main}>
       <img src="/images/sections/community.jpg" alt="Remix" />
       <Separator className="bg-archives">Archivo - {group.name}</Separator>
       {recordings.map((recording) => (

@@ -8,7 +8,7 @@ import { useLocation, Link } from "react-router-dom";
 import cc from "classcat";
 import {
   SECTIONS,
-  SECTIONS_PROJECT,
+  SECTIONS_ADMIN,
   SECTIONS_REMIX,
 } from "../../@core/helpers/sectionHelpers";
 
@@ -21,7 +21,7 @@ type Props = {
   sidebar?: ReactNode;
   visuals?: ReactNode;
   desktop?: ReactNode;
-  nav?: "sections" | "projects" | "remix";
+  nav?: "sections" | "admin" | "remix";
 };
 
 const Layout: React.FC<Props> = ({
@@ -42,8 +42,8 @@ const Layout: React.FC<Props> = ({
   const { formatMessage: f } = useLocale();
 
   const sections =
-    nav === "projects"
-      ? SECTIONS_PROJECT
+    nav === "admin"
+      ? SECTIONS_ADMIN
       : nav === "remix"
       ? SECTIONS_REMIX
       : SECTIONS;

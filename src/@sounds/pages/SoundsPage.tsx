@@ -23,7 +23,7 @@ const SoundPage: React.FC<Props> = () => {
   if (!group) return <NotAuthorizedPage />;
   return (
     <Layout
-      nav="projects"
+      nav="admin"
       desktop={
         <DesktopView>
           <div className="flex">

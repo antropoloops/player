@@ -19,7 +19,7 @@ const ArchiveListPage: React.FC<Props> = () => {
   if (!archives) return <LoadingScreen />;
 
   return (
-    <Layout nav="projects">
+    <Layout nav="admin">
       {archives.map((archive) => (
         <MediaObject
           key={archive.id}

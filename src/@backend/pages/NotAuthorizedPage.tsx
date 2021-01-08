@@ -7,7 +7,7 @@ const DEFAULT_MESSAGE = "Lo siento, no tienes permisos para hacer ésto";
 
 export function NotAuthorizedPage({ message }: Props) {
   return (
-    <Layout nav="projects">
+    <Layout nav="admin">
       <p className="p-4 text-white">{message || DEFAULT_MESSAGE}</p>
     </Layout>
   );

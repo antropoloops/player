@@ -9,7 +9,7 @@ export type Section = {
 };
 
 export function listProjectSections() {
-  return SECTIONS_PROJECT;
+  return SECTIONS_ADMIN;
 }
 
 export function listSections() {
@@ -20,25 +20,14 @@ export function getSection(id: string) {
   return SECTIONS.find((section) => section.id === id) as Section;
 }
 
-export const SECTIONS_PROJECT: Section[] = [
+export const SECTIONS_ADMIN: Section[] = [
   {
     id: "home",
     image_url: "/images/sections/home.jpg",
     to: routes.remixes(),
   },
   {
-    id: "Remezcla",
-    image_url: "/images/sections/home.jpg",
-    to: routes.remixes(),
-  },
-  {
-    id: "Archivo",
-    image_url: "/images/sections/projects.jpg",
-    to: routes.archives(),
-    home: true,
-  },
-  {
-    id: "[admin] Grupos",
+    id: "Grupos",
     image_url: "/images/sections/projects.jpg",
     to: routes.adminGroups(),
     home: true,

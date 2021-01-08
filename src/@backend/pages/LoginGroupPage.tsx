@@ -37,7 +37,7 @@ export default function LoginGroupPage({ className }: Props) {
 
   return (
     <Layout
-      nav="projects"
+      nav="admin"
       desktop={
         <DesktopView>
           <Title level={1}>{group?.name || "Entrar"}</Title>

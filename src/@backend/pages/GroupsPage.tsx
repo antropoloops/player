@@ -24,7 +24,7 @@ export function GroupsPage({ className }: Props) {
   return (
     <Layout
       title="Grupos"
-      nav="projects"
+      nav="admin"
       desktop={group && <ShowEditGroup group={group} />}
     >
       <Link to={routes.adminGroups()}>

@@ -32,7 +32,7 @@ export function TestPage({ className }: TestPageProps) {
 
   return (
     <Layout
-      nav="projects"
+      nav="admin"
       desktop={
         <div className="text-white m-4">
           <div className="my-4">

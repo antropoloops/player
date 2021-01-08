@@ -8,7 +8,7 @@ const LoginPage: React.FC<Props> = () => {
   const user = useCurrentUser();
   return (
     <Layout
-      nav="projects"
+      nav="admin"
       title="Entrar"
       desktop={
         <AmplifyAuthenticator>
