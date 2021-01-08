@@ -30,13 +30,7 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
   const params = useParams<Params>();
   const group = useCurrentGroup();
   const history = useHistory();
-  const { data: files } = useObserveList(Media, remix.id, (t) =>
-    t.projectID("eq", params.id)
-  );
   const { url: coverUrl } = useStorageUrl(remix.image?.current.file?.key);
-
-  const gotoTrack = (track: Track) =>
-    history.push(routes.remixTrack(params.id, track.id));
 
   return (
     <div className={className}>
@@ -76,7 +70,7 @@ export function RemixShowPage({ className, remix, tracks, clips }: Props) {
             }}
             onStopTrack={() => undefined}
             onClick={() => {
-              gotoTrack(track);
+              history.push(routes.remixTrack(remix.id, track.id));
             }}
           >
             <div className="w-full bg-gray-dark">

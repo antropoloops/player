@@ -15,30 +15,27 @@ import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 import ShowEditImage from "../image/ShowEditImage";
 import ShowEditAudio from "../audio/ShowEditAudio";
-
-type Props = {
-  className?: string;
-  group: Group;
-  remix: Project;
-  tracks: Track[];
-  clip: Clip;
-};
+import { RemixContextValue } from "../../contexts/RemixContext";
 
 const deleteClip = async (clip: Clip) => {
   await DataStore.delete(clip);
 };
 
 export default function ShowEditClip({
-  className,
+  clipId,
   group,
   remix,
   tracks,
-  clip,
-}: Props) {
+  clips,
+}: RemixContextValue & { clipId: string }) {
   const history = useHistory();
   const ctx = useSimpleAudioContext();
 
-  const track = tracks.find((t) => t.id === clip.trackID);
+  const clip = clips?.find((clip) => clip.id === clipId);
+
+  if (!remix || !clip) return null;
+
+  const track = tracks?.find((t) => t.id === clip.trackID);
   const title = clip.meta.name;
 
   const uploadCover = async (file: File) => {
@@ -97,7 +94,7 @@ export default function ShowEditClip({
         aspect="1"
         editableImage={clip.image}
         uploadCover={uploadCover}
-        editPath={routes.remixCover(remix.id, clip.id)}
+        editPath={routes.remixClipCover(remix.id, clip.id)}
       />
 
       <ShowEditAudio
@@ -105,6 +102,7 @@ export default function ShowEditClip({
         editableSound={clip.audio}
         color={track?.meta.color || "white"}
         uploadAudio={uploadSample}
+        editPath={routes.remixClipAudio(remix.id, clip.id)}
       />
 
       <DeleteAction

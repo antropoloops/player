@@ -1,12 +1,13 @@
 import { EditableAudio } from "../../../models";
 import AudioPreview from "./AudioPreview";
 import classcat from "classcat";
-import { CloudUploadIcon } from "../../../components/icons/Icons";
+import { CloudUploadIcon, EditIcon } from "../../../components/icons/Icons";
 import FilesInput from "../shared/FilesInput";
-import ActionButton from "../shared/ActionButton";
+import ActionLink from "../shared/ActionLink";
 
 type Props = {
   className?: string;
+  editPath: string;
   editableSound?: EditableAudio;
   color: string;
   uploadAudio: (file: File) => Promise<string>;
@@ -15,14 +16,21 @@ type Props = {
 export default function ShowEditAudio({
   className,
   editableSound,
+  editPath,
   color,
   uploadAudio,
 }: Props) {
+  const current = editableSound?.current;
+
   return (
     <div className={classcat(["flex flex-col", className])}>
-      <AudioPreview file={editableSound?.current.file} color={color} />
+      <AudioPreview file={current?.file} color={color} />
       <div className="flex my-4">
-        {editableSound && <ActionButton>Editar sonido</ActionButton>}
+        {current && (
+          <ActionLink to={editPath} icon={EditIcon} smallIcon>
+            Editar portada
+          </ActionLink>
+        )}
         <FilesInput
           fileType="audio"
           maxFiles={1}

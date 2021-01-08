@@ -30,20 +30,17 @@ const routes = {
   remixes: () => `/remezcla`,
   remixNew: () => `/remezcla/nuevo`,
   remix: (id: string) => `/remezcla/${id}`,
-  remixTrack: (id: string, trackId: string) =>
-    `/remezcla/editar/${id}/t/${trackId}`,
-  remixClip: (id: string, selectionId: string) =>
-    `/remezcla/editar/${id}/c/${selectionId}`,
-  remixCover: (remixId: string, clipId: string) =>
-    `/remezcla/editar/${remixId}/i/${clipId}`,
+  remixTrack: (remixId: string, trackId: string) =>
+    `/remezcla/${remixId}/pista/${trackId}`,
+  remixClip: (remixId: string, clipId: string) =>
+    `/remezcla/${remixId}/clip/${clipId}`,
+  remixCover: (remixId: string) => `/remezcla/${remixId}/portada`,
+  remixClipAudio: (remixId: string, clipId: string) =>
+    `/remezcla/${remixId}/clip/${clipId}/audio`,
+  remixClipCover: (remixId: string, clipId: string) =>
+    `/remezcla/${remixId}/clip/${clipId}/portada`,
 
-  remixRelation: (id: string, item: string, childId: string) =>
-    `/remezcla/editar/${id}/${item}/${childId}`,
   remixPlay: (id: string) => `/remezcla/play/${id}`,
-  remixEdit: (id: string) => `/remezcla/old/${id}`,
-  remixEditItem: (id: string, item: string) => `/remezcla/editar/${id}/${item}`,
-  remixEditItemChild: (id: string, item: string, childId: string) =>
-    `/remezcla/editar/${id}/${item}/${childId}`,
 
   sounds: () => `/sonidos`,
   sound: (id: string) => `/sonidos/${id}`,

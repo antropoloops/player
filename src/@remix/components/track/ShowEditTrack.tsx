@@ -22,17 +22,10 @@ type Props = {
   group: Group;
   remix: Project;
   track?: Track;
-  selections: Clip[];
-  onChange: () => void;
+  clips: Clip[];
 };
 
-export default function ShowEditTrack({
-  remix,
-  group,
-  track,
-  onChange,
-  selections,
-}: Props) {
+export default function ShowEditTrack({ remix, group, track, clips }: Props) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
   if (!track) return null;
@@ -65,7 +58,7 @@ export default function ShowEditTrack({
     history.push(routes.remix(remix.id));
   };
 
-  const samples = selections.filter((s) => s.trackID === track.id);
+  const samples = clips.filter((s) => s.trackID === track.id);
 
   const style = { color: track.meta.color };
 
@@ -150,7 +143,7 @@ export default function ShowEditTrack({
       )}
 
       {/* <pre>{JSON.stringify(track, null, 2)}</pre> */}
-      {/* <pre>{JSON.stringify(selections, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(clips, null, 2)}</pre> */}
     </DesktopView>
   );
 }

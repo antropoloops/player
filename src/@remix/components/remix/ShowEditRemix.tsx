@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  DataStore,
-  Group,
-  Project,
-  Clip,
-  Track,
-} from "../../../@backend/datastore";
+import { DataStore, Project, Track } from "../../../@backend/datastore";
 import { DesktopView, Heading } from "../../../@core/components";
 import { AddIcon, EditIcon } from "../../../components/icons/Icons";
 import { RemixProperties } from "./RemixProperties";
@@ -18,13 +12,7 @@ import BackToLink from "../../../components/BackToLink";
 import DeleteAction from "../shared/DeleteAction";
 import ShowEditImage from "../image/ShowEditImage";
 import { imageUploader } from "../../services/imageUploader";
-
-type Props = {
-  group: Group;
-  remix: Project;
-  tracks: Track[];
-  samples: Clip[];
-};
+import { RemixContextValue } from "../../contexts/RemixContext";
 
 async function deleteRemix(remix: Project) {
   return DataStore.delete(remix);
@@ -34,10 +22,15 @@ export default function ShowEditRemix({
   remix,
   group,
   tracks,
-  samples,
-}: Props) {
+  clips,
+}: RemixContextValue) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
+
+  if (!remix) return null;
+
+  const trackCount = tracks?.length || 0;
+  const clipCount = clips?.length || 0;
 
   const uploadCover = async (file: File) => {
     const uploader = imageUploader(group, remix);
@@ -65,14 +58,14 @@ export default function ShowEditRemix({
         groupID: group.id,
         projectID: remix.id,
         meta: {
-          name: "Pista-" + (tracks.length + 1),
+          name: "Pista-" + (trackCount + 1),
           volume: 1,
-          position: tracks.length,
+          position: trackCount,
           color: randomColor(),
         },
       })
     );
-    history.push(routes.remixEditItemChild(remix.id, "t", track.id));
+    history.push(routes.remixTrack(remix.id, track.id));
   };
 
   return (
@@ -118,13 +111,13 @@ export default function ShowEditRemix({
           </div>
           <ShowEditImage
             editableImage={remix.image}
-            editPath={routes.remixEditItem(remix.id, "cover")}
+            editPath={routes.remixCover(remix.id)}
             uploadCover={uploadCover}
             aspect="16:9"
           />
           <DeleteAction
             disabled={
-              tracks.length || samples.length
+              clipCount || trackCount
                 ? "No se puede borrar porque no está vacío"
                 : ""
             }
