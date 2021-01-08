@@ -5,11 +5,7 @@ import routes from "../routes";
 
 import RemixListPage from "./pages/RemixListPage";
 import RemixPlayPage from "./pages/RemixPlayPage";
-import RemixClipPage from "./pages/RemixClipPage";
-import RemixTrackPage from "./pages/RemixTrackPage";
 import RemixPage from "./pages/RemixPage";
-import RemixClipAudioPage from "./pages/RemixClipAudioPage";
-import RemixClipCoverPage from "./pages/RemixClipCoverPage";
 import ArchiveListPage from "./pages/ArchiveListPage";
 import ArchivePage from "./pages/ArchiveShowPage";
 
@@ -44,26 +40,7 @@ function Router({ fallback: Fallback }: Props) {
       <Route exact path={routes.remixes()} component={RemixListPage} />
       <Route exact path={routes.remixPlay(":id")} component={RemixPlayPage} />
       <Route exact path={routes.remix(":id")} component={RemixPage} />
-      <Route
-        exact
-        path={routes.remixTrack(":remixId", ":trackId")}
-        component={RemixTrackPage}
-      />
-      <Route
-        exact
-        path={routes.remixClip(":remixId", ":clipId")}
-        component={RemixClipPage}
-      />
-      <Route
-        exact
-        path={routes.remixClipAudio(":remixId", ":clipId")}
-        component={RemixClipAudioPage}
-      />
-      <Route
-        exact
-        path={routes.remixClipCover(":remixId", ":clipId")}
-        component={RemixClipCoverPage}
-      />
+      <Route exact path={routes.remix(":id/*")} component={RemixPage} />
 
       {/* ARCHIVE */}
       <Route exact path={routes.archives()} component={ArchiveListPage} />

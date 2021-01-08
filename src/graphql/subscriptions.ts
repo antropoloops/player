@@ -81,7 +81,7 @@ export const onCreateProject = /* GraphQL */ `
         readme
       }
       remix {
-        bmp
+        bpm
       }
       image {
         original {
@@ -112,7 +112,7 @@ export const onUpdateProject = /* GraphQL */ `
         readme
       }
       remix {
-        bmp
+        bpm
       }
       image {
         original {
@@ -143,7 +143,7 @@ export const onDeleteProject = /* GraphQL */ `
         readme
       }
       remix {
-        bmp
+        bpm
       }
       image {
         original {

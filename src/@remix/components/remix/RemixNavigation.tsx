@@ -40,7 +40,7 @@ export default function RemixNavigation({
           {clip.meta.name}
         </Link>
       )}
-      {current && Separator}
+      {remix && current && Separator}
       {current && <span className="opacity-50">{current}</span>}
     </div>
   );

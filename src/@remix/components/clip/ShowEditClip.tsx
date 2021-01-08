@@ -5,9 +5,7 @@ import { DesktopView, Title } from "../../../@core/components";
 import BackToLink from "../../../components/BackToLink";
 import { Group, Project, Clip, Track } from "../../../models";
 import routes from "../../../routes";
-import SamplePreview from "../SamplePreview";
 import DeleteAction from "../shared/DeleteAction";
-import FilesInput from "../shared/FilesInput";
 import { imageUploader } from "../../services/imageUploader";
 import ActionButton from "../shared/ActionButton";
 import { CloudUploadIcon } from "../../../components/icons/Icons";
@@ -15,7 +13,7 @@ import { audioUploader } from "../../services/audioUploader";
 import useSimpleAudioContext from "../../hooks/useSimpleAudioContext";
 import ShowEditImage from "../image/ShowEditImage";
 import ShowEditAudio from "../audio/ShowEditAudio";
-import { RemixContextValue } from "../../contexts/RemixContext";
+import { RemixEditProps } from "../../contexts/RemixContext";
 
 const deleteClip = async (clip: Clip) => {
   await DataStore.delete(clip);
@@ -27,7 +25,7 @@ export default function ShowEditClip({
   remix,
   tracks,
   clips,
-}: RemixContextValue & { clipId: string }) {
+}: RemixEditProps & { clipId: string }) {
   const history = useHistory();
   const ctx = useSimpleAudioContext();
 

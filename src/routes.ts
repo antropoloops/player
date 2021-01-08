@@ -30,6 +30,7 @@ const routes = {
   remixes: () => `/remezcla`,
   remixNew: () => `/remezcla/nuevo`,
   remix: (id: string) => `/remezcla/${id}`,
+  remixEdit: (id: string) => `/remezcla/${id}/editar`,
   remixTrack: (remixId: string, trackId: string) =>
     `/remezcla/${remixId}/pista/${trackId}`,
   remixClip: (remixId: string, clipId: string) =>

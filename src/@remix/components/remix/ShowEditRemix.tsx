@@ -8,11 +8,11 @@ import ActionButton from "../shared/ActionButton";
 import { useHistory } from "react-router-dom";
 import routes from "../../../routes";
 import { randomColor } from "../../helpers/colorHelpers";
-import BackToLink from "../../../components/BackToLink";
 import DeleteAction from "../shared/DeleteAction";
 import ShowEditImage from "../image/ShowEditImage";
 import { imageUploader } from "../../services/imageUploader";
-import { RemixContextValue } from "../../contexts/RemixContext";
+import { RemixEditProps } from "../../contexts/RemixContext";
+import RemixNavigation from "./RemixNavigation";
 
 async function deleteRemix(remix: Project) {
   return DataStore.delete(remix);
@@ -23,7 +23,7 @@ export default function ShowEditRemix({
   group,
   tracks,
   clips,
-}: RemixContextValue) {
+}: RemixEditProps) {
   const history = useHistory();
   const [edit, setEdit] = useState(false);
 
@@ -70,7 +70,7 @@ export default function ShowEditRemix({
 
   return (
     <DesktopView>
-      <BackToLink label="Remezclas" to={routes.remixes()} />
+      <RemixNavigation current="Remezcla" />
       <Heading level={1} className="mb-8">
         {remix.meta.title}
       </Heading>
@@ -105,16 +105,47 @@ export default function ShowEditRemix({
             >
               Editar
             </ActionButton>
-            <ActionButton className="mr-4" icon={AddIcon} onClick={addTrack}>
-              Añadir pista
-            </ActionButton>
           </div>
+
+          <Heading className="mt-8 mb-4" level={2}>
+            Portada
+          </Heading>
           <ShowEditImage
             editableImage={remix.image}
             editPath={routes.remixCover(remix.id)}
-            uploadCover={uploadCover}
+            uploadCover={async (file) => {
+              const id = await uploadCover(file);
+              history.push(routes.remixCover(remix.id));
+              return id;
+            }}
             aspect="16:9"
           />
+          <Heading className="mt-8 mb-4" level={2}>
+            Fondo
+          </Heading>
+          <ShowEditImage
+            editableImage={remix.display?.image}
+            editPath={routes.remixCover(remix.id)}
+            uploadCover={async (file) => {
+              const id = await uploadCover(file);
+              history.push(routes.remixCover(remix.id));
+              return id;
+            }}
+            aspect="16:9"
+          />
+
+          <Heading className="mt-8 mb-4" level={2}>
+            Pistas
+          </Heading>
+          <div className="flex">
+            <ActionButton
+              className="mr-4 bg-remixes"
+              icon={AddIcon}
+              onClick={addTrack}
+            >
+              Añadir pista
+            </ActionButton>
+          </div>
           <DeleteAction
             disabled={
               clipCount || trackCount

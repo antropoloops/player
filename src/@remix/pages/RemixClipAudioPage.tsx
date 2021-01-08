@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import RemixLayout from "../components/RemixLayout";
 import RemixNavigation from "../components/remix/RemixNavigation";
+import AudioPreview from "../components/audio/AudioPreview";
 
 export default function RemixClipAudioPage() {
   const params = useParams<{ remixId: string; clipId: string }>();
@@ -22,6 +23,10 @@ export default function RemixClipAudioPage() {
               track={track}
               clip={clip}
               current="Sonido"
+            />
+            <AudioPreview
+              file={clip.audio?.current.file}
+              color={track?.meta.color || "white"}
             />
           </div>
         );

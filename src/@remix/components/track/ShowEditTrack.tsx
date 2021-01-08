@@ -17,6 +17,7 @@ import { ActionButton } from "../shared/ActionButton";
 import { DeleteIcon, EditIcon } from "../../../components/icons/Icons";
 import TrackForm from "./TrackForm";
 import BackToLink from "../../../components/BackToLink";
+import RemixNavigation from "../remix/RemixNavigation";
 
 type Props = {
   group: Group;
@@ -64,7 +65,7 @@ export default function ShowEditTrack({ remix, group, track, clips }: Props) {
 
   return (
     <DesktopView>
-      <BackToLink label="Remezcla" to={routes.remix(remix.id)} />
+      <RemixNavigation remix={remix} current="Pista" />
       <Heading level={1} className="mb-8 p-4 -ml-4">
         {track.meta.name}
       </Heading>

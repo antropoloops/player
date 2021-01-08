@@ -114,7 +114,7 @@ export const syncProjects = /* GraphQL */ `
           readme
         }
         remix {
-          bmp
+          bpm
         }
         createdAt
         updatedAt
@@ -143,7 +143,7 @@ export const getProject = /* GraphQL */ `
         readme
       }
       remix {
-        bmp
+        bpm
       }
       image {
         original {
@@ -179,7 +179,7 @@ export const listProjects = /* GraphQL */ `
           readme
         }
         remix {
-          bmp
+          bpm
         }
         createdAt
         updatedAt

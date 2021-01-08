@@ -28,7 +28,7 @@ export default function ShowEditAudio({
       <div className="flex my-4">
         {current && (
           <ActionLink to={editPath} icon={EditIcon} smallIcon>
-            Editar portada
+            Editar sonido
           </ActionLink>
         )}
         <FilesInput

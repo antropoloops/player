@@ -20,6 +20,10 @@ enum ProjetAccess {
   group
 }
 
+type Display {
+  image: EditableImage
+}
+
 type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
   id: ID!
   groupID: ID!
@@ -30,6 +34,7 @@ type Project @model @key(name: "byGroup", fields: ["groupID", "createdAt"]) {
 
   remix: RemixMetadata!
   image: EditableImage
+  display: Display
 
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
@@ -76,7 +81,7 @@ type Media
 }
 
 type RemixMetadata {
-  bmp: Float
+  bpm: Float
 }
 
 type TrackMetadata {

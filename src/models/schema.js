@@ -98,6 +98,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "display": {
+                    "name": "display",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "Display"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -481,13 +490,15 @@ export const schema = {
                 }
             }
         },
-        "RemixMetadata": {
-            "name": "RemixMetadata",
+        "Display": {
+            "name": "Display",
             "fields": {
-                "bmp": {
-                    "name": "bmp",
+                "image": {
+                    "name": "image",
                     "isArray": false,
-                    "type": "Float",
+                    "type": {
+                        "nonModel": "EditableImage"
+                    },
                     "isRequired": false,
                     "attributes": []
                 }
@@ -661,6 +672,18 @@ export const schema = {
                 }
             }
         },
+        "RemixMetadata": {
+            "name": "RemixMetadata",
+            "fields": {
+                "bpm": {
+                    "name": "bpm",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
         "TrackMetadata": {
             "name": "TrackMetadata",
             "fields": {
@@ -779,5 +802,5 @@ export const schema = {
             }
         }
     },
-    "version": "ba4462d41c1db74217970758df1c6ae1"
+    "version": "961a5fd86347fe9560bd1af66188cedd"
 };

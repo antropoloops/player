@@ -84,6 +84,7 @@ export type CreateProjectInput = {
   meta: MetadataInput;
   remix: RemixMetadataInput;
   image?: EditableImageInput | null;
+  display?: DisplayInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -99,7 +100,7 @@ export enum ProjetAccess {
 }
 
 export type RemixMetadataInput = {
-  bmp?: number | null;
+  bpm?: number | null;
 };
 
 export type EditableImageInput = {
@@ -134,6 +135,10 @@ export type ImageCropInput = {
   y?: number | null;
   width?: number | null;
   height?: number | null;
+};
+
+export type DisplayInput = {
+  image?: EditableImageInput | null;
 };
 
 export type ModelProjectConditionInput = {
@@ -181,6 +186,7 @@ export type UpdateProjectInput = {
   meta?: MetadataInput | null;
   remix?: RemixMetadataInput | null;
   image?: EditableImageInput | null;
+  display?: DisplayInput | null;
   createdAt?: string | null;
   updatedAt?: string | null;
   _version?: number | null;
@@ -504,7 +510,7 @@ export type CreateProjectMutation = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -544,7 +550,7 @@ export type UpdateProjectMutation = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -584,7 +590,7 @@ export type DeleteProjectMutation = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -1036,7 +1042,7 @@ export type SyncProjectsQuery = {
       };
       remix: {
         __typename: "RemixMetadata";
-        bmp: number | null;
+        bpm: number | null;
       };
       createdAt: string | null;
       updatedAt: string | null;
@@ -1071,7 +1077,7 @@ export type GetProjectQuery = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -1114,7 +1120,7 @@ export type ListProjectsQuery = {
       };
       remix: {
         __typename: "RemixMetadata";
-        bmp: number | null;
+        bpm: number | null;
       };
       createdAt: string | null;
       updatedAt: string | null;
@@ -1534,7 +1540,7 @@ export type OnCreateProjectSubscription = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -1569,7 +1575,7 @@ export type OnUpdateProjectSubscription = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";
@@ -1604,7 +1610,7 @@ export type OnDeleteProjectSubscription = {
     };
     remix: {
       __typename: "RemixMetadata";
-      bmp: number | null;
+      bpm: number | null;
     };
     image: {
       __typename: "EditableImage";

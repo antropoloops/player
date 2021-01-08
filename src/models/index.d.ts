@@ -33,9 +33,9 @@ export declare class Metadata {
   constructor(init: ModelInit<Metadata>);
 }
 
-export declare class RemixMetadata {
-  readonly bmp?: number;
-  constructor(init: ModelInit<RemixMetadata>);
+export declare class Display {
+  readonly image?: EditableImage;
+  constructor(init: ModelInit<Display>);
 }
 
 export declare class EditableImage {
@@ -75,6 +75,11 @@ export declare class ImageCrop {
   readonly width?: number;
   readonly height?: number;
   constructor(init: ModelInit<ImageCrop>);
+}
+
+export declare class RemixMetadata {
+  readonly bpm?: number;
+  constructor(init: ModelInit<RemixMetadata>);
 }
 
 export declare class TrackMetadata {
@@ -128,6 +133,7 @@ export declare class Project {
   readonly meta: Metadata;
   readonly remix: RemixMetadata;
   readonly image?: EditableImage;
+  readonly display?: Display;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Project>);

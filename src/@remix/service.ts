@@ -15,7 +15,9 @@ export async function createRemix(groupId: string, name: string) {
       type: ProjectType.REMIX,
       access: ProjetAccess.GROUP,
       meta: { title: name },
-      remix: {},
+      remix: {
+        bpm: 90,
+      },
     })
   );
 }

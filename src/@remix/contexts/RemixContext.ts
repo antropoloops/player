@@ -1,15 +1,23 @@
 import { createContext } from "react";
 import { Project, Track, Clip, Group } from "../../models";
 
-export type RemixContextValue = {
+export type RemixEditProps = {
   isLoading?: boolean;
   group: Group;
-  remix?: Project;
+  remix: Project;
   tracks?: Track[];
   clips?: Clip[];
 };
 
-const RemixContext = createContext<RemixContextValue>({
+const RemixContext = createContext<RemixEditProps>({
+  remix: {
+    type: "REMIX",
+    id: "",
+    groupID: "",
+    access: "GROUP",
+    meta: {},
+    remix: {},
+  },
   group: {
     id: "",
     name: "",

@@ -1,21 +1,16 @@
-import Layout from "../../components/layout/Layout";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import routes from "../../routes";
 import {
   useObserveList,
   useObserveModel,
 } from "../../@backend/hooks/useObserveModel";
-import RemixContext, { RemixEditProps } from "../contexts/RemixContext";
 import { Project, Clip, Track } from "../../models";
-import RemixBrowser from "../components/remix/RemixBrowser";
 import { useCurrentGroup } from "../../@backend/hooks/useCurrentGroup";
 import NotAuthorizedPage from "../../@backend/pages/NotAuthorizedPage";
-import { ReactNode } from "react";
+import RemixShow from "./remix/RemixShow";
 
-type Props = {
-  remixId: string;
-  editor?: (context: RemixEditProps) => ReactNode;
-};
-
-const RemixLayout: React.FC<Props> = ({ remixId, editor, children }) => {
+export default function RemixScreen({ remixId }: { remixId: string }) {
   const group = useCurrentGroup();
   const { data: remix, isLoading } = useObserveModel(Project, remixId);
   const { data: tracks } = useObserveList(Track, remixId, (t) =>
@@ -24,18 +19,17 @@ const RemixLayout: React.FC<Props> = ({ remixId, editor, children }) => {
   const { data: clips } = useObserveList(Clip, remixId, (t) =>
     t.projectID("eq", remixId)
   );
-
   if (!group) return <NotAuthorizedPage />;
   if (!remix) return null;
 
   const context = { group, isLoading, remix, tracks, clips };
   return (
-    <RemixContext.Provider value={context}>
-      <Layout nav="projects" desktop={editor ? editor(context) : children}>
-        {remix && <RemixBrowser remix={remix} tracks={tracks} clips={clips} />}
-      </Layout>
-    </RemixContext.Provider>
+    <Switch>
+      <Route
+        exact
+        path={routes.remix(":id")}
+        render={({ match: { params } }) => <RemixShow {...context} />}
+      />
+    </Switch>
   );
-};
-
-export default RemixLayout;
+}
