@@ -15,6 +15,7 @@ export const listGuidesUrl = () =>
 
 export type Guide = Page & {
   metadata: {
+    filepath?: string;
     pdf?: {
       url: string;
     };

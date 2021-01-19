@@ -29,6 +29,11 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
     }, 100);
   }, []);
 
+  const getGuideUrl = (guide: Guide) =>
+    guide.metadata.filepath
+      ? `https://descargas.antropoloops.com/${guide.metadata.filepath}`
+      : guide.metadata.pdf?.url;
+
   return (
     <>
       {guides.groups.map((group) => (
@@ -46,7 +51,7 @@ const GuideBrowser: React.FC<Props> = ({ guides, active, inline }) => {
             ) : (
               <a
                 key={guide.slug}
-                href={guide.metadata.pdf?.url}
+                href={getGuideUrl(guide)}
                 target="_blank"
                 rel="noopener noreferrer"
                 download
