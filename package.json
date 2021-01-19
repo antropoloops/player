@@ -11,8 +11,8 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "api:mock": "json-server -p 1234 --watch server/db.json",
-    "css:dev": "postcss src/styles/index.css -o src/styles/tailwind.css",
-    "css:prod": "postcss src/styles/index.css -o src/styles/tailwind.css --env production"
+    "css:dev": "npx postcss src/styles/index.css -o src/styles/tailwind.css",
+    "css:prod": "npx postcss src/styles/index.css -o src/styles/tailwind.css --env production"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
@@ -70,7 +70,14 @@
     "topojson": "^3.0.2",
     "typescript": "^3.9.5",
     "use-sound": "^1.0.2",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.1",
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "@types/react-responsive": "^8.0.2",
+    "json-server": "^0.16.1",
+    "postcss-cli": "^7.1.2",
+    "postcss-import": "^12.0.1",
+    "source-map-explorer": "^2.5.1",
+    "tailwindcss": "^1.8.10"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -103,13 +110,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^2.3.0",
-    "@types/react-responsive": "^8.0.2",
-    "json-server": "^0.16.1",
-    "postcss-cli": "^7.1.2",
-    "postcss-import": "^12.0.1",
-    "source-map-explorer": "^2.5.1",
-    "tailwindcss": "^1.8.10"
-  }
+  "devDependencies": {}
 }
