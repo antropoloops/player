@@ -41,7 +41,7 @@
     "framer-motion": "^1.11.1",
     "husky": "^3.1.0",
     "idb": "^5.0.8",
-    "immer": "^8.0.0",
+    "immer": "^9.0.6",
     "ky": "^0.21.0",
     "lint-staged": "^10.2.11",
     "lodash.debounce": "^4.0.8",
